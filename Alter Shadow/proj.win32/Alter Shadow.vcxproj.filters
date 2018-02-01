@@ -24,6 +24,9 @@
     <ClCompile Include="..\Classes\controller.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\AudioPlayer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -36,6 +39,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\controller.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AudioPlayer.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

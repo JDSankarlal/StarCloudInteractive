@@ -1,6 +1,7 @@
 #pragma once
 #include "cocos2d.h"
 #include "controller.h"
+#include "AudioPlayer.h"
 #include <string>
 
 class HelloWorld : public cocos2d::Scene
@@ -25,6 +26,7 @@ public:
 	float movex,movey,vely;
 	bool hasJumped;
 	short colChange;
+	AudioPlayer *audio=new AudioPlayer;
 	Input::XBoxInput* controllers=new Input::XBoxInput;
 	cocos2d::Director *director;
 };

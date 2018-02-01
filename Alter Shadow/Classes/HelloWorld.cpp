@@ -48,7 +48,8 @@ bool HelloWorld::init()
 	addChild(BG, -1);
 
 	this->scheduleUpdate();
-
+	audio->setAudio("Audio/Game Jam(Main Loop).mp3");
+	audio->play();
 
 	return true;
 }
