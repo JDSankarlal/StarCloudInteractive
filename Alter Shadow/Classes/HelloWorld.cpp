@@ -49,7 +49,9 @@ bool HelloWorld::init()
 
 	this->scheduleUpdate();
 	audio->setAudio("Audio/Game Jam(Main Loop).mp3");
-	audio->play();
+	audio->play(true);
+
+	// this will be the change
 
 	return true;
 }

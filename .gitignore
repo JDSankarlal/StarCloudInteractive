@@ -8,6 +8,7 @@
 *.user
 *.userosscache
 *.sln.docstates
+*.idb
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -402,4 +403,4 @@ proj.win32/Release.*/
 
 # others
 *.tlog
-**/cocos2d
+*\cocos2d
