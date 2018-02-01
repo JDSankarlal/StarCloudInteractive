@@ -3,7 +3,7 @@
 #include "controller.h"
 #include "AudioPlayer.h"
 #include <string>
-
+#pragma comment(lib,"Xinput9_1_0.lib")
 class HelloWorld : public cocos2d::Scene
 {
 public:
