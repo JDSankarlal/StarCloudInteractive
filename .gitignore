@@ -401,3 +401,5 @@ proj.win32/Debug.*/
 proj.win32/Release.*/
 
 # others
+*.tlog
+**/cocos2d
