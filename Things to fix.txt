@@ -1,0 +1,21 @@
+
+- add a roster (only develop 1)
+- at least 2 characters
+- shift controls around controller
+- add what all the moves do
+- how damage is calculated
+- how knockback works
+- moveset:
+
+- maybe add a chart
+- health:
+
+- more explanation on the phase shift mechanic
+- make more consistent
+- reword to get message across
+
+let p = damage percent
+let f = attack force
+let r = damage resistance
+
+(p*(|r-f|))

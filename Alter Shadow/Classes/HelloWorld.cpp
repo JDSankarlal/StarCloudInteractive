@@ -9,7 +9,11 @@ using namespace std;
 
 Scene* HelloWorld::createScene()
 {
-	return HelloWorld::create();
+	auto scene = HelloWorld::createWithPhysics();
+	auto layer = HelloWorld::create();
+	scene->addChild(layer);
+	scene->getPhysicsWorld()->setGravity(Vec2(0, -1000));
+	return scene;
 }
 
 // Print useful error message instead of segfaulting when files are not there.
@@ -34,14 +38,14 @@ bool HelloWorld::init()
 	auto visibleSize = director->getVisibleSize();
 	Vec2 origin = director->getVisibleOrigin();
 
-	
-	sprite = Sprite::create("pics/test player 2.png");
-	sprite->setAnchorPoint(Vec2(0.5f, 0.5f));
-	//sprite->setScale();
-	sprite->setPosition3D(Vec3());
-	
+
+	sprite = Sprite::create("pics/test player.png");
+	//sprite->setAnchorPoint(Vec2(0.5f, 0.5f));
+	sprite->setScale(.3f);
+	sprite->setPosition(director->getOpenGLView()->getFrameSize().width / 2, director->getOpenGLView()->getFrameSize().height / 2);
+	sprite->setPhysicsBody(PhysicsBody::create());
 	addChild(sprite);
-	
+
 	BG->setScaleX(director->getOpenGLView()->getFrameSize().width / BG->getContentSize().width);
 	BG->setScaleY(director->getOpenGLView()->getFrameSize().height / BG->getContentSize().height);
 	BG->setPosition(director->getOpenGLView()->getFrameSize().width / 2, director->getOpenGLView()->getFrameSize().height / 2);
@@ -56,81 +60,82 @@ bool HelloWorld::init()
 	return true;
 }
 
-void HelloWorld::jump()
-{
-
-	movey += vely--;
-
-}
+//void HelloWorld::jump()
+//{
+//
+//	movey += vely--;
+//
+//}
 
 //Updates movement per frame
 void HelloWorld::update(float dt)
 {
 	auto spb = sprite->getPhysicsBody();
 	//rezResize();
-	OutputDebugStringA((std::to_string(dt) + '\n').c_str());
+	//OutputDebugStringA((std::to_string(dt) + '\n').c_str());
 	controllers->DownloadPackets();
-#pragma region Controller Stuff
-	if(controllers->GetConnected(0))
-	{
-		Stick moveL, moveR;
-		controllers->GetSticks(0, moveL, moveR);
-		movex += moveL.xAxis * 7;
 
-		if(moveL.xAxis * 7 == 0)
-			NULL;
-		else if(moveL.xAxis * 7 < 0)
-			sprite->setFlippedX(true);
-		else
-			sprite->setFlippedX(false);
+//#pragma region Controller Stuff
+//	if(controllers->GetConnected(0))
+//	{
+//		Stick moveL, moveR;
+//		controllers->GetSticks(0, moveL, moveR);
+//		movex += moveL.xAxis * 7;
+//
+//		if(moveL.xAxis * 7 == 0)
+//			NULL;
+//		else if(moveL.xAxis * 7 < 0)
+//			sprite->setFlippedX(true);
+//		else
+//			sprite->setFlippedX(false);
+//
+//#pragma region Jumping
+//		//Jumping
+//		if(controllers->ButtonPress(0, A) && !hasJumped)
+//		{
+//			vely = 18;
+//			hasJumped = true;
+//		}
+//		//if(controllers->ButtonRelease(0, A))
+//		//	hasJumped = false;
+//
+//		//jump();
+//		//int floor = 110;
+//		//if(movey >= floor)
+//		//	movey--;
+//		//else
+//		//	movey = floor;
+//
+//#pragma endregion
+//
+//#pragma region Switching Platforms
+//		//Dimentional colour change
+//		static bool colPress;
+//		Color3B colours[] {Color3B(1 * 255,1 * 255,1 * 255),Color3B(1 * 255,0 * 255,0 * 255),Color3B(0 * 255,1 * 255,1 * 255)};
+//		if(controllers->ButtonPress(0, LB) && !colPress)
+//		{
+//			colPress = true;
+//
+//			if(colChange - 1 >= 0 && colChange - 1 < 3)
+//				sprite->setColor(Color3B(colours[--colChange]));
+//
+//		}
+//
+//
+//		if(controllers->ButtonPress(0, RB) && !colPress)
+//		{
+//			colPress = true;
+//			if(colChange + 1 >= 0 && colChange + 1 < 3)
+//				sprite->setColor(Color3B(colours[++colChange]));
+//		}
+//		if(controllers->ButtonRelease(0, RB) && controllers->ButtonRelease(0, LB))
+//			colPress = false;
+//#pragma endregion
+//
+//	}
+//#pragma endregion
 
-#pragma region Jumping
-		//Jumping
-		if(controllers->ButtonPress(0, A) && !hasJumped)
-		{
-			vely = 18;
-			hasJumped = true;
-		}
-		if(controllers->ButtonRelease(0, A))
-			hasJumped = false;
-
-		jump();
-		int floor = 110;
-		if(movey >= floor)
-			movey--;
-		else
-			movey = floor;
-
-#pragma endregion
-
-#pragma region Switching Platforms
-		//Dimentional colour change
-		static bool colPress;
-		Color3B colours[] {Color3B(1 * 255,1 * 255,1 * 255),Color3B(1 * 255,0 * 255,0 * 255),Color3B(0 * 255,1 * 255,1 * 255)};
-		if(controllers->ButtonPress(0, LB) && !colPress)
-		{
-			colPress = true;
-
-			if(colChange - 1 >= 0 && colChange - 1 < 3)
-				sprite->setColor(Color3B(colours[--colChange]));
-
-		}
-
-
-		if(controllers->ButtonPress(0, RB) && !colPress)
-		{
-			colPress = true;
-			if(colChange + 1 >= 0 && colChange + 1 < 3)
-				sprite->setColor(Color3B(colours[++colChange]));
-		}
-		if(controllers->ButtonRelease(0, RB) && controllers->ButtonRelease(0, LB))
-			colPress = false;
-#pragma endregion
-	
-	}
-#pragma endregion
-
-	sprite->setPosition3D(Vec3(director->getWinSize().width / 2 + movex, 100 + movey, 0));
+	//sprite->setPosition3D(Vec3(director->getWinSize().width / 2 + movex, 100 + movey, 0));
 }
 
 void HelloWorld::menuCloseCallback(Ref* pSender)

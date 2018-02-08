@@ -14,7 +14,7 @@ public:
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
 	//Jump
-	void jump();
+	//void jump();
     //update function
 	void update(float) ;
 	// implement the "static create()" method manually
