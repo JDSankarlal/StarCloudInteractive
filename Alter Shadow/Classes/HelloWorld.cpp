@@ -35,6 +35,7 @@ bool HelloWorld::init()
 	if(!Scene::init())
 		return false;
 
+	Player *p1 = new Player("Player 1", this);
 	director = Director::getInstance();
 	auto visibleSize = director->getVisibleSize();
 	Vec2 origin = director->getVisibleOrigin();

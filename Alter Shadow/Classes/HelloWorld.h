@@ -2,7 +2,9 @@
 #include "cocos2d.h"
 #include "controller.h"
 #include "AudioPlayer.h"
+#include "Player.h"
 #include <string>
+
 #pragma comment(lib,"Xinput9_1_0.lib")
 class HelloWorld : public cocos2d::Scene
 {
@@ -27,6 +29,9 @@ public:
 	bool hasJumped;
 	short colChange;
 	AudioPlayer *audio=new AudioPlayer;
+	Player *p1;
+
+
 	Input::XBoxInput* controllers=new Input::XBoxInput;
 	cocos2d::Director *director;
 };
