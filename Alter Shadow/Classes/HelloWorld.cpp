@@ -1,3 +1,4 @@
+#pragma once 
 #include "HelloWorld.h"
 #include "SimpleAudioEngine.h"
 #include <thread>
@@ -39,12 +40,12 @@ bool HelloWorld::init()
 	Vec2 origin = director->getVisibleOrigin();
 
 
-	sprite = Sprite::create("pics/test player.png");
+	//sprite = Sprite::create("pics/test player.png");
 	//sprite->setAnchorPoint(Vec2(0.5f, 0.5f));
-	sprite->setScale(.3f);
-	sprite->setPosition(director->getOpenGLView()->getFrameSize().width / 2, director->getOpenGLView()->getFrameSize().height / 2);
-	sprite->setPhysicsBody(PhysicsBody::create());
-	addChild(sprite);
+	//sprite->setScale(.3f);
+	//sprite->setPosition(director->getOpenGLView()->getFrameSize().width / 2, director->getOpenGLView()->getFrameSize().height / 2);
+	//sprite->setPhysicsBody(PhysicsBody::create());
+	//addChild(sprite);
 
 	BG->setScaleX(director->getOpenGLView()->getFrameSize().width / BG->getContentSize().width);
 	BG->setScaleY(director->getOpenGLView()->getFrameSize().height / BG->getContentSize().height);
