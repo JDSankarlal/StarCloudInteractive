@@ -53,8 +53,7 @@ bool HelloWorld::init()
 	//BG->setPosition(director->getOpenGLView()->getFrameSize().width / 2, director->getOpenGLView()->getFrameSize().height / 2);
 	//addChild(BG, -1);
 
-	this->scheduleUpdate();
-	DrawWorld();
+	//this->scheduleUpdate();
 	audio->setAudio("Audio/Game Jam(Main Loop).mp3");
 	audio->play(true);
 
@@ -164,10 +163,9 @@ void HelloWorld::DrawWorld()
 {
 	background = Sprite::create("pics/Level_BG.png");
 	background->setAnchorPoint(Vec2(0.5f, 0.5f));
-	background->setPosition(director->getOpenGLView()->getFrameSize().width/2, director->getOpenGLView()->getFrameSize().height/2);
-	background->setScale(1.3);
+	background->setPosition(director->getWinSizeInPixels().width / 2, director->getWinSizeInPixels().height / 2);
 	this->addChild(background, -100);
-
+	
 	Platform = Sprite::create("pics/empty.png");
 	Platform->setPosition(200, 100);
 	Platform->setScale(0.30f);

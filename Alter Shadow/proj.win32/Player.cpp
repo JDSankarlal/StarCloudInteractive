@@ -4,7 +4,7 @@
 
 Player::Player(string _name, Scene *ActiveScene)
 {
-	auto AttachedSprite = Sprite::create("pics/test player.png");
+	auto AttachedSprite = Sprite::create("pics/test player.pngs");
 	AttachedSprite->setScale(.3f);
 	//AttachedSprite->setPosition(director->getOpenGLView()->getFrameSize().width / 2, director->getOpenGLView()->getFrameSize().height / 2);
 	AttachedSprite->setPhysicsBody(PhysicsBody::create());
