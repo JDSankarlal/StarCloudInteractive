@@ -4,7 +4,7 @@ namespace Input
 {
 	XBoxInput::XBoxInput()
 	{
-		for(unsigned int i = 0; i < XUSER_MAX_COUNT; i++)
+		for(unsigned int i = 0; i < 4; i++)
 		{
 			XINPUT_VIBRATION vibration;
 			memset(&vibration, 0, sizeof(XINPUT_VIBRATION));
@@ -16,7 +16,7 @@ namespace Input
 
 	XBoxInput::~XBoxInput()
 	{
-		for(unsigned int i = 0; i < XUSER_MAX_COUNT; i++)
+		for(unsigned int i = 0; i < 4; i++)
 		{
 			XINPUT_VIBRATION vibration;
 			memset(&vibration, 0, sizeof(XINPUT_VIBRATION));
@@ -29,7 +29,7 @@ namespace Input
 	bool XBoxInput::DownloadPackets(unsigned int _numControllers)
 	{
 		unsigned int result;
-		for(unsigned int i = 0; i < min(min(_numControllers, 4), XUSER_MAX_COUNT); i++)
+		for(unsigned int i = 0; i < min(min(_numControllers, 4), 4); i++)
 		{
 			// Set the state to zero
 			memset(&m_state, 0, sizeof(XINPUT_STATE));
