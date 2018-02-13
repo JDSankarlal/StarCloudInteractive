@@ -53,14 +53,14 @@
     <ClInclude Include="..\Classes\AudioPlayer.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="Platforms.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="GameHandler.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>win32</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

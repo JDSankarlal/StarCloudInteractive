@@ -3,7 +3,7 @@
 #include "controller.h"
 #include "AudioPlayer.h"
 #include <string>
-#pragma comment(lib,"Xinput9_1_0.lib")
+//#pragma comment(lib,"Xinput9_1_0.lib")
 class HelloWorld : public cocos2d::Scene
 {
 public:
@@ -28,15 +28,14 @@ public:
 	float movex,movey,vely;
 	bool hasJumped;
 	short colChange;
-	AudioPlayer *audio=new AudioPlayer;
-	Input::XBoxInput* controllers=new Input::XBoxInput;
+	AudioPlayer *audio = new AudioPlayer;
+	Input::XBoxInput* controllers = new Input::XBoxInput;
 	cocos2d::Director *director;
 
 private:
 	//Put variables and sprites and stuff here
-	Sprite* background;
-
-	Sprite* Platform;
+	cocos2d::Sprite* background;
+	cocos2d::Sprite* Platform;
 
 };
 

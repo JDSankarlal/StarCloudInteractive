@@ -39,19 +39,19 @@ bool HelloWorld::init()
 	Vec2 origin = director->getVisibleOrigin();
 
 
-	sprite = Sprite::create("pics/test player.png");
+	//sprite = Sprite::create("pics/test player.png");
 	//sprite->setAnchorPoint(Vec2(0.5f, 0.5f));
-	sprite->setScale(.3f);
-	sprite->setPosition(director->getOpenGLView()->getFrameSize().width / 2, director->getOpenGLView()->getFrameSize().height / 2);
-	sprite->setPhysicsBody(PhysicsBody::create());
-	addChild(sprite);
+	//sprite->setScale(.3f);
+	//sprite->setPosition(director->getOpenGLView()->getFrameSize().width / 2, director->getOpenGLView()->getFrameSize().height / 2);
+	//sprite->setPhysicsBody(PhysicsBody::create());
+	//addChild(sprite);
 
-	BG->setScaleX(director->getOpenGLView()->getFrameSize().width / BG->getContentSize().width);
-	BG->setScaleY(director->getOpenGLView()->getFrameSize().height / BG->getContentSize().height);
-	BG->setPosition(director->getOpenGLView()->getFrameSize().width / 2, director->getOpenGLView()->getFrameSize().height / 2);
-	addChild(BG, -1);
+	//BG->setScaleX(director->getOpenGLView()->getFrameSize().width / BG->getContentSize().width);
+	//BG->setScaleY(director->getOpenGLView()->getFrameSize().height / BG->getContentSize().height);
+	//BG->setPosition(director->getOpenGLView()->getFrameSize().width / 2, director->getOpenGLView()->getFrameSize().height / 2);
+	//addChild(BG, -1);
 
-	this->scheduleUpdate();
+	//this->scheduleUpdate();
 	audio->setAudio("Audio/Game Jam(Main Loop).mp3");
 	audio->play(true);
 
@@ -70,7 +70,7 @@ bool HelloWorld::init()
 //Updates movement per frame
 void HelloWorld::update(float dt)
 {
-	auto spb = sprite->getPhysicsBody();
+	//auto spb = sprite->getPhysicsBody();
 	//rezResize();
 	//OutputDebugStringA((std::to_string(dt) + '\n').c_str());
 	controllers->DownloadPackets();
@@ -163,7 +163,7 @@ void HelloWorld::DrawWorld()
 	background->setAnchorPoint(Vec2(0.5f, 0.5f));
 	background->setPosition(director->getWinSizeInPixels().width / 2, director->getWinSizeInPixels().height / 2);
 	this->addChild(background, -100);
-
+	
 	Platform = Sprite::create("pics/empty.png");
 	Platform->setPosition(200, 100);
 	Platform->setScale(0.30f);
