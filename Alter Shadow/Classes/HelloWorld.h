@@ -13,6 +13,7 @@ public:
     
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
+	void DrawWorld();
 	//Jump
 	//void jump();
     //update function
@@ -21,14 +22,22 @@ public:
     CREATE_FUNC(HelloWorld);
 
 	
-	cocos2d::Sprite * sprite,*BG = cocos2d::Sprite::create("pics/test level.png");
-	cocos2d::Sprite3D *s3d = cocos2d::Sprite3D::create("pics/test 3d model.c3b");
+	//Background sprite
+	//cocos2d::Sprite * sprite,*BG = cocos2d::Sprite::create("pics/test level.png");
+	//cocos2d::Sprite3D *s3d = cocos2d::Sprite3D::create("pics/test 3d model.c3b");
 	float movex,movey,vely;
 	bool hasJumped;
 	short colChange;
 	AudioPlayer *audio=new AudioPlayer;
 	Input::XBoxInput* controllers=new Input::XBoxInput;
 	cocos2d::Director *director;
+
+private:
+	//Put variables and sprites and stuff here
+	Sprite* background;
+
+	Sprite* Platform;
+
 };
 
 
