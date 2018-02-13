@@ -158,3 +158,17 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 
 
 }
+
+void HelloWorld::DrawWorld()
+{
+	background = Sprite::create("pics/Level_BG.png");
+	background->setAnchorPoint(Vec2(0.5f, 0.5f));
+	background->setPosition(director->getWinSizeInPixels().width / 2, director->getWinSizeInPixels().height / 2);
+	this->addChild(background, -100);
+
+	Platform = Sprite::create("pics/empty.png");
+	Platform->setPosition(200, 100);
+	Platform->setScale(0.30f);
+	Platform->setAnchorPoint(Vec2(0.5f, 0.5f));
+	this->addChild(Platform);
+}
