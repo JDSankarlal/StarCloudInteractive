@@ -7,11 +7,20 @@ using std::string;
 using namespace cocos2d;
 class Player
 {
-	string playerIdentifier;
-	int MaxHP, HP, lightDamage, heavyDamage, heavyDamageCharged, throwAttack, crossAttack;
 public:
-	Player(string, Scene *);
+	Player(Scene *);
 	~Player();
+	PhysicsBody* getBody();
+	Sprite* getSprite();
+	void setVelX(float);
+	void setVelY(float);
+	void setVel(float, float);
+
+	void setPosition(float, float, float=0);
+	void platformSwitch(int);
 private:
+	string playerIdentifier;
+	Sprite *AttachedSprite;
+	int MaxHP, HP, lightDamage, heavyDamage, heavyDamageCharged, throwAttack, crossAttack;
 };
 

@@ -3,6 +3,7 @@
 #include "controller.h"
 #include "AudioPlayer.h"
 #include "Player.h"
+#include "Platforms.h"
 #include <string>
 
 #pragma comment(lib,"Xinput9_1_0.lib")
@@ -38,11 +39,16 @@ public:
 	cocos2d::Director *director;
 
 private:
+	//HelloWorld* world;
+	//void setScene(static HelloWorld* scene)
+	//{
+	//	world = scene;
+	//}
 	//Put variables and sprites and stuff here
-	Sprite* background;
-
-	Sprite* Platform;
-
+	Sprite* background = Sprite::create("pics/Level_BG.png"); 
+	Platforms* pf1;
+	bool onContactBegin(cocos2d::PhysicsContact &contact);
+	int jumpCount;
 };
 
 
