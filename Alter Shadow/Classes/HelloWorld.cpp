@@ -4,13 +4,12 @@
 
 
 USING_NS_CC;
-using namespace Input;
 using namespace std;
 
 Scene* HelloWorld::createScene()
 {
 	auto scenepb = HelloWorld::createWithPhysics();
-	scenepb->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+//	scenepb->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
 	auto world = HelloWorld::create();
 	scenepb->addChild(world);
@@ -40,8 +39,9 @@ bool HelloWorld::init()
 	Vec2 origin = director->getVisibleOrigin();
 
 	//Players
-	p1 = new Player(this);
+	
 	p1->setPosition(director->getOpenGLView()->getFrameSize().width / 2, director->getOpenGLView()->getFrameSize().height / 2);
+	p2->setPosition(director->getOpenGLView()->getFrameSize().width / 2+80, director->getOpenGLView()->getFrameSize().height / 2);
 
 	pf1 = new Platforms(this, 1, 500);
 	auto pf2 = new Platforms(this, 2, 500);
@@ -62,7 +62,7 @@ bool HelloWorld::init()
 	contact();
 
 	this->scheduleUpdate();
-	audio->setAudio("Audio/Battle_Time(All together).mp3");
+	audio->setAudio("Audio/Battle_Time_V3.mp3");
 	audio->play(true);
 
 	return true;
@@ -70,89 +70,11 @@ bool HelloWorld::init()
 
 //Updates movement per frame
 void HelloWorld::update(float dt)
-{
-
-	controllers->DownloadPackets();
-
-#pragma region Controller Stuff
-	if(controllers->GetConnected(0))
-	{
-#pragma region Movement	
-		Stick moveL, moveR;
+{			   	
+	p1->movementUpdate(0);
+	p2->movementUpdate(1);
+	
 		
-		controllers->GetSticks(0, moveL, moveR);
-		int move = 375;
-		//Regular Movement
-		p1->setVelX(moveL.xAxis * move);
-		if(moveL.xAxis * move == 0)
-			NULL;
-		else if(moveL.xAxis * move < 0)
-			p1->getSprite()->setFlippedX(true);
-		else
-			p1->getSprite()->setFlippedX(false);
-#pragma region Jumping
-		//Jumping
-		if((controllers->ButtonPress(0, A)) && !hasJumped)
-		{
-			p1->setVelY(535);
-			hasJumped = true;
-		}
-		if(controllers->ButtonRelease(0, A))
-			hasJumped = false;
-#pragma endregion
-
-		//Dash
-		float triggerL, triggerR;
-		controllers->GetTriggers(0, triggerL, triggerR);
-		static bool dash;
-		static int initialDash;
-		if((triggerL > .5 || triggerR > .5) && !dash)
-		{
-			dash = true;
-			initialDash = 800;
-		} else if(triggerL < .5 && triggerR < .5)
-			dash = false;
-
-		if(dash)
-		{
-			if(initialDash > move)
-				if(moveL.xAxis < 0)
-					p1->setVelX(-(initialDash -= 20));  
-				else  if(moveL.xAxis > 0)
-					p1->setVelX(initialDash -= 20);
-		}
-
-#pragma endregion
-
-
-#pragma region Switching Platforms
-		//Dimentional colour change
-		static bool colPress;
-		Color3B colours[] {Color3B(1 * 255,1 * 255,1 * 255),Color3B(1 * 255,0 * 255,0 * 255),Color3B(0 * 255,1 * 255,1 * 255)};
-		if(controllers->ButtonPress(0, LB) && !colPress)
-		{
-			colPress = true;
-
-			if(colChange - 1 >= 0 && colChange - 1 < 3)
-				p1->getSprite()->setColor(Color3B(colours[--colChange]));
-
-
-		}
-
-
-		if(controllers->ButtonPress(0, RB) && !colPress)
-		{
-			colPress = true;
-			if(colChange + 1 >= 0 && colChange + 1 < 3)
-				p1->getSprite()->setColor(Color3B(colours[++colChange]));
-		}
-		if(controllers->ButtonRelease(0, RB) && controllers->ButtonRelease(0, LB))
-			colPress = false;
-		p1->platformSwitch(colChange);
-#pragma endregion
-	}
-#pragma endregion
-
 }
 
 void HelloWorld::contact()

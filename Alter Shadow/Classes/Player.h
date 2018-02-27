@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include "cocos2d.h"
+#include "controller.h"
 
 using std::string;
 using namespace cocos2d;
@@ -24,7 +25,7 @@ public:
 	~Player();
 	PhysicsBody* getBody();
 	Sprite* getSprite();
-	
+
 #pragma region Set Velocities
 	void setVelX(float);
 	void setVelY(float);
@@ -35,14 +36,25 @@ public:
 	void addForceY(float);
 	void addForce(float, float);
 #pragma endregion
-	//sets location by pixel position
+//Player Movement
+//must be called in update
+	void movementUpdate(int controler);
+//sets location by pixel position
 	void setPosition(float x, float y, float z = 0);
-	//sets the platform id
+
+//sets the platform id
 	void platformSwitch(int);
+
+	void printPosition();
 private:
+	
 	void platformID(int id);
 	string playerIdentifier;
 	Sprite *AttachedSprite;
+	bool hasJumped,  colPress;
+	short colChange;
+	int jumpCount;
+	
 	int MaxHP, HP, lightDamage, heavyDamage, heavyDamageCharged, throwAttack, crossAttack;
 };
 

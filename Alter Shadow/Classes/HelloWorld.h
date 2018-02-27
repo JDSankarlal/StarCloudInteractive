@@ -1,6 +1,6 @@
 #pragma once
 #include "cocos2d.h"
-#include "controller.h"
+
 #include "AudioPlayer.h"
 #include "Player.h"
 #include "Platforms.h"
@@ -31,13 +31,13 @@ public:
 	//cocos2d::Sprite * sprite,*BG = cocos2d::Sprite::create("pics/test level.png");
 	//cocos2d::Sprite3D *s3d = cocos2d::Sprite3D::create("pics/test 3d model.c3b");
 	float movex,movey,vely;
-	bool hasJumped;
-	short colChange;
+	
+	
 	AudioPlayer *audio=new AudioPlayer;
-	Player *p1;
+	Player *p1 = new Player(this),*p2= new Player(this);
 
 
-	Input::XBoxInput* controllers=new Input::XBoxInput;
+
 	cocos2d::Director *director;
 
 private:
@@ -45,7 +45,7 @@ private:
 	//Put variables and sprites and stuff here
 	Sprite* background = Sprite::create("pics/Level_BG.png"); 
 	Platforms* pf1;
-	int jumpCount;
+
 };
 
 
