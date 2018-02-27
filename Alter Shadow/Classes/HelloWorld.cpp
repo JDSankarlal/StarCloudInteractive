@@ -1,7 +1,6 @@
 #pragma once 
 #include "HelloWorld.h"
-#include "SimpleAudioEngine.h"
-#include <thread>
+
 
 
 USING_NS_CC;
@@ -16,7 +15,7 @@ Scene* HelloWorld::createScene()
 	auto world = HelloWorld::create();
 	scenepb->addChild(world);
 	//setScene(world);
-	scenepb->getPhysicsWorld()->setGravity(Vec2(0, -1000));
+	scenepb->getPhysicsWorld()->setGravity(Vec2(0, -1500));
 	return scenepb;
 }
 
@@ -25,7 +24,7 @@ static void problemLoading(const char* filename)
 {
 	printf("Error while loading: %s\n", filename);
 	printf("Depending on how you compiled you might have to add 'Resources/' in front of filenames in HelloWorldScene.cpp\n");
-}	   
+}
 
 // on "init" you need to initialize your instance
 bool HelloWorld::init()
@@ -40,35 +39,31 @@ bool HelloWorld::init()
 	auto visibleSize = director->getVisibleSize();
 	Vec2 origin = director->getVisibleOrigin();
 
+	//Players
 	p1 = new Player(this);
 	p1->setPosition(director->getOpenGLView()->getFrameSize().width / 2, director->getOpenGLView()->getFrameSize().height / 2);
-	pf1 = new Platforms(this, 1500);
-	pf1->setPosition(visibleSize.width / 2, visibleSize.height / 2 - 200);
+
+	pf1 = new Platforms(this, 1, 500);
+	auto pf2 = new Platforms(this, 2, 500);
+	//auto pf3 = new Platforms(this, 2, 500);
+	//auto pf4 = new Platforms(this, 2, 500);
+	//auto pf5 = new Platforms(this, 2, 500);
+	//pf5->setPosition(visibleSize.width / 2, visibleSize.height / 2 - 350);
+	//pf4->setPosition(visibleSize.width / 2, visibleSize.height / 2 - 300);
+	//pf3->setPosition(visibleSize.width / 2, visibleSize.height / 2 - 250);
+	pf2->setPosition(visibleSize.width / 2, visibleSize.height / 2 - 200);
+	pf1->setPosition(visibleSize.width / 2, visibleSize.height / 2 - 150);
 
 	background->setScaleX(visibleSize.width / background->getContentSize().width);
 	background->setScaleY(visibleSize.height / background->getContentSize().height);
 	background->setPosition(visibleSize.width / 2, visibleSize.height / 2);
 	addChild(background, -1);
-										
-	
+
+	contact();
+
 	this->scheduleUpdate();
 	audio->setAudio("Audio/Battle_Time(All together).mp3");
 	audio->play(true);
-
-
-	auto contactListener =
-		EventListenerPhysicsContact::create();
-	contactListener->onContactBegin = [](PhysicsContact& contact)
-	{
-		CCLOG("contact begin");
-		auto shapeA = contact.getShapeA();
-		auto bodyA = shapeA->getBody();
-
-		auto shapeB = contact.getShapeB();
-		auto bodyB = shapeB->getBody();
-		return true;
-	};
-	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
 
 	return true;
 }
@@ -82,9 +77,12 @@ void HelloWorld::update(float dt)
 #pragma region Controller Stuff
 	if(controllers->GetConnected(0))
 	{
+#pragma region Movement	
 		Stick moveL, moveR;
+		
 		controllers->GetSticks(0, moveL, moveR);
-		int move = 110;
+		int move = 375;
+		//Regular Movement
 		p1->setVelX(moveL.xAxis * move);
 		if(moveL.xAxis * move == 0)
 			NULL;
@@ -92,26 +90,40 @@ void HelloWorld::update(float dt)
 			p1->getSprite()->setFlippedX(true);
 		else
 			p1->getSprite()->setFlippedX(false);
-
 #pragma region Jumping
 		//Jumping
-		if(controllers->ButtonPress(0, A) && !hasJumped)
+		if((controllers->ButtonPress(0, A)) && !hasJumped)
 		{
-			//p1->setPosition(p1->getSprite()->getPosition().x, p1->getSprite()->getContentSize().height * p1->getSprite()->getScaleY() / 2);
-			p1->setVelY(400);
+			p1->setVelY(535);
 			hasJumped = true;
 		}
 		if(controllers->ButtonRelease(0, A))
 			hasJumped = false;
+#pragma endregion
 
-		//jump();
-		//int floor = 110;
-		//if(movey >= floor)
-		//	movey--;
-		//else
-		//	movey = floor;
+		//Dash
+		float triggerL, triggerR;
+		controllers->GetTriggers(0, triggerL, triggerR);
+		static bool dash;
+		static int initialDash;
+		if((triggerL > .5 || triggerR > .5) && !dash)
+		{
+			dash = true;
+			initialDash = 800;
+		} else if(triggerL < .5 && triggerR < .5)
+			dash = false;
+
+		if(dash)
+		{
+			if(initialDash > move)
+				if(moveL.xAxis < 0)
+					p1->setVelX(-(initialDash -= 20));  
+				else  if(moveL.xAxis > 0)
+					p1->setVelX(initialDash -= 20);
+		}
 
 #pragma endregion
+
 
 #pragma region Switching Platforms
 		//Dimentional colour change
@@ -138,28 +150,31 @@ void HelloWorld::update(float dt)
 			colPress = false;
 		p1->platformSwitch(colChange);
 #pragma endregion
-
 	}
 #pragma endregion
-	//float pfHeight = pf1->getSprite()->getCenterRect().size.height * pf1->getSprite()->getScaleY(),
-	//	   pHeight = p1->getSprite()->getCenterRect().size.height * p1->getSprite()->getScaleY();
-	//if((p1->getSprite()->getPosition().y - (pHeight / 2)) <= (pf1->getSprite()->getPosition().y + (pfHeight / 2)))
-	//{
-	//	p1->getBody()->setGravityEnable(false);
-	//	p1->setPosition(p1->getSprite()->getPosition().x, pf1->getSprite()->getPosition().y + (pHeight / 2) + (pf1->getSprite()->getContentSize().height*pf1->getSprite()->getScaleY()) / 2,p1->getSprite()->getPositionZ() );
-	////	p1->setVelY(0);
-	//} else
-	//	p1->getBody()->setGravityEnable(true);
-													
-//	p1->setPosition(, , 0);
+
 }
 
-bool HelloWorld::onContactBegin(PhysicsContact &contact)
+void HelloWorld::contact()
 {
-	auto a = contact.getShapeA()->getBody(), b = contact.getShapeA()->getBody();
-	OutputDebugStringA("Colision!!!!!!!!!!\n\n");
-	return true;
+	auto contactListener =
+		EventListenerPhysicsContact::create();
+	contactListener->onContactBegin = [](PhysicsContact& contact)
+	{
+
+		auto shapeA = contact.getShapeA();
+		auto bodyA = shapeA->getBody();
+
+		auto shapeB = contact.getShapeB();
+		auto bodyB = shapeB->getBody();
+		OutputDebugStringA("Collision\n");
+		return true;
+	};
+
+	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
 }
+
+
 
 void HelloWorld::menuCloseCallback(Ref* pSender)
 {

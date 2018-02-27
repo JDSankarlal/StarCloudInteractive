@@ -1,12 +1,12 @@
 #include "Platforms.h"
 USING_NS_CC;
 
-Platforms::Platforms(cocos2d::Scene *activeScene, float width, float height)
+Platforms::Platforms(cocos2d::Scene *activeScene, int bitMask, float width, float height)
 {
 	//platform setup
 	platform = Sprite::create("pics/Platform.png");
 
-
+						 
 
 	//sets the width and height of platform in pixles
 	//if(width < platform->getContentSize().width)
@@ -21,8 +21,9 @@ Platforms::Platforms(cocos2d::Scene *activeScene, float width, float height)
 	auto size = getSprite()->getContentSize();
 	platform->setPhysicsBody(PhysicsBody::createBox(size));
 	getBody()->setDynamic(false);
-	getBody()->setCollisionBitmask(1);
-	getBody()->setContactTestBitmask(1);
+	getBody()->setCollisionBitmask(bitMask);
+//	getBody()->setContactTestBitmask(1);
+	
  //adds platform to active scene
 	activeScene->addChild(platform);
 }
