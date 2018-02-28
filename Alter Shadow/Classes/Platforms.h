@@ -20,6 +20,7 @@ public:
 	cocos2d::Sprite* getSprite();
 	cocos2d::PhysicsBody* getBody();
 	void setPosition(float x, float y, float z = 0);
+	void setVel(float x,float y);
 	void update();//call each frame
 private:
 

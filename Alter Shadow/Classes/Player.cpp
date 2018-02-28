@@ -76,12 +76,12 @@ void Player::addForce(float x, float y)
 void Player::movementUpdate(int index)
 {
 	static XBoxInput controllers;
-	controllers.DownloadPackets();
+	controllers.DownloadPackets(4);
 
-//#pragma region Controller Stuff
+
 	if(controllers.GetConnected(index))
 	{
-		OutputDebugStringA(string("Controller: "+std::to_string(index)+'\n').c_str());
+		//OutputDebugStringA(string("Controller: "+std::to_string(index)+'\n').c_str());
 #pragma region Movement	
 		Stick moveL, moveR;
 
@@ -95,8 +95,8 @@ void Player::movementUpdate(int index)
 			getSprite()->setFlippedX(true);
 		else
 			getSprite()->setFlippedX(false);
+
 #pragma region Jumping
-		//Jumping
 		if((controllers.ButtonPress(index, A)) && !hasJumped)
 		{
 			setVelY(535);
@@ -105,56 +105,63 @@ void Player::movementUpdate(int index)
 		if(controllers.ButtonRelease(index, A))
 			hasJumped = false;
 #pragma endregion
-
-		//Dash
-		float triggerL, triggerR;
+		
+#pragma region Dash			
 		controllers.GetTriggers(index, triggerL, triggerR);
-		static bool dash;
-		static int initialDash;
+															  		
 		if((triggerL > .5 || triggerR > .5) && !dash)
 		{
+			controllers.SetVibration(index,1,1);
 			dash = true;
 			setVelY(0);
 			initialDash = 800;
 		} else if(triggerL < .5 && triggerR < .5)
+		{
+			controllers.SetVibration(index, 0, 0);
 			dash = false;
-
+		}
 		if(dash)
 		{
 			if(initialDash > move)
+			{
 				if(moveL.xAxis < 0)
 					setVelX(-(initialDash -= 20));
 				else  if(moveL.xAxis > 0)
 					setVelX(initialDash -= 20);
+			} else
+			{
+				controllers.SetVibration(index, 0, 0);
+			}		   
 		}
+#pragma endregion
 
 #pragma endregion
-//	   
-//#pragma region Switching Platforms
-//		//Dimentional colour change
-//		
-//		//Color3B colours[] {Color3B(1 * 255,1 * 255,1 * 255),Color3B(1 * 255,0 * 255,0 * 255),Color3B(0 * 255,1 * 255,1 * 255)};
-//		//if(controllers.ButtonPress(controller, LB) && !colPress)
-//		//{
-//		//	colPress = true;		 
-//		//	if(colChange - 1 >= 0 && colChange - 1 < 3)
-//		//		getSprite()->setColor(Color3B(colours[--colChange])); 
-//		//}
-//		//
-//		//
-//		//if(controllers.ButtonPress(controller, RB) && !colPress)
-//		//{
-//		//	colPress = true;
-//		//	if(colChange + 1 >= 0 && colChange + 1 < 3)
-//		//		getSprite()->setColor(Color3B(colours[++colChange]));
-//		//}
-//		//if(controllers.ButtonRelease(controller, RB) && controllers.ButtonRelease(controller, LB))
-//		//	colPress = false;
-//	//	platformSwitch(colChange);
-//#pragma endregion
+	   
+#pragma region Switching Platforms
+		//Dimentional colour change
+		
+		static Color3B colours[] {Color3B(1 * 255,1 * 255,1 * 255),Color3B(1 * 255,0 * 255,0 * 255),Color3B(0 * 255,1 * 255,1 * 255)};
+		if(controllers.ButtonPress(index, LB) && !colPress)
+		{
+			colPress = true;		 
+			if(colChange - 1 >= 0 && colChange - 1 < 3)
+				getSprite()->setColor(colours[--colChange]); 
+		}
+		
+		
+		if(controllers.ButtonPress(index, RB) && !colPress)
+		{
+			colPress = true;
+			if(colChange + 1 >= 0 && colChange + 1 < 3)
+				getSprite()->setColor(colours[++colChange]);
+		}
+		if(controllers.ButtonRelease(index, RB) && controllers.ButtonRelease(index, LB))
+			colPress = false;
+	//	platformSwitch(colChange);
+#pragma endregion
 	
 	}
-#pragma endregion
+
 }
 
 void Player::setPosition(float x, float y, float z)
@@ -166,8 +173,7 @@ void Player::setPosition(float x, float y, float z)
 
 void Player::platformSwitch(int platform)
 {
-	static double move, inst;
-	static bool jump;
+	
 
 	if(inst < platform)
 	{
@@ -178,7 +184,7 @@ void Player::platformSwitch(int platform)
 
 		}
 		if(getBody()->getVelocity().y != 0)
-			setPosition(getSprite()->getPosition().x, getSprite()->getPosition().y, move += 1);
+			setPosition(getSprite()->getPosition().x, getSprite()->getPosition().y, moveZ += 1);
 		else
 			inst = platform;
 
@@ -191,7 +197,7 @@ void Player::platformSwitch(int platform)
 			getBody()->setVelocity(Vec2(0, 350));
 		}
 		if(getBody()->getVelocity().y != 0)
-			setPosition(getSprite()->getPosition().x, getSprite()->getPosition().y, move -= 1);
+			setPosition(getSprite()->getPosition().x, getSprite()->getPosition().y, moveZ -= 1);
 		else
 			inst = platform;
 	} else

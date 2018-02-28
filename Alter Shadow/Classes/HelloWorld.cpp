@@ -43,17 +43,12 @@ bool HelloWorld::init()
 	p1->setPosition(director->getOpenGLView()->getFrameSize().width / 2, director->getOpenGLView()->getFrameSize().height / 2);
 	p2->setPosition(director->getOpenGLView()->getFrameSize().width / 2+80, director->getOpenGLView()->getFrameSize().height / 2);
 
-	pf1 = new Platforms(this, 1, 500);
+	pf1 = new Platforms(this, 1, 200);
 	auto pf2 = new Platforms(this, 2, 500);
-	//auto pf3 = new Platforms(this, 2, 500);
-	//auto pf4 = new Platforms(this, 2, 500);
-	//auto pf5 = new Platforms(this, 2, 500);
-	//pf5->setPosition(visibleSize.width / 2, visibleSize.height / 2 - 350);
-	//pf4->setPosition(visibleSize.width / 2, visibleSize.height / 2 - 300);
-	//pf3->setPosition(visibleSize.width / 2, visibleSize.height / 2 - 250);
+	
 	pf2->setPosition(visibleSize.width / 2, visibleSize.height / 2 - 200);
-	pf1->setPosition(visibleSize.width / 2, visibleSize.height / 2 - 150);
-
+	pf1->setPosition(visibleSize.width / 2+100, visibleSize.height / 2 + 150);
+	
 	background->setScaleX(visibleSize.width / background->getContentSize().width);
 	background->setScaleY(visibleSize.height / background->getContentSize().height);
 	background->setPosition(visibleSize.width / 2, visibleSize.height / 2);
@@ -70,17 +65,16 @@ bool HelloWorld::init()
 
 //Updates movement per frame
 void HelloWorld::update(float dt)
-{			   	
+{
 	p1->movementUpdate(0);
-	p2->movementUpdate(1);
-	
-		
+	p2->movementUpdate(1);		   	
 }
 
 void HelloWorld::contact()
 {
 	auto contactListener =
 		EventListenerPhysicsContact::create();
+
 	contactListener->onContactBegin = [](PhysicsContact& contact)
 	{
 
@@ -94,8 +88,7 @@ void HelloWorld::contact()
 	};
 
 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
-}
-
+}	   
 
 
 void HelloWorld::menuCloseCallback(Ref* pSender)

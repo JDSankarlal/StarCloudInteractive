@@ -31,11 +31,13 @@ public:
 	void setVelY(float);
 	void setVel(float, float);
 #pragma endregion
+
 #pragma region Set Forces  
 	void addForceX(float);
 	void addForceY(float);
 	void addForce(float, float);
 #pragma endregion
+
 //Player Movement
 //must be called in update
 	void movementUpdate(int controler);
@@ -47,14 +49,17 @@ public:
 
 	void printPosition();
 private:
-	
+	float triggerL, triggerR;
+	bool dash;
+	int initialDash;
+	double moveZ, inst;
+	bool jump;
 	void platformID(int id);
 	string playerIdentifier;
 	Sprite *AttachedSprite;
-	bool hasJumped,  colPress;
-	short colChange;
-	int jumpCount;
-	
+	bool hasJumped, colPress;
+	short colChange, jumpCount;
+
 	int MaxHP, HP, lightDamage, heavyDamage, heavyDamageCharged, throwAttack, crossAttack;
 };
 

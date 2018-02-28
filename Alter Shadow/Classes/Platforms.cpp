@@ -46,6 +46,11 @@ void Platforms::setPosition(float x, float y, float z)
 	platform->setPosition3D(Vec3(x, y, z));
 }
 
+void Platforms::setVel(float x,float y)
+{
+	getBody()->setVelocity(Vec2(x,y));
+}
+
 void Platforms::update()
 {
 	platform->setPosition3D(position);
