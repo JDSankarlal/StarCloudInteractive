@@ -38,25 +38,30 @@ bool HelloWorld::init()
 	auto visibleSize = director->getVisibleSize();
 	Vec2 origin = director->getVisibleOrigin();
 
-	//Players
-	
+	//Players	
 	p1->setPosition(director->getOpenGLView()->getFrameSize().width / 2, director->getOpenGLView()->getFrameSize().height / 2);
 	p2->setPosition(director->getOpenGLView()->getFrameSize().width / 2+80, director->getOpenGLView()->getFrameSize().height / 2);
 
+	//platforms
 	pf1 = new Platforms(this, 1, 200);
 	auto pf2 = new Platforms(this, 2, 500);
 	
 	pf2->setPosition(visibleSize.width / 2, visibleSize.height / 2 - 200);
 	pf1->setPosition(visibleSize.width / 2+100, visibleSize.height / 2 + 150);
 	
+	//Background
 	background->setScaleX(visibleSize.width / background->getContentSize().width);
 	background->setScaleY(visibleSize.height / background->getContentSize().height);
 	background->setPosition(visibleSize.width / 2, visibleSize.height / 2);
 	addChild(background, -1);
 
+	//Collision stuff
 	contact();
 
+	//call update
 	this->scheduleUpdate();
+
+	//Background Audio
 	audio->setAudio("Audio/Battle_Time_V3.mp3");
 	audio->play(true);
 

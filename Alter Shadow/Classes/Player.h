@@ -49,7 +49,7 @@ public:
 
 	void printPosition();
 private:
-	float triggerL, triggerR;
+	float LT, RT, movementPercent,lastMovement;
 	bool dash;
 	int initialDash;
 	double moveZ, inst;
