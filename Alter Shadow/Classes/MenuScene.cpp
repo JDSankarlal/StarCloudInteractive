@@ -1,8 +1,9 @@
 #pragma once 
 #include "MenuScene.h"
-
+#include "HelloWorld.h"
 USING_NS_CC;
 using namespace std;
+using namespace Input;
 Scene* MenuScene::createScene()
 {
 	return  MenuScene::create();
@@ -46,9 +47,22 @@ bool MenuScene::init()
 }
 
 //Updates movement per frame
-void MenuScene::update(float dt)
+void MenuScene::update(float index)
 {
-	
+
+	static XBoxInput controllers;
+	controllers.DownloadPackets(4);
+
+
+	if (controllers.GetConnected(index))
+	{
+#pragma region StartGame
+		if (controllers.ButtonPress(index, A))
+		{
+			Director::getInstance()->replaceScene(HelloWorld::createScene());
+		}
+#pragma endregion
+	}
 }
 
 void MenuScene::menuCloseCallback(Ref* pSender)

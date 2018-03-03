@@ -3,6 +3,7 @@
 
 #include "AudioPlayer.h"
 #include "SimpleAudioEngine.h"
+#include "controller.h"
 #include <thread>
 #include <string>
 
