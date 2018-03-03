@@ -9,7 +9,7 @@ using namespace std;
 Scene* HelloWorld::createScene()
 {
 	auto scenepb = HelloWorld::createWithPhysics();
-//	scenepb->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//	scenepb->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
 	auto world = HelloWorld::create();
 	scenepb->addChild(world);
@@ -31,24 +31,26 @@ bool HelloWorld::init()
 
 	//////////////////////////////
 	// 1. super init first
-	if(!Scene::init())
+	if (!Scene::init())
 		return false;
 
 	director = Director::getInstance();
 	auto visibleSize = director->getVisibleSize();
 	Vec2 origin = director->getVisibleOrigin();
 
-	//Players	
-	p1->setPosition(director->getOpenGLView()->getFrameSize().width / 2, director->getOpenGLView()->getFrameSize().height / 2);
-	p2->setPosition(director->getOpenGLView()->getFrameSize().width / 2+80, director->getOpenGLView()->getFrameSize().height / 2);
+	//Players
+	short count = 0;
+	for (auto &a : players) {
+		a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2);
+	}
 
 	//platforms
 	pf1 = new Platforms(this, 1, 200);
 	auto pf2 = new Platforms(this, 2, 500);
-	
+
 	pf2->setPosition(visibleSize.width / 2, visibleSize.height / 2 - 200);
-	pf1->setPosition(visibleSize.width / 2+100, visibleSize.height / 2 + 150);
-	
+	pf1->setPosition(visibleSize.width / 2 + 100, visibleSize.height / 2 + 150);
+
 	//Background
 	background->setScaleX(visibleSize.width / background->getContentSize().width);
 	background->setScaleY(visibleSize.height / background->getContentSize().height);
@@ -71,17 +73,16 @@ bool HelloWorld::init()
 //Updates movement per frame
 void HelloWorld::update(float dt)
 {
-	p1->movementUpdate(0);
-	p2->movementUpdate(1);
+	short count = 0;
+	for (auto &a : players) {
+		a->movementUpdate(count++);
 
-	if (p1->getSprite()->getPositionY() < -200)
-	{
-		p1->setPosition(director->getOpenGLView()->getFrameSize().width / 2, director->getOpenGLView()->getFrameSize().height / 2);
-	}
 
-	if (p2->getSprite()->getPositionY() < -200)
-	{
-		p2->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + 80, director->getOpenGLView()->getFrameSize().height / 2);
+		if (a->getSprite()->getPositionY() < -200)
+		{
+			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2, director->getOpenGLView()->getFrameSize().height / 2);
+		}
+
 	}
 }
 
@@ -99,11 +100,20 @@ void HelloWorld::contact()
 		auto shapeB = contact.getShapeB();
 		auto bodyB = shapeB->getBody();
 		OutputDebugStringA("Collision\n");
+
+		//if (shapeA->getCategoryBitmask() == 1 && shapeB->getCategoryBitmask() == 2) {
+		//	for (auto &a : *players)
+		//		shapeA->getCenter();
+		//}
+		//else
+		//	if (shapeA->getCategoryBitmask() == 2 && shapeB->getCategoryBitmask() == 1) {
+		//
+		//	}
 		return true;
 	};
 
 	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
-}	   
+}
 
 
 void HelloWorld::menuCloseCallback(Ref* pSender)

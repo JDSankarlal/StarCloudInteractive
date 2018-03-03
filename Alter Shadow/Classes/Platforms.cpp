@@ -22,6 +22,8 @@ Platforms::Platforms(cocos2d::Scene *activeScene, int bitMask, float width, floa
 	platform->setPhysicsBody(PhysicsBody::createBox(size));
 	getBody()->setDynamic(false);
 	getBody()->setCollisionBitmask(bitMask);
+	//getBody()->setCategoryBitmask(2);
+
 //	getBody()->setContactTestBitmask(1);
 	
  //adds platform to active scene

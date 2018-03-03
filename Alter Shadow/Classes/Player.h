@@ -63,6 +63,6 @@ private:
 	bool hasJumped, colPress;
 	short colChange, jumpCount;
 
-	int MaxHP, HP, lightDamage, heavyDamage, heavyDamageCharged, throwAttack, crossAttack;
+	int numJumps=0, MaxHP, HP, lightDamage, heavyDamage, heavyDamageCharged, throwAttack, crossAttack;
 };
 
