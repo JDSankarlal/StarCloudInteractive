@@ -5,14 +5,7 @@ USING_NS_CC;
 using namespace std;
 Scene* MenuScene::createScene()
 {
-	auto scenepb = MenuScene::createWithPhysics();
-	//	scenepb->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
-
-	auto world = MenuScene::create();
-	scenepb->addChild(world);
-	//setScene(world);
-	scenepb->getPhysicsWorld()->setGravity(Vec2(0, -1500));
-	return scenepb;
+	return  MenuScene::create();
 }
 
 // Print useful error message instead of segfaulting when files are not there.
@@ -36,10 +29,10 @@ bool MenuScene::init()
 	Vec2 origin = director->getVisibleOrigin();
 
 	//Background
-	//background->setScaleX(visibleSize.width / background->getContentSize().width);
-	//background->setScaleY(visibleSize.height / background->getContentSize().height);
-	//background->setPosition(visibleSize.width / 2, visibleSize.height / 2);
-	//addChild(background, -1);
+	background->setScaleX(visibleSize.width / background->getContentSize().width);
+	background->setScaleY(visibleSize.height / background->getContentSize().height);
+	background->setPosition(visibleSize.width / 2, visibleSize.height / 2);
+	addChild(background, -1);
 
 
 	//call update

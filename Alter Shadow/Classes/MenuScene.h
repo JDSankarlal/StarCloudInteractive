@@ -33,8 +33,9 @@ public:
 
 	cocos2d::Director *director;
 
+	cocos2d::Sprite* background = cocos2d::Sprite::create("pics/placeholderMenu.jpg");
 private:
-	void contact();
+	
 	//Put variables and sprites and stuff here
 
 };
