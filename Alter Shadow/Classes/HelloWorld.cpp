@@ -72,7 +72,17 @@ bool HelloWorld::init()
 void HelloWorld::update(float dt)
 {
 	p1->movementUpdate(0);
-	p2->movementUpdate(1);		   	
+	p2->movementUpdate(1);
+
+	if (p1->getSprite()->getPositionY() < -200)
+	{
+		p1->setPosition(director->getOpenGLView()->getFrameSize().width / 2, director->getOpenGLView()->getFrameSize().height / 2);
+	}
+
+	if (p2->getSprite()->getPositionY() < -200)
+	{
+		p2->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + 80, director->getOpenGLView()->getFrameSize().height / 2);
+	}
 }
 
 void HelloWorld::contact()

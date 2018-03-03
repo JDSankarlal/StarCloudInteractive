@@ -44,6 +44,9 @@ public:
 //sets location by pixel position
 	void setPosition(float x, float y, float z = 0);
 
+	//get the position
+	void getPosition();
+
 //sets the platform id
 	void platformSwitch(int);
 

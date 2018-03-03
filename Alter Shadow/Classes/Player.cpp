@@ -76,7 +76,7 @@ void Player::addForce(float x, float y)
 void Player::movementUpdate(int index)
 {
 	static XBoxInput controllers;
-	controllers.DownloadPackets(index);
+	controllers.DownloadPackets(4);
 
 
 	if(controllers.GetConnected(index))
@@ -183,8 +183,12 @@ void Player::setPosition(float x, float y, float z)
 {
 	getSprite()->setPosition3D(Vec3(x, y, 0));
 	//getSprite()->setContentSize(Size());
-
 }
+
+//void Player::getPosition()
+//{
+//	
+//}
 
 void Player::platformSwitch(int platform)
 {
