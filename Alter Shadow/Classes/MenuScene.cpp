@@ -76,7 +76,7 @@ void MenuScene::update(float index)
 	{
 
 		Stick moveD, moveU;
-
+		static int count,til=20;
 		controllers.GetSticks(index, moveD, moveU);
 		if (playBtnActive)
 		{
@@ -86,13 +86,19 @@ void MenuScene::update(float index)
 			{
 				Director::getInstance()->replaceScene(HelloWorld::createScene());
 			}
-			if (moveD.yAxis < 0)
+			if (moveD.yAxis == 0)
 			{
-				optionsBtnActive = true;
-				playBtn->setScale(1);
-				playBtnActive = false;
+				count = til;
 			}
-
+			if (count++>til) {
+				count = 0;
+				if (moveD.yAxis < 0)
+				{
+					optionsBtnActive = true;
+					playBtn->setScale(1);
+					playBtnActive = false;
+				}
+			}
 		}
 		else if (optionsBtnActive)
 		{
@@ -102,17 +108,24 @@ void MenuScene::update(float index)
 			{
 				
 			}
-			if (moveD.yAxis < 0)
+			if (moveD.yAxis == 0)
 			{
-				quitBtnActive = true;
-				optionsBtn->setScale(1);
-				optionsBtnActive = false;
+				count = til;
 			}
-			if (moveD.yAxis > 0)
-			{
-				playBtnActive = true;
-				optionsBtn->setScale(1);
-				optionsBtnActive = false;
+			if (count++ > til) {
+				count = 0;
+				if (moveD.yAxis < 0)
+				{
+					quitBtnActive = true;
+					optionsBtn->setScale(1);
+					optionsBtnActive = false;
+				}
+				if (moveD.yAxis > 0)
+				{
+					playBtnActive = true;
+					optionsBtn->setScale(1);
+					optionsBtnActive = false;
+				}
 			}
 		}
 		else if (quitBtnActive)
@@ -123,13 +136,20 @@ void MenuScene::update(float index)
 			{
 				//System.exit(0);
 			}
-			if (moveD.yAxis > 0)
+			if (moveD.yAxis == 0)
 			{
-				optionsBtnActive = true;
-				quitBtn->setScale(1);
-				quitBtnActive = false;
+				count = til;
 			}
-
+			if (count++ > til) {
+				count = 0;
+				if (moveD.yAxis > 0)
+				{
+					optionsBtnActive = true;
+					quitBtn->setScale(1);
+					quitBtnActive = false;
+				}
+			}
+			
 		}
 
 	}
