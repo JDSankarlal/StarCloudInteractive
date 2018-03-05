@@ -1,4 +1,5 @@
 #include "AppDelegate.h"
+#include "SplashScreen.h"
 #include "HelloWorldScene.h"
 #include "MenuSceneScene.h"
 #include "MenuScene.h"
@@ -57,6 +58,7 @@ static int register_all_packages()
 
 bool AppDelegate::applicationDidFinishLaunching() {
     // initialize director
+	cocos2d::CCDirector *pDirector = cocos2d::CCDirector::sharedDirector();
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
     if(!glview) {
@@ -97,10 +99,10 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // create a scene. it's an autorelease object
 
-    auto scene = MenuScene::createScene();
+    cocos2d::CCScene *pScene = SplashScreen::StartScene();
 
     // run
-    director->runWithScene(scene);
+    pDirector->runWithScene(pScene);
 
     return true;
 }
