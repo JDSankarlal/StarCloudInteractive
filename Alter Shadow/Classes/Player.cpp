@@ -122,6 +122,7 @@ void Player::movementUpdate(int index)
 		}
 		if (controllers.ButtonRelease(index, A))
 			hasJumped = false;
+
 #pragma endregion
 
 #pragma region Dash			
@@ -129,6 +130,7 @@ void Player::movementUpdate(int index)
 
 		if ((LT > .5 || RT > .5) && !dash)
 		{
+			numJumps = 0;
 			controllers.SetVibration(index, 1, 1);
 			dash = true;
 			setVelY(0);
