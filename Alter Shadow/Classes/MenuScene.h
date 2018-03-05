@@ -35,8 +35,15 @@ public:
 	cocos2d::Director *director;
 
 	cocos2d::Sprite* background = cocos2d::Sprite::create("pics/placeholderMenu.jpg");
+	cocos2d::Sprite* playBtn;
+	cocos2d::Sprite* optionsBtn;
+	cocos2d::Sprite* quitBtn;
+
 private:
 	
+	bool playBtnActive = true;
+	bool optionsBtnActive  = false;
+	bool quitBtnActive = false;
 	//Put variables and sprites and stuff here
 
 };

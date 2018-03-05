@@ -35,9 +35,28 @@ bool MenuScene::init()
 	background->setPosition(visibleSize.width / 2, visibleSize.height / 2);
 	addChild(background, -1);
 
+	playBtn = Sprite::create("pics/playBtn.png");
+	playBtn->setPosition(visibleSize.width / 2, visibleSize.height / 2);
+	playBtn->setScale(1);
+	playBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
+	this->addChild(playBtn, 2);
+
+	optionsBtn = Sprite::create("pics/OptionsBtn.png");
+	optionsBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2) - 125);
+	optionsBtn->setScale(1);
+	optionsBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
+	this->addChild(optionsBtn, 2);
+
+	quitBtn = Sprite::create("pics/quitbtn.png");
+	quitBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2) - 250);
+	quitBtn->setScale(1);
+	quitBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
+	this->addChild(quitBtn, 2);
 
 	//call update
 	this->scheduleUpdate();
+
+
 
 	//Background Audio
 	audio->setAudio("Audio/Battle_Time_V3.mp3");
@@ -49,19 +68,70 @@ bool MenuScene::init()
 //Updates movement per frame
 void MenuScene::update(float index)
 {
-
 	static XBoxInput controllers;
 	controllers.DownloadPackets(4);
 
 
 	if (controllers.GetConnected(index))
 	{
-#pragma region StartGame
-		if (controllers.ButtonPress(index, A))
+
+		Stick moveD, moveU;
+
+		controllers.GetSticks(index, moveD, moveU);
+		if (playBtnActive)
 		{
-			Director::getInstance()->replaceScene(HelloWorld::createScene());
+			playBtn->setScale(1.3f);
+
+			if (controllers.ButtonPress(index, A))
+			{
+				Director::getInstance()->replaceScene(HelloWorld::createScene());
+			}
+			if (moveD.yAxis < 0)
+			{
+				optionsBtnActive = true;
+				playBtn->setScale(1);
+				playBtnActive = false;
+			}
+
 		}
-#pragma endregion
+		else if (optionsBtnActive)
+		{
+			optionsBtn->setScale(1.3f);
+
+			if (controllers.ButtonPress(index, A))
+			{
+				
+			}
+			if (moveD.yAxis < 0)
+			{
+				quitBtnActive = true;
+				optionsBtn->setScale(1);
+				optionsBtnActive = false;
+			}
+			if (moveD.yAxis > 0)
+			{
+				playBtnActive = true;
+				optionsBtn->setScale(1);
+				optionsBtnActive = false;
+			}
+		}
+		else if (quitBtnActive)
+		{
+			quitBtn->setScale(1.3f);
+
+			if (controllers.ButtonPress(index, A))
+			{
+				//System.exit(0);
+			}
+			if (moveD.yAxis > 0)
+			{
+				optionsBtnActive = true;
+				quitBtn->setScale(1);
+				quitBtnActive = false;
+			}
+
+		}
+
 	}
 }
 
