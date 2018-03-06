@@ -42,11 +42,17 @@ bool OptionsScene::init()
 	optionsHeader->setAnchorPoint(Vec2(0.5f, 0.5f));
 	this->addChild(optionsHeader, 2);
 
-	//musicBtn = Sprite::create("pics/musicBtn.png");
-	//musicBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2) - 125);
-	//musicBtn->setScale(1);
-	//musicBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
-	//this->addChild(musicBtn, 2);
+	fullScrBtn = Sprite::create("pics/fullscreen.png");
+	fullScrBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
+	fullScrBtn->setScale(1);
+	fullScrBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
+	this->addChild(fullScrBtn, 2);
+
+	musicBtn = Sprite::create("pics/soundBtn.png");
+	musicBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2) - 125);
+	musicBtn->setScale(1);
+	musicBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
+	this->addChild(musicBtn, 2);
 
 	backBtn = Sprite::create("pics/backBtn.png");
 	backBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2) - 250);
@@ -79,27 +85,76 @@ void OptionsScene::update(float index)
 		Stick moveD, moveU;
 		static int count, til = 20;
 		controllers.GetSticks(index, moveD, moveU);
-		if (backBtnActive)
-		{
-			backBtn->setScale(1.3f);
 
-				if (controllers.ButtonPress(index, A) == 0)
-				{
-					count = til;
-				}
-			
-		if (count++ > til) {
-			count = 0;
+		if (fullScrBtnActive)
+		{
+			fullScrBtn->setScale(1.3f);
+
 			if (controllers.ButtonPress(index, A))
 			{
-				//Director::getInstance()->replaceScene(MenuScene::createScene());
+				//make fullscreen
 			}
-		}
 			if (moveD.yAxis == 0)
 			{
 				count = til;
 			}
 			if (count++>til) {
+				count = 0;
+				if (moveD.yAxis < 0)
+				{
+					musicBtnActive = true;
+					fullScrBtn->setScale(1);
+					fullScrBtnActive = false;
+				}
+			}
+		}
+
+		else if (musicBtnActive)
+		{
+			musicBtn->setScale(1.3f);
+
+			if (controllers.ButtonPress(index, A))
+			{
+				
+			}
+			if (moveD.yAxis == 0)
+			{
+				count = til;
+			}
+			if (count++ > til) {
+				count = 0;
+				if (moveD.yAxis < 0)
+				{
+					backBtnActive = true;
+					musicBtn->setScale(1);
+					musicBtnActive = false;
+				}
+				if (moveD.yAxis > 0)
+				{
+					fullScrBtnActive = true;
+					musicBtn->setScale(1);
+					musicBtnActive = false;
+				}
+			}
+		}
+			
+		else if (backBtnActive)
+		{
+			backBtn->setScale(1.3f);
+
+			if (controllers.ButtonPress(index, A))
+			{
+				//Director::getInstance()->replaceScene(OptionsScene::createScene());
+			}
+			if (controllers.ButtonPress(index, B))
+			{
+				Director::getInstance()->replaceScene(MenuScene::createScene());
+			}
+			if (moveD.yAxis == 0)
+			{
+				count = til;
+			}
+			if (count++ > til) {
 				count = 0;
 				if (moveD.yAxis > 0)
 				{
@@ -108,6 +163,7 @@ void OptionsScene::update(float index)
 					backBtnActive = false;
 				}
 			}
+
 		}
 		
 

@@ -37,14 +37,17 @@ public:
 	cocos2d::Sprite* background = cocos2d::Sprite::create("pics/download.jpg");
 	cocos2d::Sprite* backBtn;
 	cocos2d::Sprite* musicBtn;
+	cocos2d::Sprite* fullScrBtn;
 
 	cocos2d::Sprite* optionsHeader;
 	//cocos2d::Sprite* quitBtn;
 
 private:
 
-	bool backBtnActive = true;
+	
+	bool fullScrBtnActive = true;
 	bool musicBtnActive = false;
+	bool backBtnActive = false;
 	//bool playBtnActive = true;
 	//bool optionsBtnActive = false;
 	//bool quitBtnActive = false;
