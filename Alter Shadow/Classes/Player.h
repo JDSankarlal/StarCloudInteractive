@@ -59,7 +59,9 @@ private:
 	bool jump;
 	void platformID(int id);
 	string playerIdentifier;
+	Scene* scene;
 	Sprite *AttachedSprite;
+	Sprite* cursor[4] {Sprite::create("pics/P1.png"),Sprite::create("pics/P2.png"),Sprite::create("pics/P3.png"),Sprite::create("pics/P4.png")};
 	bool hasJumped, colPress;
 	short colChange, jumpCount;
 

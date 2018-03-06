@@ -31,7 +31,7 @@ bool HelloWorld::init()
 
 	//////////////////////////////
 	// 1. super init first
-	if (!Scene::init())
+	if(!Scene::init())
 		return false;
 
 	director = Director::getInstance();
@@ -40,7 +40,8 @@ bool HelloWorld::init()
 
 	//Players
 	short count = 0;
-	for (auto &a : players) {
+	for(auto &a : players)
+	{
 		a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2);
 	}
 
@@ -74,11 +75,12 @@ bool HelloWorld::init()
 void HelloWorld::update(float dt)
 {
 	short count = 0;
-	for (auto &a : players) {
+	for(auto &a : players)
+	{
 		a->movementUpdate(count++);
 
 
-		if (a->getSprite()->getPositionY() < -200)
+		if(a->getSprite()->getPositionY() < -200)
 		{
 			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2, director->getOpenGLView()->getFrameSize().height / 2);
 		}
