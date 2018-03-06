@@ -46,8 +46,8 @@ bool HelloWorld::init()
 	}
 
 	//platforms
-	pf1 = new Platforms(this, 1, 200);
-	auto pf2 = new Platforms(this, 2, 500);
+	pf1 = new Platforms(this, 1,false ,200);
+	auto pf2 = new Platforms(this, 2, true, 500);
 
 	pf2->setPosition(visibleSize.width / 2, visibleSize.height / 2 - 200);
 	pf1->setPosition(visibleSize.width / 2 + 100, visibleSize.height / 2 + 150);

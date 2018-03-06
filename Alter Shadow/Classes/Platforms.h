@@ -15,12 +15,12 @@ public:
 //		 //Category_08 = 0x0080, //0000 0000 1000 0000
 //		 //Category_09 = 0x0100; //0000 0001 0000 0000
 //	};
-	Platforms(cocos2d::Scene*, int bitMask,float width = 200, float height = 100);
+	Platforms(cocos2d::Scene*, int bitMask, bool shadow, float width = 200, float height = 100);
 	~Platforms();
 	cocos2d::Sprite* getSprite();
 	cocos2d::PhysicsBody* getBody();
-	void setPosition(float x, float y, float z = 0);
-	void setVel(float x,float y);
+	void setPosition(float x, float y, float z = 0);			   
+	void setVel(float x, float y);
 	void update();//call each frame
 private:
 

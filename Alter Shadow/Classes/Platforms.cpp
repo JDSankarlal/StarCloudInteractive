@@ -1,15 +1,18 @@
 #include "Platforms.h"
 USING_NS_CC;
 
-Platforms::Platforms(cocos2d::Scene *activeScene, int bitMask, float width, float height)
+Platforms::Platforms(cocos2d::Scene *activeScene, int bitMask, bool shadow, float width, float height)
 {
 	//platform setup
-	platform = Sprite::create("pics/Platform.png");
 
-						 
 
-	//sets the width and height of platform in pixles
-	//if(width < platform->getContentSize().width)
+	if(shadow)
+		platform = Sprite::create("pics/Shadow_Platform.png");
+	else
+		platform = Sprite::create("pics/Platform.png");
+
+   //sets the width and height of platform in pixles
+   //if(width < platform->getContentSize().width)
 	platform->setScaleX(width / platform->getContentSize().width);
 //else
 //	platform->setScaleX(1.f - platform->getContentSize().width / width);
@@ -25,7 +28,7 @@ Platforms::Platforms(cocos2d::Scene *activeScene, int bitMask, float width, floa
 	//getBody()->setCategoryBitmask(2);
 
 //	getBody()->setContactTestBitmask(1);
-	
+
  //adds platform to active scene
 	activeScene->addChild(platform);
 }
@@ -48,9 +51,9 @@ void Platforms::setPosition(float x, float y, float z)
 	platform->setPosition3D(Vec3(x, y, z));
 }
 
-void Platforms::setVel(float x,float y)
+void Platforms::setVel(float x, float y)
 {
-	getBody()->setVelocity(Vec2(x,y));
+	getBody()->setVelocity(Vec2(x, y));
 }
 
 void Platforms::update()

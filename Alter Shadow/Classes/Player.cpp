@@ -13,6 +13,7 @@ Player::Player(Scene *ActiveScene)
 	auto size = getSprite()->getContentSize();
 	getSprite()->setPhysicsBody(PhysicsBody::createBox(size));
 	getBody()->setCollisionBitmask(1);
+	getBody()->setLinearDamping(-2);
 	//getBody()->setCategoryBitmask(1);
 
 	getBody()->setDynamic(true);
@@ -192,7 +193,7 @@ void Player::movementUpdate(int index)
 		cursor[index]->setColor(colours2[index]);
 	} else
 	{
-		//if(scene.getCh)
+	cursor[index]->setPosition(-1*(cursor[index]->getContentSize()));
 	}
 
 }

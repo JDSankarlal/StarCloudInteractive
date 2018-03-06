@@ -84,7 +84,7 @@ void MenuScene::update(float index)
 		{
 			playBtn->setScale(1.3f);
 	
-			if (controllers.ButtonPress(index, A))
+			if (controllers.ButtonStroke(index, A))
 			{
 				Director::getInstance()->replaceScene(HelloWorld::createScene());
 			}
@@ -106,7 +106,7 @@ void MenuScene::update(float index)
 		{
 			optionsBtn->setScale(1.3f);
 	
-			if (controllers.ButtonPress(index, A))
+			if (controllers.ButtonStroke(index, A))
 			{
 				Director::getInstance()->replaceScene(OptionsScene::createScene());
 			}
@@ -134,7 +134,7 @@ void MenuScene::update(float index)
 		{
 			quitBtn->setScale(1.3f);
 	
-			if (controllers.ButtonPress(index, A))
+			if (controllers.ButtonStroke(index, A))
 			{
 				//System.exit(0);
 			}

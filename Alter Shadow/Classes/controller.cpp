@@ -2,6 +2,7 @@
 
 namespace Input
 {
+	using namespace std;
 	XBoxInput::XBoxInput()
 	{
 		for(unsigned int i = 0; i < 4; i++)
@@ -158,13 +159,28 @@ namespace Input
 	bool XBoxInput::ButtonPress(int _index, Button _buttons)
 	{
 		if(!m_connected[_index]) return false;
-		else return m_buttonStates[_index][_buttons];
+		return m_buttonStates[_index][_buttons];
 	}
 
 	bool XBoxInput::ButtonRelease(int _index, Button _buttons)
 	{
 		if(!m_connected[_index]) return false;
-		else return !m_buttonStates[_index][_buttons];
+		return !m_buttonStates[_index][_buttons];
+	}
+
+	bool XBoxInput::ButtonStroke(int _index, Button _buttons)
+	{
+		static unordered_map<Button, bool>stroke;
+		if(ButtonPress(_index, _buttons))
+		{
+			stroke[_buttons] = true;
+		}
+		if(stroke[_buttons] && ButtonRelease(_index, _buttons))
+		{
+			stroke[_buttons] = false;
+			return true;
+		}
+		return false;
 	}
 
 	bool XBoxInput::GetTriggers(int _index, float & _leftTrigger, float & _rightTrigger)

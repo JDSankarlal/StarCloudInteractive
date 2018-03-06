@@ -39,8 +39,10 @@
     <ClCompile Include="..\Classes\SplashScreen.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\MenuScene.cpp" />
     <ClCompile Include="..\Classes\OptionsScene.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MenuScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -72,12 +74,16 @@
     <ClInclude Include="..\Classes\SplashScreen.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\MenuScene.h" />
-    <ClInclude Include="..\Classes\MenuSceneScene.h" />
     <ClInclude Include="..\Classes\OptionsScene.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\OptionsSceneScene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MenuSceneScene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MenuScene.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

@@ -38,6 +38,8 @@ namespace Input
 		bool ButtonPress(int _index, Button _buttons);
 		// Call this function to get if the Button is released. if true the buton is released
 		bool ButtonRelease(int _index, Button _buttons);
+		// Call this function to get if the Button is released. if true the buton is pressed then released
+		bool ButtonStroke(int _index, Button _buttons);
 		// Call this function to get the triggers on the controller. It returns false if there is no controller connected
 		bool GetTriggers(int _index, float &_leftTrigger, float &_rightTrigger);
 		// Call this function to set the vibration. It returns false if there is no controller connected
