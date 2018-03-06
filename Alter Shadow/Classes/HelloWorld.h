@@ -7,8 +7,10 @@
 #include "SimpleAudioEngine.h"
 #include <thread>
 #include <string>
+#include "controller.h"
 
 #pragma comment(lib,"Xinput9_1_0.lib")
+using namespace Input;
 class HelloWorld : public cocos2d::Scene
 {
 public:

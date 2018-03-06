@@ -60,10 +60,10 @@ bool HelloWorld::init()
 
 	//Collision stuff
 	contact();
-
+	
 	//call update
 	this->scheduleUpdate();
-
+	
 	//Background Audio
 	audio->setAudio("Audio/Battle_Time_V3.mp3");
 	audio->play(true);
@@ -74,6 +74,9 @@ bool HelloWorld::init()
 //Updates movement per frame
 void HelloWorld::update(float dt)
 {
+	static XBoxInput controllers;
+	controllers.DownloadPackets(4);
+
 	short count = 0;
 	for(auto &a : players)
 	{
@@ -86,6 +89,23 @@ void HelloWorld::update(float dt)
 		}
 
 	}
+	
+	
+
+	if (controllers.GetConnected(0))
+	{
+		
+		//OutputDebugStringA(string("Controller: "+std::to_string(index)+'\n').c_str());
+		Stick moveL, moveR;
+
+		controllers.GetSticks(0, moveL, moveR);
+		if (controllers.ButtonStroke(0, Start))
+		{
+			Director::getInstance()->replaceScene(HelloWorld::createScene());
+		}
+
+	}
+
 }
 
 void HelloWorld::contact()
