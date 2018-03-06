@@ -90,9 +90,17 @@ void OptionsScene::update(float index)
 		{
 			fullScrBtn->setScale(1.3f);
 
-			if (controllers.ButtonPress(index, A))
+			if (controllers.ButtonStroke(index, A))
 			{
-				//make fullscreen
+				//glview = GLViewImpl::createWithFullScreen(viewName, [vidmode], [monitor]);
+				//GLView::();
+				
+				dynamic_cast<GLViewImpl*>(cocos2d::Director::getInstance()->getOpenGLView())->setFullscreen(1);
+				
+			}
+			if (controllers.ButtonStroke(index, B))
+			{
+				Director::getInstance()->replaceScene(MenuScene::createScene());
 			}
 			if (moveD.yAxis == 0)
 			{
@@ -113,9 +121,13 @@ void OptionsScene::update(float index)
 		{
 			musicBtn->setScale(1.3f);
 
-			if (controllers.ButtonPress(index, A))
+			if (controllers.ButtonStroke(index, A))
 			{
 				
+			}
+			if (controllers.ButtonStroke(index, B))
+			{
+				Director::getInstance()->replaceScene(MenuScene::createScene());
 			}
 			if (moveD.yAxis == 0)
 			{
@@ -142,11 +154,11 @@ void OptionsScene::update(float index)
 		{
 			backBtn->setScale(1.3f);
 
-			if (controllers.ButtonPress(index, A))
+			if (controllers.ButtonStroke(index, A))
 			{
-				//Director::getInstance()->replaceScene(OptionsScene::createScene());
+				Director::getInstance()->replaceScene(MenuScene::createScene());
 			}
-			if (controllers.ButtonPress(index, B))
+			if (controllers.ButtonStroke(index, B))
 			{
 				Director::getInstance()->replaceScene(MenuScene::createScene());
 			}

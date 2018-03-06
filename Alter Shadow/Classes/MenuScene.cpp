@@ -58,8 +58,6 @@ bool MenuScene::init()
 	//call update
 	this->scheduleUpdate();
 
-
-
 	//Background Audio
 	audio->setAudio("Audio/Battle_Time_V3.mp3");
 	audio->play(true);
@@ -136,7 +134,7 @@ void MenuScene::update(float index)
 	
 			if (controllers.ButtonStroke(index, A))
 			{
-				//System.exit(0);
+				Director::getInstance()->end();
 			}
 			if (moveD.yAxis == 0)
 			{
