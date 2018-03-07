@@ -89,8 +89,6 @@ void HelloWorld::update(float dt)
 		}
 
 	}
-	
-	
 
 	if (controllers.GetConnected(0))
 	{
@@ -99,13 +97,30 @@ void HelloWorld::update(float dt)
 		Stick moveL, moveR;
 
 		controllers.GetSticks(0, moveL, moveR);
+
 		if (controllers.ButtonStroke(0, Start))
 		{
-			Director::getInstance()->replaceScene(HelloWorld::createScene());
+
+			//if (paused = false)
+			//{
+			if (gamePaused == false)
+			{
+				gamePaused = true;
+				Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(0);
+			}
+			else if (gamePaused == true)
+			{
+				gamePaused = false;
+				Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(1);
+			}
+			//}
+			//if (paused = true)
+			//{
+				//paused = false;
+				//Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(1);
+			//}
 		}
-
 	}
-
 }
 
 void HelloWorld::contact()
