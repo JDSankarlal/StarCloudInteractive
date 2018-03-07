@@ -26,8 +26,11 @@ void SpriteAnimation::addSprite(string directory)
 	for(auto &a : fs::directory_iterator(directory))
 	{
 		OutputDebugStringA(cDir(a.path().string() + '\n').c_str());
-		frames.push_back(Sprite::create(cDir(a.path().string())));
+		frames.push_back(cDir(a.path().string())/*Sprite::create(cDir(a.path().string()))*/);
+		//frames[frames.size() - 1]->setTexture();
 	}
+	if(frames.size() > 0)
+		frame = Sprite::create(frames[0]);
 }
 
 void SpriteAnimation::animate(bool repeat)
@@ -44,7 +47,8 @@ void SpriteAnimation::animate(bool repeat)
 			else if(frameCounter >= frames.size())
 				frameCounter--;
 
-			frame->setTexture(frames[frameCounter]->getTexture()->getPath());
+			frame->setTexture(frames[frameCounter]/*"pics/walk/Armature_Walk_01.png"*/);
+		//	OutputDebugStringA((to_string((int)frames[frameCounter]->getTexture())+"\n").c_str());
 			//frame->setScaleX(size->width);
 			//frame->setScaleY(size->height);
 			//frame->setPosition(*position);
@@ -56,7 +60,7 @@ void SpriteAnimation::animate(bool repeat)
 
 void SpriteAnimation::setAnimationSpeed(float dt)
 {
-	this->dt = dt;
+	this->fps = dt;
 }
 
 Sprite* SpriteAnimation::getSprite()

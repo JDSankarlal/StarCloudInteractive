@@ -8,10 +8,11 @@ USING_NS_CC;
 Player::Player(Scene *ActiveScene)
 {
 
-	AttachedSprite = Sprite::create("pics/walk/Armature_Walk_01.png");
-	//walk.addSprite("pics/walk");
-	//AttachedSprite = walk.getSprite();
-	getSprite()->setScale(.1);
+	//AttachedSprite = Sprite::create("pics/walk/Armature_Walk_01.png");
+	walk.addSprite("pics/walk");
+	AttachedSprite = walk.getSprite();
+	getSprite()->setScale(.075);
+	walk.setAnimationSpeed(.1);
 	auto size = getSprite()->getContentSize();
 	getSprite()->setPhysicsBody(PhysicsBody::createBox(size));
 	getBody()->setCollisionBitmask(1);
@@ -101,26 +102,26 @@ void Player::movementUpdate(int index)
 			lastMovement = moveL.xAxis;
 
 		//Regular Movement
-		//movementPercent += .05f;
-		//
-		//if (moveL.xAxis == 0)
-		//	movementPercent -= .15;
-		//else if (moveL.xAxis * move < 0)
-		//	getSprite()->setFlippedX(true);
-		//else
-		//	getSprite()->setFlippedX(false);
-		//
-		//if (movementPercent > 1)
-		//	movementPercent = 1;
-		//else if (movementPercent < 0)
-		//	movementPercent = 0;
-		//
-		////setVelX(moveL.xAxis * move * movementPercent);
-		////if(movementPercent > 0)
-		//setVelX(lastMovement*move * movementPercent);
-		getBody()->resetForces();
-		addForce(1000,0);
-		printInfo();
+		movementPercent += .05f;
+		
+		if (moveL.xAxis == 0)
+			movementPercent -= .15;
+		else if (moveL.xAxis * move < 0)
+			getSprite()->setFlippedX(true);
+		else
+			getSprite()->setFlippedX(false);
+		
+		if (movementPercent > 1)
+			movementPercent = 1;
+		else if (movementPercent < 0)
+			movementPercent = 0;
+		
+		//setVelX(moveL.xAxis * move * movementPercent);
+		//if(movementPercent > 0)
+		setVelX(lastMovement*move * movementPercent);
+		//getBody()->resetForces();
+		//addForce(1000,0);
+		//printInfo();
 #pragma region Jumping
 		//OutputDebugStringA((std::to_string(numJumps) + '\n').c_str());
 		if((controllers.ButtonPress(index, A)) && (!hasJumped && numJumps < 2))
@@ -194,11 +195,12 @@ void Player::movementUpdate(int index)
 		static Color3B colours2[] = {Color3B(1 * 255,0 * 255,0 * 255),Color3B(0 * 255,0 * 255,1 * 255),Color3B(0 * 255,1 * 255,0 * 255),Color3B(1 * 255,0 * 255,1 * 255)};
 
 		cursor[index]->setColor(colours2[index]);
+		//getBody()->setVelocity(Vec2::ZERO);
 	} else
 	{
 		cursor[index]->setPosition(-1 * (cursor[index]->getContentSize()));
 	}
-
+	 
 }
 
 void Player::setPosition(float x, float y, float z)

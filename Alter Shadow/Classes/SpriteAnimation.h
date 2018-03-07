@@ -27,7 +27,7 @@ public:
 
 	Sprite* getSprite();
 private:
-	vector<Sprite*> frames;
+	vector<string> frames;
 	Sprite* frame = Sprite::create();
 	int frameCounter;
 	clock_t dt;
