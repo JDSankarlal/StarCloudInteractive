@@ -7,30 +7,28 @@ Platforms::Platforms(cocos2d::Scene *activeScene, int bitMask, bool shadow, floa
 
 
 	if(shadow)
+	{
 		platform = Sprite::create("pics/Shadow_Platform.png");
-	else
+		child = Sprite::create("pics/Shadow_Platform_BG.png");
+		platform->addChild(child);
+	} else
+
 		platform = Sprite::create("pics/Platform.png");
 
-   //sets the width and height of platform in pixles
-   //if(width < platform->getContentSize().width)
-	platform->setScaleX(width / platform->getContentSize().width);
-//else
-//	platform->setScaleX(1.f - platform->getContentSize().width / width);
 
-//	if(height < platform->getContentSize().height)
+
+	   //sets the width and height of platform in pixles
+	platform->setScaleX(width / platform->getContentSize().width);
 	platform->setScaleY(height / platform->getContentSize().height);
-//else
-//	platform->setScaleY(1.f - platform->getContentSize().height / height);
 	auto size = getSprite()->getContentSize();
 	platform->setPhysicsBody(PhysicsBody::createBox(size));
+
 	getBody()->setDynamic(false);
 	getBody()->setCollisionBitmask(bitMask);
-	//getBody()->setCategoryBitmask(2);
-
-//	getBody()->setContactTestBitmask(1);
+	activeScene->addChild(platform);
 
  //adds platform to active scene
-	activeScene->addChild(platform);
+
 }
 
 Platforms::~Platforms()
@@ -49,6 +47,8 @@ cocos2d::PhysicsBody * Platforms::getBody()
 void Platforms::setPosition(float x, float y, float z)
 {
 	platform->setPosition3D(Vec3(x, y, z));
+//	if(child != nullptr)	child->setPosition3D(Vec3(x, y, z));
+	
 }
 
 void Platforms::setVel(float x, float y)

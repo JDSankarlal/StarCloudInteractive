@@ -3,6 +3,7 @@
 #include <string>
 #include "cocos2d.h"
 #include "controller.h"
+#include "SpriteAnimation.h"
 
 using std::string;
 using namespace cocos2d;
@@ -50,7 +51,7 @@ public:
 //sets the platform id
 	void platformSwitch(int);
 
-	void printPosition();
+	void printInfo();
 private:
 	float LT, RT, movementPercent,lastMovement;
 	bool dash;
@@ -64,7 +65,7 @@ private:
 	Sprite* cursor[4] {Sprite::create("pics/P1.png"),Sprite::create("pics/P2.png"),Sprite::create("pics/P3.png"),Sprite::create("pics/P4.png")};
 	bool hasJumped, colPress;
 	short colChange, jumpCount;
-
+	SpriteAnimation walk;
 	int numJumps=0, MaxHP, HP, lightDamage, heavyDamage, heavyDamageCharged, throwAttack, crossAttack;
 };
 
