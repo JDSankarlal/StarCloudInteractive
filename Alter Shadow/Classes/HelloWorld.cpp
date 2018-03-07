@@ -98,27 +98,19 @@ void HelloWorld::update(float dt)
 
 		controllers.GetSticks(0, moveL, moveR);
 
-		if (controllers.ButtonStroke(0, Start))
+		if (controllers.ButtonStroke(0, Start)) //If start pressed on controller
 		{
+			if (gamePaused == false) //if game not paused
+			{
+				gamePaused = true; //set game to paused
+				Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(0); //pause game
+			}
 
-			//if (paused = false)
-			//{
-			if (gamePaused == false)
+			else if (gamePaused == true) //if game paused
 			{
-				gamePaused = true;
-				Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(0);
+				gamePaused = false; //set game to unpaused
+				Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(1); //resume game
 			}
-			else if (gamePaused == true)
-			{
-				gamePaused = false;
-				Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(1);
-			}
-			//}
-			//if (paused = true)
-			//{
-				//paused = false;
-				//Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(1);
-			//}
 		}
 	}
 }
