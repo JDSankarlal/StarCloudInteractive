@@ -406,3 +406,19 @@ proj.win32/Release.*/
 *\cocos2d
 Alter Shadow/proj\.win32/Debug\.win32/Alter Shadow\.exe
 *.exp
+
+Alter Shadow/proj\.win32/Alter Shadow\.vcxproj
+
+Alter Shadow/proj\.win32/Alter Shadow\.vcxproj\.filters
+
+Alter Shadow/proj\.win32/Debug\.win32/Alter Shadow\.lib
+
+Alter Shadow/proj\.win32/Debug\.win32/libbox2d\.lib
+
+Alter Shadow/proj\.win32/Debug\.win32/libcocos2d\.dll
+
+Alter Shadow/proj\.win32/Debug\.win32/libcocos2d\.lib
+
+Alter Shadow/proj\.win32/Debug\.win32/librecast\.lib
+
+Alter Shadow/proj\.win32/Debug\.win32/libSpine\.lib
