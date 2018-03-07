@@ -16,7 +16,7 @@ Player::Player(Scene *ActiveScene)
 	auto size = getSprite()->getContentSize();
 	getSprite()->setPhysicsBody(PhysicsBody::createBox(size));
 	getBody()->setCollisionBitmask(1);
-	getBody()->setLinearDamping(.01);
+	//getBody()->setLinearDamping(.01);
 	//getBody()->setCategoryBitmask(1);
 
 	getBody()->setDynamic(true);
