@@ -152,7 +152,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\AudioPlayer.cpp" />
     <ClCompile Include="..\Classes\controller.cpp" />
-    <ClCompile Include="..\Classes\EmptyScene.cpp" />
     <ClCompile Include="..\Classes\HelloWorld.cpp" />
     <ClCompile Include="..\Classes\MenuScene.cpp" />
     <ClCompile Include="..\Classes\OptionsScene.cpp" />
@@ -168,7 +167,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\AudioPlayer.h" />
     <ClInclude Include="..\Classes\controller.h" />
-    <ClInclude Include="..\Classes\EmptyScene.h" />
     <ClInclude Include="..\Classes\HelloWorld.h" />
     <ClInclude Include="..\Classes\MenuScene.h" />
     <ClInclude Include="..\Classes\MenuSceneScene.h" />
@@ -180,7 +178,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Player.h" />
     <ClInclude Include="..\Classes\SplashScreen.h" />
     <ClInclude Include="..\Classes\SpriteAnimation.h" />
-    <ClInclude Include="EmptySceneScene.h" />
     <ClInclude Include="GameHandler.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
