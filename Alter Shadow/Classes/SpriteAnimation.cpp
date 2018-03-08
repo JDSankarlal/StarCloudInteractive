@@ -1,7 +1,7 @@
 #include "SpriteAnimation.h"
 
 USING_NS_CC;
-
+using std::string;
 SpriteAnimation::SpriteAnimation()
 {}
 
@@ -25,40 +25,71 @@ void SpriteAnimation::addSprite(string directory)
 	//int count=0;
 	for(auto &a : fs::directory_iterator(directory))
 	{
-		OutputDebugStringA(cDir(a.path().string() + '\n').c_str());
-		frames.push_back(cDir(a.path().string())/*Sprite::create(cDir(a.path().string()))*/);
-		//frames[frames.size() - 1]->setTexture();
+		OutputDebugStringA(string(cDir(a.path().string()) + '\n' + to_string(frames->size()) + '\n').c_str());
+		frames->push_back(new string(cDir(a.path().string())));
 	}
-	if(frames.size() > 0)
-		frame = Sprite::create(frames[0]);
+	if(frames->size() > 0)
+		frame->setTexture(*(*frames)[0]);
 }
 
-void SpriteAnimation::animate(bool repeat)
+void SpriteAnimation::removeSprite()
+{}
+
+void SpriteAnimation::removeAllSprites()
 {
-	float diffT = (clock() - dt) / CLOCKS_PER_SEC;
-	if(diffT > fps)
+	for(int a = 0; a < frames->size();)
 	{
-		if(frames.size() > 0)
-		{
-			dt = clock();
-			frameCounter++;
-			if(frameCounter >= frames.size() && repeat)
-				frameCounter = 0;
-			else if(frameCounter >= frames.size())
-				frameCounter--;
+		delete(*frames)[a];
+		frames->erase(frames->begin());
+	}
+	frameCounter = 0;
 
-			frame->setTexture(frames[frameCounter]/*"pics/walk/Armature_Walk_01.png"*/);
-		//	OutputDebugStringA((to_string((int)frames[frameCounter]->getTexture())+"\n").c_str());
-			//frame->setScaleX(size->width);
-			//frame->setScaleY(size->height);
-			//frame->setPosition(*position);
-			//*size = Size(frame->getScaleX(), frame->getScaleY());
-			//*position = frame->getPosition();
+}
+
+void SpriteAnimation::animate(const bool repeat)
+{
+	if(!pauseAni)
+	{
+		float diffT = float(clock() - dt) / CLOCKS_PER_SEC;
+
+		if(diffT > fps)
+		{
+			if(frames->size() > 0)
+			{
+				dt = clock();
+				frameCounter++;
+				if(frameCounter >= frames->size() && repeat)
+					frameCounter = 0;
+				else if(frameCounter >= frames->size())
+					frameCounter--;
+
+				frame->setTexture(*(*frames)[frameCounter]);
+			}
 		}
+	} else
+	{
+		dt = clock() - fps;
 	}
 }
 
-void SpriteAnimation::setAnimationSpeed(float dt)
+void SpriteAnimation::pause()
+{
+	pauseAni = true;
+}
+
+void SpriteAnimation::resume()
+{
+	pauseAni = false;
+}
+
+void SpriteAnimation::reset()
+{
+	frameCounter = 0;
+	if(frames->size() > 0)
+		frame->setTexture(*(*frames)[0]);
+}
+
+void SpriteAnimation::setAnimationSpeed(const float dt)
 {
 	this->fps = dt;
 }

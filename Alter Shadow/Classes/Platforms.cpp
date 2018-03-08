@@ -10,6 +10,7 @@ Platforms::Platforms(cocos2d::Scene *activeScene, int bitMask, bool shadow, floa
 	{
 		platform = Sprite::create("pics/Shadow_Platform.png");
 		child = Sprite::create("pics/Shadow_Platform_BG.png");
+		child->setAnchorPoint(Vec2(0, .26));
 		platform->addChild(child);
 	} else
 
