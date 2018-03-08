@@ -53,11 +53,20 @@ bool HelloWorld::init()
 	pf2->setPosition(visibleSize.width / 2, visibleSize.height / 2 - 200);
 	pf1->setPosition(visibleSize.width / 2 + 100, visibleSize.height / 2 + 150);
 
-	//Background
+	//Place Background
 	background->setScaleX(visibleSize.width / background->getContentSize().width);
 	background->setScaleY(visibleSize.height / background->getContentSize().height);
 	background->setPosition(visibleSize.width / 2, visibleSize.height / 2);
 	addChild(background, -1);
+
+	//Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(1); //resume game
+
+	//Place Pause Menu
+	menu = Sprite::create("pics/idfk.png");
+	menu->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
+	menu->setScale(1);
+	menu->setAnchorPoint(Vec2(0.5f, 0.5f));
+	this->addChild(menu, -2);
 
 	//Collision stuff
 	contact();
@@ -105,13 +114,13 @@ void HelloWorld::update(float dt)
 			{
 				gamePaused = true; //set game to paused
 				Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(0); //pause game
-				Director::getInstance()->pushScene(PauseScene::createScene());
+				//Director::getInstance()->pushScene(PauseScene::createScene());
 			}
 
 			else if (gamePaused == true) //if game paused
 			{
 				gamePaused = false; //set game to unpaused
-				Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(1); //resume game
+				Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(1);
 			}
 		}
 	}
@@ -168,14 +177,5 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 
 void HelloWorld::DrawWorld()
 {
-	//background = Sprite::create("pics/Level_BG.png");
-	//background->setAnchorPoint(Vec2(0.5f, 0.5f));
-	//background->setPosition(director->getWinSizeInPixels().width / 2, director->getWinSizeInPixels().height / 2);
-	//this->addChild(background, -100);
-	//
-	//Platform = Sprite::create("pics/empty.png");
-	//Platform->setPosition(200, 100);
-	//Platform->setScale(0.30f);
-	//Platform->setAnchorPoint(Vec2(0.5f, 0.5f));
-	//this->addChild(Platform);
+
 }

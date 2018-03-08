@@ -31,10 +31,10 @@ bool PauseScene::init()
 	Vec2 origin = director->getVisibleOrigin();
 
 	//Background
-	BG->setScaleX(visibleSize.width / BG->getContentSize().width);
-	BG->setScaleY(visibleSize.height / BG->getContentSize().height);// / BG->getContentSize().height);
-	BG->setPosition(visibleSize.width / 2, visibleSize.height / 2);
-	addChild(BG, -1);
+	background->setScaleX(visibleSize.width / background->getContentSize().width);
+	background->setScaleY(visibleSize.height / background->getContentSize().height);// / background->getContentSize().height);
+	background->setPosition(visibleSize.width / 2, visibleSize.height / 2);
+	addChild(background, -1);
 
 	//call update
 	this->scheduleUpdate();

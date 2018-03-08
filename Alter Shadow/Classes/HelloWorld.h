@@ -44,6 +44,7 @@ private:
 	void contact();
 	//Put variables and sprites and stuff here
 	cocos2d::Sprite* background = cocos2d::Sprite::create("pics/Level_BG.png");
+	cocos2d::Sprite* menu;
 	Platforms* pf1;
 	bool gamePaused = false;
 
