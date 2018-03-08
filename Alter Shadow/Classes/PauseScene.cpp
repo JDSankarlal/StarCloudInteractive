@@ -31,10 +31,10 @@ bool PauseScene::init()
 	Vec2 origin = director->getVisibleOrigin();
 
 	//Background
-	//background->setScaleX(visibleSize.width / background->getContentSize().width);
-	//background->setScaleY(visibleSize.height / background->getContentSize().height);
-	//background->setPosition(visibleSize.width / 2, visibleSize.height / 2);
-	//addChild(background, -1);
+	BG->setScaleX(visibleSize.width / BG->getContentSize().width);
+	BG->setScaleY(visibleSize.height / BG->getContentSize().height);// / BG->getContentSize().height);
+	BG->setPosition(visibleSize.width / 2, visibleSize.height / 2);
+	addChild(BG, -1);
 
 	//call update
 	this->scheduleUpdate();
@@ -60,7 +60,10 @@ void PauseScene::update(float index)
 		Stick moveD, moveU;
 		static int count, til = 20;
 		controllers.GetSticks(index, moveD, moveU);
-
+		if (controllers.ButtonStroke(0, Start)) //If start pressed on controller
+		{
+			//Director::getInstance()->popScene(float 1.1f);
+		}
 
 
 

@@ -1,5 +1,6 @@
 #pragma once 
 #include "HelloWorld.h"
+#include "PauseScene.h"
 
 
 
@@ -104,6 +105,7 @@ void HelloWorld::update(float dt)
 			{
 				gamePaused = true; //set game to paused
 				Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(0); //pause game
+				Director::getInstance()->pushScene(PauseScene::createScene());
 			}
 
 			else if (gamePaused == true) //if game paused

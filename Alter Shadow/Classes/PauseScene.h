@@ -27,7 +27,7 @@ public:
 
 
 	//Background sprite
-	//cocos2d::Sprite * sprite,*BG = cocos2d::Sprite::create("pics/test level.png");
+	cocos2d::Sprite *BG = cocos2d::Sprite::create("pics/idfk.png"), sprite;
 	//cocos2d::Sprite3D *s3d = cocos2d::Sprite3D::create("pics/test 3d model.c3b");
 
 	AudioPlayer *audio = new AudioPlayer;
