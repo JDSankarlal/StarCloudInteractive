@@ -114,13 +114,16 @@ void HelloWorld::update(float dt)
 			{
 				gamePaused = true; //set game to paused
 				Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(0); //pause game
+				menu->setGlobalZOrder(3); //move menu forwards
 				//Director::getInstance()->pushScene(PauseScene::createScene());
 			}
 
 			else if (gamePaused == true) //if game paused
 			{
 				gamePaused = false; //set game to unpaused
-				Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(1);
+				menu->setGlobalZOrder(-2); //move menu back
+				Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(1); //Resume game
+				
 			}
 		}
 	}
