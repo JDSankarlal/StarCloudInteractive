@@ -1,65 +1,132 @@
 #include "AppDelegate.h"
+#include "SplashScreen.h"
 #include "HelloWorldScene.h"
+#include "MenuSceneScene.h"
+#include "MenuScene.h"
 
-//Wrapper Classes
-#include "InputHandler.h"
-#include "DisplayHandler.h"
+// #define USE_AUDIO_ENGINE 1
+// #define USE_SIMPLE_AUDIO_ENGINE 1
+
+#if USE_AUDIO_ENGINE && USE_SIMPLE_AUDIO_ENGINE
+#error "Don't use AudioEngine and SimpleAudioEngine at the same time. Please just select one in your game!"
+#endif
+
+#if USE_AUDIO_ENGINE
+#include "audio/include/AudioEngine.h"
+using namespace cocos2d::experimental;
+#elif USE_SIMPLE_AUDIO_ENGINE
+#include "audio/include/SimpleAudioEngine.h"
+using namespace CocosDenshion;
+#endif
 
 USING_NS_CC;
 
-//--- Constructors and Destructors ---//
+static cocos2d::Size designResolutionSize = cocos2d::Size(480, 320);
+static cocos2d::Size smallResolutionSize = cocos2d::Size(480, 320);
+static cocos2d::Size mediumResolutionSize = cocos2d::Size(1024, 768);
+static cocos2d::Size largeResolutionSize = cocos2d::Size(2048, 1536);
+
 AppDelegate::AppDelegate()
 {
 }
 
-AppDelegate::~AppDelegate()
+AppDelegate::~AppDelegate() 
 {
+#if USE_AUDIO_ENGINE
+    AudioEngine::end();
+#elif USE_SIMPLE_AUDIO_ENGINE
+    SimpleAudioEngine::end();
+#endif
 }
 
-//--- Virtual Methods ---//
-bool AppDelegate::applicationDidFinishLaunching()
+// if you want a different context, modify the value of glContextAttrs
+// it will affect all platforms
+void AppDelegate::initGLContextAttrs()
 {
-	//Create the window
-	//The resolution of our window is 640x480 pixels
-	//The title of the window is "Template". This shows up on the toolbar at the top of the window
-	//We do not want it fullscreen right now. If we did, our resolution parameters would be overwritten
-	//The 2.0x zoom factor simply scales up our window so it is easier to see and work with. The window itself is 2x the size as well as everything being drawn inside it
-	DISPLAY->init(640, 480, "Template", false, 2.0f);
+    // set OpenGL context attributes: red,green,blue,alpha,depth,stencil
+    GLContextAttrs glContextAttrs = {8, 8, 8, 8, 24, 8};
 
-	//Create our main scene and tell the director to use it
-	//The director is Cocos2D's game management system. It controls the scene switching, creating, etc. It is a singleton so there is only one instance of the class and it can be used everywhere
-	//We are creating a new version of our demo scene and then telling the director to start using it
-	Director* director = Director::getInstance();
-	Scene* scene = HelloWorld::createScene();
-	director->runWithScene(scene);
-
-	//Set up the input handler
-	//This is another singleton so you can't make more than one instance of this class
-	//INPUTS is actually a macro. It represents InputHandler::getInstance() which is exactly the same as the Director::getInstance() function we used above
-	//This is a simple input handler to prevent having to handle the Cocos2D events yourself
-	INPUTS->init();
-
-	//Indicate everything succeeded with the launch
-	return true;
+    GLView::setGLContextAttrs(glContextAttrs);
 }
 
-void AppDelegate::applicationDidEnterBackground()
+// if you want to use the package manager to install more packages,  
+// don't modify or remove this function
+static int register_all_packages()
 {
-	//This function is the opposite of applicationWillEnterForeground()
-	//This function is called when your game / application is no longer the primary target on the user's screen
-	//On mobile phones, this would be when the app is still running but the user has switched to a different app (ex: they answer a phone call)
-	//On Windows, this is called when the user minimizes the game window
-	//Some practical usage of this would to be pause the game until they come back. You can call director->pause() here to do just that.
-	std::cout << "Entering Background..." << std::endl;
+    return 0; //flag for packages manager
 }
 
-void AppDelegate::applicationWillEnterForeground()
-{
-	//This function is the opposite of applicationDidEnterBackground()
-	//This function is called when your game / application is becoming the primary target on the user's screen once again
-	//On mobile phones, this would be when the app is still running and the user has switched back to it (ex: they finished with their phone call)
-	//On Windows, this is called when the user selects the window again after minimizing it
-	//This would be a good place to unpause the game if you had paused it or to perform other setup stuff like getting the music ready again
-	std::cout << "Entering Foreground..." << std::endl;
+bool AppDelegate::applicationDidFinishLaunching() {
+    // initialize director
+	cocos2d::CCDirector *pDirector = cocos2d::CCDirector::sharedDirector();
+    auto director = Director::getInstance();
+    auto glview = director->getOpenGLView();
+    if(!glview) {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
+        glview = GLViewImpl::createWithRect("AlterMention", cocos2d::Rect(0, 0, mediumResolutionSize.width, mediumResolutionSize.height));
+#else
+        glview = GLViewImpl::create("Alter Shadow");
+#endif
+        director->setOpenGLView(glview);
+    }
+	
+    // turn on display FPS
+    director->setDisplayStats(true);
+
+    // set FPS. the default value is 1.0/60 if you don't call this
+    director->setAnimationInterval(1.0f / 60);
+
+    // Set the design resolution
+    glview->setDesignResolutionSize(mediumResolutionSize.width, mediumResolutionSize.height, ResolutionPolicy::NO_BORDER);
+    auto frameSize = glview->getFrameSize();
+    // if the frame's height is larger than the height of medium size.
+    if (frameSize.height > mediumResolutionSize.height)
+    {        
+        director->setContentScaleFactor(MIN(largeResolutionSize.height/designResolutionSize.height, largeResolutionSize.width/designResolutionSize.width));
+    }
+    // if the frame's height is larger than the height of small size.
+    else if (frameSize.height > smallResolutionSize.height)
+    {        
+        director->setContentScaleFactor(MIN(mediumResolutionSize.height/designResolutionSize.height, mediumResolutionSize.width/designResolutionSize.width));
+    }
+    // if the frame's height is smaller than the height of medium size.
+    else
+    {        
+        director->setContentScaleFactor(MIN(smallResolutionSize.height/designResolutionSize.height, smallResolutionSize.width/designResolutionSize.width));
+    }
+
+    register_all_packages();
+
+    // create a scene. it's an autorelease object
+
+    cocos2d::CCScene *pScene = SplashScreen::StartScene();
+
+    // run
+    pDirector->runWithScene(pScene);
+
+    return true;
 }
 
+// This function will be called when the app is inactive. Note, when receiving a phone call it is invoked.
+void AppDelegate::applicationDidEnterBackground() {
+    Director::getInstance()->stopAnimation();
+
+#if USE_AUDIO_ENGINE
+    AudioEngine::pauseAll();
+#elif USE_SIMPLE_AUDIO_ENGINE
+    SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+    SimpleAudioEngine::getInstance()->pauseAllEffects();
+#endif
+}
+
+// this function will be called when the app is active again
+void AppDelegate::applicationWillEnterForeground() {
+    Director::getInstance()->startAnimation();
+
+#if USE_AUDIO_ENGINE
+    AudioEngine::resumeAll();
+#elif USE_SIMPLE_AUDIO_ENGINE
+    SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+    SimpleAudioEngine::getInstance()->resumeAllEffects();
+#endif
+}
