@@ -34,7 +34,7 @@ public:
 
 	cocos2d::Director *director;
 
-	cocos2d::Sprite* background = cocos2d::Sprite::create("pics/download.jpg");
+	cocos2d::Sprite* background = cocos2d::Sprite::create("pics/placeholderMenu.jpg");
 	cocos2d::Sprite* backBtn;
 	cocos2d::Sprite* musicBtn;
 	cocos2d::Sprite* fullScrBtn;
