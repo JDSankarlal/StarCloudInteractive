@@ -9,10 +9,10 @@ Player::Player(Scene *ActiveScene)
 {
 
 	//AttachedSprite = Sprite::create("pics/walk/Armature_Walk_01.png");
-	walk.addSprite("pics/walk");
-	AttachedSprite = walk.getSprite();
+	playerAni->addSprite("pics/walk");
+	AttachedSprite = playerAni->getSprite();
 	getSprite()->setScale(.075);
-	walk.setAnimationSpeed(.1);
+	playerAni->setAnimationSpeed(.01);
 	auto size = getSprite()->getContentSize();
 	getSprite()->setPhysicsBody(PhysicsBody::createBox(size));
 	getBody()->setCollisionBitmask(1);
@@ -86,7 +86,7 @@ void Player::movementUpdate(int index)
 {
 	static XBoxInput controllers;
 	controllers.DownloadPackets(4);
-
+	playerAni->animate();
 
 	if(controllers.GetConnected(index))
 	{
@@ -97,7 +97,6 @@ void Player::movementUpdate(int index)
 
 		controllers.GetSticks(index, moveL, moveR);
 		int move = 375;
-		walk.animate();
 		if(moveL.xAxis != 0)
 			lastMovement = moveL.xAxis;
 
@@ -119,6 +118,14 @@ void Player::movementUpdate(int index)
 		//setVelX(moveL.xAxis * move * movementPercent);
 		//if(movementPercent > 0)
 		setVelX(lastMovement*move * movementPercent);
+
+		if(moveL.xAxis != 0)
+		{
+			playerAni->resume();
+			playerAni->setAnimationSpeed((1.3 - abs(moveL.xAxis))*.1);
+		}
+		else
+			playerAni->pause();
 		//getBody()->resetForces();
 		//addForce(1000,0);
 		//printInfo();

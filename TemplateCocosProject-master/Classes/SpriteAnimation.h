@@ -6,7 +6,8 @@
 
 USING_NS_CC;
 
-using namespace std;
+using std::string;
+using std::vector;
 namespace fs = std::experimental::filesystem;
 
 class SpriteAnimation
@@ -21,18 +22,26 @@ public:
 
 	//Animates throught the vector of frames
 	void animate(bool repeat = true);
-
+	 //Pause
+	void pause();
+	//Resume
+	void resume();
+	//Restart
+	void restart();
+	//Remove
+	void removeAllSprites();
 	//Sets the animation speed in seconds 
 	void setAnimationSpeed(float);
 
 	Sprite* getSprite();
 private:
-	vector<string> frames;
+	vector<string*> *frames = new vector<string*>;
 	Sprite* frame = Sprite::create();
-	int frameCounter;
-	clock_t dt;
-	float fps;
+	clock_t* dt=new clock_t;
 	Size* size = new Size();
 	Vec2* position = new Vec2();
+	int frameCounter;
+	float fps;
+	bool pauseAni=false;
 };
 

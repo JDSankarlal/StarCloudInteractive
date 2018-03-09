@@ -46,7 +46,7 @@ public:
 	void setPosition(float x, float y, float z = 0);
 
 	//get the position
-	void getPosition();
+	Vec2 getPosition();
 
 //sets the platform id
 	void platformSwitch(int);
@@ -65,7 +65,7 @@ private:
 	Sprite* cursor[4] {Sprite::create("pics/P1.png"),Sprite::create("pics/P2.png"),Sprite::create("pics/P3.png"),Sprite::create("pics/P4.png")};
 	bool hasJumped, colPress;
 	short colChange, jumpCount;
-	SpriteAnimation walk;
+	SpriteAnimation* playerAni=new SpriteAnimation;
 	int numJumps=0, MaxHP, HP, lightDamage, heavyDamage, heavyDamageCharged, throwAttack, crossAttack;
 };
 

@@ -104,9 +104,6 @@
     <ClInclude Include="..\Classes\OptionsScene.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\OptionsSceneScene.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\PauseScene.h">
       <Filter>src</Filter>
     </ClInclude>
