@@ -1,5 +1,8 @@
 #include "AppDelegate.h"
+#include "SplashScreen.h"
 #include "HelloWorldScene.h"
+#include "MenuSceneScene.h"
+#include "MenuScene.h"
 
 // #define USE_AUDIO_ENGINE 1
 // #define USE_SIMPLE_AUDIO_ENGINE 1
@@ -55,17 +58,18 @@ static int register_all_packages()
 
 bool AppDelegate::applicationDidFinishLaunching() {
     // initialize director
+	cocos2d::CCDirector *pDirector = cocos2d::CCDirector::sharedDirector();
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
     if(!glview) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
-        glview = GLViewImpl::createWithRect("TemplateProject", cocos2d::Rect(0, 0, designResolutionSize.width, designResolutionSize.height));
+        glview = GLViewImpl::createWithRect("AlterMention", cocos2d::Rect(0, 0, mediumResolutionSize.width, mediumResolutionSize.height));
 #else
-        glview = GLViewImpl::create("TemplateProject");
+        glview = GLViewImpl::create("Alter Shadow");
 #endif
         director->setOpenGLView(glview);
     }
-
+	
     // turn on display FPS
     director->setDisplayStats(true);
 
@@ -73,7 +77,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setAnimationInterval(1.0f / 60);
 
     // Set the design resolution
-    glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::NO_BORDER);
+    glview->setDesignResolutionSize(mediumResolutionSize.width, mediumResolutionSize.height, ResolutionPolicy::NO_BORDER);
     auto frameSize = glview->getFrameSize();
     // if the frame's height is larger than the height of medium size.
     if (frameSize.height > mediumResolutionSize.height)
@@ -94,10 +98,11 @@ bool AppDelegate::applicationDidFinishLaunching() {
     register_all_packages();
 
     // create a scene. it's an autorelease object
-    auto scene = HelloWorld::createScene();
+
+    cocos2d::CCScene *pScene = SplashScreen::StartScene();
 
     // run
-    director->runWithScene(scene);
+    pDirector->runWithScene(pScene);
 
     return true;
 }
