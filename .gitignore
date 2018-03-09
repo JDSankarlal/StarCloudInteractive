@@ -409,3 +409,6 @@ proj.win32/Release.*/
 
 
 
+*.json
+*.vcxproj
+*.sln
