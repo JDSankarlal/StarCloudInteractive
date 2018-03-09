@@ -62,11 +62,36 @@ bool HelloWorld::init()
 	//Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(1); //resume game
 
 	//Place Pause Menu
+<<<<<<< Updated upstream
 	menu = Sprite::create("pics/idfk.png");
 	menu->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
 	menu->setScale(1);
 	menu->setAnchorPoint(Vec2(0.5f, 0.5f));
+=======
+	menu = Sprite::create("pics/newPaused.png");
+	menu->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
+	menu->setScale(1.6);
+	menu->setAnchorPoint(Vec2(0.5f, 0.5f));
+>>>>>>> Stashed changes
 	this->addChild(menu, -2);
+
+	restartBtn = Sprite::create("pics/restart.png");
+	restartBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
+	restartBtn->setScale(1);
+	restartBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
+	this->addChild(restartBtn, -2);
+
+	resumeBtn = Sprite::create("pics/resumeButn.png");
+	resumeBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2) + 125);
+	resumeBtn->setScale(1);
+	resumeBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
+	this->addChild(resumeBtn, -2);
+
+	quitBtn = Sprite::create("pics/quitbtn.png");
+	quitBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2) - 125);
+	quitBtn->setScale(1);
+	quitBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
+	this->addChild(quitBtn, -2);
 
 	//Collision stuff
 	contact();
@@ -104,15 +129,20 @@ void HelloWorld::update(float dt)
 	{
 		
 		//OutputDebugStringA(string("Controller: "+std::to_string(index)+'\n').c_str());
-		Stick moveL, moveR;
+		Stick moveD, moveU;
 
-		controllers.GetSticks(0, moveL, moveR);
+		static int count, til = 20;
+		controllers.GetSticks(0, moveD, moveU);
 
 		if (controllers.ButtonStroke(0, Start)) //If start pressed on controller
 		{
 			if (gamePaused == false) //if game not paused
 			{
 				gamePaused = true; //set game to paused
+				resumeBtnActive = true;
+				resumeBtn->setGlobalZOrder(4);
+				restartBtn->setGlobalZOrder(4);
+				quitBtn->setGlobalZOrder(4);
 				Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(0); //pause game
 				menu->setGlobalZOrder(3); //move menu forwards
 				//Director::getInstance()->pushScene(PauseScene::createScene());
@@ -121,9 +151,101 @@ void HelloWorld::update(float dt)
 			else if (gamePaused == true) //if game paused
 			{
 				gamePaused = false; //set game to unpaused
+				resumeBtnActive = false;
+				restartBtnActive = false;
+				quitBtnActive = false;
+				resumeBtn->setGlobalZOrder(-2);
+				restartBtn->setGlobalZOrder(-2);
+				quitBtn->setGlobalZOrder(-2);
 				menu->setGlobalZOrder(-2); //move menu back
 				Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(1); //Resume game
 				
+			}
+		}
+		
+		if (gamePaused == true)
+		{
+			if (resumeBtnActive)
+			{
+				
+				resumeBtn->setScale(1.3f);
+
+				if (controllers.ButtonStroke(0, A))
+				{
+					gamePaused = false; //set game to unpaused
+					resumeBtnActive = false;
+					restartBtnActive = false;
+					quitBtnActive = false;
+					resumeBtn->setGlobalZOrder(-2);
+					restartBtn->setGlobalZOrder(-2);
+					quitBtn->setGlobalZOrder(-2);
+					menu->setGlobalZOrder(-2); //move menu back
+					Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(1); //Resume game
+				}
+				if (moveD.yAxis == 0)
+				{
+					count = til;
+				}
+				if (count++ > til) {
+					count = 0;
+					if (moveD.yAxis < 0)
+					{
+						restartBtnActive = true;
+						resumeBtn->setScale(1);
+						resumeBtnActive = false;
+					}
+				}
+			}
+			else if (restartBtnActive)
+			{
+				restartBtn->setScale(1.3f);
+
+				if (controllers.ButtonStroke(0, A))
+				{
+					Director::getInstance()->replaceScene(HelloWorld::createScene());
+				}
+				if (moveD.yAxis == 0)
+				{
+					count = til;
+				}
+				if (count++ > til) {
+					count = 0;
+					if (moveD.yAxis < 0)
+					{
+						quitBtnActive = true;
+						restartBtn->setScale(1);
+						restartBtnActive = false;
+					}
+					if (moveD.yAxis > 0)
+					{
+						resumeBtnActive = true;
+						restartBtn->setScale(1);
+						restartBtnActive = false;
+					}
+				}
+			}
+			else if (quitBtnActive)
+			{
+
+				quitBtn->setScale(1.3f);
+
+				if (controllers.ButtonStroke(0, A))
+				{
+					Director::getInstance()->end();
+				}
+				if (moveD.yAxis == 0)
+				{
+					count = til;
+				}
+				if (count++ > til) {
+					count = 0;
+					if (moveD.yAxis > 0)
+					{
+						restartBtnActive = true;
+						quitBtn->setScale(1);
+						quitBtnActive = false;
+					}
+				}
 			}
 		}
 	}

@@ -45,8 +45,15 @@ private:
 	//Put variables and sprites and stuff here
 	cocos2d::Sprite* background = cocos2d::Sprite::create("pics/Level_BG.png");
 	cocos2d::Sprite* menu;
+	cocos2d::Sprite* resumeBtn;
+	cocos2d::Sprite* restartBtn;
+	cocos2d::Sprite* quitBtn;
 	Platforms* pf1;
 	bool gamePaused = false;
+	bool resumeBtnActive = false;
+	bool restartBtnActive = false;
+	bool quitBtnActive = false;
+
 
 };
 
