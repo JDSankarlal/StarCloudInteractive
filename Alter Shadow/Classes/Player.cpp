@@ -9,10 +9,10 @@ Player::Player(Scene *ActiveScene)
 {
 
 	//AttachedSprite = Sprite::create("pics/walk/Armature_Walk_01.png");
-	playerAni.addSprite("pics/walk");
-	AttachedSprite = playerAni.getSprite();
+	walk.addSprite("pics/walk");
+	AttachedSprite = walk.getSprite();
 	getSprite()->setScale(.075);
-	
+	walk.setAnimationSpeed(.1);
 	auto size = getSprite()->getContentSize();
 	getSprite()->setPhysicsBody(PhysicsBody::createBox(size));
 	getBody()->setCollisionBitmask(1);
@@ -21,7 +21,7 @@ Player::Player(Scene *ActiveScene)
 
 	getBody()->setDynamic(true);
 	getBody()->setRotationEnable(false);
-	ActiveScene->addChild(AttachedSprite,1);
+	ActiveScene->addChild(AttachedSprite);
 	scene = ActiveScene;
 	for(auto &a : cursor)
 		ActiveScene->addChild(a);
@@ -86,34 +86,26 @@ void Player::movementUpdate(int index)
 {
 	static XBoxInput controllers;
 	controllers.DownloadPackets(4);
-	
+
+
 	if(controllers.GetConnected(index))
 	{
 
 		//OutputDebugStringA(string("Controller: "+std::to_string(index)+'\n').c_str());
 #pragma region Movement	
 		Stick moveL, moveR;
-		
+
 		controllers.GetSticks(index, moveL, moveR);
 		int move = 375;
-		
+		walk.animate();
 		if(moveL.xAxis != 0)
 			lastMovement = moveL.xAxis;
-		if(moveL.xAxis != 0)
-		{
-			playerAni.resume();
-			playerAni.setAnimationSpeed((1 - abs(moveL.xAxis))*.5);
-		} else
-		{
-			//playerAni.reset();
-			playerAni.pause();
-		}
 
+		//Regular Movement
 		movementPercent += .05f;
 		
 		if (moveL.xAxis == 0)
 			movementPercent -= .15;
-
 		else if (moveL.xAxis * move < 0)
 			getSprite()->setFlippedX(true);
 		else
@@ -131,15 +123,10 @@ void Player::movementUpdate(int index)
 		//addForce(1000,0);
 		//printInfo();
 #pragma region Jumping
-		
 		//OutputDebugStringA((std::to_string(numJumps) + '\n').c_str());
 		if((controllers.ButtonPress(index, A)) && (!hasJumped && numJumps < 2))
 		{
 			numJumps++;
-			playerAni.removeAllSprites();
-			OutputDebugStringA("Jumping\n");
-			playerAni.addSprite("pics/Jump 1");
-			//playerAni.reset();
 			setVelY(535);
 			hasJumped = true;
 		}
@@ -213,8 +200,7 @@ void Player::movementUpdate(int index)
 	{
 		cursor[index]->setPosition(-1 * (cursor[index]->getContentSize()));
 	}
-	playerAni.animate();
-
+	 
 }
 
 void Player::setPosition(float x, float y, float z)

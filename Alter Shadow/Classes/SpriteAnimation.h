@@ -17,37 +17,22 @@ public:
 
 	//Adds a sprite to the animation list
 	void addSprite(Sprite*);
-	void addSprite(const string directory);
-
-	//Removes sprites from animation list
-	void removeSprite();
-	void removeAllSprites();
+	void addSprite(string directory);
 
 	//Animates throught the vector of frames
-	void animate(const bool repeat = true);
-
-	//Pause
-	void pause();
-
-	//Resume
-	void resume();
-
-	//Reset
-	void reset();
+	void animate(bool repeat = true);
 
 	//Sets the animation speed in seconds 
-	void setAnimationSpeed(const float);
+	void setAnimationSpeed(float);
 
 	Sprite* getSprite();
 private:
-	vector<string*> *frames=new vector<string*>();
-	Sprite* frame = Sprite::create(),frameTemp;
-	clock_t dt;	  	
+	vector<string> frames;
+	Sprite* frame = Sprite::create();
+	int frameCounter;
+	clock_t dt;
+	float fps;
 	Size* size = new Size();
 	Vec2* position = new Vec2();
-	bool pauseAni=false;
-	float fps;
-	int frameCounter;
-
 };
 
