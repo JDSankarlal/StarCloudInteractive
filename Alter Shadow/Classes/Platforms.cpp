@@ -10,12 +10,18 @@ Platforms::Platforms(cocos2d::Scene *activeScene, int bitMask, bool shadow, floa
 	{
 		platform = Sprite::create("pics/Shadow_Platform.png");
 		child = Sprite::create("pics/Shadow_Platform_BG.png");
+		child->setAnchorPoint(Vec2(0,.26));
+		child->setScaleY(.98);
+		child->setGlobalZOrder(1);
 		platform->addChild(child);
 	} else
 
 		platform = Sprite::create("pics/Platform.png");
 
-
+	everything->setTexture(Director::getInstance()->getTextureCache()->addImage("pics/Drip.png"));
+	//everything->setPhysicsBody(PhysicsBody::create());
+	activeScene->addChild(everything);
+	
 
 	   //sets the width and height of platform in pixles
 	platform->setScaleX(width / platform->getContentSize().width);
@@ -25,7 +31,7 @@ Platforms::Platforms(cocos2d::Scene *activeScene, int bitMask, bool shadow, floa
 
 	getBody()->setDynamic(false);
 	getBody()->setCollisionBitmask(bitMask);
-	activeScene->addChild(platform);
+	activeScene->addChild(platform,2);
 
  //adds platform to active scene
 
@@ -59,4 +65,5 @@ void Platforms::setVel(float x, float y)
 void Platforms::update()
 {
 	platform->setPosition3D(position);
+	everything->setPosition(platform->getPosition());
 }

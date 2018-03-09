@@ -9,10 +9,10 @@ Player::Player(Scene *ActiveScene)
 {
 
 	//AttachedSprite = Sprite::create("pics/walk/Armature_Walk_01.png");
-	walk.addSprite("pics/walk");
-	AttachedSprite = walk.getSprite();
+	playerAni->addSprite("pics/walk");
+	AttachedSprite = playerAni->getSprite();
 	getSprite()->setScale(.075);
-	walk.setAnimationSpeed(.1);
+	playerAni->setAnimationSpeed(.1);
 	auto size = getSprite()->getContentSize();
 	getSprite()->setPhysicsBody(PhysicsBody::createBox(size));
 	getBody()->setCollisionBitmask(1);
@@ -21,7 +21,7 @@ Player::Player(Scene *ActiveScene)
 
 	getBody()->setDynamic(true);
 	getBody()->setRotationEnable(false);
-	ActiveScene->addChild(AttachedSprite);
+	ActiveScene->addChild(AttachedSprite,1);
 	scene = ActiveScene;
 	for(auto &a : cursor)
 		ActiveScene->addChild(a);
@@ -87,17 +87,16 @@ void Player::movementUpdate(int index)
 	static XBoxInput controllers;
 	controllers.DownloadPackets(4);
 
-
+	playerAni->animate();
 	if(controllers.GetConnected(index))
-	{
-
+	{				   
 		//OutputDebugStringA(string("Controller: "+std::to_string(index)+'\n').c_str());
 #pragma region Movement	
 		Stick moveL, moveR;
 
 		controllers.GetSticks(index, moveL, moveR);
 		int move = 375;
-		walk.animate();
+		playerAni->animate();
 		if(moveL.xAxis != 0)
 			lastMovement = moveL.xAxis;
 
@@ -119,6 +118,14 @@ void Player::movementUpdate(int index)
 		//setVelX(moveL.xAxis * move * movementPercent);
 		//if(movementPercent > 0)
 		setVelX(lastMovement*move * movementPercent);
+
+		if(moveL.xAxis != 0)
+		{
+			playerAni->resume();
+			playerAni->setAnimationSpeed((1.2-abs(moveL.xAxis))*.1);
+		}
+		else
+			playerAni->pause();
 		//getBody()->resetForces();
 		//addForce(1000,0);
 		//printInfo();

@@ -27,6 +27,7 @@ private:
 	bool state = false;
 	cocos2d::Sprite* platform;
 	cocos2d::Sprite* child;
+	cocos2d::ParticleSystem* everything= cocos2d::ParticleExplosion::createWithTotalParticles(200);
 	cocos2d::Vec3 position;
 };
 
