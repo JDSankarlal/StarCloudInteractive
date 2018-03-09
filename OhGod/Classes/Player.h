@@ -65,7 +65,7 @@ private:
 	Sprite* cursor[4] {Sprite::create("pics/P1.png"),Sprite::create("pics/P2.png"),Sprite::create("pics/P3.png"),Sprite::create("pics/P4.png")};
 	bool hasJumped, colPress;
 	short colChange, jumpCount;
-	SpriteAnimation *playerAni= new SpriteAnimation();
+	SpriteAnimation walk;
 	int numJumps=0, MaxHP, HP, lightDamage, heavyDamage, heavyDamageCharged, throwAttack, crossAttack;
 };
 

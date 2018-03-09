@@ -22,26 +22,17 @@ public:
 	//Animates throught the vector of frames
 	void animate(bool repeat = true);
 
-	//pause
-	void pause();
-	//Resume
-	void resume();
-	//Remove
-	void removeAllSprites();
-	//Reset
-	void reset();
 	//Sets the animation speed in seconds 
 	void setAnimationSpeed(float);
 
 	Sprite* getSprite();
 private:
-	vector<string*> *frames = new vector<string*>;
+	vector<string> frames;
 	Sprite* frame = Sprite::create();
+	int frameCounter;
 	clock_t dt;
+	float fps;
 	Size* size = new Size();
 	Vec2* position = new Vec2();
-	bool pauseAni=false;
-	float fps;
-	int frameCounter;
 };
 

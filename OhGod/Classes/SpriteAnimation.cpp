@@ -26,59 +26,37 @@ void SpriteAnimation::addSprite(string directory)
 	for(auto &a : fs::directory_iterator(directory))
 	{
 		OutputDebugStringA(cDir(a.path().string() + '\n').c_str());
-		frames->push_back(new string(cDir(a.path().string())));
-		//frames[frames->size() - 1]->setTexture();
+		frames.push_back(cDir(a.path().string())/*Sprite::create(cDir(a.path().string()))*/);
+		//frames[frames.size() - 1]->setTexture();
 	}
-	if(frames->size() > 0)
-		frame->setTexture(*(*frames)[0]);
+	if(frames.size() > 0)
+		frame = Sprite::create(frames[0]);
 }
 
 void SpriteAnimation::animate(bool repeat)
 {
-	if(!pauseAni)
+	float diffT = (clock() - dt) / CLOCKS_PER_SEC;
+	if(diffT > fps)
 	{
-
-		float diffT = float(clock() - dt) / CLOCKS_PER_SEC;
-		if(diffT > fps)
+		if(frames.size() > 0)
 		{
-			if(frames->size() > 0)
-			{
-				dt = clock();
-				frameCounter++;
-				if(frameCounter >= frames->size() && repeat)
-					frameCounter = 0;
-				else if(frameCounter >= frames->size())
-					frameCounter--;
-				OutputDebugStringA("Enter Animate\n");
-				frame->setTexture(*(*frames)[frameCounter]);
-			}
+			dt = clock();
+			frameCounter++;
+			if(frameCounter >= frames.size() && repeat)
+				frameCounter = 0;
+			else if(frameCounter >= frames.size())
+				frameCounter--;
+
+			frame->setTexture(frames[frameCounter]/*"pics/walk/Armature_Walk_01.png"*/);
+		//	OutputDebugStringA((to_string((int)frames[frameCounter]->getTexture())+"\n").c_str());
+			//frame->setScaleX(size->width);
+			//frame->setScaleY(size->height);
+			//frame->setPosition(*position);
+			//*size = Size(frame->getScaleX(), frame->getScaleY());
+			//*position = frame->getPosition();
 		}
-	} else
-	{
-		dt = clock() - fps;
 	}
 }
-
-void SpriteAnimation::pause()
-{
-	pauseAni = true;
-}
-
-void SpriteAnimation::resume()
-{
-	pauseAni = false;
-}
-
-void SpriteAnimation::removeAllSprites()
-{
-	for(auto &a : *frames)
-		delete a;
-	frames->clear();
-	frameCounter = 0;
-}
-
-void SpriteAnimation::reset()
-{}
 
 void SpriteAnimation::setAnimationSpeed(float dt)
 {
