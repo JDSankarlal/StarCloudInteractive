@@ -62,17 +62,17 @@ bool HelloWorld::init()
 	//Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(1); //resume game
 
 	//Place Pause Menu
-<<<<<<< Updated upstream
-	menu = Sprite::create("pics/idfk.png");
-	menu->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
-	menu->setScale(1);
-	menu->setAnchorPoint(Vec2(0.5f, 0.5f));
-=======
+
+	//menu = Sprite::create("pics/idfk.png");
+	//menu->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
+	//menu->setScale(1);
+	//menu->setAnchorPoint(Vec2(0.5f, 0.5f));
+
 	menu = Sprite::create("pics/newPaused.png");
 	menu->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
 	menu->setScale(1.6);
 	menu->setAnchorPoint(Vec2(0.5f, 0.5f));
->>>>>>> Stashed changes
+
 	this->addChild(menu, -2);
 
 	restartBtn = Sprite::create("pics/restart.png");
