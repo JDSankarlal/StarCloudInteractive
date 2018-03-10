@@ -48,6 +48,8 @@ public:
 	//get the position
 	Vec2 getPosition();
 
+	SpriteAnimation* getSpriteAnimater();
+
 //sets the platform id
 	void platformSwitch(int);
 
@@ -62,7 +64,7 @@ private:
 	string playerIdentifier;
 	Scene* scene;
 	Sprite *AttachedSprite;
-	Sprite* cursor[4] {Sprite::create("pics/P1.png"),Sprite::create("pics/P2.png"),Sprite::create("pics/P3.png"),Sprite::create("pics/P4.png")};
+	Sprite* cursor[4] {Sprite::create("Assets/P1.png"),Sprite::create("Assets/P2.png"),Sprite::create("Assets/P3.png"),Sprite::create("Assets/P4.png")};
 	bool hasJumped, colPress;
 	short colChange, jumpCount;
 	SpriteAnimation* playerAni=new SpriteAnimation;

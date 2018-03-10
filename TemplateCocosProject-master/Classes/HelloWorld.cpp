@@ -63,31 +63,31 @@ bool HelloWorld::init()
 
 	//Place Pause Menu
 
-	//menu = Sprite::create("pics/idfk.png");
+	//menu = Sprite::create("Assets/idfk.png");
 	//menu->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
 	//menu->setScale(1);
 	//menu->setAnchorPoint(Vec2(0.5f, 0.5f));
 
-	menu = Sprite::create("pics/newPaused.png");
+	menu = Sprite::create("Assets/newPaused.png");
 	menu->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
 	menu->setScale(1.6);
 	menu->setAnchorPoint(Vec2(0.5f, 0.5f));
 
 	this->addChild(menu, -2);
 
-	restartBtn = Sprite::create("pics/restart.png");
+	restartBtn = Sprite::create("Assets/restart.png");
 	restartBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
 	restartBtn->setScale(1);
 	restartBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 	this->addChild(restartBtn, -2);
 
-	resumeBtn = Sprite::create("pics/resumeButn.png");
+	resumeBtn = Sprite::create("Assets/resumeButn.png");
 	resumeBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2) + 125);
 	resumeBtn->setScale(1);
 	resumeBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 	this->addChild(resumeBtn, -2);
 
-	quitBtn = Sprite::create("pics/quitbtn.png");
+	quitBtn = Sprite::create("Assets/quitbtn.png");
 	quitBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2) - 125);
 	quitBtn->setScale(1);
 	quitBtn->setAnchorPoint(Vec2(0.5f, 0.5f));

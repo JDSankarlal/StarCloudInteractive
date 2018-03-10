@@ -27,7 +27,7 @@ public:
 	//Resume
 	void resume();
 	//Restart
-	void restart();
+	void reset();
 	//Remove
 	void removeAllSprites();
 	//Sets the animation speed in seconds 

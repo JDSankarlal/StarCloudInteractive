@@ -30,8 +30,8 @@ public:
 
 
 	//Background sprite
-	//cocos2d::Sprite * sprite,*BG = cocos2d::Sprite::create("pics/test level.png");
-	//cocos2d::Sprite3D *s3d = cocos2d::Sprite3D::create("pics/test 3d model.c3b");
+	//cocos2d::Sprite * sprite,*BG = cocos2d::Sprite::create("Assets/test level.png");
+	//cocos2d::Sprite3D *s3d = cocos2d::Sprite3D::create("Assets/test 3d model.c3b");
 	float movex, movey, vely;
 
 
@@ -43,7 +43,7 @@ public:
 private:
 	void contact();
 	//Put variables and sprites and stuff here
-	cocos2d::Sprite* background = cocos2d::Sprite::create("pics/Level_BG.png");
+	cocos2d::Sprite* background = cocos2d::Sprite::create("Assets/Level_BG.png");
 	cocos2d::Sprite* menu;
 	cocos2d::Sprite* resumeBtn;
 	cocos2d::Sprite* restartBtn;

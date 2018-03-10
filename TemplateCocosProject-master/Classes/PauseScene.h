@@ -27,15 +27,15 @@ public:
 
 
 	//Background sprite
-	//cocos2d::Sprite *BG = cocos2d::Sprite::create("pics/idfk.png"), sprite;
-	//cocos2d::Sprite3D *s3d = cocos2d::Sprite3D::create("pics/test 3d model.c3b");
+	//cocos2d::Sprite *BG = cocos2d::Sprite::create("Assets/idfk.png"), sprite;
+	//cocos2d::Sprite3D *s3d = cocos2d::Sprite3D::create("Assets/test 3d model.c3b");
 
 	AudioPlayer *audio = new AudioPlayer;
 
 	cocos2d::Director *director;
 
-	cocos2d::Sprite* background = cocos2d::Sprite::create("pics/idfk.png");
-	//cocos2d::Sprite* background = cocos2d::Sprite::create("pics/download.jpg");
+	cocos2d::Sprite* background = cocos2d::Sprite::create("Assets/idfk.png");
+	//cocos2d::Sprite* background = cocos2d::Sprite::create("Assets/download.jpg");
 	//cocos2d::Sprite* backBtn;
 	//cocos2d::Sprite* musicBtn;
 	//cocos2d::Sprite* fullScrBtn;

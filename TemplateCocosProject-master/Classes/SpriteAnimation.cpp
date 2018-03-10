@@ -66,7 +66,7 @@ void SpriteAnimation::resume()
 	pauseAni = false;
 }
 
-void SpriteAnimation::restart()
+void SpriteAnimation::reset()
 {
 	frameCounter = 0;
 	if(frames->size() > 0)

@@ -36,25 +36,25 @@ bool OptionsScene::init()
 	background->setPosition(visibleSize.width / 2, visibleSize.height / 2);
 	addChild(background, -1);
 
-	optionsHeader = Sprite::create("pics/OptionsBtn.png");
+	optionsHeader = Sprite::create("Assets/OptionsBtn.png");
 	optionsHeader->setPosition(visibleSize.width / 2, (visibleSize.height / 2) + 200);
 	optionsHeader->setScale(2);
 	optionsHeader->setAnchorPoint(Vec2(0.5f, 0.5f));
 	this->addChild(optionsHeader, 2);
 
-	fullScrBtn = Sprite::create("pics/fullscreen.png");
+	fullScrBtn = Sprite::create("Assets/fullscreen.png");
 	fullScrBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
 	fullScrBtn->setScale(1);
 	fullScrBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 	this->addChild(fullScrBtn, 2);
 
-	musicBtn = Sprite::create("pics/soundBtn.png");
+	musicBtn = Sprite::create("Assets/soundBtn.png");
 	musicBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2) - 125);
 	musicBtn->setScale(1);
 	musicBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 	this->addChild(musicBtn, 2);
 
-	backBtn = Sprite::create("pics/backBtn.png");
+	backBtn = Sprite::create("Assets/backBtn.png");
 	backBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2) - 250);
 	backBtn->setScale(1);
 	backBtn->setAnchorPoint(Vec2(0.5f, 0.5f));

@@ -8,8 +8,8 @@ USING_NS_CC;
 Player::Player(Scene *ActiveScene)
 {
 
-	//AttachedSprite = Sprite::create("pics/walk/Armature_Walk_01.png");
-	playerAni->addSprite("pics/walk");
+	//AttachedSprite = Sprite::create("Assets/walk/Armature_Walk_01.png");
+	playerAni->addSprite("Assets/walk");
 	AttachedSprite = playerAni->getSprite();
 	getSprite()->setScale(.075);
 	playerAni->setAnimationSpeed(.01);
@@ -136,6 +136,9 @@ void Player::movementUpdate(int index)
 			numJumps++;
 			setVelY(535);
 			hasJumped = true;
+			playerAni->removeAllSprites();
+			playerAni->addSprite("Assets/Jump Up");
+			playerAni->reset();
 		}
 		if(controllers.ButtonRelease(index, A))
 			hasJumped = false;
@@ -214,6 +217,16 @@ void Player::setPosition(float x, float y, float z)
 {
 	getSprite()->setPosition3D(Vec3(x, y, 0));
 	//getSprite()->setContentSize(Size());
+}
+
+Vec2 Player::getPosition()
+{
+	return getSprite()->getPosition();
+}
+
+SpriteAnimation * Player::getSpriteAnimater()
+{
+	return playerAni;
 }
 
 //void Player::getPosition()

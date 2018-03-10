@@ -37,19 +37,19 @@ bool MenuScene::init()
 	background->setPosition(visibleSize.width / 2, visibleSize.height / 2);
 	addChild(background, -1);
 
-	playBtn = Sprite::create("pics/playBtn.png");
+	playBtn = Sprite::create("Assets/playBtn.png");
 	playBtn->setPosition(visibleSize.width / 2, visibleSize.height / 2);
 	playBtn->setScale(1);
 	playBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 	this->addChild(playBtn, 2);
 
-	optionsBtn = Sprite::create("pics/OptionsBtn.png");
+	optionsBtn = Sprite::create("Assets/OptionsBtn.png");
 	optionsBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2) - 125);
 	optionsBtn->setScale(1);
 	optionsBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 	this->addChild(optionsBtn, 2);
 
-	quitBtn = Sprite::create("pics/quitbtn.png");
+	quitBtn = Sprite::create("Assets/quitbtn.png");
 	quitBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2) - 250);
 	quitBtn->setScale(1);
 	quitBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
