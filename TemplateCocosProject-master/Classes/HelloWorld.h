@@ -40,12 +40,12 @@ public:
 
 private:
 	AudioPlayer * audio = new AudioPlayer;
-	Player* players[4] = {new Player(this,1),new Player(this,1),new Player(this,1),new Player(this,1)};
+	Player* players[4] = {new Player(this),new Player(this),new Player(this),new Player(this)};
 
 	void contact();
 	
 	//Put variables and sprites and stuff here
-	cocos2d::Sprite* background = cocos2d::Sprite::create("Assets/Level_BG.png");
+	cocos2d::Sprite* background = cocos2d::Sprite::create("Assets/Background.png");
 	cocos2d::Sprite* menu;
 	cocos2d::Sprite* resumeBtn;
 	cocos2d::Sprite* restartBtn;
