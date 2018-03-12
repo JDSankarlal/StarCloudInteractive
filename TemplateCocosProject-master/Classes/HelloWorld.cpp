@@ -10,7 +10,8 @@ using namespace std;
 Scene* HelloWorld::createScene()
 {
 	auto scenepb = HelloWorld::createWithPhysics();
-	//	scenepb->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	////Creates collision boxes around PhysicsBodies
+	scenepb->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
 	auto world = HelloWorld::create();
 	scenepb->addChild(world);
@@ -47,8 +48,8 @@ bool HelloWorld::init()
 	}
 
 	//platforms
-	pf1 = new Platforms(this, 1,false ,200);
-	auto pf2 = new Platforms(this, 2, true, 500);
+	auto pf1 = new Platforms(this, 1, false, 200);
+	auto pf2 = new Platforms(this, 1, true, 500);
 
 	pf2->setPosition(visibleSize.width / 2, visibleSize.height / 2 - 200);
 	pf1->setPosition(visibleSize.width / 2 + 100, visibleSize.height / 2 + 150);
@@ -95,10 +96,10 @@ bool HelloWorld::init()
 
 	//Collision stuff
 	contact();
-	
+
 	//call update
 	this->scheduleUpdate();
-	
+
 	//Background Audio
 	audio->setAudio("Audio/Battle_Time_V3.mp3");
 	audio->play(true);
@@ -125,18 +126,18 @@ void HelloWorld::update(float dt)
 
 	}
 
-	if (controllers.GetConnected(0))
+	if(controllers.GetConnected(0))
 	{
-		
+
 		//OutputDebugStringA(string("Controller: "+std::to_string(index)+'\n').c_str());
 		Stick moveD, moveU;
 
 		static int count, til = 20;
 		controllers.GetSticks(0, moveD, moveU);
 
-		if (controllers.ButtonStroke(0, Start)) //If start pressed on controller
+		if(controllers.ButtonStroke(0, Start)) //If start pressed on controller
 		{
-			if (gamePaused == false) //if game not paused
+			if(!gamePaused) //if game not paused
 			{
 				gamePaused = true; //set game to paused
 				resumeBtnActive = true;
@@ -148,7 +149,7 @@ void HelloWorld::update(float dt)
 				//Director::getInstance()->pushScene(PauseScene::createScene());
 			}
 
-			else if (gamePaused == true) //if game paused
+			else if(gamePaused) //if game paused
 			{
 				gamePaused = false; //set game to unpaused
 				resumeBtnActive = false;
@@ -159,18 +160,18 @@ void HelloWorld::update(float dt)
 				quitBtn->setGlobalZOrder(-2);
 				menu->setGlobalZOrder(-2); //move menu back
 				Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(1); //Resume game
-				
+
 			}
 		}
-		
-		if (gamePaused == true)
+
+		if(gamePaused)
 		{
-			if (resumeBtnActive)
+			if(resumeBtnActive)
 			{
-				
+
 				resumeBtn->setScale(1.3f);
 
-				if (controllers.ButtonStroke(0, A))
+				if(controllers.ButtonStroke(0, A))
 				{
 					gamePaused = false; //set game to unpaused
 					resumeBtnActive = false;
@@ -182,64 +183,65 @@ void HelloWorld::update(float dt)
 					menu->setGlobalZOrder(-2); //move menu back
 					Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(1); //Resume game
 				}
-				if (moveD.yAxis == 0)
+				if(moveD.yAxis == 0)
 				{
 					count = til;
 				}
-				if (count++ > til) {
+				if(count++ > til)
+				{
 					count = 0;
-					if (moveD.yAxis < 0)
+					if(moveD.yAxis < 0)
 					{
 						restartBtnActive = true;
 						resumeBtn->setScale(1);
 						resumeBtnActive = false;
 					}
 				}
-			}
-			else if (restartBtnActive)
+			} else if(restartBtnActive)
 			{
 				restartBtn->setScale(1.3f);
 
-				if (controllers.ButtonStroke(0, A))
+				if(controllers.ButtonStroke(0, A))
 				{
 					Director::getInstance()->replaceScene(HelloWorld::createScene());
 				}
-				if (moveD.yAxis == 0)
+				if(moveD.yAxis == 0)
 				{
 					count = til;
 				}
-				if (count++ > til) {
+				if(count++ > til)
+				{
 					count = 0;
-					if (moveD.yAxis < 0)
+					if(moveD.yAxis < 0)
 					{
 						quitBtnActive = true;
 						restartBtn->setScale(1);
 						restartBtnActive = false;
 					}
-					if (moveD.yAxis > 0)
+					if(moveD.yAxis > 0)
 					{
 						resumeBtnActive = true;
 						restartBtn->setScale(1);
 						restartBtnActive = false;
 					}
 				}
-			}
-			else if (quitBtnActive)
+			} else if(quitBtnActive)
 			{
 
 				quitBtn->setScale(1.3f);
 
-				if (controllers.ButtonStroke(0, A))
+				if(controllers.ButtonStroke(0, A))
 				{
 					Director::getInstance()->end();
 				}
-				if (moveD.yAxis == 0)
+				if(moveD.yAxis == 0)
 				{
 					count = til;
 				}
-				if (count++ > til) {
+				if(count++ > til)
+				{
 					count = 0;
-					if (moveD.yAxis > 0)
+					if(moveD.yAxis > 0)
 					{
 						restartBtnActive = true;
 						quitBtn->setScale(1);
@@ -255,7 +257,18 @@ void HelloWorld::contact()
 {
 	auto contactListener =
 		EventListenerPhysicsContact::create();
+	contactListener->onContactPreSolve = [](PhysicsContact& contact, PhysicsContactPreSolve& contact2)
+	{
+		auto shapeA = contact.getShapeA();
+		auto bodyA = shapeA->getBody();
 
+		auto shapeB = contact.getShapeB();
+		auto bodyB = shapeB->getBody();
+		//printf("Tag1 = %d\nTag2 = %d\n\n", bodyA->getTag(), bodyB->getTag());
+		//OutputDebugStringA("Colision dicision\n");
+
+		return false;
+	};
 	contactListener->onContactBegin = [](PhysicsContact& contact)
 	{
 
@@ -266,18 +279,13 @@ void HelloWorld::contact()
 		auto bodyB = shapeB->getBody();
 		OutputDebugStringA("Collision\n");
 
-		//if (shapeA->getCategoryBitmask() == 1 && shapeB->getCategoryBitmask() == 2) {
-		//	for (auto &a : *players)
-		//		shapeA->getCenter();
-		//}
-		//else
-		//	if (shapeA->getCategoryBitmask() == 2 && shapeB->getCategoryBitmask() == 1) {
-		//
-		//	}
+		if(bodyA->getTag() == bodyB->getTag())
+			return false;
 		return true;
 	};
 
-	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
+	getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
+
 }
 
 

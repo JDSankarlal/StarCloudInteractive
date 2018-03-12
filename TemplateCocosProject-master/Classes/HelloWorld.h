@@ -35,20 +35,22 @@ public:
 	float movex, movey, vely;
 
 
-	AudioPlayer *audio = new AudioPlayer;
-	Player* players[4] = { new Player(this),new Player(this),new Player(this),new Player(this) };
-
+	
 	cocos2d::Director *director;
 
 private:
+	AudioPlayer * audio = new AudioPlayer;
+	Player* players[4] = {new Player(this,1),new Player(this,1),new Player(this,1),new Player(this,1)};
+
 	void contact();
+	
 	//Put variables and sprites and stuff here
 	cocos2d::Sprite* background = cocos2d::Sprite::create("Assets/Level_BG.png");
 	cocos2d::Sprite* menu;
 	cocos2d::Sprite* resumeBtn;
 	cocos2d::Sprite* restartBtn;
 	cocos2d::Sprite* quitBtn;
-	Platforms* pf1;
+	
 	bool gamePaused = false;
 	bool resumeBtnActive = false;
 	bool restartBtnActive = false;
