@@ -406,10 +406,5 @@ proj.win32/Release.*/
 *\cocos2d
 *.exe
 *.exp
-
-
-
 *.json
-*.vcxproj
-*.sln
 *.filters
