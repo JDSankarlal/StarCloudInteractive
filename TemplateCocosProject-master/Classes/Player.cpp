@@ -1,6 +1,5 @@
 #pragma once 
 #include "Player.h"
-XBoxInput Player::controllers;
 
 Player::Player(Scene *ActiveScene, int bitMask)
 {
@@ -91,7 +90,8 @@ void Player::addForce(float x, float y)
 
 void Player::movementUpdate(int index)
 {
-	
+	static sfxPlayer sfx;
+	static Input::XBoxInput controllers;
 	controllers.DownloadPackets(4);
 	playerAni->animate();
 
@@ -217,8 +217,8 @@ void Player::movementUpdate(int index)
 #pragma region Attacks
 		if(controllers.ButtonStroke(index, Y))
 		{
-			sfx->setAudio(sounds[0]);
-			sfx->play();
+			sfx.sfx->setAudio(sfx.sounds[0]);
+			sfx.sfx->play();
 		}
 #pragma endregion	
 
