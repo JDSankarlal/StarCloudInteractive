@@ -1,6 +1,6 @@
 #include "AudioPlayer.h"
 
-
+int AudioPlayer::inst;
 using namespace std;
 AudioPlayer::AudioPlayer()
 {}
@@ -23,12 +23,12 @@ void AudioPlayer::play(bool repeat)
 {
 	cleanUp();
 	int print = 0, inerror;
-	int inst = 0;
+	int inst=0;
 	char status[128];
 
 	//opens an instance of the audio file
 	while(inerror = mciSendStringA(string("open " + *audio + " alias " + to_string(++inst * 10)).c_str(), NULL, 0, NULL))
-		if(inst > this->inst)
+		if(inst > AudioPlayer::inst)
 		{
 			printError(inerror);
 			break;
@@ -36,7 +36,7 @@ void AudioPlayer::play(bool repeat)
 
 	//changes the time format to miliseconds
 	printError(mciSendStringA(string("set " + to_string(inst * 10) + " time format ms").c_str(), 0, 0, 0));
-	this->inst = inst;
+	AudioPlayer::inst = inst;
 
 	//plays the audio file
 	if(repeat)
@@ -53,27 +53,27 @@ void AudioPlayer::mute()
 {
 	char status[128];
 
-	printError(mciSendStringA(string("set " + to_string(inst * 10) + " audio all on").c_str(), status, 128, 0));
+	printError(mciSendStringA(string("set " + to_string(AudioPlayer::AudioPlayer::inst * 10) + " audio all on").c_str(), status, 128, 0));
 
 	if(status != "on")
-		printError(mciSendStringA(string("set " + to_string(inst * 10) + " audio all on").c_str(), NULL, NULL, 0));
+		printError(mciSendStringA(string("set " + to_string(AudioPlayer::AudioPlayer::inst * 10) + " audio all on").c_str(), NULL, NULL, 0));
 	else
-		printError(mciSendStringA(string("set " + to_string(inst * 10) + " audio all off").c_str(), NULL, NULL, 0));
+		printError(mciSendStringA(string("set " + to_string(AudioPlayer::AudioPlayer::inst * 10) + " audio all off").c_str(), NULL, NULL, 0));
 }
 
 void AudioPlayer::pause()
 {
-	mciSendStringA(string("pause " + to_string(inst * 10)).c_str(), NULL, 0, NULL);
+	mciSendStringA(string("pause " + to_string(AudioPlayer::inst * 10)).c_str(), NULL, 0, NULL);
 }
 
 void AudioPlayer::resume()
 {
-	mciSendStringA(string("resume " + to_string(inst * 10)).c_str(), NULL, 0, NULL);
+	mciSendStringA(string("resume " + to_string(AudioPlayer::inst * 10)).c_str(), NULL, 0, NULL);
 }
 
 void AudioPlayer::stop()
 {
-	mciSendStringA(string("stop " + to_string(inst * 10)).c_str(), NULL, 0, NULL);
+	mciSendStringA(string("stop " + to_string(AudioPlayer::inst * 10)).c_str(), NULL, 0, NULL);
 	cleanUp();
 }
 
@@ -81,7 +81,7 @@ bool AudioPlayer::isPlaying()
 {
 	char info[128];
 
-	if(printError(mciSendStringA(string("status " + to_string(inst * 10) + " mode").c_str(), info, 125, NULL)))
+	if(printError(mciSendStringA(string("status " + to_string(AudioPlayer::inst * 10) + " mode").c_str(), info, 125, NULL)))
 		return 0;
 
 	return string(info) == "playing";
@@ -107,7 +107,7 @@ void AudioPlayer::info()
 void AudioPlayer::setVolume(int vol)
 {
 	if(vol <= 1000 && vol >= 0)
-		printError(mciSendStringA(string("setaudio " + to_string(inst * 10) + " volume to " + to_string(vol)).c_str(), 0, 0, 0));
+		printError(mciSendStringA(string("setaudio " + to_string(AudioPlayer::inst * 10) + " volume to " + to_string(vol)).c_str(), 0, 0, 0));
 }
 
 bool AudioPlayer::printError(int error)

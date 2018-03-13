@@ -57,12 +57,11 @@ private:
 	short colChange, jumpCount;
 	bool hasJumped, colPress;
 	int numJumps = 0, MaxHP, HP, lightDamage, heavyDamage, heavyDamageCharged, throwAttack, crossAttack;
-	struct sfxPlayer
-	{
-		AudioPlayer* sfx=new AudioPlayer;
-		string sounds[1] {"Audio/Heavy_Attack.mp3"};
-	};
-	
+
+	AudioPlayer* sfx = new AudioPlayer;
+	string sounds[1] {"Audio/Heavy_Attack.mp3"};
+
+	static Input::XBoxInput controllers;
 	Scene* scene;
 	Sprite *AttachedSprite;
 	Sprite* cursor[4] {Sprite::create("Assets/P1.png"),Sprite::create("Assets/P2.png"),Sprite::create("Assets/P3.png"),Sprite::create("Assets/P4.png")};
