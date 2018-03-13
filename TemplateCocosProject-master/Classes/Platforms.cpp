@@ -9,6 +9,7 @@ Platforms::Platforms(cocos2d::Scene *activeScene, int bitMask, bool shadow, floa
 	if(shadow)
 	{
 		platform = Sprite::create("Assets/Shadow_Platform.png");
+		
 		child = Sprite::create("Assets/Shadow_Platform_BG.png");
 		child->setAnchorPoint(Vec2(0,.25));
 		child->setScaleY(.98);
@@ -17,16 +18,17 @@ Platforms::Platforms(cocos2d::Scene *activeScene, int bitMask, bool shadow, floa
 
 		platform = Sprite::create("Assets/Platform.png");
 
-
-
+	
 	   //sets the width and height of platform in pixles
 	platform->setScaleX(width / platform->getContentSize().width);
 	platform->setScaleY(height / platform->getContentSize().height);
 	auto size = getSprite()->getContentSize();
 	platform->setPhysicsBody(PhysicsBody::createBox(size));
 
-	getBody()->setDynamic(false);
+	getBody()->setDynamic(false); 
+	getBody()->setTag(bitMask);
 	getBody()->setCollisionBitmask(bitMask);
+	//getBody()->getFirstShape()->setFriction(.5);
 	activeScene->addChild(platform);
 
  //adds platform to active scene
@@ -60,5 +62,5 @@ void Platforms::setVel(float x, float y)
 
 void Platforms::update()
 {
-	platform->setPosition3D(position);
+	//platform->setPosition3D(position);
 }

@@ -4,28 +4,20 @@
 #include "cocos2d.h"
 #include "controller.h"
 #include "SpriteAnimation.h"
+#include "AudioPlayer.h";
 
 using std::string;
-using namespace cocos2d;
+USING_NS_CC;
+using namespace Input;
 class Player
 {
 public:
-//	enum
-//	{
-//		Players = 0x0001, //0000 0000 0000 0001
-//		SolidPlatforms = 0x0002, //0000 0000 0000 0010
-//		LucidPlatforms = 0x0004, //0000 0000 0000 0100
-//		Hazards = 0x0008, //0000 0000 0000 1000
-//		 //Category_05 = 0x0010, //0000 0000 0001 0000
-//		 //Category_06 = 0x0020, //0000 0000 0010 0000
-//		 //Category_07 = 0x0040, //0000 0000 0100 0000
-//		 //Category_08 = 0x0080, //0000 0000 1000 0000
-//		 //Category_09 = 0x0100; //0000 0001 0000 0000
-//	};
-	Player(Scene *);
+
+	Player(Scene *, int);
 	~Player();
 	PhysicsBody* getBody();
 	Sprite* getSprite();
+	Vec2 getVelocity();
 
 #pragma region Set Velocities
 	void setVelX(float);
@@ -40,6 +32,7 @@ public:
 #pragma endregion
 
 //Player Movement
+
 //must be called in update
 	void movementUpdate(int controler);
 //sets location by pixel position
@@ -55,19 +48,25 @@ public:
 
 	void printInfo();
 private:
-	float LT, RT, movementPercent,lastMovement;
+	float LT, RT, movementPercent, lastMovement;
 	bool dash;
 	int initialDash;
 	double moveZ, inst;
 	bool jump;
 	void platformID(int id);
-	string playerIdentifier;
+	short colChange, jumpCount;
+	bool hasJumped, colPress;
+	int numJumps = 0, MaxHP, HP, lightDamage, heavyDamage, heavyDamageCharged, throwAttack, crossAttack;
+	struct sfxPlayer
+	{
+		AudioPlayer* sfx=new AudioPlayer;
+		string sounds[1] {"Audio/Heavy_Attack.mp3"};
+	};
+	
 	Scene* scene;
 	Sprite *AttachedSprite;
 	Sprite* cursor[4] {Sprite::create("Assets/P1.png"),Sprite::create("Assets/P2.png"),Sprite::create("Assets/P3.png"),Sprite::create("Assets/P4.png")};
-	bool hasJumped, colPress;
-	short colChange, jumpCount;
-	SpriteAnimation* playerAni=new SpriteAnimation;
-	int numJumps=0, MaxHP, HP, lightDamage, heavyDamage, heavyDamageCharged, throwAttack, crossAttack;
+	PhysicsBody *body;
+	SpriteAnimation* playerAni = new SpriteAnimation;
 };
 

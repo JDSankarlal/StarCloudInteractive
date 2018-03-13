@@ -1,27 +1,26 @@
 #pragma once 
 #include "Player.h"
 
-using namespace Input;
-using namespace	std;
-USING_NS_CC;
-
-Player::Player(Scene *ActiveScene)
+Player::Player(Scene *ActiveScene, int bitMask)
 {
-
-	//AttachedSprite = Sprite::create("Assets/walk/Armature_Walk_01.png");
-	playerAni->addSprite("Assets/walk");
+	playerAni->addSprite("walk", "Assets/walk");
+	playerAni->addSprite("jump up", "Assets/Jump Up");
+	playerAni->addSprite("jump down", "Assets/Jump Down");
+	playerAni->setAnimation("walk");
 	AttachedSprite = playerAni->getSprite();
 	getSprite()->setScale(.075);
 	playerAni->setAnimationSpeed(.01);
 	auto size = getSprite()->getContentSize();
-	getSprite()->setPhysicsBody(PhysicsBody::createBox(size));
-	getBody()->setCollisionBitmask(1);
-	//getBody()->setLinearDamping(.01);
-	//getBody()->setCategoryBitmask(1);
 
+	getSprite()->setPhysicsBody(PhysicsBody::createBox(size));
+	getBody()->setTag(bitMask);
+	getBody()->setCollisionBitmask(bitMask);
+	getBody()->setContactTestBitmask(true);
 	getBody()->setDynamic(true);
 	getBody()->setRotationEnable(false);
+	//getBody()->getFirstShape()->setFriction(.25);
 	ActiveScene->addChild(AttachedSprite);
+
 	scene = ActiveScene;
 	for(auto &a : cursor)
 		ActiveScene->addChild(a);
@@ -50,14 +49,21 @@ Sprite * Player::getSprite()
 	return AttachedSprite;
 }
 
+Vec2 Player::getVelocity()
+{
+	return getBody()->getVelocity();
+}
+
 void Player::setVelX(float x)
 {
 	getBody()->setVelocity(Vec2(x, getBody()->getVelocity().y));
+	printf("Velx = %f\n", x);
 }
 
 void Player::setVelY(float y)
 {
 	getBody()->setVelocity(Vec2(getBody()->getVelocity().x, y));
+	printf("Vely = %f\n", y);
 }
 
 void Player::setVel(float x, float y)
@@ -84,7 +90,8 @@ void Player::addForce(float x, float y)
 
 void Player::movementUpdate(int index)
 {
-	static XBoxInput controllers;
+	static sfxPlayer sfx;
+	static Input::XBoxInput controllers;
 	controllers.DownloadPackets(4);
 	playerAni->animate();
 
@@ -94,41 +101,48 @@ void Player::movementUpdate(int index)
 		//OutputDebugStringA(string("Controller: "+std::to_string(index)+'\n').c_str());
 #pragma region Movement	
 		Stick moveL, moveR;
+		getBody()->getPosition();
 
 		controllers.GetSticks(index, moveL, moveR);
 		int move = 375;
-		if(moveL.xAxis != 0)
-			lastMovement = moveL.xAxis;
-
-		//Regular Movement
-		movementPercent += .05f;
-		
-		if (moveL.xAxis == 0)
-			movementPercent -= .15;
-		else if (moveL.xAxis * move < 0)
-			getSprite()->setFlippedX(true);
-		else
-			getSprite()->setFlippedX(false);
-		
-		if (movementPercent > 1)
-			movementPercent = 1;
-		else if (movementPercent < 0)
-			movementPercent = 0;
-		
-		//setVelX(moveL.xAxis * move * movementPercent);
-		//if(movementPercent > 0)
-		setVelX(lastMovement*move * movementPercent);
-
-		if(moveL.xAxis != 0)
-		{
-			playerAni->resume();
-			playerAni->setAnimationSpeed((1.3 - abs(moveL.xAxis))*.1);
-		}
-		else
-			playerAni->pause();
-		//getBody()->resetForces();
-		//addForce(1000,0);
-		//printInfo();
+		//if(moveL.xAxis != 0)
+		//	lastMovement = moveL.xAxis;
+		//
+		////Regular Movement
+		//
+		//movementPercent += .05f;
+		//
+		//if(moveL.xAxis == 0)
+		//	movementPercent -= .15;
+		//else if(moveL.xAxis * move < 0)
+		//	getSprite()->setFlippedX(true);
+		//else
+		//	getSprite()->setFlippedX(false);
+		//
+		//if(movementPercent > 1)
+		//	movementPercent = 1;
+		//else if(movementPercent < 0)
+		//	movementPercent = 0;
+		//
+		////setVelX(moveL.xAxis * move * movementPercent);
+		////if(movementPercent > 0)
+		//setVelX(lastMovement*move * movementPercent);
+		//
+		//	
+		//if(getVelocity().y == 0)
+		//{
+		//	if(moveL.xAxis != 0)
+		//	{
+		//		playerAni->resume();
+		//		playerAni->setAnimationSpeed((1.3 - abs(moveL.xAxis))*.1);
+		//	} else
+		//		playerAni->pause();
+		//}
+		//
+		////getBody()->resetForces();
+		//
+		////addForce(moveL.xAxis * 200000, 0);
+		////printInfo();
 #pragma region Jumping
 		//OutputDebugStringA((std::to_string(numJumps) + '\n').c_str());
 		if((controllers.ButtonPress(index, A)) && (!hasJumped && numJumps < 2))
@@ -136,46 +150,77 @@ void Player::movementUpdate(int index)
 			numJumps++;
 			setVelY(535);
 			hasJumped = true;
-			playerAni->removeAllSprites();
-			playerAni->addSprite("Assets/Jump Up");
-			playerAni->reset();
 		}
 		if(controllers.ButtonRelease(index, A))
 			hasJumped = false;
+
+		if(getBody()->getVelocity().y > 0)
+		{
+			if(playerAni->getAnimation() != "jump up")
+			{
+				playerAni->setRepeat(false);
+				playerAni->setAnimation("jump up");
+				playerAni->reset();
+			}
+		} else if(getBody()->getVelocity().y < 0)
+		{
+			if(playerAni->getAnimation() != "jump down")
+			{
+				playerAni->setRepeat(false);
+				playerAni->setAnimation("jump down");
+				playerAni->reset();
+			}
+		} else
+		{
+			if(playerAni->getAnimation() != "walk")
+			{
+				playerAni->setRepeat(true);
+				playerAni->setAnimation("walk");
+				playerAni->reset();
+			}
+		}
 
 #pragma endregion
 
 #pragma region Dash			
 		controllers.GetTriggers(index, LT, RT);
 
-		if((LT > .5 || RT > .5) && !dash)
-		{
-			numJumps = 0;
-			controllers.SetVibration(index, 1, 1);
-			dash = true;
-			setVelY(0);
-			initialDash = 800;
-		} else if(LT < .5 && RT < .5)
-		{
-			controllers.SetVibration(index, 0, 0);
-			dash = false;
-		}
-		if(dash)
-		{
-			if(initialDash > move)
-			{
-				if(moveL.xAxis < 0)
-					setVelX(-(initialDash -= 20));
-				else  if(moveL.xAxis > 0)
-					setVelX(initialDash -= 20);
-			} else
-			{
-				controllers.SetVibration(index, 0, 0);
-			}
-		}
+		//if((LT > .5 || RT > .5) && !dash)
+		//{
+		//	numJumps = 0;
+		//	controllers.SetVibration(index, 1, 1);
+		//	dash = true;
+		//	setVelY(0);
+		//	initialDash = 800;
+		//} else if(LT < .5 && RT < .5)
+		//{
+		//	controllers.SetVibration(index, 0, 0);
+		//	dash = false;
+		//}
+		//if(dash)
+		//{
+		//	if(initialDash > move)
+		//	{
+		//		if(moveL.xAxis < 0)
+		//			setVelX(-(initialDash -= 20));
+		//		else  if(moveL.xAxis > 0)
+		//			setVelX(initialDash -= 20);
+		//	} else
+		//	{
+		//		controllers.SetVibration(index, 0, 0);
+		//	}
+		//}
 #pragma endregion
 
 #pragma endregion
+
+#pragma region Attacks
+		if(controllers.ButtonStroke(index, Y))
+		{
+			sfx.sfx->setAudio(sfx.sounds[0]);
+			sfx.sfx->play();
+		}
+#pragma endregion	
 
 #pragma region Switching Platforms
 		//Dimentional colour change
@@ -210,7 +255,7 @@ void Player::movementUpdate(int index)
 	{
 		cursor[index]->setPosition(-1 * (cursor[index]->getContentSize()));
 	}
-	 
+
 }
 
 void Player::setPosition(float x, float y, float z)
@@ -229,11 +274,6 @@ SpriteAnimation * Player::getSpriteAnimater()
 	return playerAni;
 }
 
-//void Player::getPosition()
-//{
-//	
-//}
-
 void Player::platformSwitch(int platform)
 {
 
@@ -243,7 +283,7 @@ void Player::platformSwitch(int platform)
 		if(!jump)
 		{
 			jump = !jump;
-			getBody()->setVelocity(Vec2(0, 350));
+			setVel(0, 350);
 
 		}
 		if(getBody()->getVelocity().y != 0)
@@ -272,10 +312,10 @@ void Player::platformSwitch(int platform)
 
 void Player::printInfo()
 {
-	OutputDebugStringA(string("Player " + to_string(5)+":\n").c_str());
+	OutputDebugStringA(string("Player " + std::to_string(5) + ":\n").c_str());
 	OutputDebugStringA(string("Position: " + std::to_string(getSprite()->getPosition().x) + ", " + std::to_string(getSprite()->getPosition().y) + "\n").c_str());
 	OutputDebugStringA(string("Velocity: " + std::to_string(getBody()->getVelocity().x) + ", " + std::to_string(getBody()->getVelocity().y) + "\n").c_str());
-	//OutputDebugStringA(string("Force: " + std::to_string(getBody()->forc().x) + ", " + std::to_string(getBody()->getPosition().y) + "\n").c_str());
+	//OutputDebugStringA(string("Force: " + std::to_string(getBody()->getFirstShape()..x) + ", " + std::to_string(getBody()->getPosition().y) + "\n").c_str());
 	OutputDebugStringA("\n\n");
 }
 

@@ -1,7 +1,7 @@
 #include "SpriteAnimation.h"
 
-USING_NS_CC;
-using std::string;
+//USING_NS_CC;
+//using std::string;
 SpriteAnimation::SpriteAnimation()
 {}
 
@@ -9,10 +9,7 @@ SpriteAnimation::SpriteAnimation()
 SpriteAnimation::~SpriteAnimation()
 {}
 
-void SpriteAnimation::addSprite(Sprite * sprite)
-{
 
-}
 string cDir(string dir)
 {
 	for(auto &a : dir)
@@ -20,40 +17,52 @@ string cDir(string dir)
 			a = '/';
 	return dir;
 }
-void SpriteAnimation::addSprite(string directory)
+void SpriteAnimation::addSprite(string aniName, string directory)
 {
-	//int count=0;
+	*folder = directory;
+	vector<string*>*vs = new vector<string*>;
 	for(auto &a : fs::directory_iterator(directory))
 	{
 		OutputDebugStringA(cDir(a.path().string() + '\n').c_str());
-		frames->push_back(new string(cDir(a.path().string())));
+		vs->push_back(new string(cDir(a.path().string())));
 	}
-	if(frames->size() > 0)
-		frame->setTexture(*(*frames)[0]);
+	frames->insert({aniName,vs});
+
+	frame->setTexture(*(*(*frames)[aniName])[0]);
+
 }
 
-void SpriteAnimation::animate(bool repeat)
+void SpriteAnimation::animate()
 {
 	if(!pauseAni)
-	{			   
+	{
 		float diffT = float(clock() - *dt) / CLOCKS_PER_SEC;
 		if(diffT > fps)
 		{
-			if(frames->size() > 0)
+			if(((*frames)[ani])->size() > 0)
 			{
 				*dt = clock();
 				frameCounter++;
-				if(frameCounter >= frames->size() && repeat)
+				if(frameCounter >= ((*frames)[ani])->size() && repeat)
 					frameCounter = 0;
-				else if(frameCounter >= frames->size())
-					frameCounter--;
-
-				frame->setTexture(*(*frames)[frameCounter]);
-
+				else if(frameCounter >= ((*frames)[ani])->size())
+					frameCounter = ((*frames)[ani])->size() - 1;
+			//	OutputDebugStringA();
+				frame->setTexture(*(*(*frames)[ani])[frameCounter]);
 			}
 		}
 	} else
-		*dt = clock()-fps;
+		*dt = clock() - fps;
+}
+
+void SpriteAnimation::setRepeat(bool r)
+{
+	repeat = r;
+}
+
+string SpriteAnimation::getAnimation()
+{
+	return ani;
 }
 
 void SpriteAnimation::pause()
@@ -69,21 +78,23 @@ void SpriteAnimation::resume()
 void SpriteAnimation::reset()
 {
 	frameCounter = 0;
-	if(frames->size() > 0)
-		frame->setTexture(*(*frames)[0]);
-
 }
 
-void SpriteAnimation::removeAllSprites()
+string * SpriteAnimation::getFolder()
 {
-	for(auto &a : *frames)
-		delete a;
-	frames->clear();
+	return folder;
 }
 
 void SpriteAnimation::setAnimationSpeed(float dt)
 {
 	this->fps = dt;
+}
+
+void SpriteAnimation::setAnimation(string aniName)
+{
+	ani = aniName;
+	if((*frames)[ani] != nullptr)
+		frame->setTexture(*(*(*frames)[aniName])[0]);
 }
 
 Sprite* SpriteAnimation::getSprite()

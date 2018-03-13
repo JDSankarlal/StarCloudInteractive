@@ -17,18 +17,11 @@ public:
 
 	// a selector callback
 	void menuCloseCallback(cocos2d::Ref* pSender);
-	void DrawWorld();
-	//Jump
-	//void jump();
-	//update function
+	void DrawWorld(); 
 	void update(float);
 	// implement the "static create()" method manually
 	CREATE_FUNC(MenuScene);
 
-
-	//Background sprite
-	//cocos2d::Sprite * sprite,*BG = cocos2d::Sprite::create("Assets/test level.png");
-	//cocos2d::Sprite3D *s3d = cocos2d::Sprite3D::create("Assets/test 3d model.c3b");
 
 	AudioPlayer *audio = new AudioPlayer;
 
@@ -38,12 +31,11 @@ public:
 	cocos2d::Sprite* playBtn;
 	cocos2d::Sprite* optionsBtn;
 	cocos2d::Sprite* quitBtn;
-
+	  	
 private:
-	
+	//Put variables and sprites and stuff here
 	bool playBtnActive = true;
 	bool optionsBtnActive  = false;
 	bool quitBtnActive = false;
-	//Put variables and sprites and stuff here
 
 };

@@ -1,0 +1,31 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE project PUBLIC "-//audacityproject-1.3.0//DTD//EN" "http://audacity.sourceforge.net/xml/audacityproject-1.3.0.dtd" >
+<project xmlns="http://audacity.sourceforge.net/xml/" projname="i can draw swords_data" version="1.3.0" audacityversion="2.1.3" sel0="0.0000000000" sel1="0.0000000000" vpos="0" h="0.0000000000" zoom="86.1328125000" rate="44100.0" snapto="off" selectionformat="hh:mm:ss + milliseconds" frequencyformat="Hz" bandwidthformat="octaves">
+	<tags/>
+	<wavetrack name="Audio Track" channel="0" linked="1" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="44100" gain="1.0" pan="0.0">
+		<waveclip offset="-0.13000000">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="205440">
+				<waveblock start="0">
+					<simpleblockfile filename="e000071b.au" len="149504" min="-0.153473" max="0.159729" rms="0.012408"/>
+				</waveblock>
+				<waveblock start="149504">
+					<simpleblockfile filename="e0000e46.au" len="55936" min="-0.078705" max="0.075653" rms="0.015867"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="Audio Track" channel="1" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="44100" gain="1.0" pan="0.0">
+		<waveclip offset="-0.13000000">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="205440">
+				<waveblock start="0">
+					<simpleblockfile filename="e0000069.au" len="149504" min="-0.000458" max="0.000519" rms="0.000189"/>
+				</waveblock>
+				<waveblock start="149504">
+					<simpleblockfile filename="e0000ac7.au" len="55936" min="-0.000488" max="0.000702" rms="0.000197"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+</project>

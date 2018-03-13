@@ -101,6 +101,7 @@ bool HelloWorld::init()
 	this->scheduleUpdate();
 
 	//Background Audio
+	
 	audio->setAudio("Audio/Battle_Time_V3.mp3");
 	audio->play(true);
 
@@ -125,17 +126,17 @@ void HelloWorld::update(float dt)
 		}
 
 	}
-
-	if(controllers.GetConnected(0))
+	  for(int a=0;a<4;a++)
+	if(controllers.GetConnected(a))
 	{
 
 		//OutputDebugStringA(string("Controller: "+std::to_string(index)+'\n').c_str());
 		Stick moveD, moveU;
 
 		static int count, til = 20;
-		controllers.GetSticks(0, moveD, moveU);
+		controllers.GetSticks(a, moveD, moveU);
 
-		if(controllers.ButtonStroke(0, Start)) //If start pressed on controller
+		if(controllers.ButtonStroke(a, Start)) //If start pressed on controller
 		{
 			if(!gamePaused) //if game not paused
 			{
@@ -144,7 +145,7 @@ void HelloWorld::update(float dt)
 				resumeBtn->setGlobalZOrder(4);
 				restartBtn->setGlobalZOrder(4);
 				quitBtn->setGlobalZOrder(4);
-				Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(0); //pause game
+				Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(a); //pause game
 				menu->setGlobalZOrder(3); //move menu forwards
 				//Director::getInstance()->pushScene(PauseScene::createScene());
 			}
@@ -171,7 +172,7 @@ void HelloWorld::update(float dt)
 
 				resumeBtn->setScale(1.3f);
 
-				if(controllers.ButtonStroke(0, A))
+				if(controllers.ButtonStroke(a, A))
 				{
 					gamePaused = false; //set game to unpaused
 					resumeBtnActive = false;
@@ -201,7 +202,7 @@ void HelloWorld::update(float dt)
 			{
 				restartBtn->setScale(1.3f);
 
-				if(controllers.ButtonStroke(0, A))
+				if(controllers.ButtonStroke(a, A))
 				{
 					Director::getInstance()->replaceScene(HelloWorld::createScene());
 				}
@@ -230,7 +231,7 @@ void HelloWorld::update(float dt)
 
 				quitBtn->setScale(1.3f);
 
-				if(controllers.ButtonStroke(0, A))
+				if(controllers.ButtonStroke(a, A))
 				{
 					Director::getInstance()->end();
 				}

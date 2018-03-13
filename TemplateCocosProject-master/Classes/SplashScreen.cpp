@@ -35,5 +35,5 @@ bool SplashScreen::init()
 
 void SplashScreen::loadSplash()
 {
-	cocos2d::CCDirector::sharedDirector()->replaceScene(cocos2d::TransitionFade::create(2.5,MenuScene::create()));
+	cocos2d::Director::getInstance()->replaceScene(cocos2d::TransitionFade::create(2.5,MenuScene::create()));
 }

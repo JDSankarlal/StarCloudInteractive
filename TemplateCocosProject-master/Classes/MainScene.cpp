@@ -37,7 +37,7 @@ bool MainScene::init()
 	initScene();
 
 	//Make the background of our scene white instead of the default black
-	director->setClearColor(Color4F(255, 255, 255, 255));
+	director->setClearColor(Color4F(1, 1, 1, 1));
 
 	//Schedule the use of the update function so the function actually gets called
 	this->scheduleUpdate();

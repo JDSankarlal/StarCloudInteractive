@@ -40,7 +40,7 @@ public:
 
 private:
 	AudioPlayer * audio = new AudioPlayer;
-	Player* players[4] = {new Player(this),new Player(this),new Player(this),new Player(this)};
+	Player* players[4] = {new Player(this,1),new Player(this,1),new Player(this,1),new Player(this,1)};
 
 	void contact();
 	

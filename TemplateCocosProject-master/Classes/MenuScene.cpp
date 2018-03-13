@@ -59,7 +59,8 @@ bool MenuScene::init()
 	this->scheduleUpdate();
 
 	//Background Audio
-	audio->setAudio("Audio/Battle_Time_V3.mp3");
+	audio->stop();
+	audio->setAudio("Audio/Menu_Music(full).mp3");
 	audio->play(true);
 
 	return true;
@@ -84,6 +85,7 @@ void MenuScene::update(float index)
 	
 			if (controllers.ButtonStroke(index, A))
 			{
+				audio->stop();
 				Director::getInstance()->replaceScene(HelloWorld::createScene());
 			}
 			if (moveD.yAxis == 0)
@@ -106,6 +108,7 @@ void MenuScene::update(float index)
 	
 			if (controllers.ButtonStroke(index, A))
 			{
+				audio->stop();
 				Director::getInstance()->replaceScene(OptionsScene::createScene());
 			}
 			if (moveD.yAxis == 0)
@@ -134,6 +137,7 @@ void MenuScene::update(float index)
 	
 			if (controllers.ButtonStroke(index, A))
 			{
+				audio->stop();
 				Director::getInstance()->end();
 			}
 			if (moveD.yAxis == 0)
