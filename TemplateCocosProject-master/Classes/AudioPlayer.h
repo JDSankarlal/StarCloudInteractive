@@ -77,6 +77,6 @@ private:
 	/****Utility Variables****/
 	std::string* audio = new std::string("");
 	static bool printError(int);
-	int inst;	
+	static int inst;	
 };
 

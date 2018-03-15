@@ -43,13 +43,13 @@ using namespace cocos2d;
 	- Used for both the mouse input and keyboard input
 
 	> Idle
-		- The key or button has not been touched for multiple frames. In general, this will be the majority of the keys (Never returns true in this state)
+		- The key or button has not been touched for multiple frames-> In general, this will be the majority of the keys (Never returns true in this state)
 	> Pressed
 		- The key or button was pressed this EXACT frame. Will switch to held the next frame if the button is still down. (Returns true for get_Pressed() and get_())
 	> Released
 		- The key or button was released this EXACT frame. Will switch to idle the next frame if the button is still up. (Returns true for get_Released())
 	> Held
-		- The key or button has been down for multiple frames. (Returns true for get_())
+		- The key or button has been down for multiple frames-> (Returns true for get_())
 */
 enum InputState
 {
