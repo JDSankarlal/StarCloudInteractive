@@ -3,12 +3,12 @@
 
 Player::Player(Scene *ActiveScene, int bitMask)
 {
-	playerAni->addSprite("walk", "Assets/walk");
-	playerAni->addSprite("jump up", "Assets/Jump Up");
-	playerAni->addSprite("jump down", "Assets/Jump Down");
+	playerAni->addSprite("walk", "Assets/Walk 2");
+	playerAni->addSprite("jump up", "Assets/Jump Up 2");
+	playerAni->addSprite("jump down", "Assets/Jump Down 2");
 	playerAni->setAnimation("walk");
 	AttachedSprite = playerAni->getSprite();
-	getSprite()->setScale(.075);
+	getSprite()->setScale(.3);
 	playerAni->setAnimationSpeed(.01);
 	auto size = getSprite()->getContentSize();
 

@@ -2,7 +2,7 @@
 #include "MenuScene.h"
 #include "HelloWorld.h"
 #include "OptionsScene.h"
-#include "TutorialScene.h"
+//#include "TutorialScene.h"
 
 USING_NS_CC;
 using namespace std;
