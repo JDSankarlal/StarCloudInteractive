@@ -1,6 +1,6 @@
 #include "AudioPlayer.h"
 
-
+int AudioPlayer::inst;
 using namespace std;
 AudioPlayer::AudioPlayer()
 {}

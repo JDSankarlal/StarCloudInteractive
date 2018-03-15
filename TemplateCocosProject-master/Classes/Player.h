@@ -13,7 +13,7 @@ class Player
 {
 public:
 
-	Player(Scene *, int);
+	Player(Scene *, int, int);
 	~Player();
 	PhysicsBody* getBody();
 	Sprite* getSprite();
@@ -48,6 +48,10 @@ public:
 
 	void printInfo();
 private:
+
+	//Utility Function
+	bool inRange(float,float,float);
+	//Member Variables
 	float LT, RT, movementPercent, lastMovement;
 	bool dash;
 	int initialDash;
@@ -59,13 +63,15 @@ private:
 	int numJumps = 0, MaxHP, HP, lightDamage, heavyDamage, heavyDamageCharged, throwAttack, crossAttack;
 	struct sfxPlayer
 	{
-		AudioPlayer* sfx=new AudioPlayer;
+		AudioPlayer* sfx = new AudioPlayer;
 		string sounds[1] {"Audio/Heavy_Attack.mp3"};
 	};
-	
+
 	Scene* scene;
 	Sprite *AttachedSprite;
-	Sprite* cursor[4] {Sprite::create("Assets/P1.png"),Sprite::create("Assets/P2.png"),Sprite::create("Assets/P3.png"),Sprite::create("Assets/P4.png")};
+	Sprite* cursor[4] {Sprite::create("Assets/P1.png"), Sprite::create("Assets/P2.png"),
+		Sprite::create("Assets/P3.png"), Sprite::create("Assets/P4.png")};
+
 	PhysicsBody *body;
 	SpriteAnimation* playerAni = new SpriteAnimation;
 };
