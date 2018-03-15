@@ -20,15 +20,16 @@ string cDir(string dir)
 void SpriteAnimation::addSprite(string aniName, string directory)
 {
 	*folder = directory;
-	vector<string>*vs = new vector<string>();
+	vector<string*>*vs = new vector<string*>;
 	for(auto &a : fs::directory_iterator(directory))
 	{
 		OutputDebugStringA(cDir(a.path().string() + '\n').c_str());
-		vs->push_back(cDir(a.path().string()));
+		vs->push_back(new string(cDir(a.path().string())));
 	}
 	frames->insert({aniName,vs});
 
-	frame->setTexture(frames->at(aniName)->at(0));	
+	frame->setTexture(*(*(*frames)[aniName])[0]);
+
 }
 
 void SpriteAnimation::animate()
@@ -38,24 +39,16 @@ void SpriteAnimation::animate()
 		float diffT = float(clock() - *dt) / CLOCKS_PER_SEC;
 		if(diffT > fps)
 		{
-			if(frames->at(ani)->size() > 0)
+			if(((*frames)[ani])->size() > 0)
 			{
 				*dt = clock();
 				frameCounter++;
-				if(frameCounter >= (frames->at(ani)->size()) && repeat)
+				if(frameCounter >= ((*frames)[ani])->size() && repeat)
 					frameCounter = 0;
-				else if(frameCounter >= (frames->at(ani)->size()))
-					frameCounter = frames->at(ani)->size() - 1;
+				else if(frameCounter >= ((*frames)[ani])->size())
+					frameCounter = ((*frames)[ani])->size() - 1;
 			//	OutputDebugStringA();
-				frame->setTexture(frames->at(ani)->at(frameCounter));
-				//frame->initWithFile(frames->at(ani).at(frameCounter));
-				OutputDebugStringA("Things are not working\n\n");
-				//tmpFrame = Sprite::create(*(*(*frames)[ani])[frameCounter]);
-				//frame = Sprite::create((*frames)[ani][frameCounter]);
-
-				//tmpFrame->setPhysicsBody(frame->getPhysicsBody());
-				//frame = tmpFrame;
-				//Director::getInstance()->getRunningScene()->addChild(frame);
+				frame->setTexture(*(*(*frames)[ani])[frameCounter]);
 			}
 		}
 	} else
@@ -97,17 +90,11 @@ void SpriteAnimation::setAnimationSpeed(float dt)
 	this->fps = dt;
 }
 
-void SpriteAnimation::setBody(PhysicsBody* body)
-{
-	pb = body;
-}
-
 void SpriteAnimation::setAnimation(string aniName)
 {
 	ani = aniName;
-	
-	//auto a=((frames)->at(ani).at(0));
-	frame->setTexture(frames->at(ani)->at(0));  //Problem is that texture scrolling is incorrect
+	if((*frames)[ani] != nullptr)
+		frame->setTexture(*(*(*frames)[aniName])[0]);
 }
 
 Sprite* SpriteAnimation::getSprite()
