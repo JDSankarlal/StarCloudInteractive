@@ -33,11 +33,14 @@ public:
 	//cocos2d::Sprite * sprite,*BG = cocos2d::Sprite::create("Assets/test level.png");
 	//cocos2d::Sprite3D *s3d = cocos2d::Sprite3D::create("Assets/test 3d model.c3b");
 	float movex, movey, vely;
+
+
+	
 	cocos2d::Director *director;
 
 private:
 	AudioPlayer * audio = new AudioPlayer;
-	Player* players[4] = {new Player(this,1,0),new Player(this,1,1),new Player(this,1,2),new Player(this,1,3)};
+	Player* players[4] = {new Player(this,1),new Player(this,1),new Player(this,1),new Player(this,1)};
 
 	void contact();
 	

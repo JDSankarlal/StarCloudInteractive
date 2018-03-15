@@ -19,7 +19,7 @@ public:
 	~SpriteAnimation();
 
 	//Adds a sprite to the animation list
-	void addSprite(string, string directory);
+	void addSprite(string,string directory);
 
 	//Animates throught the vector of frames
 	void animate();
@@ -29,9 +29,7 @@ public:
 
 	//Sets the animation speed in seconds 
 	void setAnimationSpeed(float);
-
-	void setBody(PhysicsBody*);
-
+	
 	//
 	void setAnimation(string);
 
@@ -51,15 +49,14 @@ public:
 
 	Sprite* getSprite();
 private:
-	unordered_map<string, vector<string>*> *frames=new unordered_map<string, vector<string>*>();
-	PhysicsBody *pb;
-	string *folder = new string, ani;
-	Sprite* frame = Sprite::create(), *tmpFrame = Sprite::create();
+	unordered_map<string,vector<string*>*> *frames= new unordered_map<string, vector<string*>*>;
+	string *folder = new string,ani;
+	Sprite* frame = Sprite::create();
 	clock_t* dt = new clock_t;
 	Size* size = new Size();
 	Vec2* position = new Vec2();
-	int frameCounter=0;
+	int frameCounter;
 	float fps;
-	bool pauseAni = false, repeat=true;
+	bool pauseAni = false, repeat;
 };
 
