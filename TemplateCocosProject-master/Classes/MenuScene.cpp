@@ -38,21 +38,21 @@ bool MenuScene::init()
 	background->setPosition(visibleSize.width / 2, visibleSize.height / 2);
 	addChild(background, -1);
 
-	playBtn = Sprite::create("Assets/playBtn.png");
-	playBtn->setPosition(visibleSize.width / 2, visibleSize.height / 2);
-	playBtn->setScale(1);
+	playBtn = Sprite::create("Assets/Button_Play.png");
+	playBtn->setPosition((visibleSize.width / 2) + 10, visibleSize.height / 2);
+	playBtn->setScale(2);
 	playBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 	this->addChild(playBtn, 2);
 
-	optionsBtn = Sprite::create("Assets/OptionsBtn.png");
-	optionsBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2) - 125);
-	optionsBtn->setScale(1);
+	optionsBtn = Sprite::create("Assets/Button_Options.png");
+	optionsBtn->setPosition((visibleSize.width / 2) + 10, (visibleSize.height / 2) - 125);
+	optionsBtn->setScale(2);
 	optionsBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 	this->addChild(optionsBtn, 2);
 
-	quitBtn = Sprite::create("Assets/quitbtn.png");
-	quitBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2) - 250);
-	quitBtn->setScale(1);
+	quitBtn = Sprite::create("Assets/Button_Quit.png");
+	quitBtn->setPosition((visibleSize.width / 2) - 5, (visibleSize.height / 2) - 250);
+	quitBtn->setScale(2);
 	quitBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 	this->addChild(quitBtn, 2);
 
@@ -82,12 +82,12 @@ void MenuScene::update(float index)
 		controllers.GetSticks(index, moveD, moveU);
 		if (playBtnActive)
 		{
-			playBtn->setScale(1.3f);
+			playBtn->setScale(2.5f);
 	
 			if (controllers.ButtonStroke(index, A))
 			{
 				audio->stop();
-				Director::getInstance()->replaceScene(TutorialScene::createScene());
+				Director::getInstance()->replaceScene(HelloWorld::createScene());
 			}
 			if (moveD.yAxis == 0)
 			{
@@ -98,14 +98,14 @@ void MenuScene::update(float index)
 				if (moveD.yAxis < 0)
 				{
 					optionsBtnActive = true;
-					playBtn->setScale(1);
+					playBtn->setScale(2);
 					playBtnActive = false;
 				}
 			}
 		}
 		else if (optionsBtnActive)
 		{
-			optionsBtn->setScale(1.3f);
+			optionsBtn->setScale(2.5f);
 	
 			if (controllers.ButtonStroke(index, A))
 			{
@@ -121,20 +121,20 @@ void MenuScene::update(float index)
 				if (moveD.yAxis < 0)
 				{
 					quitBtnActive = true;
-					optionsBtn->setScale(1);
+					optionsBtn->setScale(2);
 					optionsBtnActive = false;
 				}
 				if (moveD.yAxis > 0)
 				{
 					playBtnActive = true;
-					optionsBtn->setScale(1);
+					optionsBtn->setScale(2);
 					optionsBtnActive = false;
 				}
 			}
 		}
 		else if (quitBtnActive)
 		{
-			quitBtn->setScale(1.3f);
+			quitBtn->setScale(2.5f);
 	
 			if (controllers.ButtonStroke(index, A))
 			{
@@ -150,7 +150,7 @@ void MenuScene::update(float index)
 				if (moveD.yAxis > 0)
 				{
 					optionsBtnActive = true;
-					quitBtn->setScale(1);
+					quitBtn->setScale(2);
 					quitBtnActive = false;
 				}
 			}

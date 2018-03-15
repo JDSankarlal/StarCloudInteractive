@@ -36,7 +36,7 @@ public:
 
 
 	AudioPlayer *audio = new AudioPlayer;
-	Player* players[4] = { new Player(this,1),new Player(this,1),new Player(this,1),new Player(this,1) };
+	Player* players[4] = { new Player(this,1,0),new Player(this,1,1),new Player(this,1,2),new Player(this,1,3) };
 
 	cocos2d::Director *director;
 

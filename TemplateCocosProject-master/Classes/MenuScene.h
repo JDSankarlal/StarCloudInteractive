@@ -27,7 +27,7 @@ public:
 
 	cocos2d::Director *director;
 
-	cocos2d::Sprite* background = cocos2d::Sprite::create("Assets/placeholderMenu.jpg");
+	cocos2d::Sprite* background = cocos2d::Sprite::create("Assets/Main_Menu.png");
 	cocos2d::Sprite* playBtn;
 	cocos2d::Sprite* optionsBtn;
 	cocos2d::Sprite* quitBtn;
