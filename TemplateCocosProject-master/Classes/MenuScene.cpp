@@ -1,8 +1,6 @@
 #pragma once 
 #include "MenuScene.h"
-#include "HelloWorld.h"
-#include "OptionsScene.h"
-#include "TutorialScene.h"
+
 
 USING_NS_CC;
 using namespace std;
@@ -87,7 +85,8 @@ void MenuScene::update(float index)
 			if (controllers.ButtonStroke(index, A))
 			{
 				audio->stop();
-				Director::getInstance()->replaceScene(HelloWorld::createScene());
+				
+				Director::getInstance()->replaceScene(TutorialScene::createScene());
 			}
 			if (moveD.yAxis == 0)
 			{

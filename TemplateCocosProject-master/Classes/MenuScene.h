@@ -5,6 +5,9 @@
 #include "controller.h"
 #include <thread>
 #include <string>
+#include "HelloWorld.h"
+#include "OptionsScene.h"
+#include "TutorialScene.h"
 
 #pragma comment(lib,"Xinput9_1_0.lib")
 class MenuScene : public cocos2d::Scene
