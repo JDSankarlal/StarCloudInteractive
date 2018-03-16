@@ -45,11 +45,16 @@ bool TutorialScene::init()
 	}
 
 	//platforms
-	auto pf1 = new Platforms(this, 1, false, 200);
-	auto pf2 = new Platforms(this, 1, true, 500);
+	auto pf2 = new Platforms(this, 1, true, 250, 70);
+	auto pf3 = new Platforms(this, 1, true, 250, 70);
+	auto pf4 = new Platforms(this, 1, true, 250, 70);
+	auto pf5 = new Platforms(this, 1, true, 250, 70);
 
-	pf2->setPosition(visibleSize.width / 2, visibleSize.height / 2 - 200);
-	pf1->setPosition(visibleSize.width / 2 + 100, visibleSize.height / 2 + 150);
+	pf3->setPosition(visibleSize.width / 2 + 175, visibleSize.height / 2 +75);
+	pf4->setPosition(visibleSize.width / 2 - 175, visibleSize.height / 2 +75);
+
+	pf5->setPosition(visibleSize.width / 2 - 300, visibleSize.height / 2 - 125);
+	pf2->setPosition(visibleSize.width / 2 + 300, visibleSize.height / 2 - 125);
 
 	//Place Background
 	background->setScaleX(visibleSize.width / background->getContentSize().width);
@@ -57,6 +62,7 @@ bool TutorialScene::init()
 	background->setPosition(visibleSize.width / 2, visibleSize.height / 2);
 	addChild(background, -1);
 
+	//Pause Menu
 	menu = Sprite::create("Assets/newPaused.png");
 	menu->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
 	menu->setScale(1.6);
@@ -81,6 +87,14 @@ bool TutorialScene::init()
 	quitBtn->setScale(1);
 	quitBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 	this->addChild(quitBtn, -2);
+
+	//Tutorial Buttons
+
+
+
+	//Tutorial Scrolls
+
+
 
 	//Collision stuff
 	contact();
