@@ -1,8 +1,6 @@
 #pragma once 
 #include "HelloWorld.h"
-#include "PauseScene.h"
-
-
+#include "TutorialScene.h"
 
 USING_NS_CC;
 using namespace std;

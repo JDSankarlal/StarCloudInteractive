@@ -39,19 +39,10 @@
     <ClCompile Include="..\Classes\HelloWorld.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\MainScene.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\MenuScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\OptionsScene.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\PauseScene.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\PhysicsCircle.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Platforms.cpp">
@@ -64,6 +55,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\SpriteAnimation.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="TutorialScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -95,22 +89,10 @@
     <ClInclude Include="..\Classes\HelloWorld.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\MainScene.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\MenuScene.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\OptionsScene.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\PauseScene.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\PauseSceneScene.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\PhysicsCircle.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Platforms.h">
@@ -126,6 +108,18 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\MenuSceneScene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="TutorialScene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="TutorialSceneScene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HelloWorldScene.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\OptionsSceneScene.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
