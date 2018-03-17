@@ -49,11 +49,11 @@ bool TutorialScene::init()
 	auto pf4 = new Platforms(this, 1, true, 250, 70);
 	auto pf5 = new Platforms(this, 1, true, 250, 70);
 
-	pf3->setPosition(visibleSize.width / 2 + 175, visibleSize.height / 2 +75);
-	pf4->setPosition(visibleSize.width / 2 - 175, visibleSize.height / 2 +75);
+	pf3->setPosition(visibleSize.width / 2 + 175, visibleSize.height / 2 +0);
+	pf4->setPosition(visibleSize.width / 2 - 175, visibleSize.height / 2 +0);
 
-	pf5->setPosition(visibleSize.width / 2 - 300, visibleSize.height / 2 - 125);
-	pf2->setPosition(visibleSize.width / 2 + 300, visibleSize.height / 2 - 125);
+	pf5->setPosition(visibleSize.width / 2 - 300, visibleSize.height / 2 - 210);
+	pf2->setPosition(visibleSize.width / 2 + 300, visibleSize.height / 2 - 210);
 
 	//Place Background
 	background->setScaleX(visibleSize.width / background->getContentSize().width);
@@ -96,70 +96,70 @@ bool TutorialScene::init()
 	ABtn->setScale(1);
 	ABtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 
-	this->addChild(ABtn, -1);
+	this->addChild(ABtn, -2);
 
 	BBtn = Sprite::create("Assets/BButton.png");
 	BBtn->setPosition(visibleSize.width / 2 +350, (visibleSize.height / 2)+300);
 	BBtn->setScale(1);
 	BBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 
-	this->addChild(BBtn, -1);
+	this->addChild(BBtn, -2);
 
 	YBtn = Sprite::create("Assets/YButton.png");
 	YBtn->setPosition(visibleSize.width / 2 +350, (visibleSize.height / 2)+300);
 	YBtn->setScale(1);
 	YBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 
-	this->addChild(YBtn, -1);
+	this->addChild(YBtn, -2);
 
 	XBtn = Sprite::create("Assets/XButton.png");
 	XBtn->setPosition(visibleSize.width / 2 -350, (visibleSize.height / 2)+300);
 	XBtn->setScale(1);
 	XBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 
-	this->addChild(XBtn, -1);
+	this->addChild(XBtn, -2);
 
 	LBpr = Sprite::create("Assets/LB.png");
 	LBpr->setPosition(visibleSize.width / 2 -350, (visibleSize.height / 2)+300);
 	LBpr->setScale(1);
 	LBpr->setAnchorPoint(Vec2(0.5f, 0.5f));
 
-	this->addChild(LBpr, -1);
+	this->addChild(LBpr, -2);
 
 	RBpr = Sprite::create("Assets/RB.png");
 	RBpr->setPosition(visibleSize.width / 2 +350, (visibleSize.height / 2)+300);
 	RBpr->setScale(1);
 	RBpr->setAnchorPoint(Vec2(0.5f, 0.5f));
 
-	this->addChild(RBpr, -1);
+	this->addChild(RBpr, -2);
 
 	RTrgr = Sprite::create("Assets/RT.png");
 	RTrgr->setPosition(visibleSize.width / 2 +350, (visibleSize.height / 2)+300);
 	RTrgr->setScale(1);
 	RTrgr->setAnchorPoint(Vec2(0.5f, 0.5f));
 
-	this->addChild(RTrgr, -1);
+	this->addChild(RTrgr, -2);
 
 	LTrgr = Sprite::create("Assets/LT.png");
 	LTrgr->setPosition(visibleSize.width / 2 -350, (visibleSize.height / 2)+300);
 	LTrgr->setScale(1);
 	LTrgr->setAnchorPoint(Vec2(0.5f, 0.5f));
 
-	this->addChild(LTrgr, -1);
+	this->addChild(LTrgr, -2);
 
 	LStick = Sprite::create("Assets/LStick.png");
 	LStick->setPosition(visibleSize.width / 2 -350, (visibleSize.height / 2)+300);
 	LStick->setScale(1);
 	LStick->setAnchorPoint(Vec2(0.5f, 0.5f));
 
-	this->addChild(LStick, -1);
+	this->addChild(LStick, -2);
 			
 	startBtn = Sprite::create("Assets/TStartBtn.png");
 	startBtn->setPosition(visibleSize.width / 2 +350, (visibleSize.height / 2)+300);
 	startBtn->setScale(1);
 	startBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 
-	this->addChild(startBtn, -1);
+	this->addChild(startBtn, -2);
 
 	//
 	//
@@ -177,63 +177,63 @@ bool TutorialScene::init()
 	scroll2->setScale(1.2);
 	scroll2->setAnchorPoint(Vec2(0.5f, 0.5f));
 
-	this->addChild(scroll2, -1);
+	this->addChild(scroll2, -2);
 
 	scroll3 = Sprite::create("Assets/tutorial3.png");
 	scroll3->setPosition(visibleSize.width / 2, (visibleSize.height / 2)+300);
 	scroll3->setScale(1.2);
 	scroll3->setAnchorPoint(Vec2(0.5f, 0.5f));
 
-	this->addChild(scroll3, -1);
+	this->addChild(scroll3, -2);
 
 	scroll4 = Sprite::create("Assets/tutorial4.png");
 	scroll4->setPosition(visibleSize.width / 2, (visibleSize.height / 2)+300);
 	scroll4->setScale(1.2);
 	scroll4->setAnchorPoint(Vec2(0.5f, 0.5f));
 
-	this->addChild(scroll4, -1);
+	this->addChild(scroll4, -2);
 
 	scroll5 = Sprite::create("Assets/tutorial5.png");
 	scroll5->setPosition(visibleSize.width / 2, (visibleSize.height / 2)+300);
 	scroll5->setScale(1.2);
 	scroll5->setAnchorPoint(Vec2(0.5f, 0.5f));
 
-	this->addChild(scroll5, -1);
+	this->addChild(scroll5, -2);
 
 	scroll6 = Sprite::create("Assets/tutorial6.png");
 	scroll6->setPosition(visibleSize.width / 2, (visibleSize.height / 2)+300);
 	scroll6->setScale(1.2);
 	scroll6->setAnchorPoint(Vec2(0.5f, 0.5f));
 
-	this->addChild(scroll6, -1);
+	this->addChild(scroll6, -2);
 
 	scroll7 = Sprite::create("Assets/tutorial7.png");
 	scroll7->setPosition(visibleSize.width / 2, (visibleSize.height / 2)+300);
 	scroll7->setScale(1.2);
 	scroll7->setAnchorPoint(Vec2(0.5f, 0.5f));
 
-	this->addChild(scroll7, -1);
+	this->addChild(scroll7, -2);
 
 	scroll8 = Sprite::create("Assets/tutorial8.png");
 	scroll8->setPosition(visibleSize.width / 2, (visibleSize.height / 2)+300);
 	scroll8->setScale(1.2);
 	scroll8->setAnchorPoint(Vec2(0.5f, 0.5f));
 
-	this->addChild(scroll8, -1);
+	this->addChild(scroll8, -2);
 
 	scroll9 = Sprite::create("Assets/tutorial9.png");
 	scroll9->setPosition(visibleSize.width / 2, (visibleSize.height / 2)+300);
 	scroll9->setScale(1.2);
 	scroll9->setAnchorPoint(Vec2(0.5f, 0.5f));
 
-	this->addChild(scroll9, -1);
+	this->addChild(scroll9, -2);
 
 	scroll10 = Sprite::create("Assets/tutorial10.png");
 	scroll10->setPosition(visibleSize.width / 2, (visibleSize.height / 2) + 300);
 	scroll10->setScale(1.2);
 	scroll10->setAnchorPoint(Vec2(0.5f, 0.5f));
 
-	this->addChild(scroll10, -1);
+	this->addChild(scroll10, -2);
 
 	//Collision stuff
 	contact();
