@@ -1,5 +1,4 @@
 #pragma once 
-
 #include "TutorialScene.h"
 
 USING_NS_CC;
@@ -160,8 +159,75 @@ bool TutorialScene::init()
 	this->addChild(startBtn, 2);
 
 	//Tutorial Scrolls
+	scroll1 = Sprite::create("Assets/empty.png");
+	scroll1->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
+	scroll1->setScale(1.6);
+	scroll1->setAnchorPoint(Vec2(0.5f, 0.5f));
 
+	this->addChild(scroll1, 2);
 
+	scroll2 = Sprite::create("Assets/empty.png");
+	scroll2->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
+	scroll2->setScale(1.6);
+	scroll2->setAnchorPoint(Vec2(0.5f, 0.5f));
+
+	this->addChild(scroll2, 2);
+
+	scroll3 = Sprite::create("Assets/empty.png");
+	scroll3->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
+	scroll3->setScale(1.6);
+	scroll3->setAnchorPoint(Vec2(0.5f, 0.5f));
+
+	this->addChild(scroll3, 2);
+
+	scroll4 = Sprite::create("Assets/empty.png");
+	scroll4->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
+	scroll4->setScale(1.6);
+	scroll4->setAnchorPoint(Vec2(0.5f, 0.5f));
+
+	this->addChild(scroll4, 2);
+
+	scroll5 = Sprite::create("Assets/empty.png");
+	scroll5->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
+	scroll5->setScale(1.6);
+	scroll5->setAnchorPoint(Vec2(0.5f, 0.5f));
+
+	this->addChild(scroll5, 2);
+
+	scroll6 = Sprite::create("Assets/empty.png");
+	scroll6->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
+	scroll6->setScale(1.6);
+	scroll6->setAnchorPoint(Vec2(0.5f, 0.5f));
+
+	this->addChild(scroll6, 2);
+
+	scroll7 = Sprite::create("Assets/empty.png");
+	scroll7->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
+	scroll7->setScale(1.6);
+	scroll7->setAnchorPoint(Vec2(0.5f, 0.5f));
+
+	this->addChild(scroll7, 2);
+
+	scroll8 = Sprite::create("Assets/empty.png");
+	scroll8->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
+	scroll8->setScale(1.6);
+	scroll8->setAnchorPoint(Vec2(0.5f, 0.5f));
+
+	this->addChild(scroll8, 2);
+
+	scroll9 = Sprite::create("Assets/empty.png");
+	scroll9->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
+	scroll9->setScale(1.6);
+	scroll9->setAnchorPoint(Vec2(0.5f, 0.5f));
+
+	this->addChild(scroll9, 2);
+
+	scroll10 = Sprite::create("Assets/empty.png");
+	scroll10->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
+	scroll10->setScale(1.6);
+	scroll10->setAnchorPoint(Vec2(0.5f, 0.5f));
+
+	this->addChild(scroll10, 2);
 
 	//Collision stuff
 	contact();

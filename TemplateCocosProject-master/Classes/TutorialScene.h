@@ -60,6 +60,19 @@ private:
 	cocos2d::Sprite* LStick;
 	cocos2d::Sprite* startBtn;
 
+	cocos2d::Sprite* scroll1;
+	cocos2d::Sprite* scroll2;
+	cocos2d::Sprite* scroll3;
+	cocos2d::Sprite* scroll4;
+	cocos2d::Sprite* scroll5; 
+	cocos2d::Sprite* scroll6;
+	cocos2d::Sprite* scroll7;
+	cocos2d::Sprite* scroll8;
+	cocos2d::Sprite* scroll9;
+	cocos2d::Sprite* scroll10;
+
+	
+
 	bool gamePaused = false;
 	bool resumeBtnActive = false;
 	bool restartBtnActive = false;
