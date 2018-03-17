@@ -89,8 +89,75 @@ bool TutorialScene::init()
 	this->addChild(quitBtn, -2);
 
 	//Tutorial Buttons
+	ABtn = Sprite::create("Assets/empty.png");
+	ABtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
+	ABtn->setScale(1.6);
+	ABtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 
+	this->addChild(ABtn, 2);
 
+	BBtn = Sprite::create("Assets/empty.png");
+	BBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
+	BBtn->setScale(1.6);
+	BBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
+
+	this->addChild(BBtn, 2);
+
+	YBtn = Sprite::create("Assets/empty.png");
+	YBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
+	YBtn->setScale(1.6);
+	YBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
+
+	this->addChild(YBtn, 2);
+
+	XBtn = Sprite::create("Assets/empty.png");
+	XBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
+	XBtn->setScale(1.6);
+	XBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
+
+	this->addChild(XBtn, 2);
+
+	LBpr = Sprite::create("Assets/empty.png");
+	LBpr->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
+	LBpr->setScale(1.6);
+	LBpr->setAnchorPoint(Vec2(0.5f, 0.5f));
+
+	this->addChild(LBpr, 2);
+
+	RBpr = Sprite::create("Assets/empty.png");
+	RBpr->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
+	RBpr->setScale(1.6);
+	RBpr->setAnchorPoint(Vec2(0.5f, 0.5f));
+
+	this->addChild(RBpr, 2);
+
+	RTrgr = Sprite::create("Assets/empty.png");
+	RTrgr->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
+	RTrgr->setScale(1.6);
+	RTrgr->setAnchorPoint(Vec2(0.5f, 0.5f));
+
+	this->addChild(RTrgr, 2);
+
+	LTrgr = Sprite::create("Assets/empty.png");
+	LTrgr->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
+	LTrgr->setScale(1.6);
+	LTrgr->setAnchorPoint(Vec2(0.5f, 0.5f));
+
+	this->addChild(LTrgr, 2);
+
+	LStick = Sprite::create("Assets/empty.png");
+	LStick->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
+	LStick->setScale(1.6);
+	LStick->setAnchorPoint(Vec2(0.5f, 0.5f));
+
+	this->addChild(LStick, 2);
+			
+	startBtn = Sprite::create("Assets/empty.png");
+	startBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
+	startBtn->setScale(1.6);
+	startBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
+
+	this->addChild(startBtn, 2);
 
 	//Tutorial Scrolls
 

@@ -49,6 +49,17 @@ private:
 	cocos2d::Sprite* restartBtn;
 	cocos2d::Sprite* quitBtn;
 	
+	cocos2d::Sprite* ABtn;
+	cocos2d::Sprite* BBtn;
+	cocos2d::Sprite* YBtn;
+	cocos2d::Sprite* XBtn;
+	cocos2d::Sprite* LBpr;
+	cocos2d::Sprite* RBpr;
+	cocos2d::Sprite* LTrgr;
+	cocos2d::Sprite* RTrgr;
+	cocos2d::Sprite* LStick;
+	cocos2d::Sprite* startBtn;
+
 	bool gamePaused = false;
 	bool resumeBtnActive = false;
 	bool restartBtnActive = false;
