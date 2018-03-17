@@ -88,28 +88,28 @@ bool TutorialScene::init()
 	this->addChild(quitBtn, -2);
 
 	//Tutorial Buttons
-	ABtn = Sprite::create("Assets/empty.png");
+	ABtn = Sprite::create("Assets/AButton.png");
 	ABtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
 	ABtn->setScale(1.6);
 	ABtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 
 	this->addChild(ABtn, 2);
 
-	BBtn = Sprite::create("Assets/empty.png");
+	BBtn = Sprite::create("Assets/BButton.png");
 	BBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
 	BBtn->setScale(1.6);
 	BBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 
 	this->addChild(BBtn, 2);
 
-	YBtn = Sprite::create("Assets/empty.png");
+	YBtn = Sprite::create("Assets/YButton.png");
 	YBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
 	YBtn->setScale(1.6);
 	YBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 
 	this->addChild(YBtn, 2);
 
-	XBtn = Sprite::create("Assets/empty.png");
+	XBtn = Sprite::create("Assets/XButton.png");
 	XBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
 	XBtn->setScale(1.6);
 	XBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
