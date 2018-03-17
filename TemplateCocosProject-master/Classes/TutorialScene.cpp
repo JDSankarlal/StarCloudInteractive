@@ -116,42 +116,42 @@ bool TutorialScene::init()
 
 	this->addChild(XBtn, 2);
 
-	LBpr = Sprite::create("Assets/empty.png");
+	LBpr = Sprite::create("Assets/LB.png");
 	LBpr->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
 	LBpr->setScale(1.6);
 	LBpr->setAnchorPoint(Vec2(0.5f, 0.5f));
 
 	this->addChild(LBpr, 2);
 
-	RBpr = Sprite::create("Assets/empty.png");
+	RBpr = Sprite::create("Assets/RB.png");
 	RBpr->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
 	RBpr->setScale(1.6);
 	RBpr->setAnchorPoint(Vec2(0.5f, 0.5f));
 
 	this->addChild(RBpr, 2);
 
-	RTrgr = Sprite::create("Assets/empty.png");
+	RTrgr = Sprite::create("Assets/RT.png");
 	RTrgr->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
 	RTrgr->setScale(1.6);
 	RTrgr->setAnchorPoint(Vec2(0.5f, 0.5f));
 
 	this->addChild(RTrgr, 2);
 
-	LTrgr = Sprite::create("Assets/empty.png");
+	LTrgr = Sprite::create("Assets/LT.png");
 	LTrgr->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
 	LTrgr->setScale(1.6);
 	LTrgr->setAnchorPoint(Vec2(0.5f, 0.5f));
 
 	this->addChild(LTrgr, 2);
 
-	LStick = Sprite::create("Assets/empty.png");
+	LStick = Sprite::create("Assets/LStick.png");
 	LStick->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
 	LStick->setScale(1.6);
 	LStick->setAnchorPoint(Vec2(0.5f, 0.5f));
 
 	this->addChild(LStick, 2);
 			
-	startBtn = Sprite::create("Assets/empty.png");
+	startBtn = Sprite::create("Assets/TStartBtn.png");
 	startBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
 	startBtn->setScale(1.6);
 	startBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
@@ -159,72 +159,72 @@ bool TutorialScene::init()
 	this->addChild(startBtn, 2);
 
 	//Tutorial Scrolls
-	scroll1 = Sprite::create("Assets/empty.png");
-	scroll1->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
-	scroll1->setScale(1.6);
+	scroll1 = Sprite::create("Assets/tutorial1.png");
+	scroll1->setPosition(visibleSize.width / 2, (visibleSize.height / 2)+300);
+	scroll1->setScale(1.2);
 	scroll1->setAnchorPoint(Vec2(0.5f, 0.5f));
 
 	this->addChild(scroll1, 2);
 
-	scroll2 = Sprite::create("Assets/empty.png");
-	scroll2->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
-	scroll2->setScale(1.6);
+	scroll2 = Sprite::create("Assets/tutorial2.png");
+	scroll2->setPosition(visibleSize.width / 2, (visibleSize.height / 2)+300);
+	scroll2->setScale(1.2);
 	scroll2->setAnchorPoint(Vec2(0.5f, 0.5f));
 
 	this->addChild(scroll2, 2);
 
-	scroll3 = Sprite::create("Assets/empty.png");
-	scroll3->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
-	scroll3->setScale(1.6);
+	scroll3 = Sprite::create("Assets/tutorial3.png");
+	scroll3->setPosition(visibleSize.width / 2, (visibleSize.height / 2)+300);
+	scroll3->setScale(1.2);
 	scroll3->setAnchorPoint(Vec2(0.5f, 0.5f));
 
 	this->addChild(scroll3, 2);
 
-	scroll4 = Sprite::create("Assets/empty.png");
-	scroll4->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
-	scroll4->setScale(1.6);
+	scroll4 = Sprite::create("Assets/tutorial4.png");
+	scroll4->setPosition(visibleSize.width / 2, (visibleSize.height / 2)+300);
+	scroll4->setScale(1.2);
 	scroll4->setAnchorPoint(Vec2(0.5f, 0.5f));
 
 	this->addChild(scroll4, 2);
 
-	scroll5 = Sprite::create("Assets/empty.png");
-	scroll5->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
-	scroll5->setScale(1.6);
+	scroll5 = Sprite::create("Assets/tutorial5.png");
+	scroll5->setPosition(visibleSize.width / 2, (visibleSize.height / 2)+300);
+	scroll5->setScale(1.2);
 	scroll5->setAnchorPoint(Vec2(0.5f, 0.5f));
 
 	this->addChild(scroll5, 2);
 
-	scroll6 = Sprite::create("Assets/empty.png");
-	scroll6->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
-	scroll6->setScale(1.6);
+	scroll6 = Sprite::create("Assets/tutorial6.png");
+	scroll6->setPosition(visibleSize.width / 2, (visibleSize.height / 2)+300);
+	scroll6->setScale(1.2);
 	scroll6->setAnchorPoint(Vec2(0.5f, 0.5f));
 
 	this->addChild(scroll6, 2);
 
-	scroll7 = Sprite::create("Assets/empty.png");
-	scroll7->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
-	scroll7->setScale(1.6);
+	scroll7 = Sprite::create("Assets/tutorial7.png");
+	scroll7->setPosition(visibleSize.width / 2, (visibleSize.height / 2)+300);
+	scroll7->setScale(1.2);
 	scroll7->setAnchorPoint(Vec2(0.5f, 0.5f));
 
 	this->addChild(scroll7, 2);
 
-	scroll8 = Sprite::create("Assets/empty.png");
-	scroll8->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
-	scroll8->setScale(1.6);
+	scroll8 = Sprite::create("Assets/tutorial8.png");
+	scroll8->setPosition(visibleSize.width / 2, (visibleSize.height / 2)+300);
+	scroll8->setScale(1.2);
 	scroll8->setAnchorPoint(Vec2(0.5f, 0.5f));
 
 	this->addChild(scroll8, 2);
 
-	scroll9 = Sprite::create("Assets/empty.png");
-	scroll9->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
-	scroll9->setScale(1.6);
+	scroll9 = Sprite::create("Assets/tutorial9.png");
+	scroll9->setPosition(visibleSize.width / 2, (visibleSize.height / 2)+300);
+	scroll9->setScale(1.2);
 	scroll9->setAnchorPoint(Vec2(0.5f, 0.5f));
 
 	this->addChild(scroll9, 2);
 
-	scroll10 = Sprite::create("Assets/empty.png");
-	scroll10->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
-	scroll10->setScale(1.6);
+	scroll10 = Sprite::create("Assets/tutorial10.png");
+	scroll10->setPosition(visibleSize.width / 2, (visibleSize.height / 2) + 300);
+	scroll10->setScale(1.2);
 	scroll10->setAnchorPoint(Vec2(0.5f, 0.5f));
 
 	this->addChild(scroll10, 2);
