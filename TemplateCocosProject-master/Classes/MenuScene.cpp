@@ -48,13 +48,12 @@ bool MenuScene::init()
 	optionsBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 	this->addChild(optionsBtn, 2);
 
-<<<<<<< Updated upstream
 	quitBtn = Sprite::create("Assets/Button_Quit.png");
 	quitBtn->setPosition((visibleSize.width / 2) +5, (visibleSize.height / 2) - 250);
-=======
+
 	quitBtn = Sprite::create("Assets/Button_Dark_Quit.png");
 	quitBtn->setPosition((visibleSize.width / 2) - 5, (visibleSize.height / 2) - 250);
->>>>>>> Stashed changes
+
 	quitBtn->setScale(2);
 	quitBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 	this->addChild(quitBtn, 2);
