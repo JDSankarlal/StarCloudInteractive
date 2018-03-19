@@ -49,7 +49,7 @@ bool MenuScene::init()
 	this->addChild(optionsBtn, 2);
 
 	quitBtn = Sprite::create("Assets/Button_Quit.png");
-	quitBtn->setPosition((visibleSize.width / 2) +2, (visibleSize.height / 2) - 250);
+	quitBtn->setPosition((visibleSize.width / 2) +5, (visibleSize.height / 2) - 250);
 	quitBtn->setScale(2);
 	quitBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 	this->addChild(quitBtn, 2);
