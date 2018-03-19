@@ -9,6 +9,7 @@
 #include <string>
 #include "controller.h"
 #include "HelloWorld.h"
+#include "Sheep.h"
 
 #pragma comment(lib,"Xinput9_1_0.lib")
 using namespace Input;
@@ -39,16 +40,19 @@ public:
 private:
 	AudioPlayer * audio = new AudioPlayer;
 	Player* players[4] = {new Player(this,1),new Player(this,1),new Player(this,1),new Player(this,1)};
+	Sheep* sheep = new Sheep(this, 1);
 
 	void contact();
 	
 	//Put variables and sprites and stuff here
+	//Sprites for background and Pause Menu0
 	cocos2d::Sprite* background = cocos2d::Sprite::create("Assets/Background.png");
 	cocos2d::Sprite* menu;
 	cocos2d::Sprite* resumeBtn;
 	cocos2d::Sprite* restartBtn;
 	cocos2d::Sprite* quitBtn;
 	
+	//Sprites for buttons
 	cocos2d::Sprite* ABtn;
 	cocos2d::Sprite* BBtn;
 	cocos2d::Sprite* YBtn;
@@ -60,6 +64,7 @@ private:
 	cocos2d::Sprite* LStick;
 	cocos2d::Sprite* startBtn;
 
+	//Sprites for Scrolls
 	cocos2d::Sprite* scroll1;
 	cocos2d::Sprite* scroll2;
 	cocos2d::Sprite* scroll3;
@@ -71,14 +76,11 @@ private:
 	cocos2d::Sprite* scroll9;
 	cocos2d::Sprite* scroll10;
 
-	
-
+	//Bools
 	bool gamePaused = false;
 	bool resumeBtnActive = false;
 	bool restartBtnActive = false;
 	bool quitBtnActive = false;
-
-
 };
 
 

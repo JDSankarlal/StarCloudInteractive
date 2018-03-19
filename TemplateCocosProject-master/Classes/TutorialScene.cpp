@@ -43,6 +43,12 @@ bool TutorialScene::init()
 		a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2);
 	}
 
+	//for (auto &a : sheep)
+	//{
+	//	a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2, 0);
+	//}
+
+
 	//platforms
 	auto pf2 = new Platforms(this, 1, true, 250, 70);
 	auto pf3 = new Platforms(this, 1, true, 250, 70);
@@ -55,6 +61,7 @@ bool TutorialScene::init()
 	pf5->setPosition(visibleSize.width / 2 - 300, visibleSize.height / 2 - 210);
 	pf2->setPosition(visibleSize.width / 2 + 300, visibleSize.height / 2 - 210);
 
+	//this->addChild(sheep, 1);
 	//Place Background
 	background->setScaleX(visibleSize.width / background->getContentSize().width);
 	background->setScaleY(visibleSize.height / background->getContentSize().height);
