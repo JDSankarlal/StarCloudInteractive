@@ -38,7 +38,7 @@ private:
 	};
 
 	Scene* scene;
-	Sprite *AttachedSprite;
+	//Sprite *AttachedSprite;
 	PhysicsBody *body;
 	SpriteAnimation* sheepAni = new SpriteAnimation;
 	cocos2d::Sprite* sheep;

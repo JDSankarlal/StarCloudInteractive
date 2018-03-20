@@ -20,7 +20,7 @@ Sheep::Sheep(Scene *ActiveScene, int bitMask)
 	//getBody()->getFirstShape()->setFriction(.25);
 	//ActiveScene->addChild(AttachedSprite);
 	//sheep->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
-	sheep->setScale(0.5);
+	sheep->setScale(6);
 	sheep->setAnchorPoint(Vec2(0.5f, 0.5f));
 	
 	scene = ActiveScene;
@@ -35,12 +35,12 @@ Sheep::~Sheep()
 
 PhysicsBody * Sheep::getBody()
 {
-	return AttachedSprite->getPhysicsBody();
+	return sheep->getPhysicsBody();
 }
 
 Sprite * Sheep::getSprite()
 {
-	return AttachedSprite;
+	return sheep;
 }
 
 void Sheep::setPosition(float x, float y, float z)

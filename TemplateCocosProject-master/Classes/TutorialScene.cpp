@@ -43,10 +43,7 @@ bool TutorialScene::init()
 		a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2);
 	}
 
-	//for (auto &a : sheep)
-	//{
-	//	a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2, 0);
-	//}
+	sheep->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2, 0);
 
 
 	//platforms
@@ -252,6 +249,7 @@ bool TutorialScene::init()
 	
 	audio->setAudio("Audio/Battle_Time_V3.mp3");
 	audio->play(true);
+	//Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(0);
 	OutputDebugStringA("Finish Init\n\n");
 	return true;
 }
