@@ -8,7 +8,7 @@ Sheep::Sheep(Scene *ActiveScene, int bitMask)
 	//sheepAni->setAnimation("walk");
 	AttachedSprite = Sprite::create("Assets/FireSheep.png");
 	
-	getSprite()->setScale(.075);
+	getSprite()->setScale(0.5);
 	//sheepAni->setAnimationSpeed(.01);
 	auto size = getSprite()->getContentSize();
 	getSprite()->setPhysicsBody(PhysicsBody::createBox(size));

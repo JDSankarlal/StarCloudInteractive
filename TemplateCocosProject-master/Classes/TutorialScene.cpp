@@ -73,19 +73,19 @@ bool TutorialScene::init()
 
 	this->addChild(menu, -2);
 
-	restartBtn = Sprite::create("Assets/restart.png");
+	restartBtn = Sprite::create("Assets/Button_Dark_Restart.png");
 	restartBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
 	restartBtn->setScale(1);
 	restartBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 	this->addChild(restartBtn, -2);
 
-	resumeBtn = Sprite::create("Assets/resumeButn.png");
+	resumeBtn = Sprite::create("Assets/Button_Dark_PauseMenuResume.png");
 	resumeBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2) + 125);
 	resumeBtn->setScale(1);
 	resumeBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 	this->addChild(resumeBtn, -2);
 
-	quitBtn = Sprite::create("Assets/quitbtn.png");
+	quitBtn = Sprite::create("Assets/Button_Dark_PauseMenuQuit.png");
 	quitBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2) - 125);
 	quitBtn->setScale(1);
 	quitBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
