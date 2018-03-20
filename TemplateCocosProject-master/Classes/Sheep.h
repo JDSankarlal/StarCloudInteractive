@@ -22,7 +22,7 @@ public:
 
 	//get the position
 	Vec2 getPosition();
-	void setPosition(float x, float y, float z);
+	void setPosition(float x, float y, float z = 0);
 
 	SpriteAnimation* getSpriteAnimater();
 
@@ -38,9 +38,9 @@ private:
 	};
 
 	Scene* scene;
-	//Sprite *AttachedSprite;
+	Sprite *AttachedSprite;
 	PhysicsBody *body;
 	SpriteAnimation* sheepAni = new SpriteAnimation;
-	cocos2d::Sprite* sheep;
+	cocos2d::Sprite* sheepSprite;
 };
 

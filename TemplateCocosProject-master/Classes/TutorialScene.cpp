@@ -43,8 +43,8 @@ bool TutorialScene::init()
 		a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2);
 	}
 
-	sheep->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2, 0);
-
+	sheep->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2);
+	//sheep->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
 
 	//platforms
 	auto pf2 = new Platforms(this, 1, true, 250, 70);
