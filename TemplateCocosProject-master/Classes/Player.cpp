@@ -1,7 +1,7 @@
 #pragma once 
 #include "Player.h"
 
-Player::Player(Scene *ActiveScene, int bitMask)
+Player::Player(Scene *ActiveScene, int bitMask,int index)
 {
 	playerAni->addSprite("walk", "Assets/Walk 2");
 	playerAni->addSprite("jump up", "Assets/Jump Up 2");
@@ -22,16 +22,8 @@ Player::Player(Scene *ActiveScene, int bitMask)
 	ActiveScene->addChild(AttachedSprite);
 
 	scene = ActiveScene;
-	for(auto &a : cursor)
-		ActiveScene->addChild(a);
+	ActiveScene->addChild(cursor[index]);
 
-	MaxHP = 200;
-	HP = 200;
-	lightDamage = 5;
-	heavyDamage = 7;
-	heavyDamageCharged = 12;
-	throwAttack = 5;
-	crossAttack = 15;
 
 }
 
@@ -90,7 +82,7 @@ void Player::addForce(float x, float y)
 
 void Player::movementUpdate(int index)
 {
-	static sfxPlayer sfx;
+	
 	static Input::XBoxInput controllers;
 	controllers.DownloadPackets(4);
 	playerAni->animate();
@@ -105,44 +97,44 @@ void Player::movementUpdate(int index)
 
 		controllers.GetSticks(index, moveL, moveR);
 		int move = 375;
-		//if(moveL.xAxis != 0)
-		//	lastMovement = moveL.xAxis;
-		//
-		////Regular Movement
-		//
-		//movementPercent += .05f;
-		//
-		//if(moveL.xAxis == 0)
-		//	movementPercent -= .15;
-		//else if(moveL.xAxis * move < 0)
-		//	getSprite()->setFlippedX(true);
-		//else
-		//	getSprite()->setFlippedX(false);
-		//
-		//if(movementPercent > 1)
-		//	movementPercent = 1;
-		//else if(movementPercent < 0)
-		//	movementPercent = 0;
-		//
-		////setVelX(moveL.xAxis * move * movementPercent);
-		////if(movementPercent > 0)
-		//setVelX(lastMovement*move * movementPercent);
-		//
-		//	
-		//if(getVelocity().y == 0)
-		//{
-		//	if(moveL.xAxis != 0)
-		//	{
-		//		playerAni->resume();
-		//		playerAni->setAnimationSpeed((1.3 - abs(moveL.xAxis))*.1);
-		//	} else
-		//		playerAni->pause();
-		//}
-		//
-		////getBody()->resetForces();
-		//
-		////addForce(moveL.xAxis * 200000, 0);
-		////printInfo();
+		if(moveL.xAxis != 0)
+			lastMovement = moveL.xAxis;
+		
+		//Regular Movement
+		
+		movementPercent += .05f;
+		
+		if(moveL.xAxis == 0)
+			movementPercent -= .15;
+		else if(moveL.xAxis * move < 0)
+			getSprite()->setFlippedX(true);
+		else
+			getSprite()->setFlippedX(false);
+		
+		if(movementPercent > 1)
+			movementPercent = 1;
+		else if(movementPercent < 0)
+			movementPercent = 0;
+		
+		//setVelX(moveL.xAxis * move * movementPercent);
+		//if(movementPercent > 0)
+		setVelX(lastMovement*move * movementPercent);
+		
+			
+		if(getVelocity().y == 0)
+		{
+			if(moveL.xAxis != 0)
+			{
+				playerAni->resume();
+				playerAni->setAnimationSpeed((1.3 - abs(moveL.xAxis))*.1);
+			} else
+				playerAni->pause();
+		}
+		
+		//getBody()->resetForces();
+		
+		//addForce(moveL.xAxis * 200000, 0);
+		//printInfo();
 #pragma region Jumping
 		//OutputDebugStringA((std::to_string(numJumps) + '\n').c_str());
 		if((controllers.ButtonPress(index, A)) && (!hasJumped && numJumps < 2))
@@ -185,31 +177,31 @@ void Player::movementUpdate(int index)
 #pragma region Dash			
 		controllers.GetTriggers(index, LT, RT);
 
-		//if((LT > .5 || RT > .5) && !dash)
-		//{
-		//	numJumps = 0;
-		//	controllers.SetVibration(index, 1, 1);
-		//	dash = true;
-		//	setVelY(0);
-		//	initialDash = 800;
-		//} else if(LT < .5 && RT < .5)
-		//{
-		//	controllers.SetVibration(index, 0, 0);
-		//	dash = false;
-		//}
-		//if(dash)
-		//{
-		//	if(initialDash > move)
-		//	{
-		//		if(moveL.xAxis < 0)
-		//			setVelX(-(initialDash -= 20));
-		//		else  if(moveL.xAxis > 0)
-		//			setVelX(initialDash -= 20);
-		//	} else
-		//	{
-		//		controllers.SetVibration(index, 0, 0);
-		//	}
-		//}
+		if((LT > .5 || RT > .5) && !dash)
+		{
+			numJumps = 0;
+			controllers.SetVibration(index, 1, 1);
+			dash = true;
+			setVelY(0);
+			initialDash = 800;
+		} else if(LT < .5 && RT < .5)
+		{
+			controllers.SetVibration(index, 0, 0);
+			dash = false;
+		}
+		if(dash)
+		{
+			if(initialDash > move)
+			{
+				if(moveL.xAxis < 0)
+					setVelX(-(initialDash -= 20));
+				else  if(moveL.xAxis > 0)
+					setVelX(initialDash -= 20);
+			} else
+			{
+				controllers.SetVibration(index, 0, 0);
+			}
+		}
 #pragma endregion
 
 #pragma endregion
@@ -217,8 +209,8 @@ void Player::movementUpdate(int index)
 #pragma region Attacks
 		if(controllers.ButtonStroke(index, Y))
 		{
-			sfx.sfx->setAudio(sfx.sounds[0]);
-			sfx.sfx->play();
+			sfx->setAudio(sounds[0]);
+			sfx->play();
 		}
 #pragma endregion	
 

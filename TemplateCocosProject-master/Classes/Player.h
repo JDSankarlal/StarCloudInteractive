@@ -13,7 +13,7 @@ class Player
 {
 public:
 
-	Player(Scene *, int);
+	Player(Scene *, int, int);
 	~Player();
 	PhysicsBody* getBody();
 	Sprite* getSprite();
@@ -56,13 +56,12 @@ private:
 	void platformID(int id);
 	short colChange, jumpCount;
 	bool hasJumped, colPress;
-	int numJumps = 0, MaxHP, HP, lightDamage, heavyDamage, heavyDamageCharged, throwAttack, crossAttack;
-	struct sfxPlayer
-	{
-		AudioPlayer* sfx=new AudioPlayer;
-		string sounds[1] {"Audio/Heavy_Attack.mp3"};
-	};
-	
+	int numJumps = 0;
+
+	AudioPlayer* sfx = new AudioPlayer;
+	string sounds[1] {"Audio/Heavy_Attack.mp3"};
+
+
 	Scene* scene;
 	Sprite *AttachedSprite;
 	Sprite* cursor[4] {Sprite::create("Assets/P1.png"),Sprite::create("Assets/P2.png"),Sprite::create("Assets/P3.png"),Sprite::create("Assets/P4.png")};
