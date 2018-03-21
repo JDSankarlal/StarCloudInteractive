@@ -63,7 +63,7 @@ bool MenuScene::init()
 	audio->stop();
 	audio->setAudio("Audio/Menu_Music(full).mp3");
 	audio->play(true);
-
+	
 	return true;
 }
 
@@ -71,8 +71,7 @@ bool MenuScene::init()
 void MenuScene::update(float index)
 {
 	static XBoxInput controllers;
-	controllers.DownloadPackets(4);
-
+	controllers.DownloadPackets(4);	  
 
 	if (controllers.GetConnected(index))
 	{

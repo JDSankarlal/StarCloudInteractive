@@ -170,8 +170,9 @@ namespace Input
 
 	bool XBoxInput::ButtonStroke(int _index, Button _buttons)
 	{
-		static unordered_map<int,unordered_map<Button, bool>>stroke;
-		if(ButtonPress(_index, _buttons))
+		static unordered_map<int, unordered_map<Button, bool>>stroke;
+
+		if(!stroke[_index][_buttons] && ButtonPress(_index, _buttons))	
 		{
 			stroke[_index][_buttons] = true;
 		}

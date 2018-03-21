@@ -1,5 +1,5 @@
 #include "AudioPlayer.h"
-
+int AudioPlayer::inst;
 
 using namespace std;
 AudioPlayer::AudioPlayer()
@@ -42,7 +42,7 @@ void AudioPlayer::play(bool repeat)
 	if(repeat)
 	{
 		printError(mciSendStringA(string("status " + to_string((inst) * 10) + " length").c_str(), status, 128, 0));
-		if(!printError(mciSendStringA(string("play " + to_string(inst * 10) + " repeat from 0 to " + to_string(atoi(status) - 50)).c_str(), NULL, NULL, NULL)))
+		if(!printError(mciSendStringA(string("play " + to_string(inst * 10) + " repeat ").c_str(), NULL, NULL, NULL)))
 			info();
 	} else
 		if(!printError(mciSendStringA(string("play " + to_string(inst * 10)).c_str(), NULL, NULL, NULL)))
@@ -55,9 +55,9 @@ void AudioPlayer::mute()
 
 	printError(mciSendStringA(string("set " + to_string(inst * 10) + " audio all on").c_str(), status, 128, 0));
 
-	if(status != "on")
+	if(status != "on") //Mute On
 		printError(mciSendStringA(string("set " + to_string(inst * 10) + " audio all on").c_str(), NULL, NULL, 0));
-	else
+	else //Mute Off
 		printError(mciSendStringA(string("set " + to_string(inst * 10) + " audio all off").c_str(), NULL, NULL, 0));
 }
 
@@ -74,7 +74,7 @@ void AudioPlayer::resume()
 void AudioPlayer::stop()
 {
 	mciSendStringA(string("stop " + to_string(inst * 10)).c_str(), NULL, 0, NULL);
-	cleanUp();
+	cleanUp();//Cleans up all stopped audio
 }
 
 bool AudioPlayer::isPlaying()
@@ -97,17 +97,19 @@ void AudioPlayer::info()
 	for(int a = 1; a <= stoi(size); a++)
 	{
 		mciSendStringA(string("sysinfo all name " + to_string(a) + " open").c_str(), info, 128, NULL);
-		OutputDebugStringA(((string)info + " ").c_str());
+		OutputDebugStringA(((string)info + " ").c_str());//prints instance name
 		mciSendStringA(string("status " + string(info) + " mode").c_str(), info, 125, NULL);
-		OutputDebugStringA(((string)info + "\n").c_str());
+		OutputDebugStringA(((string)info + "\n").c_str());//prints it's status (i.e. Playing, Paused...)
 	}
 	OutputDebugStringA("\n");
 }
 
-void AudioPlayer::setVolume(int vol)
+void AudioPlayer::setVolume(float vol)
 {
-	if(vol <= 1000 && vol >= 0)
-		printError(mciSendStringA(string("setaudio " + to_string(inst * 10) + " volume to " + to_string(vol)).c_str(), 0, 0, 0));
+	if(vol <= 1 && vol >= 0)
+		printError(mciSendStringA(string("setaudio " + to_string(inst * 10) + " volume to " + to_string(int(1000 * vol))).c_str(), 0, 0, 0));
+	else
+		OutputDebugStringA("Invalid volume height\n");
 }
 
 bool AudioPlayer::printError(int error)

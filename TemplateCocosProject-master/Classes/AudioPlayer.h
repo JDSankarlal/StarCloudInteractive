@@ -66,9 +66,10 @@ public:
 
 	/*
 	Sets the volume of the audio.
-	Highest volume 1000
+	Lowest volume 0.0f
+	Highest volume 1.0f
 	*/
-	void setVolume(int = 1000);
+	void setVolume(float = 1);
 
 private:
 	/****Utility Functions****/
@@ -77,6 +78,6 @@ private:
 	/****Utility Variables****/
 	std::string* audio = new std::string("");
 	static bool printError(int);
-	int inst;	
+	static int inst;	
 };
 

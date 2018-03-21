@@ -23,8 +23,8 @@ public:
 	CREATE_FUNC(MenuScene);
 
 
-	AudioPlayer *audio = new AudioPlayer;
-
+	AudioPlayer* audio = new AudioPlayer;
+	
 	cocos2d::Director *director;
 
 	cocos2d::Sprite* background = cocos2d::Sprite::create("Assets/Main_Menu.png");

@@ -132,7 +132,9 @@ void HelloWorld::update(float dt)
 			//OutputDebugStringA(string("Controller: "+std::to_string(index)+'\n').c_str());
 			Stick moveD, moveU;
 
+
 			static int count[] {0,0,0,0}, til = 20;
+
 			controllers.GetSticks(a, moveD, moveU);
 
 			if(controllers.ButtonStroke(a, Start)) //If start pressed on controller
@@ -187,9 +189,11 @@ void HelloWorld::update(float dt)
 					{
 						count[a] = til;
 					}
+					
 					if(count[a]++ > til)
 					{
 						count[a] = 0;
+
 						if(moveD.yAxis < 0)
 						{
 							restartBtnActive = true;
@@ -207,11 +211,14 @@ void HelloWorld::update(float dt)
 					}
 					if(moveD.yAxis == 0)
 					{
+
 						count[a] = til;
 					}
+					
 					if(count[a]++ > til)
 					{
 						count[a] = 0;
+
 						if(moveD.yAxis < 0)
 						{
 							quitBtnActive = true;
@@ -238,9 +245,10 @@ void HelloWorld::update(float dt)
 					{
 						count[a] = til;
 					}
+
 					if(count[a]++ > til)
 					{
-						count[a] = 0;
+						count[0] = 0;
 						if(moveD.yAxis > 0)
 						{
 							restartBtnActive = true;
@@ -278,7 +286,8 @@ void HelloWorld::contact()
 		auto shapeB = contact.getShapeB();
 		auto bodyB = shapeB->getBody();
 		OutputDebugStringA("Collision\n");
-
+		if((bodyA->getName() == "Player"&& bodyB->getName() == "Platform") || (bodyA->getName() == "Platform" && bodyB->getName() == "Player"))
+			return true;
 		if(bodyA->getTag() == bodyB->getTag())
 			return false;
 		return true;

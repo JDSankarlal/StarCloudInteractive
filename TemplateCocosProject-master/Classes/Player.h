@@ -4,7 +4,8 @@
 #include "cocos2d.h"
 #include "controller.h"
 #include "SpriteAnimation.h"
-#include "AudioPlayer.h";
+#include "AudioPlayer.h"
+#include "Projectial.h"
 
 using std::string;
 USING_NS_CC;
@@ -23,6 +24,7 @@ public:
 	void setVelX(float);
 	void setVelY(float);
 	void setVel(float, float);
+	void setVel(int, int);
 #pragma endregion
 
 #pragma region Set Forces  
@@ -47,7 +49,9 @@ public:
 	void platformSwitch(int);
 
 	void printInfo();
+	
 private:
+	bool inRange(float check, float low, float high);
 	float LT, RT, movementPercent, lastMovement;
 	bool dash;
 	int initialDash;
@@ -61,7 +65,7 @@ private:
 	AudioPlayer* sfx = new AudioPlayer;
 	string sounds[1] {"Audio/Heavy_Attack.mp3"};
 
-
+	Projectial *atk;
 	Scene* scene;
 	Sprite *AttachedSprite;
 	Sprite* cursor[4] {Sprite::create("Assets/P1.png"),Sprite::create("Assets/P2.png"),Sprite::create("Assets/P3.png"),Sprite::create("Assets/P4.png")};
