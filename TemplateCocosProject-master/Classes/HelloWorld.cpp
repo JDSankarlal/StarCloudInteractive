@@ -1,8 +1,6 @@
 #pragma once 
 #include "HelloWorld.h"
-#include "PauseScene.h"
-
-
+#include "TutorialScene.h"
 
 USING_NS_CC;
 using namespace std;
@@ -48,11 +46,10 @@ bool HelloWorld::init()
 	}
 
 	//platforms
-	auto pf1 = new Platforms(this, 1, false, 200);
 	auto pf2 = new Platforms(this, 1, true, 500);
 
 	pf2->setPosition(visibleSize.width / 2, visibleSize.height / 2 - 200);
-	pf1->setPosition(visibleSize.width / 2 + 100, visibleSize.height / 2 + 150);
+	//pf1->setPosition(visibleSize.width / 2 + 100, visibleSize.height / 2 + 150);
 
 	//Place Background
 	background->setScaleX(visibleSize.width / background->getContentSize().width);

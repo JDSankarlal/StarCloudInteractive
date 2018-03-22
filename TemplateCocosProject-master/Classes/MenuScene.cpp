@@ -4,6 +4,7 @@
 #include "OptionsScene.h"
 //#include "TutorialScene.h"
 
+
 USING_NS_CC;
 using namespace std;
 using namespace Input;
@@ -38,20 +39,24 @@ bool MenuScene::init()
 	background->setPosition(visibleSize.width / 2, visibleSize.height / 2);
 	addChild(background, -1);
 
-	playBtn = Sprite::create("Assets/Button_Play.png");
+	playBtn = Sprite::create("Assets/Button_Dark_Play.png");
 	playBtn->setPosition((visibleSize.width / 2) + 10, visibleSize.height / 2);
 	playBtn->setScale(2);
 	playBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 	this->addChild(playBtn, 2);
 
-	optionsBtn = Sprite::create("Assets/Button_Options.png");
+	optionsBtn = Sprite::create("Assets/Button_Dark_Options.png");
 	optionsBtn->setPosition((visibleSize.width / 2) + 10, (visibleSize.height / 2) - 125);
 	optionsBtn->setScale(2);
 	optionsBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 	this->addChild(optionsBtn, 2);
 
 	quitBtn = Sprite::create("Assets/Button_Quit.png");
+	quitBtn->setPosition((visibleSize.width / 2) +5, (visibleSize.height / 2) - 250);
+
+	quitBtn = Sprite::create("Assets/Button_Dark_Quit.png");
 	quitBtn->setPosition((visibleSize.width / 2) - 5, (visibleSize.height / 2) - 250);
+
 	quitBtn->setScale(2);
 	quitBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 	this->addChild(quitBtn, 2);
@@ -87,7 +92,8 @@ void MenuScene::update(float index)
 			if (controllers.ButtonStroke(index, A))
 			{
 				audio->stop();
-				Director::getInstance()->replaceScene(HelloWorld::createScene());
+				
+				Director::getInstance()->replaceScene(TutorialScene::createScene());
 			}
 			if (moveD.yAxis == 0)
 			{

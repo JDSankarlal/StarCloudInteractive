@@ -1,11 +1,13 @@
 #pragma once
 #include "cocos2d.h"
-
 #include "AudioPlayer.h"
 #include "SimpleAudioEngine.h"
 #include "controller.h"
 #include <thread>
 #include <string>
+#include "HelloWorld.h"
+#include "OptionsScene.h"
+#include "TutorialScene.h"
 
 #pragma comment(lib,"Xinput9_1_0.lib")
 class MenuScene : public cocos2d::Scene

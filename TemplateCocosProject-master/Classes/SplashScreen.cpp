@@ -24,6 +24,9 @@ bool SplashScreen::init()
 	cocos2d::CCSprite* pSprite = cocos2d::CCSprite::create("Assets/SplashScreen.png");
 	pSprite->setPosition(cocos2d::ccp(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 
+	pSprite->setScaleX(visibleSize.width / pSprite->getContentSize().width);
+	pSprite->setScaleY(visibleSize.height / pSprite->getContentSize().height);
+
 	this->addChild(pSprite, 0);
 	this->runAction(cocos2d::CCSequence::create(
 		cocos2d::CCDelayTime::create(0.5),
