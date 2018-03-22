@@ -10,6 +10,7 @@
 #include "controller.h"
 #include "HelloWorld.h"
 #include "Sheep.h"
+#include "time.h"
 
 #pragma comment(lib,"Xinput9_1_0.lib")
 using namespace Input;
@@ -76,11 +77,21 @@ private:
 	cocos2d::Sprite* scroll9;
 	cocos2d::Sprite* scroll10;
 
+	cocos2d::Sprite* tryMove;
+	cocos2d::Sprite* tryDash;
+	cocos2d::Sprite* TryAttack;
+
+	std::vector<Sprite*>scrolls;
+
+	bool onStart = true; // For some reason I can't put this stuff in the init function otherwise it crashes my computer so thats a good time
+	double theRealDT = 0;
 	//Bools
 	bool gamePaused = false;
 	bool resumeBtnActive = false;
 	bool restartBtnActive = false;
 	bool quitBtnActive = false;
+	bool sheep1 = true;
+	bool sheep2 = false;
 };
 
 

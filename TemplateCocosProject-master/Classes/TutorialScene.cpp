@@ -40,25 +40,24 @@ bool TutorialScene::init()
 	short count = 0;
 	for(auto &a : players)
 	{
-		a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2);
+		a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 - 600 - (40 * count++), director->getOpenGLView()->getFrameSize().height / 2 -150);
 	}
 
-	sheep->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2);
+	sheep->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (90 * count++), director->getOpenGLView()->getFrameSize().height / 2 -100);
 	//sheep->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
 
 	//platforms
-	auto pf2 = new Platforms(this, 1, true, 250, 70);
-	auto pf3 = new Platforms(this, 1, true, 250, 70);
-	auto pf4 = new Platforms(this, 1, true, 250, 70);
-	auto pf5 = new Platforms(this, 1, true, 250, 70);
+	auto pf2 = new Platforms(this, 1, true, 400, 115);
+	auto pf3 = new Platforms(this, 1, true, 400, 115);
+	auto pf4 = new Platforms(this, 1, true, 400, 115);
+	auto pf5 = new Platforms(this, 1, true, 400, 115);
 
-	pf3->setPosition(visibleSize.width / 2 + 175, visibleSize.height / 2 +0);
-	pf4->setPosition(visibleSize.width / 2 - 175, visibleSize.height / 2 +0);
+	pf3->setPosition(visibleSize.width / 2 + 225, visibleSize.height / 2 +0);
+	pf4->setPosition(visibleSize.width / 2 - 225, visibleSize.height / 2 +0);
 
-	pf5->setPosition(visibleSize.width / 2 - 300, visibleSize.height / 2 - 210);
-	pf2->setPosition(visibleSize.width / 2 + 300, visibleSize.height / 2 - 210);
+	pf5->setPosition(visibleSize.width / 2 - 550, visibleSize.height / 2 - 250);
+	pf2->setPosition(visibleSize.width / 2 + 550, visibleSize.height / 2 - 250);
 
-	//this->addChild(sheep, 1);
 	//Place Background
 	background->setScaleX(visibleSize.width / background->getContentSize().width);
 	background->setScaleY(visibleSize.height / background->getContentSize().height);
@@ -66,28 +65,28 @@ bool TutorialScene::init()
 	addChild(background, -1);
 
 	//Pause Menu
-	menu = Sprite::create("Assets/newPaused.png");
+	menu = Sprite::create("Assets/grey.png");
 	menu->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
-	menu->setScale(1.6);
+	menu->setScale(4);
 	menu->setAnchorPoint(Vec2(0.5f, 0.5f));
 
 	this->addChild(menu, -2);
 
 	restartBtn = Sprite::create("Assets/Button_Dark_Restart.png");
 	restartBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
-	restartBtn->setScale(1);
+	restartBtn->setScale(0.7);
 	restartBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 	this->addChild(restartBtn, -2);
 
 	resumeBtn = Sprite::create("Assets/Button_Dark_PauseMenuResume.png");
 	resumeBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2) + 125);
-	resumeBtn->setScale(1);
+	resumeBtn->setScale(0.7);
 	resumeBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 	this->addChild(resumeBtn, -2);
 
 	quitBtn = Sprite::create("Assets/Button_Dark_PauseMenuQuit.png");
 	quitBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2) - 125);
-	quitBtn->setScale(1);
+	quitBtn->setScale(0.7);
 	quitBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 	this->addChild(quitBtn, -2);
 	
@@ -170,74 +169,112 @@ bool TutorialScene::init()
 	//
 	//Tutorial Scrolls
 	scroll1 = Sprite::create("Assets/tutorial1.png");
-	scroll1->setPosition(visibleSize.width / 2, (visibleSize.height / 2)+300);
-	scroll1->setScale(1.2);
+	scroll1->setPosition(visibleSize.width / 2, (visibleSize.height / 2) + 300);
+	scroll1->setScale(3);
 	scroll1->setAnchorPoint(Vec2(0.5f, 0.5f));
 
 	this->addChild(scroll1, 2);
-
+	scrolls.push_back(scroll1);
+	
 	scroll2 = Sprite::create("Assets/tutorial2.png");
-	scroll2->setPosition(visibleSize.width / 2, (visibleSize.height / 2)+300);
-	scroll2->setScale(1.2);
+	scroll2->setPosition(visibleSize.width / 2, (visibleSize.height / 2) + 300);
+	scroll2->setScale(3);
 	scroll2->setAnchorPoint(Vec2(0.5f, 0.5f));
 
 	this->addChild(scroll2, -2);
+	scrolls.push_back(scroll2);
 
 	scroll3 = Sprite::create("Assets/tutorial3.png");
 	scroll3->setPosition(visibleSize.width / 2, (visibleSize.height / 2)+300);
-	scroll3->setScale(1.2);
+	scroll3->setScale(3);
 	scroll3->setAnchorPoint(Vec2(0.5f, 0.5f));
 
 	this->addChild(scroll3, -2);
+	scrolls.push_back(scroll3);
+	
+	//Try Moving
+	tryMove = Sprite::create("Assets/ALS.png");
+	tryMove->setPosition(visibleSize.width / 2, (visibleSize.height / 2) + 300);
+	tryMove->setScale(3);
+	tryMove->setAnchorPoint(Vec2(0.5f, 0.5f));
+
+	this->addChild(tryMove, -2);
+	scrolls.push_back(tryMove);
+
+	tryDash = Sprite::create("Assets/TryRTLT.png");
+	tryDash->setPosition(visibleSize.width / 2, (visibleSize.height / 2) + 300);
+	tryDash->setScale(3);
+	tryDash->setAnchorPoint(Vec2(0.5f, 0.5f));
+
+	this->addChild(tryDash, -2);
+	scrolls.push_back(tryDash);
+
+	TryAttack = Sprite::create("Assets/TryRTLT.png");
+	TryAttack->setPosition(visibleSize.width / 2, (visibleSize.height / 2) + 300);
+	TryAttack->setScale(3);
+	TryAttack->setAnchorPoint(Vec2(0.5f, 0.5f));
+
+	this->addChild(TryAttack, -2);
+	scrolls.push_back(TryAttack);
 
 	scroll4 = Sprite::create("Assets/tutorial4.png");
 	scroll4->setPosition(visibleSize.width / 2, (visibleSize.height / 2)+300);
-	scroll4->setScale(1.2);
+	scroll4->setScale(3);
 	scroll4->setAnchorPoint(Vec2(0.5f, 0.5f));
 
 	this->addChild(scroll4, -2);
+	scrolls.push_back(scroll4);
 
 	scroll5 = Sprite::create("Assets/tutorial5.png");
 	scroll5->setPosition(visibleSize.width / 2, (visibleSize.height / 2)+300);
-	scroll5->setScale(1.2);
+	scroll5->setScale(3);
 	scroll5->setAnchorPoint(Vec2(0.5f, 0.5f));
 
 	this->addChild(scroll5, -2);
+	scrolls.push_back(scroll5);
 
 	scroll6 = Sprite::create("Assets/tutorial6.png");
 	scroll6->setPosition(visibleSize.width / 2, (visibleSize.height / 2)+300);
-	scroll6->setScale(1.2);
+	scroll6->setScale(3);
 	scroll6->setAnchorPoint(Vec2(0.5f, 0.5f));
 
 	this->addChild(scroll6, -2);
+	scrolls.push_back(scroll6);
 
 	scroll7 = Sprite::create("Assets/tutorial7.png");
 	scroll7->setPosition(visibleSize.width / 2, (visibleSize.height / 2)+300);
-	scroll7->setScale(1.2);
+	scroll7->setScale(3);
 	scroll7->setAnchorPoint(Vec2(0.5f, 0.5f));
 
 	this->addChild(scroll7, -2);
+	scrolls.push_back(scroll7);
 
 	scroll8 = Sprite::create("Assets/tutorial8.png");
 	scroll8->setPosition(visibleSize.width / 2, (visibleSize.height / 2)+300);
-	scroll8->setScale(1.2);
+	scroll8->setScale(3);
 	scroll8->setAnchorPoint(Vec2(0.5f, 0.5f));
 
 	this->addChild(scroll8, -2);
+	scrolls.push_back(scroll8);
 
 	scroll9 = Sprite::create("Assets/tutorial9.png");
 	scroll9->setPosition(visibleSize.width / 2, (visibleSize.height / 2)+300);
-	scroll9->setScale(1.2);
+	scroll9->setScale(3);
 	scroll9->setAnchorPoint(Vec2(0.5f, 0.5f));
 
 	this->addChild(scroll9, -2);
+	scrolls.push_back(scroll9);
 
 	scroll10 = Sprite::create("Assets/tutorial10.png");
 	scroll10->setPosition(visibleSize.width / 2, (visibleSize.height / 2) + 300);
-	scroll10->setScale(1.2);
+	scroll10->setScale(3);
 	scroll10->setAnchorPoint(Vec2(0.5f, 0.5f));
 
 	this->addChild(scroll10, -2);
+	scrolls.push_back(scroll10);
+
+	//Try button scrolls
+	
 
 	//Collision stuff
 	contact();
@@ -249,7 +286,7 @@ bool TutorialScene::init()
 	
 	audio->setAudio("Audio/Battle_Time_V3.mp3");
 	audio->play(true);
-	//Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(0);
+	
 	OutputDebugStringA("Finish Init\n\n");
 	return true;
 }
@@ -257,7 +294,10 @@ bool TutorialScene::init()
 //Updates movement per frame
 void TutorialScene::update(float dt)
 {
+	theRealDT += dt;
+
 	static XBoxInput controllers;
+
 	controllers.DownloadPackets(4);
 
 	short count = 0;
@@ -398,7 +438,43 @@ void TutorialScene::update(float dt)
 		}
 	}
 
+	if (onStart == true)
+	{
+		Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(0);
+	}
+	  if (theRealDT >= 3)
+	  {
+		  if (scrolls[0]->getZOrder() == 2)
+		  {
+			  scrolls[0]->setZOrder(-2);
+			  scrolls[1]->setZOrder(2);
+		  }
+		  else if (scrolls[1]->getZOrder() == 2 && theRealDT >= 6)
+		  {
+			  scrolls[1]->setZOrder(-2);
+			  scrolls[2]->setZOrder(2);
+		  }
+		  else if (scrolls[2]->getZOrder() == 2 && theRealDT >= 9)
+		  {
+			  scrolls[2]->setZOrder(-2);
+			  scrolls[3]->setZOrder(2);
+			  onStart = false;
+			  Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(1);
+		  }
+		  else if (scrolls[3]->getZOrder() == 2 && theRealDT >= 12)
+		  {
+			  scrolls[3]->setZOrder(-2);
+			  scrolls[4]->setZOrder(2);
+		  }
+		  else if (scrolls[4]->getZOrder() == 2 && theRealDT >= 15 && players[0]->getPosition().x >= director->getOpenGLView()->getFrameSize().width / 2 + (200 * count++))
+		  {
+			  scrolls[4]->setZOrder(-2);
+			  scrolls[5]->setZOrder(2);
+		  }
+	  }
 
+
+	OutputDebugStringA(string(to_string(theRealDT)+"\n").c_str());
 }
 
 void TutorialScene::contact()
