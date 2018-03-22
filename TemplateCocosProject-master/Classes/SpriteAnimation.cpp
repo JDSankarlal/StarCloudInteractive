@@ -43,12 +43,15 @@ void SpriteAnimation::animate()
 			{
 				*dt = clock();
 				frameCounter++;
+			
 				if(frameCounter >= ((*frames)[ani])->size() && repeat)
 					frameCounter = 0;
 				else if(frameCounter >= ((*frames)[ani])->size())
 					frameCounter = ((*frames)[ani])->size() - 1;
-			//	OutputDebugStringA();
+			
 				frame->setTexture(*(*(*frames)[ani])[frameCounter]);
+				//frame->getPhysicsBody()->removeAllShapes();
+				//frame->getPhysicsBody()->addShape(PhysicsShapeBox::create(frame->getContentSize()*frame->getScale()));
 			}
 		}
 	} else

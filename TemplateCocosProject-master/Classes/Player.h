@@ -4,16 +4,17 @@
 #include "cocos2d.h"
 #include "controller.h"
 #include "SpriteAnimation.h"
-#include "AudioPlayer.h";
+#include "AudioPlayer.h"
+#include "Projectile.h"
 
 using std::string;
 USING_NS_CC;
 using namespace Input;
-class Player
+class Player :public Node
 {
 public:
 
-	Player(Scene *, int);
+	Player(Scene *, int, int);
 	~Player();
 	PhysicsBody* getBody();
 	Sprite* getSprite();
@@ -23,6 +24,7 @@ public:
 	void setVelX(float);
 	void setVelY(float);
 	void setVel(float, float);
+	void setVel(int, int);
 #pragma endregion
 
 #pragma region Set Forces  
@@ -47,7 +49,9 @@ public:
 	void platformSwitch(int);
 
 	void printInfo();
+	Projectile *atk;
 private:
+	bool inRange(float check, float low, float high);
 	float LT, RT, movementPercent, lastMovement;
 	bool dash;
 	int initialDash;
@@ -56,12 +60,11 @@ private:
 	void platformID(int id);
 	short colChange, jumpCount;
 	bool hasJumped, colPress;
-	int numJumps = 0, MaxHP, HP, lightDamage, heavyDamage, heavyDamageCharged, throwAttack, crossAttack;
-	struct sfxPlayer
-	{
-		AudioPlayer* sfx=new AudioPlayer;
-		string sounds[1] {"Audio/Heavy_Attack.mp3"};
-	};
+	int numJumps = 0;
+
+	AudioPlayer* sfx = new AudioPlayer;
+	string sounds[1] {"Audio/Heavy_Attack.mp3"};
+
 	
 	Scene* scene;
 	Sprite *AttachedSprite;

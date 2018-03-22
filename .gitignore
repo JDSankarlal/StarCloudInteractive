@@ -408,3 +408,5 @@ proj.win32/Release.*/
 *.exp
 *.json
 *.filters
+TemplateCocosProject-master/proj.win32/Release.win32/
+TemplateCocosProject-master/proj.win32/Debug.win32/

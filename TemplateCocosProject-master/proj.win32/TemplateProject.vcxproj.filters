@@ -10,6 +10,24 @@
     <Filter Include="src">
       <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Splash">
+      <UniqueIdentifier>{cbf32070-a196-42ab-8639-f6d39f12dd7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Audio">
+      <UniqueIdentifier>{3764f037-e8a7-4ddc-adfd-405d2504816b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Controller">
+      <UniqueIdentifier>{fa8de17f-275d-46ec-bda3-1ac0557c6c7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Main Menu">
+      <UniqueIdentifier>{04df5a76-f55c-4e86-a044-4a9f88dda5bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Other">
+      <UniqueIdentifier>{17191993-5b8b-4aa9-b66e-8fb083205154}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game World">
+      <UniqueIdentifier>{5b9f5cc6-6687-4631-bb81-7daf9282181f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -18,50 +36,53 @@
     <ClCompile Include="..\Classes\AppDelegate.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\DisplayHandler.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\InputHandler.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="..\Classes\SplashScreen.cpp">
+      <Filter>src\Splash</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\AudioPlayer.cpp">
-      <Filter>src</Filter>
+      <Filter>src\Audio</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\controller.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\GameStateManager.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\GameStates.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\HelloWorld.cpp">
-      <Filter>src</Filter>
+      <Filter>src\Controller</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\MenuScene.cpp">
-      <Filter>src</Filter>
+      <Filter>src\Main Menu</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\OptionsScene.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="..\Classes\DisplayHandler.cpp">
+      <Filter>src\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameStateManager.cpp">
+      <Filter>src\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameStates.cpp">
+      <Filter>src\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\InputHandler.cpp">
+      <Filter>src\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PauseScene.cpp">
+      <Filter>src\Game World</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\PhysicsCircle.cpp">
+      <Filter>src\Other</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Platforms.cpp">
-      <Filter>src</Filter>
+      <Filter>src\Game World</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Player.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\SplashScreen.cpp">
-      <Filter>src</Filter>
+      <Filter>src\Game World</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\SpriteAnimation.cpp">
-      <Filter>src</Filter>
+      <Filter>src\Game World</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\TutorialScene.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="..\Classes\HelloWorld.cpp">
+      <Filter>src\Game World</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\Sheep.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="..\Classes\OptionsScene.cpp">
+      <Filter>src\Main Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Projectile.cpp">
+      <Filter>src\Game World</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -71,62 +92,59 @@
     <ClInclude Include="..\Classes\AppDelegate.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\DisplayHandler.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\InputHandler.h">
-      <Filter>src</Filter>
+    <ClInclude Include="..\Classes\SplashScreen.h">
+      <Filter>src\Splash</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\AudioPlayer.h">
-      <Filter>src</Filter>
+      <Filter>src\Audio</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\controller.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GameStateManager.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GameStates.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\HelloWorld.h">
-      <Filter>src</Filter>
+      <Filter>src\Controller</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\MenuScene.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\OptionsScene.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Platforms.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Player.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\SplashScreen.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\SpriteAnimation.h">
-      <Filter>src</Filter>
+      <Filter>src\Main Menu</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\MenuSceneScene.h">
-      <Filter>src</Filter>
+      <Filter>src\Main Menu</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\HelloWorldScene.h">
-      <Filter>src</Filter>
+    <ClInclude Include="..\Classes\DisplayHandler.h">
+      <Filter>src\Other</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\OptionsSceneScene.h">
-      <Filter>src</Filter>
+    <ClInclude Include="..\Classes\GameStateManager.h">
+      <Filter>src\Other</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\TutorialScene.h">
-      <Filter>src</Filter>
+    <ClInclude Include="..\Classes\GameStates.h">
+      <Filter>src\Other</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\TutorialSceneScene.h">
-      <Filter>src</Filter>
+    <ClInclude Include="..\Classes\InputHandler.h">
+      <Filter>src\Other</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\Sheep.h">
-      <Filter>src</Filter>
+    <ClInclude Include="..\Classes\PauseScene.h">
+      <Filter>src\Game World</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PhysicsCircle.h">
+      <Filter>src\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\PauseSceneScene.h">
+      <Filter>src\Game World</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Platforms.h">
+      <Filter>src\Game World</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Player.h">
+      <Filter>src\Game World</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SpriteAnimation.h">
+      <Filter>src\Game World</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HelloWorld.h">
+      <Filter>src\Game World</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\OptionsScene.h">
+      <Filter>src\Main Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Projectile.h">
+      <Filter>src\Game World</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
