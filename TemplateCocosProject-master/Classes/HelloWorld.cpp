@@ -9,6 +9,8 @@ using namespace std;
 
 Scene* HelloWorld::createScene()
 {
+
+
 	auto scenepb = HelloWorld::createWithPhysics();
 	////Creates collision boxes around PhysicsBodies
 	scenepb->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
@@ -121,7 +123,7 @@ void HelloWorld::update(float dt)
 
 		if(a->getSprite()->getPositionY() < -200)
 		{
-			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2, director->getOpenGLView()->getFrameSize().height / 2);
+			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count - 1), director->getOpenGLView()->getFrameSize().height / 2);
 		}
 
 	}
@@ -129,9 +131,7 @@ void HelloWorld::update(float dt)
 		if(controllers.GetConnected(a))
 		{
 
-			//OutputDebugStringA(string("Controller: "+std::to_string(index)+'\n').c_str());
 			Stick moveD, moveU;
-
 
 			static int count[] {0,0,0,0}, til = 20;
 
@@ -148,10 +148,9 @@ void HelloWorld::update(float dt)
 					quitBtn->setGlobalZOrder(4);
 					Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(a); //pause game
 					menu->setGlobalZOrder(3); //move menu forwards
-					//Director::getInstance()->pushScene(PauseScene::createScene());
-				}
-
-				else if(gamePaused) //if game paused
+					for(auto &a : players)
+						a->pause();
+				} else  //if game paused
 				{
 					gamePaused = false; //set game to unpaused
 					resumeBtnActive = false;
@@ -162,7 +161,9 @@ void HelloWorld::update(float dt)
 					quitBtn->setGlobalZOrder(-2);
 					menu->setGlobalZOrder(-2); //move menu back
 					Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(1); //Resume game
-
+					//this->resume();
+					for(auto &a : players)
+						a->resume();
 				}
 			}
 
@@ -189,7 +190,7 @@ void HelloWorld::update(float dt)
 					{
 						count[a] = til;
 					}
-					
+
 					if(count[a]++ > til)
 					{
 						count[a] = 0;
@@ -214,7 +215,7 @@ void HelloWorld::update(float dt)
 
 						count[a] = til;
 					}
-					
+
 					if(count[a]++ > til)
 					{
 						count[a] = 0;
@@ -265,6 +266,8 @@ void HelloWorld::contact()
 {
 	auto contactListener =
 		EventListenerPhysicsContact::create();
+
+	//used for calculating
 	contactListener->onContactPreSolve = [](PhysicsContact& contact, PhysicsContactPreSolve& contact2)
 	{
 		auto shapeA = contact.getShapeA();
@@ -272,10 +275,19 @@ void HelloWorld::contact()
 
 		auto shapeB = contact.getShapeB();
 		auto bodyB = shapeB->getBody();
+
 		//printf("Tag1 = %d\nTag2 = %d\n\n", bodyA->getTag(), bodyB->getTag());
 		//OutputDebugStringA("Colision dicision\n");
-
-		return false;
+		if((bodyA->getName() == "Projectile"))
+		{
+			bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200));
+			bodyA->getOwner()->getParent()->removeChild(bodyA->getOwner());
+		}
+		if((bodyB->getName() == "Projectile"))
+		{
+			bodyA->setVelocity(bodyA->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200));
+			bodyB->getOwner()->getParent()->removeChild(bodyB->getOwner());
+		}return true;
 	};
 	contactListener->onContactBegin = [](PhysicsContact& contact)
 	{
@@ -286,9 +298,21 @@ void HelloWorld::contact()
 		auto shapeB = contact.getShapeB();
 		auto bodyB = shapeB->getBody();
 		OutputDebugStringA("Collision\n");
-		if((bodyA->getName() == "Player"&& bodyB->getName() == "Platform") || (bodyA->getName() == "Platform" && bodyB->getName() == "Player"))
+		OutputDebugStringA((bodyA->getName() + " == " + bodyB->getName() + "\n").c_str());
+		OutputDebugStringA((to_string(bodyA->getTag()) + " == " + to_string(bodyB->getTag()) + "\n").c_str());
+
+		if((bodyA->getName() == "Projectile" || bodyB->getName() == "Projectile") && (bodyA->getTag() != bodyB->getTag()))
+		{
 			return true;
-		if(bodyA->getTag() == bodyB->getTag())
+		} else if((bodyA->getName() == "Projectile" || bodyB->getName() == "Projectile") && (bodyA->getTag() == bodyB->getTag()))
+		{
+			return false;
+		}
+
+
+		OutputDebugStringA((to_string(bodyA->getTag()) + " == " + to_string(bodyB->getTag()) + "\n").c_str());
+
+		if(bodyA->getName() == bodyB->getName())
 			return false;
 		return true;
 	};

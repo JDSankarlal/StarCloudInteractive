@@ -3,19 +3,21 @@
 Player::Player(Scene *ActiveScene, int bitMask, int index)
 
 {
+	//Animation sets
 	playerAni->addSprite("walk", "Assets/Walk 2");
 	playerAni->addSprite("jump up", "Assets/Jump Up 2");
 	playerAni->addSprite("jump down", "Assets/Jump Down 2");
 	playerAni->addSprite("falling", "Assets/Falling");
 	playerAni->setAnimation("walk");
 
+	//Seting up the sprite and physics body
 	AttachedSprite = playerAni->getSprite();
 	getSprite()->setScale(.3);
 	playerAni->setAnimationSpeed(.01);
 	auto size = getSprite()->getContentSize();
 	getSprite()->setPhysicsBody(PhysicsBody::createBox(size));
 	getBody()->setName("Player");
-	getBody()->setTag(bitMask);
+	getBody()->setTag(index);
 	getBody()->setCollisionBitmask(bitMask);
 	getBody()->setContactTestBitmask(true);
 	getBody()->setRotationEnable(false);
@@ -122,8 +124,6 @@ void Player::movementUpdate(int index)
 		else if(movementPercent < 0)
 			movementPercent = 0;
 
-		//setVelX(moveL.xAxis * move * movementPercent);
-		//if(movementPercent > 0)
 		setVelX(lastMovement*move * movementPercent);
 
 		static float lo = 0.f, hi = .001f;
@@ -138,16 +138,11 @@ void Player::movementUpdate(int index)
 				playerAni->pause();
 		}
 
-
-		////getBody()->resetForces();
-		//
-		////addForce(moveL.xAxis * 200000, 0);
-		////printInfo();
 #pragma endregion
 
 
 #pragma region Jumping
-		//OutputDebugStringA((std::to_string(numJumps) + '\n').c_str());
+
 		if((controllers.ButtonPress(index, A)) && (!hasJumped && numJumps < 2))
 		{
 			numJumps++;
@@ -181,7 +176,6 @@ void Player::movementUpdate(int index)
 			}
 		} else
 		{
-
 			if(playerAni->getAnimation() != "walk")
 			{
 				OutputDebugStringA("Walking\n");
@@ -195,11 +189,12 @@ void Player::movementUpdate(int index)
 
 #pragma region Dash			
 		controllers.GetTriggers(index, LT, RT);
-
+		if(LT > .5 || RT > .5)
+			controllers.SetVibration(index, LT, RT);
 		if((LT > .5 || RT > .5) && !dash)
 		{
 			numJumps = 0;
-			controllers.SetVibration(index, 1, 1);
+
 			dash = true;
 			setVelY(0);
 			initialDash = 800;
@@ -225,18 +220,17 @@ void Player::movementUpdate(int index)
 #pragma endregion
 
 #pragma region Attacks
-		//static Projectial atk;
+		//static Projectile atk;
 		if(controllers.ButtonStroke(index, Y))
 		{
 			sfx->setAudio(sounds[0]);
 			sfx->play();
-
-			
-			atk = new Projectial(scene, 1);
+													  
+			atk = new Projectile(scene, true, 1, index);
 
 			atk->setSize(.5);
 			atk->setPosition(getPosition().x, getPosition().y);
-			atk->setVelX(10);
+			atk->setVelX(50);
 
 		}
 #pragma endregion	

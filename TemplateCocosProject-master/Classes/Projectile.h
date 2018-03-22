@@ -1,11 +1,11 @@
 #pragma once
 #include <cocos2d.h>
 USING_NS_CC;
-class Projectial: public Node
+class Projectile : public Node
 {
 public:
-	Projectial(Scene * scene, int bitMask);
-	~Projectial();
+	Projectile(Scene * scene, bool heavy, int bitMask, int index);
+	~Projectile();
 
 	PhysicsBody * getBody();
 	Sprite* getSprite();
@@ -20,7 +20,10 @@ public:
 #pragma endregion
 private:
 	void removeProjectial();
-	Sprite * proj=Sprite::create("Assets/light_attack.png");
+	bool heavy;
+	int bitMask, index;
+	Sprite * proj[2] {Sprite::create("Assets/light_attack.png"),Sprite::create("Assets/heavy_attack.png")};
 	Scene* scene;
+	Action* act;
 };
 
