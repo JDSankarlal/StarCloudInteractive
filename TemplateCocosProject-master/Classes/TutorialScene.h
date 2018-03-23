@@ -53,6 +53,7 @@ private:
 	cocos2d::Sprite* restartBtn;
 	cocos2d::Sprite* quitBtn;
 	cocos2d::Sprite* skipBtn;
+	cocos2d::Sprite* paused;
 
 	//Sprites for buttons
 	cocos2d::Sprite* ABtn;

@@ -72,6 +72,12 @@ bool TutorialScene::init()
 
 	this->addChild(menu, -2);
 
+	paused = Sprite::create("Assets/Button_Pause.png");
+	paused->setPosition(visibleSize.width / 2, (visibleSize.height / 2) +300);
+	paused->setScale(1);
+	paused->setAnchorPoint(Vec2(0.5f, 0.5f));
+	this->addChild(paused, -2);
+
 	restartBtn = Sprite::create("Assets/Button_Dark_Restart.png");
 	restartBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2)-125);
 	restartBtn->setScale(0.6);
@@ -337,6 +343,7 @@ void TutorialScene::update(float dt)
 				skipBtn->setGlobalZOrder(4);
 				restartBtn->setGlobalZOrder(4);
 				quitBtn->setGlobalZOrder(4);
+				paused->setGlobalZOrder(4);
 				Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(a); //pause game
 				menu->setGlobalZOrder(3); //move menu forwards
 				//Director::getInstance()->pushScene(PauseScene::createScene());
@@ -349,6 +356,7 @@ void TutorialScene::update(float dt)
 				skipBtnActive = false;
 				restartBtnActive = false;
 				quitBtnActive = false;
+				paused->setGlobalZOrder(-2);
 				skipBtn->setGlobalZOrder(-2);
 				resumeBtn->setGlobalZOrder(-2);
 				restartBtn->setGlobalZOrder(-2);
@@ -372,6 +380,7 @@ void TutorialScene::update(float dt)
 					resumeBtnActive = false;
 					restartBtnActive = false;
 					quitBtnActive = false;
+					paused->setGlobalZOrder(-2);
 					resumeBtn->setGlobalZOrder(-2);
 					restartBtn->setGlobalZOrder(-2);
 					quitBtn->setGlobalZOrder(-2);
