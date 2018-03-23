@@ -2,7 +2,7 @@
 #include "MenuScene.h"
 #include "HelloWorld.h"
 #include "OptionsScene.h"
-//#include "TutorialScene.h"
+#include "TutorialScene.h"
 
 
 USING_NS_CC;
@@ -92,7 +92,7 @@ void MenuScene::update(float index)
 			{
 				audio->stop();
 				
-				Director::getInstance()->replaceScene(TutorialScene::createScene());
+				Director::getInstance()->replaceScene(HelloWorld::createScene());
 			}
 			if (moveD.yAxis == 0)
 			{

@@ -60,12 +60,6 @@
     <ClCompile Include="..\Classes\InputHandler.cpp">
       <Filter>src\Other</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\PauseScene.cpp">
-      <Filter>src\Game World</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\PhysicsCircle.cpp">
-      <Filter>src\Other</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\Platforms.cpp">
       <Filter>src\Game World</Filter>
     </ClCompile>
@@ -83,6 +77,12 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Projectile.cpp">
       <Filter>src\Game World</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TutorialScene.cpp">
+      <Filter>src\Main Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Sheep.cpp">
+      <Filter>src\Main Menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -104,9 +104,6 @@
     <ClInclude Include="..\Classes\MenuScene.h">
       <Filter>src\Main Menu</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\MenuSceneScene.h">
-      <Filter>src\Main Menu</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\DisplayHandler.h">
       <Filter>src\Other</Filter>
     </ClInclude>
@@ -118,15 +115,6 @@
     </ClInclude>
     <ClInclude Include="..\Classes\InputHandler.h">
       <Filter>src\Other</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\PauseScene.h">
-      <Filter>src\Game World</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\PhysicsCircle.h">
-      <Filter>src\Other</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\PauseSceneScene.h">
-      <Filter>src\Game World</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Platforms.h">
       <Filter>src\Game World</Filter>
@@ -145,6 +133,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Projectile.h">
       <Filter>src\Game World</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TutorialScene.h">
+      <Filter>src\Main Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Sheep.h">
+      <Filter>src\Main Menu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

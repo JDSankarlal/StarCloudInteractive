@@ -264,7 +264,7 @@ void HelloWorld::contact()
 {
 	auto contactListener =
 		EventListenerPhysicsContact::create();
-
+	auto world = this;
 	//used for calculating
 	contactListener->onContactPreSolve = [](PhysicsContact& contact, PhysicsContactPreSolve& contact2)
 	{
@@ -279,7 +279,10 @@ void HelloWorld::contact()
 		if((bodyA->getName() == "Projectile"))
 		{
 			bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200));
+			
 			bodyA->getOwner()->getParent()->removeChild(bodyA->getOwner());
+
+
 		}
 		if((bodyB->getName() == "Projectile"))
 		{

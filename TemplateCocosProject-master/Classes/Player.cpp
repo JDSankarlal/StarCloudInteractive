@@ -230,7 +230,7 @@ void Player::movementUpdate(int index)
 
 			atk->setSize(.5);
 			atk->setPosition(getPosition().x, getPosition().y);
-			atk->setVelX(50);
+			atk->setVelX(500);
 
 		}
 #pragma endregion	

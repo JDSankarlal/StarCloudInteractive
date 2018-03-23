@@ -159,13 +159,13 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\InputHandler.cpp" />
     <ClCompile Include="..\Classes\MenuScene.cpp" />
     <ClCompile Include="..\Classes\OptionsScene.cpp" />
-    <ClCompile Include="..\Classes\PauseScene.cpp" />
-    <ClCompile Include="..\Classes\PhysicsCircle.cpp" />
     <ClCompile Include="..\Classes\Platforms.cpp" />
     <ClCompile Include="..\Classes\Player.cpp" />
     <ClCompile Include="..\Classes\Projectile.cpp" />
+    <ClCompile Include="..\Classes\Sheep.cpp" />
     <ClCompile Include="..\Classes\SplashScreen.cpp" />
     <ClCompile Include="..\Classes\SpriteAnimation.cpp" />
+    <ClCompile Include="..\Classes\TutorialScene.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -178,16 +178,14 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\HelloWorld.h" />
     <ClInclude Include="..\Classes\InputHandler.h" />
     <ClInclude Include="..\Classes\MenuScene.h" />
-    <ClInclude Include="..\Classes\MenuSceneScene.h" />
     <ClInclude Include="..\Classes\OptionsScene.h" />
-    <ClInclude Include="..\Classes\PauseScene.h" />
-    <ClInclude Include="..\Classes\PauseSceneScene.h" />
-    <ClInclude Include="..\Classes\PhysicsCircle.h" />
     <ClInclude Include="..\Classes\Platforms.h" />
     <ClInclude Include="..\Classes\Player.h" />
     <ClInclude Include="..\Classes\Projectile.h" />
+    <ClInclude Include="..\Classes\Sheep.h" />
     <ClInclude Include="..\Classes\SplashScreen.h" />
     <ClInclude Include="..\Classes\SpriteAnimation.h" />
+    <ClInclude Include="..\Classes\TutorialScene.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>
