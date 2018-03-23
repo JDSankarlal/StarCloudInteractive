@@ -73,20 +73,26 @@ bool TutorialScene::init()
 	this->addChild(menu, -2);
 
 	restartBtn = Sprite::create("Assets/Button_Dark_Restart.png");
-	restartBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
-	restartBtn->setScale(0.7);
+	restartBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2)-125);
+	restartBtn->setScale(0.6);
 	restartBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 	this->addChild(restartBtn, -2);
 
+	skipBtn = Sprite::create("Assets/Button_Dark_Skip.png");
+	skipBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2) );
+	skipBtn->setScale(0.6);
+	skipBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
+	this->addChild(skipBtn, -2);
+
 	resumeBtn = Sprite::create("Assets/Button_Dark_PauseMenuResume.png");
 	resumeBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2) + 125);
-	resumeBtn->setScale(0.7);
+	resumeBtn->setScale(0.6);
 	resumeBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 	this->addChild(resumeBtn, -2);
 
 	quitBtn = Sprite::create("Assets/Button_Dark_PauseMenuQuit.png");
-	quitBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2) - 125);
-	quitBtn->setScale(0.7);
+	quitBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2) - 250);
+	quitBtn->setScale(0.6);
 	quitBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 	this->addChild(quitBtn, -2);
 	
@@ -328,6 +334,7 @@ void TutorialScene::update(float dt)
 				gamePaused = true; //set game to paused
 				resumeBtnActive = true;
 				resumeBtn->setGlobalZOrder(4);
+				skipBtn->setGlobalZOrder(4);
 				restartBtn->setGlobalZOrder(4);
 				quitBtn->setGlobalZOrder(4);
 				Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(a); //pause game
@@ -339,8 +346,10 @@ void TutorialScene::update(float dt)
 			{
 				gamePaused = false; //set game to unpaused
 				resumeBtnActive = false;
+				skipBtnActive = false;
 				restartBtnActive = false;
 				quitBtnActive = false;
+				skipBtn->setGlobalZOrder(-2);
 				resumeBtn->setGlobalZOrder(-2);
 				restartBtn->setGlobalZOrder(-2);
 				quitBtn->setGlobalZOrder(-2);
@@ -355,7 +364,7 @@ void TutorialScene::update(float dt)
 			if(resumeBtnActive)
 			{
 
-				resumeBtn->setScale(1.3f);
+				resumeBtn->setScale(0.8f);
 
 				if(controllers.ButtonStroke(a, A))
 				{
@@ -378,18 +387,19 @@ void TutorialScene::update(float dt)
 					count = 0;
 					if(moveD.yAxis < 0)
 					{
-						restartBtnActive = true;
-						resumeBtn->setScale(1);
+						skipBtnActive = true;
+						resumeBtn->setScale(0.6);
 						resumeBtnActive = false;
 					}
 				}
-			} else if(restartBtnActive)
+			} 
+			else if(skipBtnActive)
 			{
-				restartBtn->setScale(1.3f);
+				skipBtn->setScale(0.8f);
 
 				if(controllers.ButtonStroke(a, A))
 				{
-					Director::getInstance()->replaceScene(TutorialScene::createScene());
+					Director::getInstance()->replaceScene(HelloWorld::createScene());
 				}
 				if(moveD.yAxis == 0)
 				{
@@ -400,21 +410,51 @@ void TutorialScene::update(float dt)
 					count = 0;
 					if(moveD.yAxis < 0)
 					{
-						quitBtnActive = true;
-						restartBtn->setScale(1);
-						restartBtnActive = false;
+						restartBtnActive = true;
+						skipBtn->setScale(0.6);
+						skipBtnActive = false;
 					}
 					if(moveD.yAxis > 0)
 					{
 						resumeBtnActive = true;
-						restartBtn->setScale(1);
+						skipBtn->setScale(0.6);
+						skipBtnActive = false;
+					}
+				}
+			} 
+			else if (restartBtnActive)
+			{
+				restartBtn->setScale(0.8f);
+
+				if (controllers.ButtonStroke(a, A))
+				{
+					Director::getInstance()->replaceScene(TutorialScene::createScene());
+				}
+				if (moveD.yAxis == 0)
+				{
+					count = til;
+				}
+				if (count++ > til)
+				{
+					count = 0;
+					if (moveD.yAxis < 0)
+					{
+						quitBtnActive = true;
+						restartBtn->setScale(0.6);
+						restartBtnActive = false;
+					}
+					if (moveD.yAxis > 0)
+					{
+						skipBtnActive = true;
+						restartBtn->setScale(0.6);
 						restartBtnActive = false;
 					}
 				}
-			} else if(quitBtnActive)
+			}
+			else if(quitBtnActive)
 			{
 
-				quitBtn->setScale(1.3f);
+				quitBtn->setScale(0.8f);
 
 				if(controllers.ButtonStroke(a, A))
 				{
@@ -430,7 +470,7 @@ void TutorialScene::update(float dt)
 					if(moveD.yAxis > 0)
 					{
 						restartBtnActive = true;
-						quitBtn->setScale(1);
+						quitBtn->setScale(0.6);
 						quitBtnActive = false;
 					}
 				}
@@ -466,7 +506,7 @@ void TutorialScene::update(float dt)
 			  scrolls[3]->setZOrder(-2);
 			  scrolls[4]->setZOrder(2);
 		  }
-		  else if (scrolls[4]->getZOrder() == 2 && theRealDT >= 15 && players[0]->getPosition().x >= director->getOpenGLView()->getFrameSize().width / 2 + (200 * count++))
+		  else if (scrolls[4]->getZOrder() == 2 && theRealDT >= 15 && players[0]->getPosition().x >= 400)
 		  {
 			  scrolls[4]->setZOrder(-2);
 			  scrolls[5]->setZOrder(2);

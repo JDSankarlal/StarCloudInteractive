@@ -40,7 +40,7 @@ public:
 
 private:
 	AudioPlayer * audio = new AudioPlayer;
-	Player* players[4] = {new Player(this,1),new Player(this,1),new Player(this,1),new Player(this,1)};
+	Player* players[4] = {new Player(this,1,0),new Player(this,1,1),new Player(this,1,2),new Player(this,1,3)};
 	Sheep* sheep = new Sheep(this, 1);
 
 	void contact();
@@ -52,7 +52,8 @@ private:
 	cocos2d::Sprite* resumeBtn;
 	cocos2d::Sprite* restartBtn;
 	cocos2d::Sprite* quitBtn;
-	
+	cocos2d::Sprite* skipBtn;
+
 	//Sprites for buttons
 	cocos2d::Sprite* ABtn;
 	cocos2d::Sprite* BBtn;
@@ -90,6 +91,7 @@ private:
 	bool resumeBtnActive = false;
 	bool restartBtnActive = false;
 	bool quitBtnActive = false;
+	bool skipBtnActive = false;
 	bool sheep1 = true;
 	bool sheep2 = false;
 };
