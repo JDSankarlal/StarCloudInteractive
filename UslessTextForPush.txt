@@ -1,1 +1,3 @@
-The only reason this is here is so that i can put develop ahead of the other branches so that they're all the same
+The only reason this is here is so that i can put develop ahead of the other branches so that they're all the same.
+
+Why won't JoshDevelop merge properly ffs
