@@ -7,6 +7,7 @@
 #include "SimpleAudioEngine.h"
 #include <thread>
 #include <string>
+//#include <CCVector.h>
 #include "controller.h"
 
 #pragma comment(lib,"Xinput9_1_0.lib")

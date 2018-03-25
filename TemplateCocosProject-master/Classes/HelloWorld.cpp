@@ -116,15 +116,13 @@ void HelloWorld::update(float dt)
 	short count = 0;
 	for(auto &a : players)
 	{
-		a->movementUpdate(count++);
-
-
 		if(a->getSprite()->getPositionY() < -200)
 		{
+			a->setVel(0,0);
 			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count - 1), director->getOpenGLView()->getFrameSize().height / 2);
-		}
-
+		} 
 	}
+
 	for(int a = 0; a < 4; a++)
 		if(controllers.GetConnected(a))
 		{
@@ -144,7 +142,7 @@ void HelloWorld::update(float dt)
 					resumeBtn->setGlobalZOrder(4);
 					restartBtn->setGlobalZOrder(4);
 					quitBtn->setGlobalZOrder(4);
-					Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(a); //pause game
+					Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(0); //pause game
 					menu->setGlobalZOrder(3); //move menu forwards
 					for(auto &a : players)
 						a->pause();
@@ -183,6 +181,8 @@ void HelloWorld::update(float dt)
 						quitBtn->setGlobalZOrder(-2);
 						menu->setGlobalZOrder(-2); //move menu back
 						Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(1); //Resume game
+						for(auto &a : players)
+							a->resume();
 					}
 					if(moveD.yAxis == 0)
 					{
@@ -206,6 +206,7 @@ void HelloWorld::update(float dt)
 
 					if(controllers.ButtonStroke(a, A))
 					{
+						audio->stop();
 						Director::getInstance()->replaceScene(HelloWorld::createScene());
 					}
 					if(moveD.yAxis == 0)
@@ -278,10 +279,13 @@ void HelloWorld::contact()
 		//OutputDebugStringA("Colision dicision\n");
 		if((bodyA->getName() == "Projectile"))
 		{
-			bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200));
-			
-			bodyA->getOwner()->getParent()->removeChild(bodyA->getOwner());
-
+			//shapeB->setFriction(0);
+			bodyB->getOwner()->setPosition(bodyB->getPosition().x, bodyB->getPosition().y);
+			if(bodyA->getOwner() != nullptr)
+			{
+				bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200));
+				bodyA->getOwner()->removeFromParent();
+			}
 
 		}
 		if((bodyB->getName() == "Projectile"))

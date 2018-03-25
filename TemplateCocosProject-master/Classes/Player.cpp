@@ -23,9 +23,10 @@ Player::Player(Scene *ActiveScene, int bitMask, int index)
 	getBody()->setRotationEnable(false);
 
 	ActiveScene->addChild(AttachedSprite, 2);
-	ActiveScene->addChild(cursor[index], 2);
+	ActiveScene->addChild(cursor[this->index = index], 2);
+	ActiveScene->addChild(this, 2);
 	scene = ActiveScene;
-
+	this->scheduleUpdate();
 }
 
 
@@ -86,7 +87,13 @@ void Player::addForce(float x, float y)
 	addForceY(y);
 }
 
-void Player::movementUpdate(int index)
+void Player::update(float dt)
+{
+
+	movementUpdate();
+}
+
+void Player::movementUpdate()
 {
 
 	static Input::XBoxInput controllers;
@@ -115,9 +122,9 @@ void Player::movementUpdate(int index)
 		if(moveL.xAxis == 0)
 			movementPercent -= .15;
 		else if(moveL.xAxis * move < 0)
-			getSprite()->setFlippedX(true);
+			getSprite()->setFlippedX(fliped = true);
 		else
-			getSprite()->setFlippedX(false);
+			getSprite()->setFlippedX(fliped = false);
 
 		if(movementPercent > 1)
 			movementPercent = 1;
@@ -139,7 +146,6 @@ void Player::movementUpdate(int index)
 		}
 
 #pragma endregion
-
 
 #pragma region Jumping
 
@@ -225,12 +231,18 @@ void Player::movementUpdate(int index)
 		{
 			sfx->setAudio(sounds[0]);
 			sfx->play();
-													  
+
 			atk = new Projectile(scene, true, 1, index);
 
 			atk->setSize(.5);
 			atk->setPosition(getPosition().x, getPosition().y);
-			atk->setVelX(500);
+
+			if(moveL.yAxis>.8f)
+				atk->setVelY(500);
+			else if(!fliped)
+				atk->setVelX(500);
+			else
+				atk->setVelX(-500);
 
 		}
 #pragma endregion	
@@ -287,38 +299,6 @@ Vec2 Player::getPosition()
 SpriteAnimation * Player::getSpriteAnimater()
 {
 	return playerAni;
-}
-
-void Player::platformSwitch(int platform)
-{
-	if(inst < platform)
-	{
-		if(!jump)
-		{
-			jump = !jump;
-			setVel(0, 350);
-
-		}
-		if(getBody()->getVelocity().y != 0)
-			setPosition(getSprite()->getPosition().x, getSprite()->getPosition().y, moveZ += 1);
-		else
-			inst = platform;
-
-	} else if(inst > platform)
-	{
-		if(!jump)
-		{
-			jump = !jump;
-			getBody()->setVelocity(Vec2(0, 350));
-		}
-		if(getBody()->getVelocity().y != 0)
-			setPosition(getSprite()->getPosition().x, getSprite()->getPosition().y, moveZ -= 1);
-		else
-			inst = platform;
-	} else
-	{
-		jump = false;
-	}
 }
 
 void Player::printInfo()

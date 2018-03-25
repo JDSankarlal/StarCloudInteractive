@@ -75,9 +75,8 @@ void Projectile::setVel(float x, float y)
 
 void Projectile::removeProjectial()
 {
-	this->removeAllChildren();
-	scene->removeChild(this);
-	this->~Projectile();
+	//proj[0]->removeFromParent();  	
+	this->removeFromParent();
 }
 
 

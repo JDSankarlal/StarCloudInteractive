@@ -13,9 +13,9 @@ using namespace Input;
 class Player :public Node
 {
 public:
-
 	Player(Scene *, int, int);
 	~Player();
+
 	PhysicsBody* getBody();
 	Sprite* getSprite();
 	Vec2 getVelocity();
@@ -33,10 +33,11 @@ public:
 	void addForce(float, float);
 #pragma endregion
 
-//Player Movement
+
 
 //must be called in update
-	void movementUpdate(int controler);
+	void update(float);
+	void movementUpdate();
 //sets location by pixel position
 	void setPosition(float x, float y, float z = 0);
 
@@ -46,8 +47,7 @@ public:
 	SpriteAnimation* getSpriteAnimater();
 
 //sets the platform id
-	void platformSwitch(int);
-
+	
 	void printInfo();
 	Projectile *atk;
 private:
@@ -58,8 +58,8 @@ private:
 	double moveZ, inst;
 	bool jump;
 	void platformID(int id);
-	short colChange, jumpCount;
-	bool hasJumped, colPress;
+	short colChange, jumpCount, index;
+	bool hasJumped, colPress,fliped;
 	int numJumps = 0;
 
 	AudioPlayer* sfx = new AudioPlayer;
