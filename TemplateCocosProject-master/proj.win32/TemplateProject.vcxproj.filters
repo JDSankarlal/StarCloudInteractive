@@ -51,9 +51,6 @@
     <ClCompile Include="..\Classes\DisplayHandler.cpp">
       <Filter>src\Other</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\GameStateManager.cpp">
-      <Filter>src\Other</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\GameStates.cpp">
       <Filter>src\Other</Filter>
     </ClCompile>
@@ -78,11 +75,22 @@
     <ClCompile Include="..\Classes\Projectile.cpp">
       <Filter>src\Game World</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="..\Classes\TutorialScene.cpp">
       <Filter>src\Main Menu</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Sheep.cpp">
       <Filter>src\Main Menu</Filter>
+=======
+    <ClCompile Include="..\Classes\Sheep.cpp">
+      <Filter>src\Game World</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TutorialScene.cpp">
+      <Filter>src\Game World</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameStateManager.cpp">
+      <Filter>src\Other</Filter>
+>>>>>>> RobDevelop
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -134,11 +142,22 @@
     <ClInclude Include="..\Classes\Projectile.h">
       <Filter>src\Game World</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="..\Classes\TutorialScene.h">
       <Filter>src\Main Menu</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Sheep.h">
       <Filter>src\Main Menu</Filter>
+=======
+    <ClInclude Include="..\Classes\Sheep.h">
+      <Filter>src\Game World</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TutorialScene.h">
+      <Filter>src\Game World</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TutorialSceneScene.h">
+      <Filter>src\Game World</Filter>
+>>>>>>> RobDevelop
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -36,6 +36,7 @@ public:
 	cocos2d::Director *director;
 
 private:
+
 	bool onContactPreSolve(PhysicsContact& contact, PhysicsContactPreSolve& contact2)
 	{
 		auto shapeA = contact.getShapeA();
@@ -92,6 +93,7 @@ private:
 		return true;
 	};
 
+
 	void contact();
 
 	AudioPlayer * audio = new AudioPlayer;
@@ -105,7 +107,9 @@ private:
 	cocos2d::Sprite* resumeBtn;
 	cocos2d::Sprite* restartBtn;
 	cocos2d::Sprite* quitBtn;
-	
+	cocos2d::Sprite* skipBtn;
+	cocos2d::Sprite* paused;
+
 	//Sprites for buttons
 	cocos2d::Sprite* ABtn;
 	cocos2d::Sprite* BBtn;
@@ -143,6 +147,7 @@ private:
 	bool resumeBtnActive = false;
 	bool restartBtnActive = false;
 	bool quitBtnActive = false;
+	bool skipBtnActive = false;
 	bool sheep1 = true;
 	bool sheep2 = false;
 };
