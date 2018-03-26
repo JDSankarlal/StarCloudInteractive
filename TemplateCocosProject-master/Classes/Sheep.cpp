@@ -12,7 +12,7 @@ Sheep::Sheep(Scene *ActiveScene, int bitMask)
 	//sheepAni->setAnimationSpeed(.01);
 	auto size = getSprite()->getContentSize();
 	getSprite()->setPhysicsBody(PhysicsBody::createBox(size));
-	getBody()->setTag(bitMask);
+	getBody()->setTag(5);
 	getBody()->setCollisionBitmask(bitMask);
 	getBody()->setContactTestBitmask(true);
 	getBody()->setDynamic(true);

@@ -2,25 +2,25 @@
 
 Projectile::Projectile(Scene * scene, bool heavy, int bitMask, int index)
 {
-	proj[0]->setPhysicsBody(PhysicsBody::createCircle(proj[0]->getContentSize().width / 2));
+	proj[this->heavy = heavy]->setPhysicsBody(PhysicsBody::createCircle(0));
+
 	getBody()->setGravityEnable(false);
 	getBody()->setName("Projectile");
 	getBody()->setTag(this->index = index);
 	getBody()->setCollisionBitmask(this->bitMask = bitMask);
 	getBody()->setContactTestBitmask(true);
 	getBody()->setRotationEnable(false);
-	addChild(proj[0]);
+	addChild(proj[heavy]);
 	scene->addChild(this);
 	this->scene = scene;
-	if(!(this->heavy=heavy))
-	{ 
-	
-	runAction(act = Sequence::create(DelayTime::create(3), CallFunc::create(this,
-			  callfunc_selector(Projectile::removeProjectial)), 0));
+	if(!heavy)
+	{
+		runAction(act = Sequence::create(DelayTime::create(3), CallFunc::create(this,
+				  callfunc_selector(Projectile::removeProjectial)), 0));
 	} else
 	{
-		   runAction(act = Sequence::create(DelayTime::create(3), CallFunc::create(this,
-			  callfunc_selector(Projectile::removeProjectial)), 0));
+		runAction(act = Sequence::create(DelayTime::create(1), CallFunc::create(this,
+				  callfunc_selector(Projectile::removeProjectial)), 0));
 	}
 }
 
@@ -30,19 +30,28 @@ Projectile::~Projectile()
 PhysicsBody * Projectile::getBody()
 {
 
-	return proj[0]->getPhysicsBody();
+	return proj[heavy]->getPhysicsBody();
 }
 
 Sprite * Projectile::getSprite()
 {
-	return proj[0];
+	return proj[heavy];
 }
 
 void Projectile::setSize(float scale)
 {
 	getBody()->removeAllShapes();
-	proj[0]->setScale(scale);
-	getBody()->addShape(PhysicsShapeCircle::create((proj[0]->getContentSize()).width / 2));
+	proj[heavy]->setScale(scale);
+
+	if(!heavy)
+	{
+		getBody()->addShape(PhysicsShapeCircle::create((proj[heavy]->getContentSize()).width / 2));
+	} else
+	{
+		getBody()->addShape(PhysicsShapeCircle::create((proj[heavy]->getContentSize()).width / 8));
+		getBody()->setPositionOffset(Vec2(proj[heavy]->getContentSize().width * scale * .25, 0));
+
+	}
 	getBody()->setName("Projectile");
 	getBody()->setTag(index);
 	getBody()->setCollisionBitmask(bitMask);
@@ -51,8 +60,7 @@ void Projectile::setSize(float scale)
 
 void Projectile::setPosition(float x, float y, float z)
 {
-
-	proj[0]->setPosition3D(Vec3(x, y, z));
+	proj[heavy]->setPosition3D(Vec3(x, y, z));
 }
 
 void Projectile::setVelX(float x)
@@ -73,9 +81,29 @@ void Projectile::setVel(float x, float y)
 	setVelY(y);
 }
 
+void Projectile::flipX(bool flip)
+{
+	if(flip)
+		getBody()->setPositionOffset(-getBody()->getPositionOffset());
+
+	getSprite()->setFlippedX(flip);
+}
+
+void Projectile::flipY(bool flip)
+{
+	getSprite()->setFlippedY(flip);
+}
+
+void Projectile::setRotation(float deg)
+{
+	getBody()->setPositionOffset(Vec2(
+		(proj[heavy]->getContentSize().width * getSprite()->getScale() * .25)*cos(deg * M_PI / 180),
+		(proj[heavy]->getContentSize().width * getSprite()->getScale() * .25)*sin(deg * M_PI / 180)));
+	getSprite()->setRotation(-deg);
+}
+
 void Projectile::removeProjectial()
 {
-	//proj[0]->removeFromParent();  	
 	this->removeFromParent();
 }
 

@@ -479,32 +479,12 @@ void TutorialScene::contact()
 {
 	auto contactListener =
 		EventListenerPhysicsContact::create();
-	contactListener->onContactPreSolve = [](PhysicsContact& contact, PhysicsContactPreSolve& contact2)
-	{
-		auto shapeA = contact.getShapeA();
-		auto bodyA = shapeA->getBody();
+	auto world = this;
 
-		auto shapeB = contact.getShapeB();
-		auto bodyB = shapeB->getBody();
-		//printf("Tag1 = %d\nTag2 = %d\n\n", bodyA->getTag(), bodyB->getTag());
-		//OutputDebugStringA("Colision dicision\n");
+	contactListener->onContactBegin = CC_CALLBACK_1(TutorialScene::onContactBegin, this);
+	//used for calculating
+	contactListener->onContactPreSolve = CC_CALLBACK_2(TutorialScene::onContactPreSolve, this);
 
-		return false;
-	};
-	contactListener->onContactBegin = [](PhysicsContact& contact)
-	{
-
-		auto shapeA = contact.getShapeA();
-		auto bodyA = shapeA->getBody();
-
-		auto shapeB = contact.getShapeB();
-		auto bodyB = shapeB->getBody();
-		OutputDebugStringA("Collision\n");
-
-		if(bodyA->getTag() == bodyB->getTag())
-			return false;
-		return true;
-	};
 
 	getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
 
@@ -525,10 +505,5 @@ void TutorialScene::menuCloseCallback(Ref* pSender)
 
 	//EventCustom customEndEvent("game_scene_close_event");
 	//_eventDispatcher->dispatchEvent(&customEndEvent);
-
-}
-
-void TutorialScene::DrawWorld()
-{
 
 }

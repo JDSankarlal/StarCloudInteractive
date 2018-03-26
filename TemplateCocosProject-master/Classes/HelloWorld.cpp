@@ -10,8 +10,8 @@ Scene* HelloWorld::createScene()
 
 
 	auto scenepb = HelloWorld::createWithPhysics();
-	////Creates collision boxes around PhysicsBodies
-	scenepb->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	///Creates collision boxes around PhysicsBodies
+	//scenepb->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
 	auto world = HelloWorld::create();
 	scenepb->addChild(world);
@@ -118,9 +118,9 @@ void HelloWorld::update(float dt)
 	{
 		if(a->getSprite()->getPositionY() < -200)
 		{
-			a->setVel(0,0);
-			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count - 1), director->getOpenGLView()->getFrameSize().height / 2);
-		} 
+			a->setVel(0, 0);
+			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2);
+		}
 	}
 
 	for(int a = 0; a < 4; a++)
@@ -132,9 +132,10 @@ void HelloWorld::update(float dt)
 			static int count[] {0,0,0,0}, til = 20;
 
 			controllers.GetSticks(a, moveD, moveU);
-
+			static Vector<Node*>paused;
 			if(controllers.ButtonStroke(a, Start)) //If start pressed on controller
 			{
+
 				if(!gamePaused) //if game not paused
 				{
 					gamePaused = true; //set game to paused
@@ -146,6 +147,8 @@ void HelloWorld::update(float dt)
 					menu->setGlobalZOrder(3); //move menu forwards
 					for(auto &a : players)
 						a->pause();
+					paused = Director::getInstance()->getActionManager()->pauseAllRunningActions();
+
 				} else  //if game paused
 				{
 					gamePaused = false; //set game to unpaused
@@ -160,6 +163,7 @@ void HelloWorld::update(float dt)
 					//this->resume();
 					for(auto &a : players)
 						a->resume();
+					Director::getInstance()->getActionManager()->resumeTargets(paused);
 				}
 			}
 
@@ -183,6 +187,7 @@ void HelloWorld::update(float dt)
 						Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(1); //Resume game
 						for(auto &a : players)
 							a->resume();
+						Director::getInstance()->getActionManager()->resumeTargets(paused);
 					}
 					if(moveD.yAxis == 0)
 					{
@@ -266,61 +271,12 @@ void HelloWorld::contact()
 	auto contactListener =
 		EventListenerPhysicsContact::create();
 	auto world = this;
+
+
+	contactListener->onContactBegin = CC_CALLBACK_1(HelloWorld::onContactBegin,this);
 	//used for calculating
-	contactListener->onContactPreSolve = [](PhysicsContact& contact, PhysicsContactPreSolve& contact2)
-	{
-		auto shapeA = contact.getShapeA();
-		auto bodyA = shapeA->getBody();
+	contactListener->onContactPreSolve = CC_CALLBACK_2(HelloWorld::onContactPreSolve,this);
 
-		auto shapeB = contact.getShapeB();
-		auto bodyB = shapeB->getBody();
-
-		//printf("Tag1 = %d\nTag2 = %d\n\n", bodyA->getTag(), bodyB->getTag());
-		//OutputDebugStringA("Colision dicision\n");
-		if((bodyA->getName() == "Projectile"))
-		{
-			//shapeB->setFriction(0);
-			bodyB->getOwner()->setPosition(bodyB->getPosition().x, bodyB->getPosition().y);
-			if(bodyA->getOwner() != nullptr)
-			{
-				bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200));
-				bodyA->getOwner()->removeFromParent();
-			}
-
-		}
-		if((bodyB->getName() == "Projectile"))
-		{
-			bodyA->setVelocity(bodyA->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200));
-			bodyB->getOwner()->getParent()->removeChild(bodyB->getOwner());
-		}return true;
-	};
-	contactListener->onContactBegin = [](PhysicsContact& contact)
-	{
-
-		auto shapeA = contact.getShapeA();
-		auto bodyA = shapeA->getBody();
-
-		auto shapeB = contact.getShapeB();
-		auto bodyB = shapeB->getBody();
-		OutputDebugStringA("Collision\n");
-		OutputDebugStringA((bodyA->getName() + " == " + bodyB->getName() + "\n").c_str());
-		OutputDebugStringA((to_string(bodyA->getTag()) + " == " + to_string(bodyB->getTag()) + "\n").c_str());
-
-		if((bodyA->getName() == "Projectile" || bodyB->getName() == "Projectile") && (bodyA->getTag() != bodyB->getTag()))
-		{
-			return true;
-		} else if((bodyA->getName() == "Projectile" || bodyB->getName() == "Projectile") && (bodyA->getTag() == bodyB->getTag()))
-		{
-			return false;
-		}
-
-
-		OutputDebugStringA((to_string(bodyA->getTag()) + " == " + to_string(bodyB->getTag()) + "\n").c_str());
-
-		if(bodyA->getName() == bodyB->getName())
-			return false;
-		return true;
-	};
 
 	getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
 

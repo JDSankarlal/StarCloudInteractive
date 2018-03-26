@@ -13,11 +13,25 @@ using namespace Input;
 class Player :public Node
 {
 public:
-	Player(Scene *, int, int);
+	/*
+	Description: Initializes the player
+
+	Variables:
+	- parentScene = the scene to wich the player is attached.
+	- bitMask = determins which objects the colider checks. Only
+	objects with the same bitMask will be checked for collisions.
+	- index = identifies which controller is moving the player as
+	well as a differentiation between players.
+	*/
+	Player(Scene * ActiveScene, int bitMask, int index);
+
 	~Player();
 
+	//Gets the PhysicsBody* of the player
 	PhysicsBody* getBody();
+	//Gets the Sprite* of the player
 	Sprite* getSprite();
+	//Gets the velocity of the player as a Vec2
 	Vec2 getVelocity();
 
 #pragma region Set Velocities
@@ -33,43 +47,49 @@ public:
 	void addForce(float, float);
 #pragma endregion
 
+//interupt inputs
+	bool interupt()
+	{			
+		if(*t == 0)
+			*t = clock();
+		if(interuptCounter > interuptCount)
+			return false;
+		bool con = (interuptCounter += clock() - *t)/CLOCKS_PER_SEC < interuptCount;
+		*t = clock();
+		return con;
 
+	}
+	void setInterupt(float dt)
+	{
+		interuptCount = dt;
+	}
 
-//must be called in update
-	void update(float);
-	void movementUpdate();
-//sets location by pixel position
+//sets location of the player by pixel position
 	void setPosition(float x, float y, float z = 0);
 
-	//get the position
+	//get the location of the player and returns it as a Vec2 
 	Vec2 getPosition();
 
-	SpriteAnimation* getSpriteAnimater();
-
-//sets the platform id
-	
 	void printInfo();
-	Projectile *atk;
+
 private:
+//Updates are called internaly, nolonger need to call them
+	void update(float);
+	void movementUpdate();
 	bool inRange(float check, float low, float high);
-	float LT, RT, movementPercent, lastMovement;
-	bool dash;
-	int initialDash;
+
 	double moveZ, inst;
-	bool jump;
-	void platformID(int id);
-	short colChange, jumpCount, index;
-	bool hasJumped, colPress,fliped;
-	int numJumps = 0;
+	float LT, RT, movementPercent, lastMovement, interuptCounter, interuptCount;
+	int initialDash, numJumps = 0;
+	short jumpCount, index;
+	bool dash, hasJumped, fliped = false;
 
 	AudioPlayer* sfx = new AudioPlayer;
 	string sounds[1] {"Audio/Heavy_Attack.mp3"};
-
-
+	time_t* t=new time_t;
+	Projectile *atk;
 	Scene* scene;
-	Sprite *AttachedSprite;
-	Sprite* cursor[4] {Sprite::create("Assets/P1.png"),Sprite::create("Assets/P2.png"),Sprite::create("Assets/P3.png"),Sprite::create("Assets/P4.png")};
-	PhysicsBody *body;
+	Sprite *AttachedSprite, *cursor[4] {Sprite::create("Assets/P1.png"),Sprite::create("Assets/P2.png"),Sprite::create("Assets/P3.png"),Sprite::create("Assets/P4.png")};
 	SpriteAnimation* playerAni = new SpriteAnimation;
 };
 

@@ -18,6 +18,20 @@ public:
 	void setVelY(float);
 	void setVel(float, float);
 #pragma endregion
+
+#pragma region flips
+	/*sets if the sprite is fliped horizontaly. 
+	flips based	on the original state of the sprite	*/
+	void flipX(bool flip);
+	/*sets if the sprite is fliped vertically.
+	flips based	on the original state of the sprite	*/
+	void flipY(bool flip);
+#pragma endregion
+
+	//Rotations
+	/*Sets the rotation angle in degrees*/
+	void setRotation(float deg);
+
 private:
 	void removeProjectial();
 	bool heavy;

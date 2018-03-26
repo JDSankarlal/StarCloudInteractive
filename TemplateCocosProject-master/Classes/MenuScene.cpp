@@ -92,7 +92,7 @@ void MenuScene::update(float index)
 			{
 				audio->stop();
 				
-				Director::getInstance()->replaceScene(HelloWorld::createScene());
+				Director::getInstance()->replaceScene(TutorialScene::createScene());
 			}
 			if (moveD.yAxis == 0)
 			{

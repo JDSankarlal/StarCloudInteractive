@@ -26,10 +26,11 @@ Platforms::Platforms(cocos2d::Scene *activeScene, int bitMask, bool shadow, floa
 	platform->setPhysicsBody(PhysicsBody::createBox(size));
 
 	getBody()->setDynamic(false);
+	getBody()->setGravityEnable(false);
 	getBody()->setName("Platform");
 	getBody()->setTag(bitMask);
 	getBody()->setCollisionBitmask(bitMask);
-	//getBody()->setContactTestBitmask(true);
+	getBody()->setContactTestBitmask(true);
 	//getBody()->getFirstShape()->setFriction(.5);
 	activeScene->addChild(platform);
 
