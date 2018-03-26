@@ -221,7 +221,7 @@ bool TutorialScene::init()
 	this->addChild(tryDash, -2);
 	scrolls.push_back(tryDash);
 
-	TryAttack = Sprite::create("Assets/TryRTLT.png");
+	TryAttack = Sprite::create("Assets/TryX.png");
 	TryAttack->setPosition(visibleSize.width / 2, (visibleSize.height / 2) + 300);
 	TryAttack->setScale(3);
 	TryAttack->setAnchorPoint(Vec2(0.5f, 0.5f));
@@ -237,7 +237,7 @@ bool TutorialScene::init()
 	this->addChild(scroll4, -2);
 	scrolls.push_back(scroll4);
 
-	scroll5 = Sprite::create("Assets/tutorial5.png");
+	scroll5 = Sprite::create("Assets/YorBbeam.png");
 	scroll5->setPosition(visibleSize.width / 2, (visibleSize.height / 2)+300);
 	scroll5->setScale(3);
 	scroll5->setAnchorPoint(Vec2(0.5f, 0.5f));
@@ -330,7 +330,7 @@ void TutorialScene::update(float dt)
 		//OutputDebugStringA(string("Controller: "+std::to_string(index)+'\n').c_str());
 		Stick moveD, moveU;
 
-		static int count, til = 20;
+		static int count[]{0,0,0,0}, til = 20;
 		controllers.GetSticks(a, moveD, moveU);
 
 		if(controllers.ButtonStroke(a, Start)) //If start pressed on controller
@@ -389,11 +389,11 @@ void TutorialScene::update(float dt)
 				}
 				if(moveD.yAxis == 0)
 				{
-					count = til;
+					count[a] = til;
 				}
-				if(count++ > til)
+				if(count[a]++ > til)
 				{
-					count = 0;
+					count[a] = 0;
 					if(moveD.yAxis < 0)
 					{
 						skipBtnActive = true;
@@ -412,11 +412,11 @@ void TutorialScene::update(float dt)
 				}
 				if(moveD.yAxis == 0)
 				{
-					count = til;
+					count[a] = til;
 				}
-				if(count++ > til)
+				if(count[a]++ > til)
 				{
-					count = 0;
+					count[a] = 0;
 					if(moveD.yAxis < 0)
 					{
 						restartBtnActive = true;
@@ -441,11 +441,11 @@ void TutorialScene::update(float dt)
 				}
 				if (moveD.yAxis == 0)
 				{
-					count = til;
+					count[a] = til;
 				}
-				if (count++ > til)
+				if (count[a]++ > til)
 				{
-					count = 0;
+					count[a] = 0;
 					if (moveD.yAxis < 0)
 					{
 						quitBtnActive = true;
@@ -471,11 +471,11 @@ void TutorialScene::update(float dt)
 				}
 				if(moveD.yAxis == 0)
 				{
-					count = til;
+					count[a] = til;
 				}
-				if(count++ > til)
+				if(count[a]++ > til)
 				{
-					count = 0;
+					count[a] = 0;
 					if(moveD.yAxis > 0)
 					{
 						restartBtnActive = true;
@@ -515,10 +515,20 @@ void TutorialScene::update(float dt)
 			  scrolls[3]->setZOrder(-2);
 			  scrolls[4]->setZOrder(2);
 		  }
-		  else if (scrolls[4]->getZOrder() == 2 && theRealDT >= 15 && players[0]->getPosition().x >= 400)
+		  else if (scrolls[4]->getZOrder() == 2 && theRealDT >= 15 && players[0]->getPosition().x >= 1150)
 		  {
 			  scrolls[4]->setZOrder(-2);
 			  scrolls[5]->setZOrder(2);
+		  }
+		  else if (scrolls[5]->getZOrder() == 2 && theRealDT >= 20 && sheep1 == false)
+		  {
+			  scrolls[5]->setZOrder(-2);
+			  scrolls[6]->setZOrder(2);
+		  }
+		  else if (scrolls[5]->getZOrder() == 2 && theRealDT >= 22)
+		  {
+			  scrolls[6]->setZOrder(-2);
+			  scrolls[7]->setZOrder(2);
 		  }
 	  }
 
