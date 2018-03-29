@@ -538,19 +538,21 @@ void TutorialScene::update(float dt)
 			  scrolls[5]->setZOrder(-2);
 			  scrolls[6]->setZOrder(2);
 			  //sheep->setZOrder(-2);
+			  theRealDT = 0;
+			  sheep->sheep2 = true;
 		  }
-		  else if (scrolls[6]->getZOrder() == 2 && theRealDT >= 22)
+		  else if (scrolls[6]->getZOrder() == 2 && theRealDT >= 3)
 		  {
 			  scrolls[6]->setZOrder(-2);
 			  scrolls[7]->setZOrder(2);
 			  //sheep->setZOrder(1);
 		  }
-		  else if (scrolls[7]->getZOrder() == 2 && theRealDT >= 25 && sheep->sheep1 == false)
+		  else if (scrolls[7]->getZOrder() == 2 && theRealDT >= 6 && sheep->sheep2 == false)
 		  {
 			  scrolls[7]->setZOrder(-2);
 			  scrolls[8]->setZOrder(2);
 		  }
-		  else if (scrolls[8]->getZOrder() == 2 && theRealDT >= 28)
+		  else if (scrolls[8]->getZOrder() == 2 && theRealDT >= 9)
 		  {
 			  scrolls[8]->setZOrder(-2);
 			  scrolls[9]->setZOrder(2);

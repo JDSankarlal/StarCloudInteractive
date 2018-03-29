@@ -13,6 +13,7 @@ Sheep::Sheep(Scene *ActiveScene, int bitMask)
 	auto size = getSprite()->getContentSize();
 	getSprite()->setPhysicsBody(PhysicsBody::createBox(size));
 	getBody()->setTag(5);
+	getBody()->setName("Sheep");
 	getBody()->setCollisionBitmask(bitMask);
 	getBody()->setContactTestBitmask(true);
 	getBody()->setDynamic(true);
@@ -57,7 +58,7 @@ bool Sheep::onDeath()
 	if (sheep1 == true)
 	{
 		setHP(200);
-		setPosition(200, 300, 0);
+		setPosition(400, 350, 0);
 		sheep1 = false;
 	}
 	else if (sheep1 == false && sheep2 == true)
