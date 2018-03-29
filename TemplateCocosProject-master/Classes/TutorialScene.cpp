@@ -387,6 +387,7 @@ void TutorialScene::update(float dt)
 					paused->setGlobalZOrder(-2);
 					resumeBtn->setGlobalZOrder(-2);
 					restartBtn->setGlobalZOrder(-2);
+					skipBtn->setGlobalZOrder(-2);
 					quitBtn->setGlobalZOrder(-2);
 					menu->setGlobalZOrder(-2); //move menu back
 					Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(1); //Resume game
@@ -494,6 +495,11 @@ void TutorialScene::update(float dt)
 		}
 	}
 
+	if (sheep->getHP() <= 0)
+	{
+		sheep->onDeath();
+	}
+
 	if (onStart == true)
 	{
 		Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(0);
@@ -527,21 +533,33 @@ void TutorialScene::update(float dt)
 			  scrolls[4]->setZOrder(-2);
 			  scrolls[5]->setZOrder(2);
 		  }
-		  else if (scrolls[5]->getZOrder() == 2 && theRealDT >= 20 && sheep1 == false)
+		  else if (scrolls[5]->getZOrder() == 2 && theRealDT >= 20 && sheep->sheep1 == false)
 		  {
 			  scrolls[5]->setZOrder(-2);
 			  scrolls[6]->setZOrder(2);
+			  //sheep->setZOrder(-2);
 		  }
-		  else if (scrolls[5]->getZOrder() == 2 && theRealDT >= 22)
+		  else if (scrolls[6]->getZOrder() == 2 && theRealDT >= 22)
 		  {
 			  scrolls[6]->setZOrder(-2);
 			  scrolls[7]->setZOrder(2);
+			  //sheep->setZOrder(1);
 		  }
+		  else if (scrolls[7]->getZOrder() == 2 && theRealDT >= 25 && sheep->sheep1 == false)
+		  {
+			  scrolls[7]->setZOrder(-2);
+			  scrolls[8]->setZOrder(2);
+		  }
+		  else if (scrolls[8]->getZOrder() == 2 && theRealDT >= 28)
+		  {
+			  scrolls[8]->setZOrder(-2);
+			  scrolls[9]->setZOrder(2);
+		  }
+
 	  }
-
-
 	OutputDebugStringA(string(to_string(theRealDT)+"\n").c_str());
 }
+
 
 void TutorialScene::contact()
 {

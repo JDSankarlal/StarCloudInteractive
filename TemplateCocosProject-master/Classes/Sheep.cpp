@@ -40,7 +40,6 @@ Sprite * Sheep::getSprite()
 void Sheep::setPosition(float x, float y, float z)
 {
 	getSprite()->setPosition3D(Vec3(x, y, 0));
-	//getSprite()->setContentSize(Size());
 }
 
 Vec2 Sheep::getPosition()
@@ -51,4 +50,19 @@ Vec2 Sheep::getPosition()
 SpriteAnimation * Sheep::getSpriteAnimater()
 {
 	return sheepAni;
+}
+
+bool Sheep::onDeath()
+{ 
+	if (sheep1 == true)
+	{
+		setHP(200);
+		setPosition(200, 300, 0);
+		sheep1 = false;
+	}
+	else if (sheep1 == false && sheep2 == true)
+	{
+		sheep2 = false;
+	}
+	else return false;
 }

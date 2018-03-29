@@ -148,8 +148,6 @@ private:
 	bool restartBtnActive = false;
 	bool quitBtnActive = false;
 	bool skipBtnActive = false;
-	bool sheep1 = true;
-	bool sheep2 = false;
 };
 
 
