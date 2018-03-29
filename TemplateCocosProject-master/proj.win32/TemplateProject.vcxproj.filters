@@ -1,168 +1,149 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="win32">
-      <UniqueIdentifier>{84a8ebd7-7cf0-47f6-b75e-d441df67da40}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="resource">
-      <UniqueIdentifier>{715254bc-d70b-4ec5-bf29-467dd3ace079}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src">
-      <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Splash">
-      <UniqueIdentifier>{cbf32070-a196-42ab-8639-f6d39f12dd7b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Audio">
-      <UniqueIdentifier>{3764f037-e8a7-4ddc-adfd-405d2504816b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Controller">
-      <UniqueIdentifier>{fa8de17f-275d-46ec-bda3-1ac0557c6c7d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Main Menu">
-      <UniqueIdentifier>{04df5a76-f55c-4e86-a044-4a9f88dda5bf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Other">
-      <UniqueIdentifier>{17191993-5b8b-4aa9-b66e-8fb083205154}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Game World">
-      <UniqueIdentifier>{5b9f5cc6-6687-4631-bb81-7daf9282181f}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>win32</Filter>
-    </ClCompile>
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="..\Classes\AppDelegate.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\SplashScreen.cpp">
-      <Filter>src\Splash</Filter>
+      <Filter>Cocos Shit</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\AudioPlayer.cpp">
-      <Filter>src\Audio</Filter>
+      <Filter>Game Managers</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\controller.cpp">
-      <Filter>src\Controller</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\MenuScene.cpp">
-      <Filter>src\Main Menu</Filter>
+      <Filter>Game Managers</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\DisplayHandler.cpp">
-      <Filter>src\Other</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\GameStates.cpp">
-      <Filter>src\Other</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\InputHandler.cpp">
-      <Filter>src\Other</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Platforms.cpp">
-      <Filter>src\Game World</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Player.cpp">
-      <Filter>src\Game World</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\SpriteAnimation.cpp">
-      <Filter>src\Game World</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\HelloWorld.cpp">
-      <Filter>src\Game World</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\OptionsScene.cpp">
-      <Filter>src\Main Menu</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Projectile.cpp">
-      <Filter>src\Game World</Filter>
-    </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="..\Classes\TutorialScene.cpp">
-      <Filter>src\Main Menu</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Sheep.cpp">
-      <Filter>src\Main Menu</Filter>
-=======
-    <ClCompile Include="..\Classes\Sheep.cpp">
-      <Filter>src\Game World</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\TutorialScene.cpp">
-      <Filter>src\Game World</Filter>
+      <Filter>Game Managers</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\GameStateManager.cpp">
-      <Filter>src\Other</Filter>
->>>>>>> RobDevelop
+      <Filter>Game Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameStates.cpp">
+      <Filter>Game Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\InputHandler.cpp">
+      <Filter>Game Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\HelloWorld.cpp">
+      <Filter>Hello World</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MenuScene.cpp">
+      <Filter>Menu Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\OptionsScene.cpp">
+      <Filter>Options</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Platforms.cpp">
+      <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Player.cpp">
+      <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Projectile.cpp">
+      <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Sheep.cpp">
+      <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TutorialScene.cpp">
+      <Filter>Tutorial</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SpriteAnimation.cpp">
+      <Filter>Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SplashScreen.cpp">
+      <Filter>Splash</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="main.h">
-      <Filter>win32</Filter>
-    </ClInclude>
+    <ClInclude Include="main.h" />
     <ClInclude Include="..\Classes\AppDelegate.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\SplashScreen.h">
-      <Filter>src\Splash</Filter>
+      <Filter>Cocos Shit</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\AudioPlayer.h">
-      <Filter>src\Audio</Filter>
+      <Filter>Game Managers</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\controller.h">
-      <Filter>src\Controller</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\MenuScene.h">
-      <Filter>src\Main Menu</Filter>
+      <Filter>Game Managers</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\DisplayHandler.h">
-      <Filter>src\Other</Filter>
+      <Filter>Game Managers</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GameStateManager.h">
-      <Filter>src\Other</Filter>
+      <Filter>Game Managers</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GameStates.h">
-      <Filter>src\Other</Filter>
+      <Filter>Game Managers</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\InputHandler.h">
-      <Filter>src\Other</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Platforms.h">
-      <Filter>src\Game World</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Player.h">
-      <Filter>src\Game World</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\SpriteAnimation.h">
-      <Filter>src\Game World</Filter>
+      <Filter>Game Managers</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\HelloWorld.h">
-      <Filter>src\Game World</Filter>
+      <Filter>Hello World</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MenuScene.h">
+      <Filter>Menu Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\OptionsScene.h">
-      <Filter>src\Main Menu</Filter>
+      <Filter>Options</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Platforms.h">
+      <Filter>Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Player.h">
+      <Filter>Game Objects</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Projectile.h">
-      <Filter>src\Game World</Filter>
-    </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="..\Classes\TutorialScene.h">
-      <Filter>src\Main Menu</Filter>
+      <Filter>Game Objects</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Sheep.h">
-      <Filter>src\Main Menu</Filter>
-=======
-    <ClInclude Include="..\Classes\Sheep.h">
-      <Filter>src\Game World</Filter>
+      <Filter>Game Objects</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\TutorialScene.h">
-      <Filter>src\Game World</Filter>
+      <Filter>Tutorial</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\TutorialSceneScene.h">
-      <Filter>src\Game World</Filter>
->>>>>>> RobDevelop
+      <Filter>Tutorial</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SpriteAnimation.h">
+      <Filter>Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SplashScreen.h">
+      <Filter>Splash</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="game.rc">
-      <Filter>resource</Filter>
-    </ResourceCompile>
+    <ResourceCompile Include="game.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Cocos Shit">
+      <UniqueIdentifier>{7648d6a7-6c97-4991-8e6a-c74b753bbf86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Managers">
+      <UniqueIdentifier>{3d8ecb92-5c97-4b21-883a-d37e64d80ec5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hello World">
+      <UniqueIdentifier>{65eef6bd-51da-4807-a8e5-551b2e2ce550}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Menu Scene">
+      <UniqueIdentifier>{c2da1d22-063a-4918-b64e-65048ca750eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Options">
+      <UniqueIdentifier>{52a8a57a-e47c-4c3b-ae46-2eadd2c619a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Objects">
+      <UniqueIdentifier>{9d93479c-326a-4ba7-9e6d-c24287ca06a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tutorial">
+      <UniqueIdentifier>{12f8ecde-5f7a-4371-bde6-2b4919c8bc4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animator">
+      <UniqueIdentifier>{3f2a7829-2fd2-4cfa-b011-23a8075b7abe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Splash">
+      <UniqueIdentifier>{a3722fe2-6aa7-4514-a727-22f6b7633d6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HUD">
+      <UniqueIdentifier>{606cc3a8-9a64-4e5f-9bc2-00ac5bc89b04}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

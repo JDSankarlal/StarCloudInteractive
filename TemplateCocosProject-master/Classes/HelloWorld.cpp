@@ -8,7 +8,6 @@ using namespace std;
 Scene* HelloWorld::createScene()
 {
 
-
 	auto scenepb = HelloWorld::createWithPhysics();
 	///Creates collision boxes around PhysicsBodies
 	//scenepb->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
@@ -93,6 +92,25 @@ bool HelloWorld::init()
 	quitBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 	this->addChild(quitBtn, -2);
 
+	player1 = Sprite::create("Assets/UI Elements/Player Names/Player1.png");
+	player1->setPosition(100, visibleSize.height - 100);
+	player1->setScale(.5);
+	this->addChild(player1, 2);
+
+	player2 = Sprite::create("Assets/UI Elements/Player Names/Player2.png");
+	player2->setPosition(200, visibleSize.height - 100);
+	player2->setScale(.5);
+	this->addChild(player2, 2);
+
+	player3 = Sprite::create("Assets/UI Elements/Player Names/Player3.png");
+	player3->setPosition(300, visibleSize.height - 100);
+	player3->setScale(.5);
+	this->addChild(player3, 2);
+
+	player4 = Sprite::create("Assets/UI Elements/Player Names/Player4.png");
+	player4->setPosition(400, visibleSize.height - 100);
+	player4->setScale(.5);
+	this->addChild(player4, 2);
 	//Collision stuff
 	contact();
 
@@ -298,7 +316,6 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 
 	//EventCustom customEndEvent("game_scene_close_event");
 	//_eventDispatcher->dispatchEvent(&customEndEvent);
-
 
 }
 

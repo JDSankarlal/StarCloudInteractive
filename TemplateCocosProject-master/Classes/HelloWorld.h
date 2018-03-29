@@ -16,7 +16,6 @@ class HelloWorld : public cocos2d::Scene
 {
 public:
 	static cocos2d::Scene* createScene();
-
 	virtual bool init();
 
 	// a selector callback
@@ -105,6 +104,13 @@ private:
 	cocos2d::Sprite* resumeBtn;
 	cocos2d::Sprite* restartBtn;
 	cocos2d::Sprite* quitBtn;
+
+	//HUD Stuff Here
+	cocos2d::Sprite* player1, *player2, *player3, *player4;
+	cocos2d::Sprite* healthBar1, *healthBar2, *healthBar3, *healthBar4;
+	cocos2d::Sprite* lives1, *lives2, *lives3, *lives4;
+	//HUD Stuff Ends
+
 
 	bool gamePaused = false;
 	bool resumeBtnActive = false;
