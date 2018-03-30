@@ -40,24 +40,23 @@ bool MenuScene::init()
 	addChild(background, -1);
 
 	playBtn = Sprite::create("Assets/Button_Dark_Play.png");
-	playBtn->setPosition((visibleSize.width / 2) + 10, visibleSize.height / 2);
-	playBtn->setScale(2);
+	playBtn->setPosition((visibleSize.width / 2), visibleSize.height / 2);
+	playBtn->setScale(4);
 	playBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 	this->addChild(playBtn, 2);
 
 	optionsBtn = Sprite::create("Assets/Button_Dark_Options.png");
-	optionsBtn->setPosition((visibleSize.width / 2) + 10, (visibleSize.height / 2) - 125);
-	optionsBtn->setScale(2);
+	optionsBtn->setPosition((visibleSize.width / 2) -13, (visibleSize.height / 2) - 150);
+	optionsBtn->setScale(4);
 	optionsBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 	this->addChild(optionsBtn, 2);
 
-	quitBtn = Sprite::create("Assets/Button_Quit.png");
-	quitBtn->setPosition((visibleSize.width / 2) +5, (visibleSize.height / 2) - 250);
+	//quitBtn = Sprite::create("Assets/Button_Quit.png");
+	//quitBtn->setPosition((visibleSize.width / 2) +5, (visibleSize.height / 2) - 250);
 
 	quitBtn = Sprite::create("Assets/Button_Dark_Quit.png");
-	quitBtn->setPosition((visibleSize.width / 2) - 5, (visibleSize.height / 2) - 250);
-
-	quitBtn->setScale(2);
+	quitBtn->setPosition((visibleSize.width / 2) , (visibleSize.height / 2) - 300);
+	quitBtn->setScale(4);
 	quitBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 	this->addChild(quitBtn, 2);
 
@@ -86,7 +85,7 @@ void MenuScene::update(float index)
 		controllers.GetSticks(index, moveD, moveU);
 		if (playBtnActive)
 		{
-			playBtn->setScale(2.5f);
+			playBtn->setScale(4.5f);
 	
 			if (controllers.ButtonStroke(index, A))
 			{
@@ -103,14 +102,14 @@ void MenuScene::update(float index)
 				if (moveD.yAxis < 0)
 				{
 					optionsBtnActive = true;
-					playBtn->setScale(2);
+					playBtn->setScale(4);
 					playBtnActive = false;
 				}
 			}
 		}
 		else if (optionsBtnActive)
 		{
-			optionsBtn->setScale(2.5f);
+			optionsBtn->setScale(4.5f);
 	
 			if (controllers.ButtonStroke(index, A))
 			{
@@ -126,20 +125,20 @@ void MenuScene::update(float index)
 				if (moveD.yAxis < 0)
 				{
 					quitBtnActive = true;
-					optionsBtn->setScale(2);
+					optionsBtn->setScale(4);
 					optionsBtnActive = false;
 				}
 				if (moveD.yAxis > 0)
 				{
 					playBtnActive = true;
-					optionsBtn->setScale(2);
+					optionsBtn->setScale(4);
 					optionsBtnActive = false;
 				}
 			}
 		}
 		else if (quitBtnActive)
 		{
-			quitBtn->setScale(2.5f);
+			quitBtn->setScale(4.5f);
 	
 			if (controllers.ButtonStroke(index, A))
 			{
@@ -155,7 +154,7 @@ void MenuScene::update(float index)
 				if (moveD.yAxis > 0)
 				{
 					optionsBtnActive = true;
-					quitBtn->setScale(2);
+					quitBtn->setScale(4);
 					quitBtnActive = false;
 				}
 			}

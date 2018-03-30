@@ -13,12 +13,14 @@ Sheep::Sheep(Scene *ActiveScene, int bitMask)
 	auto size = getSprite()->getContentSize();
 	getSprite()->setPhysicsBody(PhysicsBody::createBox(size));
 	getBody()->setTag(5);
+	getBody()->setName("Sheep");
 	getBody()->setCollisionBitmask(bitMask);
 	getBody()->setContactTestBitmask(true);
 	getBody()->setDynamic(true);
 	getBody()->setRotationEnable(false);
 	getBody()->getFirstShape()->setFriction(.25);
-	ActiveScene->addChild(AttachedSprite);
+	this->addChild(AttachedSprite);
+	ActiveScene->addChild(this);
 	MaxHP = 200;
 	HP = 200;
 }
@@ -40,7 +42,6 @@ Sprite * Sheep::getSprite()
 void Sheep::setPosition(float x, float y, float z)
 {
 	getSprite()->setPosition3D(Vec3(x, y, 0));
-	//getSprite()->setContentSize(Size());
 }
 
 Vec2 Sheep::getPosition()
@@ -48,7 +49,17 @@ Vec2 Sheep::getPosition()
 	return getSprite()->getPosition();
 }
 
-//SpriteAnimation * Sheep::getSpriteAnimater()
-//{
-//	return sheepAni;
-//}
+bool Sheep::onDeath()
+{ 
+	if (sheep1 == true)
+	{
+		setHP(200);
+		setPosition(400, 350, 0);
+		sheep1 = false;
+	}
+	else if (sheep1 == false && sheep2 == true)
+	{
+		sheep2 = false;
+	}
+	else return false;
+}

@@ -132,13 +132,10 @@ void Player::movementUpdate()
 			if(moveL.xAxis < 0)
 				getSprite()->setFlippedX(fliped = true);
 			else if(moveL.xAxis > 0)
-				getSprite()->setFlippedX(fliped = false);
-
+				getSprite()->setFlippedX(fliped = false);		 
 
 			if(moveL.yAxis < .8f)
-				addImpulseX(move* moveL.xAxis);
-
-
+				addImpulseX(move* moveL.xAxis);		  
 			
 			if(inRange(getVelocity().y, lo, hi))
 			{
