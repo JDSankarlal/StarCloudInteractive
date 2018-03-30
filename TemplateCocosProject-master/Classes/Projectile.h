@@ -38,6 +38,6 @@ private:
 	int bitMask, index;
 	Sprite * proj[2] {Sprite::create("Assets/light_attack.png"),Sprite::create("Assets/heavy_attack.png")};
 	Scene* scene;
-	Action* act;
+	
 };
 

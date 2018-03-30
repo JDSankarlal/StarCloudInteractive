@@ -12,18 +12,20 @@ using std::vector;
 using std::unordered_map;
 namespace fs = std::experimental::filesystem;
 
-class SpriteAnimation
+class SpriteAnimation:public Node
 {
 public:
-	SpriteAnimation();
+	SpriteAnimation(Node * scene);
 	~SpriteAnimation();
 
 	//Adds a sprite to the animation list
 	void addSprite(string,string directory);
 
 	//Animates throught the vector of frames
+	void update(float dt);
+private:
 	void animate();
-
+public:
 	//Sets wether to repeat the animation after the last frame is reached
 	void setRepeat(bool);
 
@@ -31,16 +33,10 @@ public:
 	void setAnimationSpeed(float);
 	
 	//
-	void setAnimation(string);
+	void addAnimation(string);
 
 	//
 	string getAnimation();
-
-	//Pause
-	void pause();
-
-	//Resume
-	void resume();
 
 	//Restart
 	void reset();

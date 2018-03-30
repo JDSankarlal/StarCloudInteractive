@@ -51,10 +51,22 @@ public:
 			if(bodyA->getOwner() != nullptr)
 			{
 				if(bodyB->getName() != "Platform")
+				{
 					bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200));
-				for(int a = 0; a < 4; a++)
-					if(bodyB->getOwner()->getParent() == players[a])
-						players[a]->setInterupt(2);
+					
+					for(auto &a : players)
+						if(bodyB == a->getBody())
+						{
+							OutputDebugStringA("Hitting a player\n");
+							runAction(Sequence::create(
+								CallFunc::create(a, callfunc_selector(Player::pause)),
+								DelayTime::create(1.3),
+								CallFunc::create(a, callfunc_selector(Player::resume)), 0));
+						}
+				}
+				//for(int a = 0; a < 4; a++)
+				//	if(bodyB->getOwner()->getParent() == players[a])
+				//		players[a]->setInterupt(2);
 				bodyA->getOwner()->removeFromParent();
 			}
 
@@ -83,8 +95,19 @@ public:
 			return false;
 		}
 
-
 		OutputDebugStringA((to_string(bodyA->getTag()) + " == " + to_string(bodyB->getTag()) + "\n").c_str());
+
+		if(bodyA->getName() == "Player" && bodyB->getName() == "Platform")
+		{
+			for(auto &a : players)
+				if(bodyA == a->getBody())
+					a->resetJumps();
+		} else if(bodyB->getName() == "Player" && bodyA->getName() == "Platform")
+		{
+			for(auto &a : players)
+				if(bodyB == a->getBody())
+					a->resetJumps();
+		}
 
 		if(bodyA->getName() == bodyB->getName())
 			return false;

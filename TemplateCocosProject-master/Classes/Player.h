@@ -34,11 +34,19 @@ public:
 	//Gets the velocity of the player as a Vec2
 	Vec2 getVelocity();
 
-#pragma region Set Velocities
-	void setVelX(float);
-	void setVelY(float);
-	void setVel(float, float);
-	void setVel(int, int);
+#pragma region Set Velocity
+	void setVelX(float x);
+	void setVelY(float y);
+	void setVel(float x,float y);
+#pragma endregion
+
+
+#pragma region Set Impulse
+	void addImpulseX(float);
+	void addImpulseY(float);
+	void addImpulse(float, float);
+	void addImpulse(int, int);
+
 #pragma endregion
 
 #pragma region Set Forces  
@@ -72,6 +80,8 @@ public:
 
 	void printInfo();
 
+	void resetJumps();
+
 private:
 //Updates are called internaly, nolonger need to call them
 	void update(float);
@@ -79,8 +89,8 @@ private:
 	bool inRange(float check, float low, float high);
 
 	double moveZ, inst;
-	float LT, RT, movementPercent, lastMovement, interuptCounter, interuptCount;
-	int initialDash, numJumps = 0;
+	float LT, RT, interuptCounter, interuptCount, initialDash;
+	int  numJumps = 0;
 	short jumpCount, index;
 	bool dash, hasJumped, fliped = false;
 
@@ -90,6 +100,6 @@ private:
 	Projectile *atk;
 	Scene* scene;
 	Sprite *AttachedSprite, *cursor[4] {Sprite::create("Assets/P1.png"),Sprite::create("Assets/P2.png"),Sprite::create("Assets/P3.png"),Sprite::create("Assets/P4.png")};
-	SpriteAnimation* playerAni = new SpriteAnimation;
+	SpriteAnimation* playerAni ;
 };
 

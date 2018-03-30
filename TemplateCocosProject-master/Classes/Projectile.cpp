@@ -15,11 +15,11 @@ Projectile::Projectile(Scene * scene, bool heavy, int bitMask, int index)
 	this->scene = scene;
 	if(!heavy)
 	{
-		runAction(act = Sequence::create(DelayTime::create(3), CallFunc::create(this,
+		runAction(Sequence::create(DelayTime::create(1.3), CallFunc::create(this,
 				  callfunc_selector(Projectile::removeProjectial)), 0));
 	} else
 	{
-		runAction(act = Sequence::create(DelayTime::create(1), CallFunc::create(this,
+		runAction(Sequence::create(DelayTime::create(0.9), CallFunc::create(this,
 				  callfunc_selector(Projectile::removeProjectial)), 0));
 	}
 }

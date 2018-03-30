@@ -118,7 +118,7 @@ void HelloWorld::update(float dt)
 	{
 		if(a->getSprite()->getPositionY() < -200)
 		{
-			a->setVel(0, 0);
+			a->addImpulse(0, 0);
 			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2);
 		}
 	}
@@ -146,7 +146,12 @@ void HelloWorld::update(float dt)
 					Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(0); //pause game
 					menu->setGlobalZOrder(3); //move menu forwards
 					for(auto &a : players)
-						a->pause();
+					{
+						a->pause();//pauses player update
+						for(auto &b : a->getChildren())
+							b->pause();	//stops the player animation
+					}
+					//pauses projectials
 					paused = Director::getInstance()->getActionManager()->pauseAllRunningActions();
 
 				} else  //if game paused
@@ -162,7 +167,11 @@ void HelloWorld::update(float dt)
 					Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(1); //Resume game
 					//this->resume();
 					for(auto &a : players)
+					{
 						a->resume();
+						for(auto &b : a->getChildren())
+							b->resume();
+					}
 					Director::getInstance()->getActionManager()->resumeTargets(paused);
 				}
 			}
@@ -186,7 +195,11 @@ void HelloWorld::update(float dt)
 						menu->setGlobalZOrder(-2); //move menu back
 						Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(1); //Resume game
 						for(auto &a : players)
+						{
 							a->resume();
+							for(auto &b : a->getChildren())
+								b->resume();
+						}
 						Director::getInstance()->getActionManager()->resumeTargets(paused);
 					}
 					if(moveD.yAxis == 0)
@@ -270,16 +283,13 @@ void HelloWorld::contact()
 {
 	auto contactListener =
 		EventListenerPhysicsContact::create();
-	auto world = this;
-
+	auto world = this; 
 
 	contactListener->onContactBegin = CC_CALLBACK_1(HelloWorld::onContactBegin,this);
 	//used for calculating
-	contactListener->onContactPreSolve = CC_CALLBACK_2(HelloWorld::onContactPreSolve,this);
+	contactListener->onContactPreSolve = CC_CALLBACK_2(HelloWorld::onContactPreSolve,this);	 
 
-
-	getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
-
+	getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this); 
 }
 
 
@@ -298,8 +308,6 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 
 	//EventCustom customEndEvent("game_scene_close_event");
 	//_eventDispatcher->dispatchEvent(&customEndEvent);
-
-
 }
 
 void HelloWorld::DrawWorld()

@@ -48,7 +48,7 @@ Vec2 Sheep::getPosition()
 	return getSprite()->getPosition();
 }
 
-SpriteAnimation * Sheep::getSpriteAnimater()
-{
-	return sheepAni;
-}
+//SpriteAnimation * Sheep::getSpriteAnimater()
+//{
+//	return sheepAni;
+//}

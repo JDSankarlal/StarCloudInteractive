@@ -4,11 +4,12 @@ Player::Player(Scene *ActiveScene, int bitMask, int index)
 
 {
 	//Animation sets
+	playerAni = new SpriteAnimation(this);
 	playerAni->addSprite("walk", "Assets/Walk 2");
 	playerAni->addSprite("jump up", "Assets/Jump Up 2");
 	playerAni->addSprite("jump down", "Assets/Jump Down 2");
 	playerAni->addSprite("falling", "Assets/Falling");
-	playerAni->setAnimation("walk");
+	playerAni->addAnimation("walk");
 
 	//Seting up the sprite and physics body
 	AttachedSprite = playerAni->getSprite();
@@ -51,13 +52,11 @@ Vec2 Player::getVelocity()
 void Player::setVelX(float x)
 {
 	getBody()->setVelocity(Vec2(x, getBody()->getVelocity().y));
-	//printf("Velx = %f\n", x);
 }
 
 void Player::setVelY(float y)
 {
 	getBody()->setVelocity(Vec2(getBody()->getVelocity().x, y));
-	//printf("Vely = %f\n", y);
 }
 
 void Player::setVel(float x, float y)
@@ -66,9 +65,29 @@ void Player::setVel(float x, float y)
 	setVelY(y);
 }
 
-void Player::setVel(int x, int y)
+void Player::addImpulseX(float x)
 {
-	setVel(float(x), float(y));
+	setVelX(0);
+	getBody()->applyImpulse(Vec2(x, 0));
+	//printf("Velx = %f\n", x);
+}
+
+void Player::addImpulseY(float y)
+{
+	setVelY(0);
+	getBody()->applyImpulse(Vec2(0, y));
+	//printf("Vely = %f\n", y);
+}
+
+void Player::addImpulse(float x, float y)
+{
+	addImpulseX(x);
+	addImpulseY(y);
+}
+
+void Player::addImpulse(int x, int y)
+{
+	addImpulse(float(x), float(y));
 }
 
 void Player::addForceX(float x)
@@ -98,7 +117,6 @@ void Player::movementUpdate()
 
 	static Input::XBoxInput controllers;
 	controllers.DownloadPackets(4);
-	playerAni->animate();
 
 	if(controllers.GetConnected(index))
 	{
@@ -108,27 +126,20 @@ void Player::movementUpdate()
 		//printInfo();
 			Stick moveL, moveR;//left and right stick variables
 			controllers.GetSticks(index, moveL, moveR);//inputs stick values
-			int move = 375;
-			if(moveL.xAxis != 0)
-				lastMovement = moveL.xAxis;
-			movementPercent += .03;
+			static float lo = 0.f, hi = .001f;
+			int move = 37500.f * 2.f * 1.25f;
 
-
-			if(moveL.xAxis == 0)
-				movementPercent -= .09;
-			else if(moveL.xAxis * move < 0)
+			if(moveL.xAxis < 0)
 				getSprite()->setFlippedX(fliped = true);
-			else
+			else if(moveL.xAxis > 0)
 				getSprite()->setFlippedX(fliped = false);
 
-			if(movementPercent > 1)
-				movementPercent = 1;
-			else if(movementPercent < 0)
-				movementPercent = 0;
-			if(moveL.yAxis < .8f)
-				setVelX(lastMovement * move * movementPercent);
 
-			static float lo = 0.f, hi = .001f;
+			if(moveL.yAxis < .8f)
+				addImpulseX(move* moveL.xAxis);
+
+
+			
 			if(inRange(getVelocity().y, lo, hi))
 			{
 				if(moveL.xAxis != 0)
@@ -146,20 +157,31 @@ void Player::movementUpdate()
 			if((controllers.ButtonPress(index, A)) && (!hasJumped && numJumps < 2))
 			{
 				numJumps++;
-				setVelY(535);
+				if(numJumps > 1)
+					addImpulseY(53500.f * 2.f * numJumps * .75f);
+				else
+					addImpulseY(53500 * 2 * numJumps);
 				hasJumped = true;
 			}
 			if(controllers.ButtonRelease(index, A))
 				hasJumped = false;
 
-
-			if(getVelocity().y < 0.f && !inRange(getVelocity().y, -hi, lo))
+			if(inRange(getVelocity().y, -hi, hi))
+			{
+				if(playerAni->getAnimation() != "walk")
+				{
+					OutputDebugStringA("Walking\n");
+					playerAni->setRepeat(true);
+					playerAni->addAnimation("walk");
+					playerAni->reset();
+				}
+			} else if(getVelocity().y < 0.f && !inRange(getVelocity().y, -hi, lo))
 			{
 				if(playerAni->getAnimation() != "falling")
 				{
 					OutputDebugStringA("Falling\n");
 					playerAni->setRepeat(false);
-					playerAni->setAnimation("falling");
+					playerAni->addAnimation("falling");
 					playerAni->setAnimationSpeed(.05);
 					playerAni->reset();
 				}
@@ -170,20 +192,12 @@ void Player::movementUpdate()
 					OutputDebugStringA("Jump up\n");
 					playerAni->reset();
 					playerAni->setRepeat(false);
-					playerAni->setAnimation("jump up");
+					playerAni->addAnimation("jump up");
 					playerAni->setAnimationSpeed(.01);
 
 				}
-			} else
-			{
-				if(playerAni->getAnimation() != "walk")
-				{
-					OutputDebugStringA("Walking\n");
-					playerAni->setRepeat(true);
-					playerAni->setAnimation("walk");
-					playerAni->reset();
-				}
 			}
+
 
 #pragma endregion
 
@@ -193,11 +207,9 @@ void Player::movementUpdate()
 				controllers.SetVibration(index, LT, RT);
 			if((LT > .5 || RT > .5) && !dash)
 			{
-				numJumps = 0;
-
 				dash = true;
-				setVelY(0);
-				initialDash = 800;
+				initialDash = 1;
+				addImpulseX(move * 2 * initialDash * (moveL.xAxis / abs(moveL.xAxis)));
 			} else if(LT < .5 && RT < .5)
 			{
 				controllers.SetVibration(index, 0, 0);
@@ -205,13 +217,9 @@ void Player::movementUpdate()
 			}
 			if(dash)
 			{
-				if(initialDash > move)
-				{
-					if(moveL.xAxis < 0)
-						setVelX(-(initialDash -= 20));
-					else  if(moveL.xAxis > 0)
-						setVelX(initialDash -= 20);
-				} else
+				initialDash -= .001;
+				addImpulseX(move * 2 * initialDash * (moveL.xAxis / abs(moveL.xAxis)));
+				if(initialDash <= .5)
 				{
 					controllers.SetVibration(index, 0, 0);
 				}
@@ -306,6 +314,11 @@ void Player::printInfo()
 	OutputDebugStringA(string("Velocity: " + std::to_string(getBody()->getVelocity().x) + ", " + std::to_string(getBody()->getVelocity().y) + "\n").c_str());
 	//OutputDebugStringA(string("Force: " + std::to_string(getBody()->getFirstShape()..x) + ", " + std::to_string(getBody()->getPosition().y) + "\n").c_str());
 	OutputDebugStringA("\n\n");
+}
+
+void Player::resetJumps()
+{
+	numJumps = 0;
 }
 
 bool Player::inRange(float check, float low, float high)
