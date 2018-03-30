@@ -14,6 +14,7 @@ Projectile::Projectile(Scene * scene, bool heavy, int bitMask, int index)
 	particleSystem->setAnchorPoint(Vec2(1, 1));
 	particleSystem->setStartColor(Color4F(0, 0, 0, 1));
 	particleSystem->setEndColor(Color4F(138.f/255, 43.f/255, 226.f/255, 1));
+
 	//particleSystem->setDuration(1);
 	//particleSystem->setPosition(Vec2(10, 5));
 	proj[heavy]->addChild(particleSystem);
@@ -22,10 +23,12 @@ Projectile::Projectile(Scene * scene, bool heavy, int bitMask, int index)
 	this->scene = scene;
 	if(!heavy)
 	{
+		particleSystem->setEmissionRate(37);
 		runAction(Sequence::create(DelayTime::create(1.3), CallFunc::create(this,
 				  callfunc_selector(Projectile::removeProjectial)), 0));
 	} else
 	{
+		particleSystem->setEmissionRate(120);
 		runAction(Sequence::create(DelayTime::create(0.9), CallFunc::create(this,
 				  callfunc_selector(Projectile::removeProjectial)), 0));
 	}
