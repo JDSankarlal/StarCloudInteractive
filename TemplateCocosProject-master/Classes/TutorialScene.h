@@ -66,6 +66,8 @@ private:
 						if (bodyB->getOwner()->getParent() == players[a])
 							players[a]->setInterupt(2);
 					bodyA->getOwner()->removeFromParent();
+
+			
 				}
 			}
 

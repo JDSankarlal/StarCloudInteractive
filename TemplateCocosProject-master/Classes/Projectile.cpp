@@ -10,6 +10,13 @@ Projectile::Projectile(Scene * scene, bool heavy, int bitMask, int index)
 	getBody()->setCollisionBitmask(this->bitMask = bitMask);
 	getBody()->setContactTestBitmask(true);
 	getBody()->setRotationEnable(false);
+	
+	particleSystem->setAnchorPoint(Vec2(1, 1));
+	particleSystem->setStartColor(Color4F(0, 0, 0, 1));
+	particleSystem->setEndColor(Color4F(138.f/255, 43.f/255, 226.f/255, 1));
+	//particleSystem->setDuration(1);
+	//particleSystem->setPosition(Vec2(10, 5));
+	proj[heavy]->addChild(particleSystem);
 	addChild(proj[heavy]);
 	scene->addChild(this);
 	this->scene = scene;
@@ -44,6 +51,13 @@ void Projectile::setSize(float scale)
 {
 	getBody()->removeAllShapes();
 	proj[heavy]->setScale(scale);
+	getBody()->setGravityEnable(false);
+	//getBody()->setName("Projectile");
+	getBody()->setTag(this->index = index);
+	getBody()->setCollisionBitmask(this->bitMask = bitMask);
+	getBody()->setContactTestBitmask(true);
+	getBody()->setRotationEnable(false);
+	particleSystem->setAnchorPoint(Vec2(1, 1));
 
 	if(!heavy)
 	{
@@ -57,7 +71,9 @@ void Projectile::setSize(float scale)
 		getBody()->setPositionOffset(Vec2(proj[heavy]->getContentSize().width * scale * .25, 0));
 
 	}
-		getBody()->setTag(index);
+	particleSystem->setPosition(Vec2(50, 20));
+	//particleSystem->setColor(Color3B(139, 0, 139));
+			getBody()->setTag(index);
 	getBody()->setCollisionBitmask(bitMask);
 	getBody()->setContactTestBitmask(true);
 }
