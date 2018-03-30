@@ -19,7 +19,8 @@ Sheep::Sheep(Scene *ActiveScene, int bitMask)
 	getBody()->setDynamic(true);
 	getBody()->setRotationEnable(false);
 	getBody()->getFirstShape()->setFriction(.25);
-	ActiveScene->addChild(AttachedSprite);
+	this->addChild(AttachedSprite);
+	ActiveScene->addChild(this);
 	MaxHP = 200;
 	HP = 200;
 }

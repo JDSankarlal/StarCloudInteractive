@@ -11,7 +11,7 @@
 using std::string;
 USING_NS_CC;
 //using namespace Input;
-class Sheep
+class Sheep:public Node
 {
 public:
 

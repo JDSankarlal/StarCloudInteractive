@@ -101,6 +101,7 @@ private:
 
 	//Put variables and sprites and stuff here
 	cocos2d::Sprite* background = cocos2d::Sprite::create("Assets/Background.png");
+	cocos2d::Sprite* pause;
 	cocos2d::Sprite* menu;
 	cocos2d::Sprite* resumeBtn;
 	cocos2d::Sprite* restartBtn;

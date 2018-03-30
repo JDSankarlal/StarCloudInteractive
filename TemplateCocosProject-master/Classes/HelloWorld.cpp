@@ -48,10 +48,30 @@ bool HelloWorld::init()
 	}
 
 	//platforms
-	auto pf2 = new Platforms(this, 1, true, 500);
+	auto pf2 = new Platforms(this, 1, true, 250, 70);
+	auto pf3 = new Platforms(this, 1, true, 250, 70);
+	auto pf4 = new Platforms(this, 1, true, 250, 70);
+	auto pf1 = new Platforms(this, 1, true, 250, 70);
+	auto pf5 = new Platforms(this, 1, true, 250, 70);
+	auto pf6 = new Platforms(this, 1, true, 250, 70);
+	auto pf7 = new Platforms(this, 1, true, 250, 70);
+	auto pf8 = new Platforms(this, 1, true, 250, 70);
+	auto pf9 = new Platforms(this, 1, true, 250, 70);
 
-	pf2->setPosition(visibleSize.width / 2, visibleSize.height / 2 - 200);
-	//pf1->setPosition(visibleSize.width / 2 + 100, visibleSize.height / 2 + 150);
+	pf2->setPosition(visibleSize.width / 2 - 300, visibleSize.height / 2 - 350);
+	pf3->setPosition(visibleSize.width / 2 + 300, visibleSize.height / 2 - 350);
+
+	pf7->setPosition(visibleSize.width / 2, visibleSize.height / 2 + -75);
+
+	pf8->setPosition(visibleSize.width / 2 - 525, visibleSize.height / 2 + -150);
+	pf9->setPosition(visibleSize.width / 2 + 525, visibleSize.height / 2 + -150);
+
+	pf4->setPosition(visibleSize.width / 2 + 700, visibleSize.height / 2 + 50);
+	pf1->setPosition(visibleSize.width / 2 - 700, visibleSize.height / 2 + 50);
+
+	pf5->setPosition(visibleSize.width / 2 + 175, visibleSize.height / 2 + 250);
+	pf6->setPosition(visibleSize.width / 2 - 175, visibleSize.height / 2 + 250);
+	
 
 	//Place Background
 	background->setScaleX(visibleSize.width / background->getContentSize().width);
@@ -68,28 +88,34 @@ bool HelloWorld::init()
 	//menu->setScale(1);
 	//menu->setAnchorPoint(Vec2(0.5f, 0.5f));
 
-	menu = Sprite::create("Assets/newPaused.png");
+	menu = Sprite::create("Assets/grey.png");
 	menu->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
-	menu->setScale(1.6);
+	menu->setScale(4);
 	menu->setAnchorPoint(Vec2(0.5f, 0.5f));
 
 	this->addChild(menu, -2);
 
-	restartBtn = Sprite::create("Assets/restart.png");
-	restartBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
-	restartBtn->setScale(1);
+	pause = Sprite::create("Assets/Button_Pause.png");
+	pause->setPosition(visibleSize.width / 2, (visibleSize.height / 2) + 300);
+	pause->setScale(1);
+	pause->setAnchorPoint(Vec2(0.5f, 0.5f));
+	this->addChild(pause, -2);
+
+	restartBtn = Sprite::create("Assets/Button_Dark_Restart.png");
+	restartBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2) -50);
+	restartBtn->setScale(0.6);
 	restartBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 	this->addChild(restartBtn, -2);
 
-	resumeBtn = Sprite::create("Assets/resumeButn.png");
-	resumeBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2) + 125);
-	resumeBtn->setScale(1);
+	resumeBtn = Sprite::create("Assets/Button_Dark_PauseMenuResume.png");
+	resumeBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2) + 75);
+	resumeBtn->setScale(0.6);
 	resumeBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 	this->addChild(resumeBtn, -2);
 
-	quitBtn = Sprite::create("Assets/quitbtn.png");
-	quitBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2) - 125);
-	quitBtn->setScale(1);
+	quitBtn = Sprite::create("Assets/Button_Dark_PauseMenuQuit.png");
+	quitBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2) - 175);
+	quitBtn->setScale(0.6);
 	quitBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 	this->addChild(quitBtn, -2);
 
@@ -143,6 +169,7 @@ void HelloWorld::update(float dt)
 					resumeBtn->setGlobalZOrder(4);
 					restartBtn->setGlobalZOrder(4);
 					quitBtn->setGlobalZOrder(4);
+					pause->setGlobalZOrder(4);
 					Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(0); //pause game
 					menu->setGlobalZOrder(3); //move menu forwards
 					for(auto &a : players)
@@ -155,6 +182,7 @@ void HelloWorld::update(float dt)
 					resumeBtnActive = false;
 					restartBtnActive = false;
 					quitBtnActive = false;
+					pause->setGlobalZOrder(-2);
 					resumeBtn->setGlobalZOrder(-2);
 					restartBtn->setGlobalZOrder(-2);
 					quitBtn->setGlobalZOrder(-2);
@@ -172,7 +200,7 @@ void HelloWorld::update(float dt)
 				if(resumeBtnActive)
 				{
 
-					resumeBtn->setScale(1.3f);
+					resumeBtn->setScale(0.8f);
 
 					if(controllers.ButtonStroke(a, A))
 					{
@@ -180,6 +208,7 @@ void HelloWorld::update(float dt)
 						resumeBtnActive = false;
 						restartBtnActive = false;
 						quitBtnActive = false;
+						pause->setGlobalZOrder(-2);
 						resumeBtn->setGlobalZOrder(-2);
 						restartBtn->setGlobalZOrder(-2);
 						quitBtn->setGlobalZOrder(-2);
@@ -201,13 +230,13 @@ void HelloWorld::update(float dt)
 						if(moveD.yAxis < 0)
 						{
 							restartBtnActive = true;
-							resumeBtn->setScale(1);
+							resumeBtn->setScale(0.6);
 							resumeBtnActive = false;
 						}
 					}
 				} else if(restartBtnActive)
 				{
-					restartBtn->setScale(1.3f);
+					restartBtn->setScale(0.8f);
 
 					if(controllers.ButtonStroke(a, A))
 					{
@@ -227,20 +256,20 @@ void HelloWorld::update(float dt)
 						if(moveD.yAxis < 0)
 						{
 							quitBtnActive = true;
-							restartBtn->setScale(1);
+							restartBtn->setScale(0.6);
 							restartBtnActive = false;
 						}
 						if(moveD.yAxis > 0)
 						{
 							resumeBtnActive = true;
-							restartBtn->setScale(1);
+							restartBtn->setScale(0.6);
 							restartBtnActive = false;
 						}
 					}
 				} else if(quitBtnActive)
 				{
 
-					quitBtn->setScale(1.3f);
+					quitBtn->setScale(0.8f);
 
 					if(controllers.ButtonStroke(a, A))
 					{
@@ -257,7 +286,7 @@ void HelloWorld::update(float dt)
 						if(moveD.yAxis > 0)
 						{
 							restartBtnActive = true;
-							quitBtn->setScale(1);
+							quitBtn->setScale(0.6);
 							quitBtnActive = false;
 						}
 					}

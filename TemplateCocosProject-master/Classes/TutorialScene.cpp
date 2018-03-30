@@ -43,7 +43,7 @@ bool TutorialScene::init()
 		a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 - 600 - (40 * count++), director->getOpenGLView()->getFrameSize().height / 2 -150);
 	}
 
-	sheep->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (90 * count++), director->getOpenGLView()->getFrameSize().height / 2 -100);
+	sheep->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (170 * count++), director->getOpenGLView()->getFrameSize().height / 2 -150);
 	//sheep->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
 
 	//platforms
@@ -105,77 +105,6 @@ bool TutorialScene::init()
 	//
 	//
 	//
-	//Tutorial Buttons
-	ABtn = Sprite::create("Assets/AButton.png");
-	ABtn->setPosition(visibleSize.width / 2 - 350, (visibleSize.height / 2) +300);
-	ABtn->setScale(1);
-	ABtn->setAnchorPoint(Vec2(0.5f, 0.5f));
-
-	this->addChild(ABtn, -2);
-
-	BBtn = Sprite::create("Assets/BButton.png");
-	BBtn->setPosition(visibleSize.width / 2 +350, (visibleSize.height / 2)+300);
-	BBtn->setScale(1);
-	BBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
-
-	this->addChild(BBtn, -2);
-
-	YBtn = Sprite::create("Assets/YButton.png");
-	YBtn->setPosition(visibleSize.width / 2 +350, (visibleSize.height / 2)+300);
-	YBtn->setScale(1);
-	YBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
-
-	this->addChild(YBtn, -2);
-
-	XBtn = Sprite::create("Assets/XButton.png");
-	XBtn->setPosition(visibleSize.width / 2 -350, (visibleSize.height / 2)+300);
-	XBtn->setScale(1);
-	XBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
-
-	this->addChild(XBtn, -2);
-
-	LBpr = Sprite::create("Assets/LB.png");
-	LBpr->setPosition(visibleSize.width / 2 -350, (visibleSize.height / 2)+300);
-	LBpr->setScale(1);
-	LBpr->setAnchorPoint(Vec2(0.5f, 0.5f));
-
-	this->addChild(LBpr, -2);
-
-	RBpr = Sprite::create("Assets/RB.png");
-	RBpr->setPosition(visibleSize.width / 2 +350, (visibleSize.height / 2)+300);
-	RBpr->setScale(1);
-	RBpr->setAnchorPoint(Vec2(0.5f, 0.5f));
-
-	this->addChild(RBpr, -2);
-
-	RTrgr = Sprite::create("Assets/RT.png");
-	RTrgr->setPosition(visibleSize.width / 2 +350, (visibleSize.height / 2)+300);
-	RTrgr->setScale(1);
-	RTrgr->setAnchorPoint(Vec2(0.5f, 0.5f));
-
-	this->addChild(RTrgr, -2);
-
-	LTrgr = Sprite::create("Assets/LT.png");
-	LTrgr->setPosition(visibleSize.width / 2 -350, (visibleSize.height / 2)+300);
-	LTrgr->setScale(1);
-	LTrgr->setAnchorPoint(Vec2(0.5f, 0.5f));
-
-	this->addChild(LTrgr, -2);
-
-	LStick = Sprite::create("Assets/LStick.png");
-	LStick->setPosition(visibleSize.width / 2 -350, (visibleSize.height / 2)+300);
-	LStick->setScale(1);
-	LStick->setAnchorPoint(Vec2(0.5f, 0.5f));
-
-	this->addChild(LStick, -2);
-			
-	startBtn = Sprite::create("Assets/TStartBtn.png");
-	startBtn->setPosition(visibleSize.width / 2 +350, (visibleSize.height / 2)+300);
-	startBtn->setScale(1);
-	startBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
-
-	this->addChild(startBtn, -2);
-
 	//
 	//
 	//
@@ -556,6 +485,7 @@ void TutorialScene::update(float dt)
 		  {
 			  scrolls[8]->setZOrder(-2);
 			  scrolls[9]->setZOrder(2);
+			  this->removeChild(sheep);
 		  }
 
 	  }
