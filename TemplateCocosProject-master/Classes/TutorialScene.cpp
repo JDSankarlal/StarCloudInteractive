@@ -142,6 +142,7 @@ bool TutorialScene::init()
 	this->addChild(tryMove, -2);
 	scrolls.push_back(tryMove);
 
+	//Try dashing
 	tryDash = Sprite::create("Assets/TryRTLT.png");
 	tryDash->setPosition(visibleSize.width / 2, (visibleSize.height / 2) + 300);
 	tryDash->setScale(3);
@@ -150,6 +151,7 @@ bool TutorialScene::init()
 	this->addChild(tryDash, -2);
 	scrolls.push_back(tryDash);
 
+	//try attacking
 	TryAttack = Sprite::create("Assets/TryX.png");
 	TryAttack->setPosition(visibleSize.width / 2, (visibleSize.height / 2) + 300);
 	TryAttack->setScale(3);
@@ -158,6 +160,7 @@ bool TutorialScene::init()
 	this->addChild(TryAttack, -2);
 	scrolls.push_back(TryAttack);
 
+	//after sheep 1 dead
 	scroll4 = Sprite::create("Assets/tutorial4.png");
 	scroll4->setPosition(visibleSize.width / 2, (visibleSize.height / 2)+300);
 	scroll4->setScale(3);
@@ -166,6 +169,7 @@ bool TutorialScene::init()
 	this->addChild(scroll4, -2);
 	scrolls.push_back(scroll4);
 
+	//use heavy attack
 	scroll5 = Sprite::create("Assets/YorBbeam.png");
 	scroll5->setPosition(visibleSize.width / 2, (visibleSize.height / 2)+300);
 	scroll5->setScale(3);
@@ -174,22 +178,7 @@ bool TutorialScene::init()
 	this->addChild(scroll5, -2);
 	scrolls.push_back(scroll5);
 
-	scroll6 = Sprite::create("Assets/tutorial6.png");
-	scroll6->setPosition(visibleSize.width / 2, (visibleSize.height / 2)+300);
-	scroll6->setScale(3);
-	scroll6->setAnchorPoint(Vec2(0.5f, 0.5f));
-
-	this->addChild(scroll6, -2);
-	scrolls.push_back(scroll6);
-
-	scroll7 = Sprite::create("Assets/tutorial7.png");
-	scroll7->setPosition(visibleSize.width / 2, (visibleSize.height / 2)+300);
-	scroll7->setScale(3);
-	scroll7->setAnchorPoint(Vec2(0.5f, 0.5f));
-
-	this->addChild(scroll7, -2);
-	scrolls.push_back(scroll7);
-
+	//after that sheep dead
 	scroll8 = Sprite::create("Assets/tutorial8.png");
 	scroll8->setPosition(visibleSize.width / 2, (visibleSize.height / 2)+300);
 	scroll8->setScale(3);
@@ -214,8 +203,14 @@ bool TutorialScene::init()
 	this->addChild(scroll10, -2);
 	scrolls.push_back(scroll10);
 
-	//Try button scrolls
-	
+	//press start scroll
+	startScroll = Sprite::create("Assets/Start.png");
+	startScroll->setPosition(visibleSize.width / 2, (visibleSize.height / 2) + 300);
+	startScroll->setScale(3);
+	startScroll->setAnchorPoint(Vec2(0.5f, 0.5f));
+
+	this->addChild(startScroll, -2);
+	scrolls.push_back(startScroll);
 
 	//Collision stuff
 	contact();
@@ -466,7 +461,6 @@ void TutorialScene::update(float dt)
 		  {
 			  scrolls[5]->setZOrder(-2);
 			  scrolls[6]->setZOrder(2);
-			  //sheep->setZOrder(-2);
 			  theRealDT = 0;
 			  sheep->sheep2 = true;
 		  }
@@ -474,18 +468,32 @@ void TutorialScene::update(float dt)
 		  {
 			  scrolls[6]->setZOrder(-2);
 			  scrolls[7]->setZOrder(2);
-			  //sheep->setZOrder(1);
 		  }
 		  else if (scrolls[7]->getZOrder() == 2 && theRealDT >= 6 && sheep->sheep2 == false)
 		  {
 			  scrolls[7]->setZOrder(-2);
 			  scrolls[8]->setZOrder(2);
+			  theRealDT = 0;
 		  }
-		  else if (scrolls[8]->getZOrder() == 2 && theRealDT >= 9)
+		  else if (scrolls[8]->getZOrder() == 2 && theRealDT >= 3)
 		  {
 			  scrolls[8]->setZOrder(-2);
 			  scrolls[9]->setZOrder(2);
 			  this->removeChild(sheep);
+		  }
+		  else if (scrolls[9]->getZOrder() == 2 && theRealDT >= 6)
+		  {
+			  scrolls[9]->setZOrder(-2);
+			  scrolls[10]->setZOrder(2);
+		  }
+		  else if (scrolls[10]->getZOrder() == 2 && theRealDT >= 9)
+		  {
+			  scrolls[10]->setZOrder(-2);
+			  scrolls[11]->setZOrder(2);
+		  }
+		  else if (scrolls[11]->getZOrder() == 2 && theRealDT >= 12)
+		  {
+			  
 		  }
 
 	  }

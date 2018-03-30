@@ -171,6 +171,7 @@ private:
 	cocos2d::Sprite* tryMove;
 	cocos2d::Sprite* tryDash;
 	cocos2d::Sprite* TryAttack;
+	cocos2d::Sprite* startScroll;
 
 	std::vector<Sprite*>scrolls;
 
