@@ -49,11 +49,6 @@ Vec2 Sheep::getPosition()
 	return getSprite()->getPosition();
 }
 
-SpriteAnimation * Sheep::getSpriteAnimater()
-{
-	return sheepAni;
-}
-
 bool Sheep::onDeath()
 { 
 	if (sheep1 == true)

@@ -271,7 +271,11 @@ void TutorialScene::update(float dt)
 				Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(a); //pause game
 				menu->setGlobalZOrder(3); //move menu forwards
 				for(auto &a : players)
-					a->pause();
+				{
+					a->pause();//pauses player update
+					for(auto &b : a->getChildren())
+						b->pause();	//stops the player animation
+				}
 				pausedActions = Director::getInstance()->getActionManager()->pauseAllRunningActions();
 			}
 
@@ -290,7 +294,11 @@ void TutorialScene::update(float dt)
 				menu->setGlobalZOrder(-2); //move menu back
 				Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(1); //Resume game
 				for(auto &a : players)
+				{
 					a->resume();
+					for(auto &b : a->getChildren())
+						b->resume();
+				}
 				Director::getInstance()->getActionManager()->resumeTargets(pausedActions);
 			}
 		}
@@ -316,7 +324,11 @@ void TutorialScene::update(float dt)
 					menu->setGlobalZOrder(-2); //move menu back
 					Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(1); //Resume game
 					for(auto &a : players)
+					{
 						a->resume();
+						for(auto &b : a->getChildren())
+							b->resume();
+					}
 					Director::getInstance()->getActionManager()->resumeTargets(pausedActions);
 				}
 				if(moveD.yAxis == 0)
@@ -340,6 +352,7 @@ void TutorialScene::update(float dt)
 
 				if(controllers.ButtonStroke(a, A))
 				{
+					audio->stop();
 					Director::getInstance()->replaceScene(HelloWorld::createScene());
 				}
 				if(moveD.yAxis == 0)
@@ -369,6 +382,7 @@ void TutorialScene::update(float dt)
 
 				if (controllers.ButtonStroke(a, A))
 				{
+					audio->stop();
 					Director::getInstance()->replaceScene(TutorialScene::createScene());
 				}
 				if (moveD.yAxis == 0)
@@ -427,9 +441,16 @@ void TutorialScene::update(float dt)
 	if (onStart == true)
 	{
 		Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(0);
+		for(auto &a : players)
+		{
+			a->pause();//pauses player update
+			for(auto &b : a->getChildren())
+				b->pause();	//stops the player animation
+		}
 	}
 	  if (theRealDT >= 3)
 	  {
+		  
 		  if (scrolls[0]->getZOrder() == 2)
 		  {
 			  scrolls[0]->setZOrder(-2);
@@ -446,6 +467,12 @@ void TutorialScene::update(float dt)
 			  scrolls[3]->setZOrder(2);
 			  onStart = false;
 			  Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(1);
+			  for(auto &a : players)
+			  {
+				  a->resume();
+				  for(auto &b : a->getChildren())
+					  b->resume();
+			  }
 		  }
 		  else if (scrolls[3]->getZOrder() == 2 && theRealDT >= 12)
 		  {

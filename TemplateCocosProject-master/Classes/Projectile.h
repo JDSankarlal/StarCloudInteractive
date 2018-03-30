@@ -40,5 +40,6 @@ private:
 	Scene* scene;
 	Action* act;
 	ParticleSystem* particleSystem = ParticleMeteor::create();
+
 };
 

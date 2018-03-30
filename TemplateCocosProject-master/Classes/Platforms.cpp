@@ -24,7 +24,7 @@ Platforms::Platforms(cocos2d::Scene *activeScene, int bitMask, bool shadow, floa
 	platform->setScaleY(height / platform->getContentSize().height);
 	auto size = getSprite()->getContentSize();
 	platform->setPhysicsBody(PhysicsBody::createBox(size));
-
+	//getBody()->getShapes().at(0)->setFriction(.75);
 	getBody()->setDynamic(false);
 	getBody()->setGravityEnable(false);
 	getBody()->setName("Platform");

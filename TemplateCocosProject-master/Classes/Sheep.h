@@ -24,7 +24,7 @@ public:
 	Vec2 getPosition();
 	void setPosition(float x, float y, float z = 0);
 
-	SpriteAnimation* getSpriteAnimater();
+	//SpriteAnimation* getSpriteAnimater();
 
 	bool onDeath();
 
@@ -54,7 +54,6 @@ private:
 	Scene* scene;
 	Sprite *AttachedSprite;
 	PhysicsBody *body;
-	SpriteAnimation* sheepAni = new SpriteAnimation;
 	cocos2d::Sprite* sheepSprite;
 };
 

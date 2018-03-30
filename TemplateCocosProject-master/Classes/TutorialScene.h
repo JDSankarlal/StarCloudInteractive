@@ -45,55 +45,46 @@ private:
 		auto shapeB = contact.getShapeB();
 		auto bodyB = shapeB->getBody();
 
-		players[0];
 		//printf("Tag1 = %d\nTag2 = %d\n\n", bodyA->getTag(), bodyB->getTag());
 		//OutputDebugStringA("Colision dicision\n");
-		if ((bodyA->getName() == "LightProj") || (bodyA->getName() == "HeavyProj"))
+		if((bodyA->getName() == "Projectile"))
 		{
-			//bodyB->getOwner()->setPosition(bodyB->getPosition().x, bodyB->getPosition().y);
-			if (bodyA->getOwner() != nullptr)
+			bodyB->getOwner()->setPosition(bodyB->getPosition().x, bodyB->getPosition().y);
+			if(bodyA->getOwner() != nullptr)
 			{
-				if (bodyB->getName() == "Sheep")
+				if(bodyB->getName() == "Sheep")
 				{
-					bodyA->getOwner()->removeFromParent();
-					sheep->setHP(sheep->getHP() -10);
-				}
-				else
+					
+					if(!bodyA->getTag()) //light attack
+						sheep->setHP(sheep->getHP() - 10);
+					else
+					{
+						sheep->setHP(sheep->getHP() - 10);
+					}
+				} else if(bodyB->getName() != "Platform")
 				{
-					if (bodyB->getName() != "Platform")
-						bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200));
-					for (int a = 0; a < 4; a++)
-						if (bodyB->getOwner()->getParent() == players[a])
-							players[a]->setInterupt(2);
-					bodyA->getOwner()->removeFromParent();
 
-			
+					bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200));
+
+					for(auto &a : players)
+						if(bodyB == a->getBody())
+						{
+							OutputDebugStringA("Hitting a player\n");
+							runAction(Sequence::create(
+								CallFunc::create(a, callfunc_selector(Player::pause)),
+								DelayTime::create(1.3),
+								CallFunc::create(a, callfunc_selector(Player::resume)), 0));
+						}
+
 				}
+				//for(int a = 0; a < 4; a++)
+				//	if(bodyB->getOwner()->getParent() == players[a])
+				//		players[a]->setInterupt(2);
+				bodyA->getOwner()->removeFromParent();
 			}
 
 		}
-		//if ((bodyB->getName() == "LightProj") || (bodyB->getName() == "HeavyProj"))
-		//{
-		//	bodyA->getOwner()->setPosition(bodyA->getPosition().x, bodyA->getPosition().y);
-		//	if (bodyB->getOwner() != nullptr)
-		//	{
-		//		if (bodyA->getName() == "Sheep")
-		//		{
-		//			bodyB->getOwner()->removeFromParent();
-		//			sheep->getHP() - 10;
-		//		}
-		//		else
-		//		{
-		//			if (bodyA->getName() != "Platform")
-		//				bodyA->setVelocity(bodyA->getVelocity() + ((bodyA->getPosition() - bodyB->getPosition()).getNormalized() * 200));
-		//			for (int a = 0; a < 4; a++)
-		//				if (bodyA->getOwner()->getParent() == players[a])
-		//					players[a]->setInterupt(2);
-		//			bodyB->getOwner()->removeFromParent();
-		//		}
-		//	}
-		//
-		//}
+
 		return true;
 	}
 
@@ -109,22 +100,29 @@ private:
 		OutputDebugStringA((bodyA->getName() + " == " + bodyB->getName() + "\n").c_str());
 		OutputDebugStringA((to_string(bodyA->getTag()) + " == " + to_string(bodyB->getTag()) + "\n").c_str());
 
-		if ((bodyA->getName() == "HeavyProj" || bodyB->getName() == "HeavyProj" ||
-			 bodyA->getName() == "LightProj" || bodyB->getName() == "LightProj") && (bodyA->getTag() != bodyB->getTag()))
+		if((bodyA->getName() == "Projectile" || bodyB->getName() == "Projectile") && (bodyA->getTag() != bodyB->getTag()))
 		{
-			OutputDebugStringA("Proj hit\n");
 			return true;
-		}
-		else if ((bodyA->getName() == "HeavyProj" || bodyB->getName() == "HeavyProj" ||
-			bodyA->getName() == "LightProj" || bodyB->getName() == "LightProj") && (bodyA->getTag() == bodyB->getTag()))
+		} else if((bodyA->getName() == "Projectile" || bodyB->getName() == "Projectile") && (bodyA->getTag() == bodyB->getTag()))
 		{
 			return false;
 		}
 
-
 		OutputDebugStringA((to_string(bodyA->getTag()) + " == " + to_string(bodyB->getTag()) + "\n").c_str());
 
-		if (bodyA->getName() == bodyB->getName())
+		if(bodyA->getName() == "Player" && bodyB->getName() == "Platform")
+		{
+			for(auto &a : players)
+				if(bodyA == a->getBody())
+					a->resetJumps();
+		} else if(bodyB->getName() == "Player" && bodyA->getName() == "Platform")
+		{
+			for(auto &a : players)
+				if(bodyB == a->getBody())
+					a->resetJumps();
+		}
+
+		if(bodyA->getName() == bodyB->getName())
 			return false;
 		return true;
 	};
@@ -133,7 +131,7 @@ private:
 	void contact();
 
 	AudioPlayer * audio = new AudioPlayer;
-	Player* players[4] = { new Player(this,1,0),new Player(this,1,1),new Player(this,1,2),new Player(this,1,3) };
+	Player* players[4] = {new Player(this,1,0),new Player(this,1,1),new Player(this,1,2),new Player(this,1,3)};
 	Sheep* sheep = new Sheep(this, 1);
 
 	//Put variables and sprites and stuff here
