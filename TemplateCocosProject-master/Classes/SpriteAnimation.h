@@ -33,7 +33,7 @@ public:
 	void setAnimationSpeed(float);
 	
 	//
-	void addAnimation(string);
+	void setAnimation(string);
 
 	//
 	string getAnimation();

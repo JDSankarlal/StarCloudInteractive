@@ -9,7 +9,7 @@ Player::Player(Scene *ActiveScene, int bitMask, int index)
 	playerAni->addSprite("jump up", "Assets/Jump Up 2");
 	playerAni->addSprite("jump down", "Assets/Jump Down 2");
 	playerAni->addSprite("falling", "Assets/Falling");
-	playerAni->addAnimation("walk");
+	playerAni->setAnimation("walk");
 
 	//Seting up the sprite and physics body
 	AttachedSprite = playerAni->getSprite();
@@ -118,32 +118,33 @@ void Player::movementUpdate()
 	static Input::XBoxInput controllers;
 	controllers.DownloadPackets(4);
 
-	if(controllers.GetConnected(index))
+	if (controllers.GetConnected(index))
 	{
-		if(!interupt())
+		if (!interupt())
 		{
 #pragma region Movement	
-		//printInfo();
+			//printInfo();
 			Stick moveL, moveR;//left and right stick variables
 			controllers.GetSticks(index, moveL, moveR);//inputs stick values
 			static float lo = 0.f, hi = .001f;
 			int move = 37500.f * 2.f * 1.25f;
 
-			if(moveL.xAxis < 0)
+			if (moveL.xAxis < 0)
 				getSprite()->setFlippedX(fliped = true);
-			else if(moveL.xAxis > 0)
-				getSprite()->setFlippedX(fliped = false);		 
+			else if (moveL.xAxis > 0)
+				getSprite()->setFlippedX(fliped = false);
 
-			if(moveL.yAxis < .8f)
-				addImpulseX(move* moveL.xAxis);		  
-			
-			if(inRange(getVelocity().y, lo, hi))
+			if (moveL.yAxis < .8f)
+				addImpulseX(move* moveL.xAxis);
+
+			if (inRange(getVelocity().y, lo, hi))
 			{
-				if(moveL.xAxis != 0)
+				if (moveL.xAxis != 0)
 				{
 					playerAni->resume();
 					playerAni->setAnimationSpeed((1.3 - abs(moveL.xAxis)) * .1);
-				} else
+				}
+				else
 					playerAni->pause();
 			}
 
@@ -151,45 +152,47 @@ void Player::movementUpdate()
 
 #pragma region Jumping
 
-			if((controllers.ButtonPress(index, A)) && (!hasJumped && numJumps < 2))
+			if ((controllers.ButtonPress(index, A)) && (!hasJumped && numJumps < 2))
 			{
 				numJumps++;
-				if(numJumps > 1)
+				if (numJumps > 1)
 					addImpulseY(53500.f * 2.f * numJumps * .75f);
 				else
 					addImpulseY(53500 * 2 * numJumps);
 				hasJumped = true;
 			}
-			if(controllers.ButtonRelease(index, A))
+			if (controllers.ButtonRelease(index, A))
 				hasJumped = false;
 
-			if(inRange(getVelocity().y, -hi, hi))
+			if (inRange(getVelocity().y, -hi, hi))
 			{
-				if(playerAni->getAnimation() != "walk")
+				if (playerAni->getAnimation() != "walk")
 				{
 					OutputDebugStringA("Walking\n");
 					playerAni->setRepeat(true);
-					playerAni->addAnimation("walk");
+					playerAni->setAnimation("walk");
 					playerAni->reset();
 				}
-			} else if(getVelocity().y < 0.f && !inRange(getVelocity().y, -hi, lo))
+			}
+			else if (getVelocity().y < 0.f && !inRange(getVelocity().y, -hi, lo))
 			{
-				if(playerAni->getAnimation() != "falling")
+				if (playerAni->getAnimation() != "falling")
 				{
 					OutputDebugStringA("Falling\n");
 					playerAni->setRepeat(false);
-					playerAni->addAnimation("falling");
+					playerAni->setAnimation("falling");
 					playerAni->setAnimationSpeed(.05);
 					playerAni->reset();
 				}
-			} else if(getVelocity().y > 0.f && !inRange(getVelocity().y, lo, hi))
+			}
+			else if (getVelocity().y > 0.f && !inRange(getVelocity().y, lo, hi))
 			{
-				if(playerAni->getAnimation() != "jump up")
+				if (playerAni->getAnimation() != "jump up")
 				{
 					OutputDebugStringA("Jump up\n");
 					playerAni->reset();
 					playerAni->setRepeat(false);
-					playerAni->addAnimation("jump up");
+					playerAni->setAnimation("jump up");
 					playerAni->setAnimationSpeed(.01);
 
 				}
@@ -200,23 +203,26 @@ void Player::movementUpdate()
 
 #pragma region Dash			
 			controllers.GetTriggers(index, LT, RT);
-			if(LT > .5 || RT > .5)
+			if (LT > .5 || RT > .5)
 				controllers.SetVibration(index, LT, RT);
-			if((LT > .5 || RT > .5) && !dash)
+			if ((LT > .5 || RT > .5) && !dash)
 			{
 				dash = true;
 				initialDash = 1;
-				addImpulseX(move * 2 * initialDash * (moveL.xAxis / abs(moveL.xAxis)));
-			} else if(LT < .5 && RT < .5)
+				if (move * 2 * initialDash * (moveL.xAxis / abs(moveL.xAxis))>0)
+					addImpulseX(move * 2 * initialDash * (moveL.xAxis / abs(moveL.xAxis)));
+			}
+			else if (LT < .5 && RT < .5)
 			{
 				controllers.SetVibration(index, 0, 0);
 				dash = false;
 			}
-			if(dash)
+			if (dash)
 			{
 				initialDash -= .001;
-				addImpulseX(move * 2 * initialDash * (moveL.xAxis / abs(moveL.xAxis)));
-				if(initialDash <= .5)
+				if (move * 2 * initialDash * (moveL.xAxis / abs(moveL.xAxis))>0)
+					addImpulseX(move * 2 * initialDash * (moveL.xAxis / abs(moveL.xAxis)));
+				if (initialDash <= .5)
 				{
 					controllers.SetVibration(index, 0, 0);
 				}
@@ -225,8 +231,8 @@ void Player::movementUpdate()
 #pragma endregion
 
 #pragma region Attacks
-		//static Projectile atk;
-			if(controllers.ButtonStroke(index, Y) || controllers.ButtonStroke(index, B))
+			//static Projectile atk;
+			if (controllers.ButtonStroke(index, Y) || controllers.ButtonStroke(index, B))
 			{
 				sfx->setAudio(sounds[0]);
 				sfx->play();
@@ -236,20 +242,23 @@ void Player::movementUpdate()
 				atk->setSize(.5);
 				atk->setPosition(getPosition().x, getPosition().y);
 
-				if(moveL.yAxis > .8f)
+				if (moveL.yAxis > .8f)
 				{
 					atk->setRotation(90);
 					atk->setVelY(500);
-				} else if(!fliped)
+				}
+				else if (!fliped)
 				{
 					atk->flipX(fliped);
 					atk->setVelX(500);
-				} else
+				}
+				else
 				{
 					atk->flipX(fliped);
 					atk->setVelX(-500);
 				}
-			} else if(controllers.ButtonStroke(index, X))
+			}
+			else if (controllers.ButtonStroke(index, X))
 			{
 				sfx->setAudio(sounds[0]);
 				sfx->play();
@@ -259,15 +268,17 @@ void Player::movementUpdate()
 				atk->setSize(.5);
 				atk->setPosition(getPosition().x, getPosition().y);
 
-				if(moveL.yAxis > .8f)
+				if (moveL.yAxis > .8f)
 				{
 					atk->setRotation(90);
 					atk->setVelY(500);
-				} else if(!fliped)
+				}
+				else if (!fliped)
 				{
 					atk->flipX(fliped);
 					atk->setVelX(500);
-				} else
+				}
+				else
 				{
 					atk->flipX(fliped);
 					atk->setVelX(-500);
@@ -277,17 +288,18 @@ void Player::movementUpdate()
 		}
 #pragma region Cursor Location
 		cursor[index]->setPosition(getSprite()->getPosition() +
-								   Vec2(0, (getSprite()->getContentSize().height * getSprite()->getScaleY() / 2) + (cursor[index]->getContentSize().height*cursor[index]->getScaleY() / 2)));
+			Vec2(0, (getSprite()->getContentSize().height * getSprite()->getScaleY() / 2) + (cursor[index]->getContentSize().height*cursor[index]->getScaleY() / 2)));
 
 		static Color3B colours2[] = {
 			Color3B(1 * 255,0 * 255,0 * 255),//red
 			Color3B(0 * 255,0 * 255,1 * 255),//blue
 			Color3B(0 * 255,1 * 255,0 * 255),//green
-			Color3B(1 * 255,0 * 255,1 * 255)};//purple
+			Color3B(1 * 255,0 * 255,1 * 255) };//purple
 
 		cursor[index]->setColor(colours2[index]);
 #pragma endregion
-	} else
+	}
+	else
 	{
 		cursor[index]->setPosition(-1 * (cursor[index]->getContentSize()));
 	}

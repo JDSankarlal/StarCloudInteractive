@@ -39,9 +39,11 @@ public:
 
 	bool onContactPreSolve(PhysicsContact& contact, PhysicsContactPreSolve& contact2)
 	{
-		ParticleSystem* explosionSystem = ParticleExplosion::create();
+		ParticleSystem* explosionSystem = ParticleGalaxy::create();
 		explosionSystem->setStartColor(Color4F(0, 0, 0, 1));
-		explosionSystem->setEndColor(Color4F(138.f / 255, 43.f / 255, 226.f / 255, 1));
+		explosionSystem->setEndColor(Color4F(75.f / 255, 0, 130 / 255, 1));
+		//explosionSystem->setColor(Color3B(0, 0, 0));
+		explosionSystem->setDuration(1);
 
 		auto shapeA = contact.getShapeA();
 		auto bodyA = shapeA->getBody();

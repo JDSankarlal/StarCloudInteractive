@@ -100,10 +100,10 @@ void SpriteAnimation::setAnimationSpeed(float dt)
 	this->fps = dt;
 }
 
-void SpriteAnimation::addAnimation(string aniName)
+void SpriteAnimation::setAnimation(string aniName)
 {
 	ani = aniName;
-	if((*frames)[ani] != nullptr)
+	if((*frames)[ani] ->size()>0)
 		frame->setTexture(*(*(*frames)[aniName])[0]);
 }
 
