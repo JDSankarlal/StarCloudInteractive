@@ -39,11 +39,16 @@ public:
 
 	bool onContactPreSolve(PhysicsContact& contact, PhysicsContactPreSolve& contact2)
 	{
-		ParticleSystem* explosionSystem = ParticleGalaxy::create();
-		explosionSystem->setStartColor(Color4F(0, 0, 0, 1));
-		explosionSystem->setEndColor(Color4F(75.f / 255, 0, 130 / 255, 1));
-		//explosionSystem->setColor(Color3B(0, 0, 0));
-		explosionSystem->setDuration(1);
+		ParticleSystemQuad* explosionSystem = ParticleExplosion::create();
+		explosionSystem->setSpeed(200);
+		explosionSystem->setLife(0.05);
+		explosionSystem->setTotalParticles(150);
+		explosionSystem->setStartColor(ccc4f(0.0f,0.0f,0.0f,1));
+		explosionSystem->setEndColor(ccc4f(138.f / 255, 43.f / 255, 226.f / 255, 1));
+		explosionSystem->setStartColorVar(ccc4f(0.0f, 0.0f, 0.0f, 1));
+		explosionSystem->setEndColorVar(ccc4f(138.f / 255, 43.f / 255, 226.f / 255, 1));
+		//THE COLORS MAN, DO NOT REMOVE THE VARIANCE THING OTHERWISE IT WILL BE 100% RAINBOW AGAIN
+		//BUT FEEL FREE TO PLAY AROUND WITH COLOUR COMBOS
 
 		auto shapeA = contact.getShapeA();
 		auto bodyA = shapeA->getBody();
