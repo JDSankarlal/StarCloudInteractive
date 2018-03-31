@@ -9,7 +9,7 @@ Player::Player(Scene *ActiveScene, int bitMask, int index)
 	playerAni->addSprite("jump up", "Assets/Jump Up 2");
 	playerAni->addSprite("jump down", "Assets/Jump Down 2");
 	playerAni->addSprite("falling", "Assets/Falling");
-	playerAni->addAnimation("walk");
+	playerAni->setAnimation("walk");
 
 	//Seting up the sprite and physics body
 	AttachedSprite = playerAni->getSprite();
@@ -169,27 +169,29 @@ void Player::movementUpdate()
 				{
 					OutputDebugStringA("Walking\n");
 					playerAni->setRepeat(true);
-					playerAni->addAnimation("walk");
+					playerAni->setAnimation("walk");
 					playerAni->reset();
 				}
-			} else if(getVelocity().y < 0.f && !inRange(getVelocity().y, -hi, lo))
+			} 
+			else if(getVelocity().y < 0.f && !inRange(getVelocity().y, -hi, lo))
 			{
 				if(playerAni->getAnimation() != "falling")
 				{
 					OutputDebugStringA("Falling\n");
 					playerAni->setRepeat(false);
-					playerAni->addAnimation("falling");
+					playerAni->setAnimation("falling");
 					playerAni->setAnimationSpeed(.05);
 					playerAni->reset();
 				}
-			} else if(getVelocity().y > 0.f && !inRange(getVelocity().y, lo, hi))
+			} 
+			else if(getVelocity().y > 0.f && !inRange(getVelocity().y, lo, hi))
 			{
 				if(playerAni->getAnimation() != "jump up")
 				{
 					OutputDebugStringA("Jump up\n");
 					playerAni->reset();
 					playerAni->setRepeat(false);
-					playerAni->addAnimation("jump up");
+					playerAni->setAnimation("jump up");
 					playerAni->setAnimationSpeed(.01);
 
 				}
@@ -257,7 +259,7 @@ void Player::movementUpdate()
 				atk = new Projectile(scene, false, 1, index);
 
 				atk->setSize(.5);
-				atk->setPosition(getPosition().x, getPosition().y);
+				atk->setPosition(getPosition().x+.01, getPosition().y);
 
 				if(moveL.yAxis > .8f)
 				{
