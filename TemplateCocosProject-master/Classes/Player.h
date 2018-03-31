@@ -37,7 +37,7 @@ public:
 #pragma region Set Velocity
 	void setVelX(float x);
 	void setVelY(float y);
-	void setVel(float x,float y);
+	void setVel(float x, float y);
 #pragma endregion
 
 
@@ -57,12 +57,12 @@ public:
 
 //interupt inputs
 	bool interupt()
-	{			
+	{
 		if(*t == 0)
 			*t = clock();
 		if(interuptCounter > interuptCount)
 			return false;
-		bool con = (interuptCounter += clock() - *t)/CLOCKS_PER_SEC < interuptCount;
+		bool con = (interuptCounter += clock() - *t) / CLOCKS_PER_SEC < interuptCount;
 		*t = clock();
 		return con;
 
@@ -82,6 +82,8 @@ public:
 
 	void resetJumps();
 
+	void resetDashes();
+
 private:
 //Updates are called internaly, nolonger need to call them
 	void update(float);
@@ -90,16 +92,16 @@ private:
 
 	double moveZ, inst;
 	float LT, RT, interuptCounter, interuptCount, initialDash;
-	int  numJumps = 0;
+	int  numJumps = 0, numDash = 0;
 	short jumpCount, index;
 	bool dash, hasJumped, fliped = false;
 
 	AudioPlayer* sfx = new AudioPlayer;
 	string sounds[1] {"Audio/Heavy_Attack.mp3"};
-	time_t* t=new time_t;
+	time_t* t = new time_t;
 	Projectile *atk;
 	Scene* scene;
 	Sprite *AttachedSprite, *cursor[4] {Sprite::create("Assets/P1.png"),Sprite::create("Assets/P2.png"),Sprite::create("Assets/P3.png"),Sprite::create("Assets/P4.png")};
-	SpriteAnimation* playerAni ;
+	SpriteAnimation* playerAni;
 };
 

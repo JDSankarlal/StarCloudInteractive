@@ -47,6 +47,15 @@ private:
 
 		//printf("Tag1 = %d\nTag2 = %d\n\n", bodyA->getTag(), bodyB->getTag());
 		//OutputDebugStringA("Colision dicision\n");
+
+		if(bodyA->getName() == "Player")
+		{
+			if(bodyB->getName() == "Platform")
+				for(auto &a : players)
+					if(bodyA == a->getBody())
+						a->resetDashes(); 
+		}
+
 		if((bodyA->getName() == "Projectile"))
 		{
 			bodyB->getOwner()->setPosition(bodyB->getPosition().x, bodyB->getPosition().y);

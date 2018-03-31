@@ -30,7 +30,7 @@ public:
 	CREATE_FUNC(HelloWorld);
 
 
-	
+
 
 	//Background sprite
 	//cocos2d::Sprite * sprite,*BG = cocos2d::Sprite::create("Assets/test level.png");
@@ -39,9 +39,11 @@ public:
 
 	bool onContactPreSolve(PhysicsContact& contact, PhysicsContactPreSolve& contact2)
 	{
-		ParticleSystem* explosionSystem = ParticleExplosion::create();
+		ParticleSystem* explosionSystem = ParticleGalaxy::create();
 		explosionSystem->setStartColor(Color4F(0, 0, 0, 1));
-		explosionSystem->setEndColor(Color4F(138.f / 255, 43.f / 255, 226.f / 255, 1));
+		explosionSystem->setEndColor(Color4F(75.f / 255, 0, 130 / 255, 1));
+		//explosionSystem->setColor(Color3B(0, 0, 0));
+		explosionSystem->setDuration(1);
 
 		auto shapeA = contact.getShapeA();
 		auto bodyA = shapeA->getBody();
@@ -51,26 +53,36 @@ public:
 
 		//printf("Tag1 = %d\nTag2 = %d\n\n", bodyA->getTag(), bodyB->getTag());
 		//OutputDebugStringA("Colision dicision\n");
-		if ((bodyA->getName() == "Projectile"))
+		if(bodyA->getName() == "Player")
 		{
-			if (bodyB->getOwner() != nullptr)
-				if (bodyB->getName() == "Projectile") {
+			if(bodyB->getName() == "Platform")
+				for(auto &a : players)
+					if(bodyA == a->getBody())
+						a->resetDashes();
+
+		}
+
+		if((bodyA->getName() == "Projectile"))
+		{
+			if(bodyB->getOwner() != nullptr)
+				if(bodyB->getName() == "Projectile")
+				{
 					bodyB->getOwner()->removeFromParent();
 				}
-			if (bodyA->getOwner() != nullptr)
+			if(bodyA->getOwner() != nullptr)
 			{
-				if (bodyB->getName() != "Platform")
+				if(bodyB->getName() != "Platform")
 				{
 					bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200));
 
-					for (auto &a : players)
-						if (bodyB == a->getBody())
+					for(auto &a : players)
+						if(bodyB == a->getBody())
 						{
 							OutputDebugStringA("Hitting a player\n");
 							addChild(explosionSystem);
 							explosionSystem->setPosition(bodyA->getPosition());
 							runAction(Sequence::create(
-								
+
 								CallFunc::create(a, callfunc_selector(Player::pause)),
 								DelayTime::create(1.3),
 								CallFunc::create(a, callfunc_selector(Player::resume)), 0));
@@ -99,31 +111,29 @@ public:
 		OutputDebugStringA((bodyA->getName() + " == " + bodyB->getName() + "\n").c_str());
 		OutputDebugStringA((to_string(bodyA->getTag()) + " == " + to_string(bodyB->getTag()) + "\n").c_str());
 
-		if ((bodyA->getName() == "Projectile" || bodyB->getName() == "Projectile") && (bodyA->getTag() != bodyB->getTag()))
+		if((bodyA->getName() == "Projectile" || bodyB->getName() == "Projectile") && (bodyA->getTag() != bodyB->getTag()))
 		{
 			return true;
-		}
-		else if ((bodyA->getName() == "Projectile" || bodyB->getName() == "Projectile") && (bodyA->getTag() == bodyB->getTag()))
+		} else if((bodyA->getName() == "Projectile" || bodyB->getName() == "Projectile") && (bodyA->getTag() == bodyB->getTag()))
 		{
 			return false;
 		}
 
 		OutputDebugStringA((to_string(bodyA->getTag()) + " == " + to_string(bodyB->getTag()) + "\n").c_str());
 
-		if (bodyA->getName() == "Player" && bodyB->getName() == "Platform")
+		if(bodyA->getName() == "Player" && bodyB->getName() == "Platform")
 		{
-			for (auto &a : players)
-				if (bodyA == a->getBody())
+			for(auto &a : players)
+				if(bodyA == a->getBody())
 					a->resetJumps();
-		}
-		else if (bodyB->getName() == "Player" && bodyA->getName() == "Platform")
+		} else if(bodyB->getName() == "Player" && bodyA->getName() == "Platform")
 		{
-			for (auto &a : players)
-				if (bodyB == a->getBody())
+			for(auto &a : players)
+				if(bodyB == a->getBody())
 					a->resetJumps();
 		}
 
-		if (bodyA->getName() == bodyB->getName())
+		if(bodyA->getName() == bodyB->getName())
 			return false;
 		return true;
 	};
@@ -132,7 +142,7 @@ public:
 
 private:
 	AudioPlayer * audio = new AudioPlayer;
-	Player* players[4] = { new Player(this,1,0),new Player(this,1,1),new Player(this,1,2),new Player(this,1,3) };
+	Player* players[4] = {new Player(this,1,0),new Player(this,1,1),new Player(this,1,2),new Player(this,1,3)};
 
 	void contact();
 
@@ -149,7 +159,7 @@ private:
 	bool restartBtnActive = false;
 	bool quitBtnActive = false;
 
-	
+
 
 };
 

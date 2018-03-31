@@ -5,10 +5,10 @@ Player::Player(Scene *ActiveScene, int bitMask, int index)
 {
 	//Animation sets
 	playerAni = new SpriteAnimation(this);
-	playerAni->addSprite("walk", "Assets/Walk 2");
-	playerAni->addSprite("jump up", "Assets/Jump Up 2");
-	playerAni->addSprite("jump down", "Assets/Jump Down 2");
-	playerAni->addSprite("falling", "Assets/Falling");
+	playerAni->addSprite("walk", "Assets/Walk 3");
+	//playerAni->addSprite("jump up", "Assets/Jump Up 2");
+	//playerAni->addSprite("jump down", "Assets/Jump Down 2");
+	//playerAni->addSprite("falling", "Assets/Falling");
 	playerAni->setAnimation("walk");
 
 	//Seting up the sprite and physics body
@@ -123,7 +123,7 @@ void Player::movementUpdate()
 		if(!interupt())
 		{
 #pragma region Movement	
-		//printInfo();
+			//printInfo();
 			Stick moveL, moveR;//left and right stick variables
 			controllers.GetSticks(index, moveL, moveR);//inputs stick values
 			static float lo = 0.f, hi = .001f;
@@ -132,17 +132,17 @@ void Player::movementUpdate()
 			if(moveL.xAxis < 0)
 				getSprite()->setFlippedX(fliped = true);
 			else if(moveL.xAxis > 0)
-				getSprite()->setFlippedX(fliped = false);		 
+				getSprite()->setFlippedX(fliped = false);
 
 			if(moveL.yAxis < .8f)
-				addImpulseX(move* moveL.xAxis);		  
-			
+				addImpulseX(move* moveL.xAxis);
+
 			if(inRange(getVelocity().y, lo, hi))
 			{
 				if(moveL.xAxis != 0)
 				{
 					playerAni->resume();
-					playerAni->setAnimationSpeed((1.3 - abs(moveL.xAxis)) * .1);
+					playerAni->setAnimationSpeed((1 - abs(moveL.xAxis)) * .01);
 				} else
 					playerAni->pause();
 			}
@@ -155,60 +155,63 @@ void Player::movementUpdate()
 			{
 				numJumps++;
 				if(numJumps > 1)
-					addImpulseY(53500.f * 2.f * numJumps * .75f);
+					addImpulseY(53500.f * 5.f * numJumps * .75f);
 				else
-					addImpulseY(53500 * 2 * numJumps);
+					addImpulseY(53500 * 5 * numJumps);
 				hasJumped = true;
-			}
-			if(controllers.ButtonRelease(index, A))
-				hasJumped = false;
+			} else
+				if(controllers.ButtonRelease(index, A))
+					hasJumped = false;
+#pragma endregion
 
-			if(inRange(getVelocity().y, -hi, hi))
-			{
-				if(playerAni->getAnimation() != "walk")
-				{
-					OutputDebugStringA("Walking\n");
-					playerAni->setRepeat(true);
-					playerAni->setAnimation("walk");
-					playerAni->reset();
-				}
-			} 
-			else if(getVelocity().y < 0.f && !inRange(getVelocity().y, -hi, lo))
-			{
-				if(playerAni->getAnimation() != "falling")
-				{
-					OutputDebugStringA("Falling\n");
-					playerAni->setRepeat(false);
-					playerAni->setAnimation("falling");
-					playerAni->setAnimationSpeed(.05);
-					playerAni->reset();
-				}
-			} 
-			else if(getVelocity().y > 0.f && !inRange(getVelocity().y, lo, hi))
-			{
-				if(playerAni->getAnimation() != "jump up")
-				{
-					OutputDebugStringA("Jump up\n");
-					playerAni->reset();
-					playerAni->setRepeat(false);
-					playerAni->setAnimation("jump up");
-					playerAni->setAnimationSpeed(.01);
-
-				}
-			}
-
-
+#pragma region Animation
+			//if (inRange(getVelocity().y, -hi, hi))
+			//{
+			//	if (playerAni->getAnimation() != "walk")
+			//	{
+			//		OutputDebugStringA("Walking\n");
+			//		playerAni->setRepeat(true);
+			//		playerAni->setAnimation("walk");
+			//		playerAni->reset();
+			//	}
+			//}
+			//else if (getVelocity().y < 0.f && !inRange(getVelocity().y, -hi, lo))
+			//{
+			//	if (playerAni->getAnimation() != "falling")
+			//	{
+			//		OutputDebugStringA("Falling\n");
+			//		playerAni->setRepeat(false);
+			//		playerAni->setAnimation("falling");
+			//		playerAni->setAnimationSpeed(.05);
+			//		playerAni->reset();
+			//	}
+			//}
+			//else if (getVelocity().y > 0.f && !inRange(getVelocity().y, lo, hi))
+			//{
+			//	if (playerAni->getAnimation() != "jump up")
+			//	{
+			//		OutputDebugStringA("Jump up\n");
+			//		playerAni->reset();
+			//		playerAni->setRepeat(false);
+			//		playerAni->setAnimation("jump up");
+			//		playerAni->setAnimationSpeed(.01);
+			//
+			//	}
+			//}
 #pragma endregion
 
 #pragma region Dash			
 			controllers.GetTriggers(index, LT, RT);
-			if(LT > .5 || RT > .5)
+			if(LT > .5 || RT > .5 && numDash < 1)
 				controllers.SetVibration(index, LT, RT);
-			if((LT > .5 || RT > .5) && !dash)
+			if((LT > .5 || RT > .5) && !dash && numDash < 1)
 			{
+				numDash++;
+				numJumps--;
 				dash = true;
 				initialDash = 1;
-				addImpulseX(move * 2 * initialDash * (moveL.xAxis / abs(moveL.xAxis)));
+				if(move * 2 * initialDash * (moveL.xAxis / abs(moveL.xAxis)) > 0)
+					addImpulseX(move * 2 * initialDash * (moveL.xAxis / abs(moveL.xAxis)));
 			} else if(LT < .5 && RT < .5)
 			{
 				controllers.SetVibration(index, 0, 0);
@@ -217,7 +220,8 @@ void Player::movementUpdate()
 			if(dash)
 			{
 				initialDash -= .001;
-				addImpulseX(move * 2 * initialDash * (moveL.xAxis / abs(moveL.xAxis)));
+				if(move * 2 * initialDash * (moveL.xAxis / abs(moveL.xAxis)) > 0)
+					addImpulseX(move * 2 * initialDash * (moveL.xAxis / abs(moveL.xAxis)));
 				if(initialDash <= .5)
 				{
 					controllers.SetVibration(index, 0, 0);
@@ -227,7 +231,7 @@ void Player::movementUpdate()
 #pragma endregion
 
 #pragma region Attacks
-		//static Projectile atk;
+			//static Projectile atk;
 			if(controllers.ButtonStroke(index, Y) || controllers.ButtonStroke(index, B))
 			{
 				sfx->setAudio(sounds[0]);
@@ -259,7 +263,7 @@ void Player::movementUpdate()
 				atk = new Projectile(scene, false, 1, index);
 
 				atk->setSize(.5);
-				atk->setPosition(getPosition().x+.01, getPosition().y);
+				atk->setPosition(getPosition().x, getPosition().y);
 
 				if(moveL.yAxis > .8f)
 				{
@@ -318,6 +322,11 @@ void Player::printInfo()
 void Player::resetJumps()
 {
 	numJumps = 0;
+}
+
+void Player::resetDashes()
+{
+	numDash = 0;
 }
 
 bool Player::inRange(float check, float low, float high)
