@@ -346,6 +346,26 @@ void Player::resetDashes()
 	numDash = 0;
 }
 
+void Player::setHealth(int hp)
+{
+	HP = hp;
+}
+
+void Player::addHP(int hp)
+{
+	HP += hp;
+}
+
+void Player::subtractHP(int hp)
+{
+	HP -= hp;
+}
+
+int Player::getHealth()
+{
+	return HP;
+}
+
 bool Player::inRange(float check, float low, float high)
 {
 	return check >= low && check <= high;
