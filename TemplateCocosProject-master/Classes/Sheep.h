@@ -11,7 +11,7 @@
 using std::string;
 USING_NS_CC;
 //using namespace Input;
-class Sheep
+class Sheep:public Node
 {
 public:
 
@@ -24,8 +24,22 @@ public:
 	Vec2 getPosition();
 	void setPosition(float x, float y, float z = 0);
 
-	SpriteAnimation* getSpriteAnimater();
+	//SpriteAnimation* getSpriteAnimater();
 
+	bool onDeath();
+
+	int getHP()
+	{
+		return HP;
+	}
+	int setHP(int n)
+	{
+		HP = n;
+		return HP;
+	}
+
+	bool sheep1 = true;
+	bool sheep2 = false;
 	//sets the platform id
 	//void printInfo();
 private:
@@ -40,7 +54,6 @@ private:
 	Scene* scene;
 	Sprite *AttachedSprite;
 	PhysicsBody *body;
-	SpriteAnimation* sheepAni = new SpriteAnimation;
 	cocos2d::Sprite* sheepSprite;
 };
 

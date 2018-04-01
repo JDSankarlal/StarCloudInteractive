@@ -2,8 +2,11 @@
 
 //USING_NS_CC;
 //using std::string;
-SpriteAnimation::SpriteAnimation()
-{}
+SpriteAnimation::SpriteAnimation(Node* scene)
+{
+	scene->addChild(this);
+	this->scheduleUpdate();
+}
 
 
 SpriteAnimation::~SpriteAnimation()
@@ -28,14 +31,18 @@ void SpriteAnimation::addSprite(string aniName, string directory)
 	}
 	frames->insert({aniName,vs});
 
-	frame->setTexture(*(*(*frames)[aniName])[0]);
+	frame->setTexture(*(*(*frames)[aniName])[0]); 
+}
 
+void SpriteAnimation::update(float dt)
+{
+	animate();
 }
 
 void SpriteAnimation::animate()
 {
-	if(!pauseAni)
-	{
+	//if(!pauseAni)
+	//{
 		float diffT = float(clock() - *dt) / CLOCKS_PER_SEC;
 		if(diffT > fps)
 		{
@@ -54,8 +61,8 @@ void SpriteAnimation::animate()
 				//frame->getPhysicsBody()->addShape(PhysicsShapeBox::create(frame->getContentSize()*frame->getScale()));
 			}
 		}
-	} else
-		*dt = clock() - fps;
+	//} else
+	//	*dt = clock() - fps;
 }
 
 void SpriteAnimation::setRepeat(bool r)
@@ -66,16 +73,6 @@ void SpriteAnimation::setRepeat(bool r)
 string SpriteAnimation::getAnimation()
 {
 	return ani;
-}
-
-void SpriteAnimation::pause()
-{
-	pauseAni = true;
-}
-
-void SpriteAnimation::resume()
-{
-	pauseAni = false;
 }
 
 void SpriteAnimation::reset()
@@ -96,7 +93,7 @@ void SpriteAnimation::setAnimationSpeed(float dt)
 void SpriteAnimation::setAnimation(string aniName)
 {
 	ani = aniName;
-	if((*frames)[ani] != nullptr)
+	if((*frames)[ani] ->size()>0)
 		frame->setTexture(*(*(*frames)[aniName])[0]);
 }
 

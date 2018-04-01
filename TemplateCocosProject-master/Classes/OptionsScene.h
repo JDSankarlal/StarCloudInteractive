@@ -30,7 +30,9 @@ public:
 	//cocos2d::Sprite * sprite,*BG = cocos2d::Sprite::create("Assets/test level.png");
 	//cocos2d::Sprite3D *s3d = cocos2d::Sprite3D::create("Assets/test 3d model.c3b");
 
-	AudioPlayer *audio = new AudioPlayer;
+
+
+private:
 
 	cocos2d::Director *director;
 
@@ -41,10 +43,8 @@ public:
 
 	cocos2d::Sprite* optionsHeader;
 	//cocos2d::Sprite* quitBtn;
-
-private:
-
 	
+	//AudioPlayer *audio = new AudioPlayer;
 	bool fullScrBtnActive = true;
 	bool musicBtnActive = false;
 	bool backBtnActive = false;

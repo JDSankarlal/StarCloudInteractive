@@ -145,5 +145,140 @@
     <Filter Include="HUD">
       <UniqueIdentifier>{606cc3a8-9a64-4e5f-9bc2-00ac5bc89b04}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\Classes\AudioPlayer.cpp">
+      <Filter>Source\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\HelloWorld.cpp">
+      <Filter>Source\Game World</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Player.cpp">
+      <Filter>Source\Game World</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Projectile.cpp">
+      <Filter>Source\Game World</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AppDelegate.cpp">
+      <Filter>Source\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameStateManager.cpp">
+      <Filter>Source\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameStates.cpp">
+      <Filter>Source\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MenuScene.cpp">
+      <Filter>Source\Main Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TutorialScene.cpp">
+      <Filter>Source\Game World\Tutorial</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Sheep.cpp">
+      <Filter>Source\Game World\Tutorial</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Platforms.cpp">
+      <Filter>Source\Game World</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\OptionsScene.cpp">
+      <Filter>Source\Main Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SplashScreen.cpp">
+      <Filter>Source\Splash Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\SpriteAnimation.cpp">
+      <Filter>Source\Game World</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="..\Classes\controller.cpp">
+      <Filter>Source\Game World\Inputs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\InputHandler.cpp">
+      <Filter>Source\Game World\Inputs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DisplayHandler.cpp">
+      <Filter>Source\Game World\Inputs</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Classes\AudioPlayer.h">
+      <Filter>Source\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HelloWorld.h">
+      <Filter>Source\Game World</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Player.h">
+      <Filter>Source\Game World</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Projectile.h">
+      <Filter>Source\Game World</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AppDelegate.h">
+      <Filter>Source\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameStateManager.h">
+      <Filter>Source\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameStates.h">
+      <Filter>Source\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MenuScene.h">
+      <Filter>Source\Main Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TutorialScene.h">
+      <Filter>Source\Game World\Tutorial</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Sheep.h">
+      <Filter>Source\Game World\Tutorial</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Platforms.h">
+      <Filter>Source\Game World</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\OptionsScene.h">
+      <Filter>Source\Main Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SplashScreen.h">
+      <Filter>Source\Splash Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\SpriteAnimation.h">
+      <Filter>Source\Game World</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h" />
+    <ClInclude Include="..\Classes\controller.h">
+      <Filter>Source\Game World\Inputs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\InputHandler.h">
+      <Filter>Source\Game World\Inputs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DisplayHandler.h">
+      <Filter>Source\Game World\Inputs</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{18ab0bab-2690-48e0-9e2d-eca3382214b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Audio">
+      <UniqueIdentifier>{1e7401a0-ffa7-4261-9df7-ddfdff99fa71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Main Menu">
+      <UniqueIdentifier>{7fd0a7f5-338c-42b1-8fb6-2b297a464959}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Game World">
+      <UniqueIdentifier>{6261496b-186d-4eb1-8174-1fc4bb65c1c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Other">
+      <UniqueIdentifier>{ed2e208b-42d4-4a0b-9cb3-08e23c721ca5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Splash Screen">
+      <UniqueIdentifier>{e29cc4d5-2b88-4d5b-a4be-0d98755d25b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Game World\Tutorial">
+      <UniqueIdentifier>{c417484a-6aa6-4e66-9d07-612b3316cfcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Game World\Inputs">
+      <UniqueIdentifier>{bec3bac3-0034-448f-a03b-a44891fdbf0f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="game.rc" />
   </ItemGroup>
 </Project>

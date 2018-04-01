@@ -67,8 +67,8 @@ bool OptionsScene::init()
 
 
 	//Background Audio
-	audio->setAudio("Audio/Battle_Time_V3.mp3");
-	audio->play(true);
+	//audio->setAudio("Audio/Battle_Time_V3.mp3");
+	//audio->play(true);
 
 	return true;
 }
@@ -121,7 +121,7 @@ void OptionsScene::update(float index)
 
 			if (controllers.ButtonStroke(index, A))
 			{
-				audio->play(false);
+				//audio->play(false);
 			}
 			if (controllers.ButtonStroke(index, B))
 			{

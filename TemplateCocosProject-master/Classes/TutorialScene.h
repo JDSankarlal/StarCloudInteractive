@@ -31,9 +31,7 @@ public:
 	//Background sprite
 	//cocos2d::Sprite * sprite,*BG = cocos2d::Sprite::create("Assets/test level.png");
 	//cocos2d::Sprite3D *s3d = cocos2d::Sprite3D::create("Assets/test 3d model.c3b");
-	float movex, movey, vely;
-	
-	cocos2d::Director *director;
+
 
 private:
 
@@ -45,23 +43,55 @@ private:
 		auto shapeB = contact.getShapeB();
 		auto bodyB = shapeB->getBody();
 
-		players[0];
 		//printf("Tag1 = %d\nTag2 = %d\n\n", bodyA->getTag(), bodyB->getTag());
 		//OutputDebugStringA("Colision dicision\n");
+
+		if(bodyA->getName() == "Player")
+		{
+			if(bodyB->getName() == "Platform")
+				for(auto &a : players)
+					if(bodyA == a->getBody())
+						a->resetDashes(); 
+		}
+
 		if((bodyA->getName() == "Projectile"))
 		{
 			bodyB->getOwner()->setPosition(bodyB->getPosition().x, bodyB->getPosition().y);
 			if(bodyA->getOwner() != nullptr)
 			{
-				if(bodyB->getName() != "Platform")
+				if(bodyB->getName() == "Sheep")
+				{
+					
+					if(!bodyA->getTag()) //light attack
+						sheep->setHP(sheep->getHP() - 10);
+					else
+					{
+						sheep->setHP(sheep->getHP() - 10);
+					}
+				} else if(bodyB->getName() != "Platform")
+				{
+
 					bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200));
-				for(int a = 0; a < 4; a++)
-					if(bodyB->getOwner()->getParent() == players[a])
-						players[a]->setInterupt(2);
+
+					for(auto &a : players)
+						if(bodyB == a->getBody())
+						{
+							OutputDebugStringA("Hitting a player\n");
+							runAction(Sequence::create(
+								CallFunc::create(a, callfunc_selector(Player::pause)),
+								DelayTime::create(1.3),
+								CallFunc::create(a, callfunc_selector(Player::resume)), 0));
+						}
+
+				}
+				//for(int a = 0; a < 4; a++)
+				//	if(bodyB->getOwner()->getParent() == players[a])
+				//		players[a]->setInterupt(2);
 				bodyA->getOwner()->removeFromParent();
 			}
 
-		} 
+		}
+
 		return true;
 	}
 
@@ -85,21 +115,33 @@ private:
 			return false;
 		}
 
-
 		OutputDebugStringA((to_string(bodyA->getTag()) + " == " + to_string(bodyB->getTag()) + "\n").c_str());
+
+		if(bodyA->getName() == "Player" && bodyB->getName() == "Platform")
+		{
+			for(auto &a : players)
+				if(bodyA == a->getBody())
+					a->resetJumps();
+		} else if(bodyB->getName() == "Player" && bodyA->getName() == "Platform")
+		{
+			for(auto &a : players)
+				if(bodyB == a->getBody())
+					a->resetJumps();
+		}
 
 		if(bodyA->getName() == bodyB->getName())
 			return false;
 		return true;
 	};
 
-
 	void contact();
 
+	//float movex, movey, vely;
+	cocos2d::Director *director;
 	AudioPlayer * audio = new AudioPlayer;
 	Player* players[4] = {new Player(this,1,0),new Player(this,1,1),new Player(this,1,2),new Player(this,1,3)};
 	Sheep* sheep = new Sheep(this, 1);
-	
+
 	//Put variables and sprites and stuff here
 	//Sprites for background and Pause Menu0
 	cocos2d::Sprite* background = cocos2d::Sprite::create("Assets/Background.png");
@@ -127,7 +169,7 @@ private:
 	cocos2d::Sprite* scroll2;
 	cocos2d::Sprite* scroll3;
 	cocos2d::Sprite* scroll4;
-	cocos2d::Sprite* scroll5; 
+	cocos2d::Sprite* scroll5;
 	cocos2d::Sprite* scroll6;
 	cocos2d::Sprite* scroll7;
 	cocos2d::Sprite* scroll8;
@@ -137,6 +179,7 @@ private:
 	cocos2d::Sprite* tryMove;
 	cocos2d::Sprite* tryDash;
 	cocos2d::Sprite* TryAttack;
+	cocos2d::Sprite* startScroll;
 
 	std::vector<Sprite*>scrolls;
 
@@ -148,8 +191,6 @@ private:
 	bool restartBtnActive = false;
 	bool quitBtnActive = false;
 	bool skipBtnActive = false;
-	bool sheep1 = true;
-	bool sheep2 = false;
 };
 
 
