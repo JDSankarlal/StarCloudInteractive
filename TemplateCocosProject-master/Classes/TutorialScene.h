@@ -31,9 +31,7 @@ public:
 	//Background sprite
 	//cocos2d::Sprite * sprite,*BG = cocos2d::Sprite::create("Assets/test level.png");
 	//cocos2d::Sprite3D *s3d = cocos2d::Sprite3D::create("Assets/test 3d model.c3b");
-	float movex, movey, vely;
 
-	cocos2d::Director *director;
 
 private:
 
@@ -47,6 +45,15 @@ private:
 
 		//printf("Tag1 = %d\nTag2 = %d\n\n", bodyA->getTag(), bodyB->getTag());
 		//OutputDebugStringA("Colision dicision\n");
+
+		if(bodyA->getName() == "Player")
+		{
+			if(bodyB->getName() == "Platform")
+				for(auto &a : players)
+					if(bodyA == a->getBody())
+						a->resetDashes(); 
+		}
+
 		if((bodyA->getName() == "Projectile"))
 		{
 			bodyB->getOwner()->setPosition(bodyB->getPosition().x, bodyB->getPosition().y);
@@ -127,9 +134,10 @@ private:
 		return true;
 	};
 
-
 	void contact();
 
+	//float movex, movey, vely;
+	cocos2d::Director *director;
 	AudioPlayer * audio = new AudioPlayer;
 	Player* players[4] = {new Player(this,1,0),new Player(this,1,1),new Player(this,1,2),new Player(this,1,3)};
 	Sheep* sheep = new Sheep(this, 1);

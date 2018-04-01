@@ -75,16 +75,6 @@ string SpriteAnimation::getAnimation()
 	return ani;
 }
 
-//void SpriteAnimation::pause()
-//{
-//	pauseAni = true;
-//}
-//
-//void SpriteAnimation::resume()
-//{
-//	pauseAni = false;
-//}
-
 void SpriteAnimation::reset()
 {
 	frameCounter = 0;

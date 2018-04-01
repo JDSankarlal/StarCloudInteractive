@@ -64,7 +64,7 @@ bool MenuScene::init()
 	this->scheduleUpdate();
 
 	//Background Audio
-	audio->stop();
+	audio->stopAll();
 	audio->setAudio("Audio/Menu_Music(full).mp3");
 	audio->play(true);
 	
@@ -89,7 +89,7 @@ void MenuScene::update(float index)
 	
 			if (controllers.ButtonStroke(index, A))
 			{
-				audio->stop();
+				audio->stopAll();
 				
 				Director::getInstance()->replaceScene(TutorialScene::createScene());
 			}
@@ -113,7 +113,7 @@ void MenuScene::update(float index)
 	
 			if (controllers.ButtonStroke(index, A))
 			{
-				audio->stop();
+				audio->stopAll();
 				Director::getInstance()->replaceScene(OptionsScene::createScene());
 			}
 			if (moveD.yAxis == 0)
@@ -142,7 +142,7 @@ void MenuScene::update(float index)
 	
 			if (controllers.ButtonStroke(index, A))
 			{
-				audio->stop();
+				audio->stopAll();
 				Director::getInstance()->end();
 			}
 			if (moveD.yAxis == 0)
