@@ -98,19 +98,59 @@ bool HelloWorld::init()
 	this->addChild(player1, 2);
 
 	player2 = Sprite::create("Assets/UI Elements/Player Names/Player2.png");
-	player2->setPosition(200, visibleSize.height - 100);
+	player2->setPosition(250, visibleSize.height - 100);
 	player2->setScale(.5);
 	this->addChild(player2, 2);
 
 	player3 = Sprite::create("Assets/UI Elements/Player Names/Player3.png");
-	player3->setPosition(300, visibleSize.height - 100);
+	player3->setPosition(400, visibleSize.height - 100);
 	player3->setScale(.5);
 	this->addChild(player3, 2);
 
 	player4 = Sprite::create("Assets/UI Elements/Player Names/Player4.png");
-	player4->setPosition(400, visibleSize.height - 100);
+	player4->setPosition(550, visibleSize.height - 100);
 	player4->setScale(.5);
 	this->addChild(player4, 2);
+
+	healthBar1 = Sprite::create("Assets/UI Elements/Health Bars/White.png");
+	healthBar1->setPosition(player1->getPositionX() + 35, player1->getPositionY()-10);
+	healthBar1->setScale(.5);
+	this->addChild(healthBar1, 2);
+
+	healthBar2 = Sprite::create("Assets/UI Elements/Health Bars/White.png");
+	healthBar2->setPosition(player2->getPositionX() + 35, player2->getPositionY()-10);
+	healthBar2->setScale(.5);
+	this->addChild(healthBar2, 2);
+
+	healthBar3 = Sprite::create("Assets/UI Elements/Health Bars/White.png");
+	healthBar3->setPosition(player3->getPositionX() + 35, player3->getPositionY()-10);
+	healthBar3->setScale(.5);
+	this->addChild(healthBar3, 2);
+
+	healthBar4 = Sprite::create("Assets/UI Elements/Health Bars/White.png");
+	healthBar4->setPosition(player4->getPositionX() + 35, player4->getPositionY()-10);
+	healthBar4->setScale(.5);
+	this->addChild(healthBar4, 2);
+
+	lives1 = Sprite::create("Assets/UI Elements/Lives/3_Lives.png");
+	lives1->setPosition(player1->getPositionX() - 35, player1->getPositionY() - 20);
+	lives1->setScale(.5);
+	this->addChild(lives1, 2);
+
+	lives2 = Sprite::create("Assets/UI Elements/Lives/3_Lives.png");
+	lives2->setPosition(player2->getPositionX() - 35, player2->getPositionY() - 20);
+	lives2->setScale(.5);
+	this->addChild(lives2, 2);
+
+	lives3 = Sprite::create("Assets/UI Elements/Lives/3_Lives.png");
+	lives3->setPosition(player3->getPositionX() - 35, player3->getPositionY() - 20);
+	lives3->setScale(.5);
+	this->addChild(lives3, 2);
+
+	lives4 = Sprite::create("Assets/UI Elements/Lives/3_Lives.png");
+	lives4->setPosition(player4->getPositionX() - 35, player4->getPositionY() - 20);
+	lives4->setScale(.5);
+	this->addChild(lives4, 2);
 	//Collision stuff
 	contact();
 
