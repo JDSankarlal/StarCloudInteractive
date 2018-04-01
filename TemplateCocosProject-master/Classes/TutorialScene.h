@@ -37,6 +37,16 @@ private:
 
 	bool onContactPreSolve(PhysicsContact& contact, PhysicsContactPreSolve& contact2)
 	{
+		auto explosionSystem = ParticleExplosion::create();
+		explosionSystem->setSpeed(100);
+		explosionSystem->setLife(0.1);
+		explosionSystem->setLifeVar(0.2);
+		explosionSystem->setTotalParticles(150);
+		explosionSystem->setStartColor(Color4F(138.f / 255, 43.f / 255, 226.f / 255, 1));
+		explosionSystem->setEndColor(Color4F(1, 1, 1, 1));
+		explosionSystem->setStartColorVar(ccc4f(0, 0, 0, 1));
+		explosionSystem->setEndColorVar(ccc4f(0, 0, 0, 1));
+
 		auto shapeA = contact.getShapeA();
 		auto bodyA = shapeA->getBody();
 
@@ -61,7 +71,9 @@ private:
 			{
 				if(bodyB->getName() == "Sheep")
 				{
-					
+					addChild(explosionSystem);
+					explosionSystem->setPosition(bodyA->getPosition());
+
 					if(!bodyA->getTag()) //light attack
 						sheep->setHP(sheep->getHP() - 10);
 					else

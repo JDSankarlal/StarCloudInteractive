@@ -39,15 +39,16 @@ public:
 	bool onContactPreSolve(PhysicsContact& contact, PhysicsContactPreSolve& contact2)
 	{
 		auto explosionSystem = ParticleExplosion::create();
-		explosionSystem->setSpeed(200);
-		explosionSystem->setLife(0.05);
+		explosionSystem->setSpeed(100);
+		explosionSystem->setLife(0.1);
+		explosionSystem->setLifeVar(0.2);
 		explosionSystem->setTotalParticles(150);
-		explosionSystem->setStartColor(Color4F(138.f / 255, 43.f / 255, 226.f / 255, 1));
-		explosionSystem->setEndColor(Color4F(1, 1, 1, 1));
+		explosionSystem->setStartColor(Color4F(1,1,1, 1));
+		explosionSystem->setEndColor(Color4F(75.f/255, 0, 130.f/255, 1));
 		explosionSystem->setStartColorVar(ccc4f(0,0,0, 1));
-		explosionSystem->setEndColorVar(ccc4f(0,0,0, 1));
+		explosionSystem->setEndColorVar(ccc4f(12.f / 255, 12.f / 255,12.f/255, 1));
 		
-		//THE COLORS MAN, DO NOT REMOVE THE VARIANCE THING OTHERWISE IT WILL BE 100% RAINBOW AGAIN
+		//DO NOT REMOVE THE VARIANCE THING OTHERWISE IT WILL BE 100% RAINBOW AGAIN
 		//BUT FEEL FREE TO PLAY AROUND WITH COLOUR COMBOS
 
 		auto shapeA = contact.getShapeA();

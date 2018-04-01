@@ -97,7 +97,7 @@ private:
 	bool dash, hasJumped, fliped = false;
 
 	AudioPlayer* sfx = new AudioPlayer;
-	string sounds[1] {"Audio/Heavy_Attack.mp3"};
+	string sounds[1] {"Audio/NornieShot.mp3"};
 	time_t* t = new time_t;
 	Projectile *atk;
 	Scene* scene;
