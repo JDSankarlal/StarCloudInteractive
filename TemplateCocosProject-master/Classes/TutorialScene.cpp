@@ -219,7 +219,7 @@ bool TutorialScene::init()
 	this->scheduleUpdate();
 
 	//Background Audio
-	
+	audio->stopAll();
 	audio->setAudio("Audio/Battle_Time_V3.mp3");
 	audio->play(true);
 	
@@ -352,7 +352,7 @@ void TutorialScene::update(float dt)
 
 				if(controllers.ButtonStroke(a, A))
 				{
-					audio->stop();
+					audio->stopAll();
 					Director::getInstance()->replaceScene(HelloWorld::createScene());
 				}
 				if(moveD.yAxis == 0)
@@ -382,7 +382,7 @@ void TutorialScene::update(float dt)
 
 				if (controllers.ButtonStroke(a, A))
 				{
-					audio->stop();
+					audio->stopAll();
 					Director::getInstance()->replaceScene(TutorialScene::createScene());
 				}
 				if (moveD.yAxis == 0)

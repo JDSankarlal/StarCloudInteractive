@@ -77,6 +77,13 @@ void AudioPlayer::stop()
 	cleanUp();//Cleans up all stopped audio
 }
 
+void AudioPlayer::stopAll()
+{
+	for(int a = 0; a < inst; a++)
+		mciSendStringA(string("stop " + to_string((a+1) * 10)).c_str(), NULL, 0, NULL);
+	cleanUp();//Cleans up all stopped audio
+}
+
 bool AudioPlayer::isPlaying()
 {
 	char info[128];

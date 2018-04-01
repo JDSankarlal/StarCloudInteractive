@@ -5,7 +5,13 @@ Player::Player(Scene *ActiveScene, int bitMask, int index)
 {
 	//Animation sets
 	playerAni = new SpriteAnimation(this);
-	playerAni->addSprite("walk", "Assets/Walk 3");
+	playerAni->addSprite("walk", "Assets/Walk");
+	playerAni->addSprite("jump", "Assets/Jump");
+	playerAni->addSprite("dash", "Assets/Dash");
+	playerAni->addSprite("heavy attack right", "Assets/Heavy_Attack_Right");
+	playerAni->addSprite("light attack right", "Assets/Light_Attack_Right");
+	playerAni->addSprite("light attack up", "Assets/Light_Attack_Up");
+
 	//playerAni->addSprite("jump up", "Assets/Jump Up 2");
 	//playerAni->addSprite("jump down", "Assets/Jump Down 2");
 	//playerAni->addSprite("falling", "Assets/Falling");
@@ -136,16 +142,16 @@ void Player::movementUpdate()
 
 			if(moveL.yAxis < .8f)
 				addImpulseX(move* moveL.xAxis);
-
-			if(inRange(getVelocity().y, lo, hi))
-			{
-				if(moveL.xAxis != 0)
+			if(!dash)
+				if(inRange(getVelocity().y, lo, hi))
 				{
-					playerAni->resume();
-					playerAni->setAnimationSpeed((1 - abs(moveL.xAxis)) * .01);
-				} else
-					playerAni->pause();
-			}
+					if(moveL.xAxis != 0)
+					{
+						playerAni->resume();
+						playerAni->setAnimationSpeed((1 - abs(moveL.xAxis)) * .001);
+					} else
+						playerAni->pause();
+				}
 
 #pragma endregion
 
@@ -165,16 +171,26 @@ void Player::movementUpdate()
 #pragma endregion
 
 #pragma region Animation
-			//if (inRange(getVelocity().y, -hi, hi))
-			//{
-			//	if (playerAni->getAnimation() != "walk")
-			//	{
-			//		OutputDebugStringA("Walking\n");
-			//		playerAni->setRepeat(true);
-			//		playerAni->setAnimation("walk");
-			//		playerAni->reset();
-			//	}
-			//}
+			if(dash)
+			{
+				if(playerAni->getAnimation() != "dash")
+				{
+					OutputDebugStringA("Dash\n");
+					playerAni->setRepeat(false);
+					playerAni->setAnimation("dash");
+					playerAni->setAnimationSpeed(.01);
+				}
+			} else if(inRange(getVelocity().y, -hi, hi))
+			{
+				if(playerAni->getAnimation() != "walk")
+				{
+					OutputDebugStringA("Walking\n");
+					playerAni->setRepeat(true);
+					playerAni->setAnimation("walk");
+					playerAni->reset();
+				}
+			}
+
 			//else if (getVelocity().y < 0.f && !inRange(getVelocity().y, -hi, lo))
 			//{
 			//	if (playerAni->getAnimation() != "falling")
@@ -186,18 +202,18 @@ void Player::movementUpdate()
 			//		playerAni->reset();
 			//	}
 			//}
-			//else if (getVelocity().y > 0.f && !inRange(getVelocity().y, lo, hi))
-			//{
-			//	if (playerAni->getAnimation() != "jump up")
-			//	{
-			//		OutputDebugStringA("Jump up\n");
-			//		playerAni->reset();
-			//		playerAni->setRepeat(false);
-			//		playerAni->setAnimation("jump up");
-			//		playerAni->setAnimationSpeed(.01);
-			//
-			//	}
-			//}
+			else if(getVelocity().y > 0.f && !inRange(getVelocity().y, lo, hi))
+			{
+				if(playerAni->getAnimation() != "jump")
+				{
+					OutputDebugStringA("Jump\n");
+					playerAni->reset();
+					playerAni->setRepeat(false);
+					playerAni->setAnimation("jump");
+					playerAni->setAnimationSpeed(.01);
+
+				}
+			}
 #pragma endregion
 
 #pragma region Dash			
@@ -216,6 +232,7 @@ void Player::movementUpdate()
 			{
 				controllers.SetVibration(index, 0, 0);
 				dash = false;
+				playerAni->reset();
 			}
 			if(dash)
 			{

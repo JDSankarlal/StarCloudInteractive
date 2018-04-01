@@ -53,7 +53,13 @@ public:
 	*/
 	void stop();
 
-	
+	/*
+	Stops all instances of playing audio.
+	When audio is stoped it can not be resumed
+	only restarted by play.
+	*/
+	void stopAll();
+	 	
 	//Depriciated, will be fixed in a latter build	
 	bool isPlaying();
 
