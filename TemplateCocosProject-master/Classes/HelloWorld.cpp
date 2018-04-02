@@ -243,19 +243,19 @@ void HelloWorld::update(float dt)
 			{
 				//UI Disapear
 				//Particles based on which player died.x
-				if (a->getTag() == 1)
+				if (a->getTag() == 0)
 				{
 					player1->setVisible(false);
 				}
-				else if (a->getTag() == 2)
+				else if (a->getTag() == 1)
 				{
 					player2->setVisible(false);
 				}
-				else if (a->getTag() == 3)
+				else if (a->getTag() == 2)
 				{
 					player3->setVisible(false);
 				}
-				else if (a->getTag() == 4)
+				else if (a->getTag() == 3)
 				{
 					player4->setVisible(false);
 				}
