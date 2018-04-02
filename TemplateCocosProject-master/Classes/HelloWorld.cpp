@@ -205,7 +205,23 @@ void HelloWorld::update(float dt)
 			a->addImpulse(0, 0);
 			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2);
 		}
+
+		if (a->getDamage() >= 50)
+		{
+			//
+			//CHANGE UI BASED OFF DAMAGE HERE I THINK
+			//AT INCREMENTS OF 50 THE COLOUR CHANGES
+			//ALSO THE IMPULSE BECOMES MORE BUT WE'LL DO THAT AFTER
+			//
+			//ALSO I MIGHT BE WORKING HERE TOO SO WE MIGHT GET MERGE CONFLICTS...
+			//BUT WE KNOW HOW TO DEALIO WITH THAT SO ITS GUCCI
+			//
+			//GL HF
+			//
+		}
+
 	}
+
 
 	for(int a = 0; a < 4; a++)
 		if(controllers.GetConnected(a))

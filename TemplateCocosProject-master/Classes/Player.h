@@ -100,7 +100,7 @@ private:
 
 	double moveZ, inst;
 	float LT, RT, interuptCounter, interuptCount, initialDash;
-	int  numJumps = 0, numDash = 0,damage;
+	int  numJumps = 0, numDash = 0, damage = 0, lives = 3;
 	short jumpCount, index;
 	bool dash, hasJumped, fliped = false;
 
