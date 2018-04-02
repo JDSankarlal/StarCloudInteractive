@@ -101,9 +101,6 @@
     <ClInclude Include="..\Classes\TutorialScene.h">
       <Filter>Tutorial</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\TutorialSceneScene.h">
-      <Filter>Tutorial</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\SpriteAnimation.h">
       <Filter>Animator</Filter>
     </ClInclude>

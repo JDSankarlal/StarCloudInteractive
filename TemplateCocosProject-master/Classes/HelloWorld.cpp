@@ -258,6 +258,8 @@ void HelloWorld::update(float dt)
 				}
 				//BE DEAD
 				//SCREENSHAKE
+				//shakeScreen();
+				SET_SHAKE_DURATION = 2000;
 				//PARTICLES ON HUD
 				auto loseLifeParticles = ParticleFireworks::create();
 				loseLifeParticles->setAnchorPoint(Vec2(1, 1));
@@ -573,4 +575,28 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 void HelloWorld::DrawWorld()
 {
 
+}
+
+
+float HelloWorld::rangeRandom(float min, float max)
+{
+	float rnd = ((float)rand() / (float)RAND_MAX);
+	return rnd * (max - min) + min;
+}
+
+void HelloWorld::shakeScreen(float dt)
+{
+	float randx = rangeRandom(-50.0f, 50.0);
+	float randy = rangeRandom(-50.0f, 50.0);
+
+	background->setPosition(Point(randx, randy));
+	background->setPosition(Point(0 + randx, 0 + randy));
+
+	SET_SHAKE_DURATION -= 1;
+
+	if (SET_SHAKE_DURATION <= 0)
+	{
+		background->setPosition(Point(0, 0));
+		background->unschedule(schedule_selector(HelloWorld::shakeScreen));
+	}
 }

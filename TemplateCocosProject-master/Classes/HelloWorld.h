@@ -23,6 +23,8 @@ public:
 	void DrawWorld();
 	//Jump
 	//void jump();
+	float rangeRandom(float min, float max);
+	void shakeScreen(float dt);
 	//update function
 	void update(float);
 	// implement the "static create()" method manually
@@ -174,6 +176,7 @@ private:
 	cocos2d::Sprite* lives1, *lives2, *lives3, *lives4;
 	//HUD Stuff Ends
 
+	int SET_SHAKE_DURATION;
 
 	bool gamePaused = false;
 	bool resumeBtnActive = false;
@@ -183,5 +186,3 @@ private:
 	
 	ParticleSystem* deathParticles = ParticleExplosion::create();
 }; //Independance
-
-
