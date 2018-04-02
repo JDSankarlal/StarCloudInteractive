@@ -316,13 +316,13 @@ void HelloWorld::update(float dt)
 				loseLifeParticles->setStartColorVar(Color4F(0, 0, 0, 1));
 				loseLifeParticles->setEndColorVar(Color4F(0, 0, 0, 1));
 			}
-			loseLifeParticles->setPosition(Vec2(0, a->getPositionY()));
+			loseLifeParticles->setPosition(Vec2(0, a->getPosition().y));
 			this->addChild(loseLifeParticles);
 		}
 		else if (a->getPosition().y < -200)
 		{
 			auto loseLifeParticles = ParticleFireworks::create();
-			loseLifeParticles->setPosition(Vec2(a->getPositionY(), 0));
+			loseLifeParticles->setPosition(Vec2(a->getPosition().x, 0));
 			loseLifeParticles->setAnchorPoint(Vec2(1, 1));
 			loseLifeParticles->setSpeed(40);
 			loseLifeParticles->setSpeedVar(20);
@@ -330,7 +330,7 @@ void HelloWorld::update(float dt)
 			loseLifeParticles->setLife(1);
 			loseLifeParticles->setLifeVar(0.2);
 
-			loseLifeParticles->setGravity(Vec2(500, -1));
+			loseLifeParticles->setGravity(Vec2(0, 200));
 			loseLifeParticles->setEmissionRate(500);
 			loseLifeParticles->setGravity(Vec2(0, 500));
 
