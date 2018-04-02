@@ -397,7 +397,7 @@ void HelloWorld::update(float dt)
 			}
 		} else
 		{
-			players[a]->removeFromParent();
+			players[a]->removeFromParentAndCleanup(false);
 		}
 }
 
