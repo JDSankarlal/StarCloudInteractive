@@ -225,7 +225,7 @@ void HelloWorld::update(float dt)
 			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2);
 			a->getLives() -= 1;
 			//PARTICLES??
-			if (a->getLives <= 0)
+			if (a->getLives() <= 0)
 			{
 				//BE DEAD
 				//SCREENSHAKE
