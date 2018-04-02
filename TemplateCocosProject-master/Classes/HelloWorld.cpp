@@ -32,7 +32,7 @@ bool HelloWorld::init()
 
 	//////////////////////////////
 	// 1. super init first
-	if(!Scene::init())
+	if (!Scene::init())
 		return false;
 
 	director = Director::getInstance();
@@ -41,10 +41,29 @@ bool HelloWorld::init()
 
 	//Players
 	short count = 0;
-	for(auto &a : players)
+	for (auto &a : players)
 	{
 		a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2);
 	}
+
+	//particles that come on screen where player dies
+
+
+
+	//Particles that explode on UI when player has 0 lives left
+	deathParticles->setAnchorPoint(Vec2(1, 1));
+	deathParticles->setSpeed(200);
+	deathParticles->setSpeedVar(50);
+	deathParticles->setStartColor(Color4F(0, 0, 0, 1));
+	deathParticles->setEndColor(Color4F(138.f / 255, 43.f / 255, 226.f / 255, 1));
+	deathParticles->setStartColorVar(Color4F(12.f / 255, 12.f / 255, 12.f / 255, 1));
+	deathParticles->setEndColorVar(Color4F(12.f / 255, 12.f / 255, 12.f / 255, 1));
+	deathParticles->setEmissionRate(500);
+	//deathParticles->setDuration(1.5);
+	//deathParticles->setLife(1);
+	//deathParticles->setLifeVar(0.2);
+	this->addChild(deathParticles);
+
 
 	//platforms
 	auto pf2 = new Platforms(this, 1, true, 250, 70);
@@ -198,13 +217,8 @@ void HelloWorld::update(float dt)
 	controllers.DownloadPackets(4);
 
 	short count = 0;
-	for(auto &a : players)
+	for (auto &a : players)
 	{
-		//if(a->getSprite()->getPositionY() < -200)
-		//{
-		//	a->addImpulse(0, 0);
-		//	a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2);
-		//}
 
 		if (a->getDamage() >= 50)
 		{
@@ -220,39 +234,158 @@ void HelloWorld::update(float dt)
 			//
 		}
 
-		if (200 < a->getPosition().x - (director->getOpenGLView()->getFrameSize().width) || a->getPosition().x < -200 || a->getPosition().y < -200)
+		if (200 < a->getPosition().x - (director->getOpenGLView()->getFrameSize().width))
 		{
-			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2);
 			a->getLives() -= 1;
 			//PARTICLES??
 			if (a->getLives() <= 0)
 			{
+				if (a->getTag() == 1)
+				{
+
+				}
+				else if (a->getTag() == 2)
+				{
+
+				}
+				else if (a->getTag() == 3)
+				{
+
+				}
+				else if (a->getTag() == 4)
+				{
+
+				}
 				//BE DEAD
 				//SCREENSHAKE
 				//PARTICLES ON HUD
+				auto loseLifeParticles = ParticleFireworks::create();
+				loseLifeParticles->setAnchorPoint(Vec2(1, 1));
+				loseLifeParticles->setSpeed(40);
+				loseLifeParticles->setSpeedVar(20);
+				loseLifeParticles->setDuration(1.5);
+				loseLifeParticles->setLife(1);
+				loseLifeParticles->setLifeVar(0.2);
+
+				loseLifeParticles->setGravity(Vec2(500, -1));
+				loseLifeParticles->setEmissionRate(500);
+				loseLifeParticles->setPosition(Vec2(0, 400));
+				this->addChild(loseLifeParticles);
+
 			}
+			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2);
 		}
+		else if (a->getPosition().x < -200)
+		{
+			auto loseLifeParticles = ParticleFireworks::create();
+			loseLifeParticles->setAnchorPoint(Vec2(1, 1));
+			loseLifeParticles->setSpeed(40);
+			loseLifeParticles->setSpeedVar(20);
+			loseLifeParticles->setDuration(1.5);
+			loseLifeParticles->setLife(1);
+			loseLifeParticles->setLifeVar(0.2);
+
+			loseLifeParticles->setGravity(Vec2(500, -1));
+			loseLifeParticles->setEmissionRate(500);
+			loseLifeParticles->setGravity(Vec2(500, -1));
+			if (a->getTag() == 1)
+			{
+				loseLifeParticles->setStartColor(Color4F(1, 0, 0, 1));
+				loseLifeParticles->setEndColor(Color4F(1, 0, 0, 1));
+				loseLifeParticles->setStartColorVar(Color4F(0, 0, 0, 1));
+				loseLifeParticles->setEndColorVar(Color4F(0, 0, 0, 1));
+			}
+			else if (a->getTag() == 2)
+			{
+				loseLifeParticles->setStartColor(Color4F(0, 0, 0, 1));
+				loseLifeParticles->setEndColor(Color4F(0, 0, 1, 1));
+				loseLifeParticles->setStartColorVar(Color4F(0, 0, 0, 1));
+				loseLifeParticles->setEndColorVar(Color4F(0, 0, 0, 1));
+			}
+			else if (a->getTag() == 3)
+			{
+				loseLifeParticles->setStartColor(Color4F(0, 1, 0, 1));
+				loseLifeParticles->setEndColor(Color4F(0, 1, 0, 1));
+				loseLifeParticles->setStartColorVar(Color4F(0, 0, 0, 1));
+				loseLifeParticles->setEndColorVar(Color4F(0, 0, 0, 1));
+			}
+			else if (a->getTag() == 4)
+			{
+				loseLifeParticles->setStartColor(Color4F(1, 1, 0, 1));
+				loseLifeParticles->setEndColor(Color4F(1, 1, 0, 1));
+				loseLifeParticles->setStartColorVar(Color4F(0, 0, 0, 1));
+				loseLifeParticles->setEndColorVar(Color4F(0, 0, 0, 1));
+			}
+			loseLifeParticles->setPosition(Vec2(0, a->getPositionY()));
+			this->addChild(loseLifeParticles);
+		}
+		else if (a->getPosition().y < -200)
+		{
+			auto loseLifeParticles = ParticleFireworks::create();
+			loseLifeParticles->setPosition(Vec2(a->getPositionY(), 0));
+			loseLifeParticles->setAnchorPoint(Vec2(1, 1));
+			loseLifeParticles->setSpeed(40);
+			loseLifeParticles->setSpeedVar(20);
+			loseLifeParticles->setDuration(1.5);
+			loseLifeParticles->setLife(1);
+			loseLifeParticles->setLifeVar(0.2);
+
+			loseLifeParticles->setGravity(Vec2(500, -1));
+			loseLifeParticles->setEmissionRate(500);
+			loseLifeParticles->setGravity(Vec2(0, 500));
+
+			if (a->getTag() == 1)
+			{
+				loseLifeParticles->setStartColor(Color4F(1, 0, 0, 1));
+				loseLifeParticles->setEndColor(Color4F(1, 0, 0, 1));
+				loseLifeParticles->setStartColorVar(Color4F(0, 0, 0, 1));
+				loseLifeParticles->setEndColorVar(Color4F(0, 0, 0, 1));
+			}
+			else if (a->getTag() == 2)
+			{
+				loseLifeParticles->setStartColor(Color4F(0, 0, 0, 1));
+				loseLifeParticles->setEndColor(Color4F(0, 0, 1, 1));
+				loseLifeParticles->setStartColorVar(Color4F(0, 0, 0, 1));
+				loseLifeParticles->setEndColorVar(Color4F(0, 0, 0, 1));
+			}
+			else if (a->getTag() == 3)
+			{
+				loseLifeParticles->setStartColor(Color4F(0, 1, 0, 1));
+				loseLifeParticles->setEndColor(Color4F(0, 1, 0, 1));
+				loseLifeParticles->setStartColorVar(Color4F(0, 0, 0, 1));
+				loseLifeParticles->setEndColorVar(Color4F(0, 0, 0, 1));
+			}
+			else if (a->getTag() == 4)
+			{
+				loseLifeParticles->setStartColor(Color4F(1, 1, 0, 1));
+				loseLifeParticles->setEndColor(Color4F(1, 1, 0, 1));
+				loseLifeParticles->setStartColorVar(Color4F(0, 0, 0, 1));
+				loseLifeParticles->setEndColorVar(Color4F(0, 0, 0, 1));
+			}
+			this->addChild(loseLifeParticles);
+		}
+
 	}
 
 
-	for(int a = 0; a < 4; a++)
-		if(controllers.GetConnected(a))
+	for (int a = 0; a < 4; a++)
+		if (controllers.GetConnected(a))
 		{
-			if(getChildren().find(players[a]) == getChildren().end())
+			if (getChildren().find(players[a]) == getChildren().end())
 			{
 				addChild(players[a]);
 			}
 
 			Stick moveD, moveU;
 
-			static int count[] {0,0,0,0}, til = 20;
+			static int count[]{ 0,0,0,0 }, til = 20;
 
 			controllers.GetSticks(a, moveD, moveU);
 			static Vector<Node*>paused;
-			if(controllers.ButtonStroke(a, Start)) //If start pressed on controller
+			if (controllers.ButtonStroke(a, Start)) //If start pressed on controller
 			{
 
-				if(!gamePaused) //if game not paused
+				if (!gamePaused) //if game not paused
 				{
 					gamePaused = true; //set game to paused
 					resumeBtnActive = true;
@@ -262,16 +395,17 @@ void HelloWorld::update(float dt)
 					pause->setGlobalZOrder(4);
 					Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(0); //pause game
 					menu->setGlobalZOrder(3); //move menu forwards
-					for(auto &a : players)
+					for (auto &a : players)
 					{
 						a->pause();//pauses player update
-						for(auto &b : a->getChildren())
+						for (auto &b : a->getChildren())
 							b->pause();	//stops the player animation
 					}
 					//pauses projectials
 					paused = Director::getInstance()->getActionManager()->pauseAllRunningActions();
 
-				} else  //if game paused
+				}
+				else  //if game paused
 				{
 					gamePaused = false; //set game to unpaused
 					resumeBtnActive = false;
@@ -284,24 +418,24 @@ void HelloWorld::update(float dt)
 					menu->setGlobalZOrder(-2); //move menu back
 					Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(1); //Resume game
 					//this->resume();
-					for(auto &a : players)
+					for (auto &a : players)
 					{
 						a->resume();
-						for(auto &b : a->getChildren())
+						for (auto &b : a->getChildren())
 							b->resume();
 					}
 					Director::getInstance()->getActionManager()->resumeTargets(paused);
 				}
 			}
 
-			if(gamePaused)
+			if (gamePaused)
 			{
-				if(resumeBtnActive)
+				if (resumeBtnActive)
 				{
 
 					resumeBtn->setScale(0.8f);
 
-					if(controllers.ButtonStroke(a, A))
+					if (controllers.ButtonStroke(a, A))
 					{
 						gamePaused = false; //set game to unpaused
 						resumeBtnActive = false;
@@ -313,80 +447,82 @@ void HelloWorld::update(float dt)
 						quitBtn->setGlobalZOrder(-2);
 						menu->setGlobalZOrder(-2); //move menu back
 						Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(1); //Resume game
-						for(auto &a : players)
+						for (auto &a : players)
 						{
 							a->resume();
-							for(auto &b : a->getChildren())
+							for (auto &b : a->getChildren())
 								b->resume();
 						}
 						Director::getInstance()->getActionManager()->resumeTargets(paused);
 					}
-					if(moveD.yAxis == 0)
+					if (moveD.yAxis == 0)
 					{
 						count[a] = til;
 					}
 
-					if(count[a]++ > til)
+					if (count[a]++ > til)
 					{
 						count[a] = 0;
 
-						if(moveD.yAxis < 0)
+						if (moveD.yAxis < 0)
 						{
 							restartBtnActive = true;
 							resumeBtn->setScale(0.6);
 							resumeBtnActive = false;
 						}
 					}
-				} else if(restartBtnActive)
+				}
+				else if (restartBtnActive)
 				{
 					restartBtn->setScale(0.8f);
 
-					if(controllers.ButtonStroke(a, A))
+					if (controllers.ButtonStroke(a, A))
 					{
 						audio->stopAll();
 						Director::getInstance()->replaceScene(HelloWorld::createScene());
 					}
-					if(moveD.yAxis == 0)
+					if (moveD.yAxis == 0)
 					{
 
 						count[a] = til;
 					}
 
-					if(count[a]++ > til)
+					if (count[a]++ > til)
 					{
 						count[a] = 0;
 
-						if(moveD.yAxis < 0)
+						if (moveD.yAxis < 0)
 						{
 							quitBtnActive = true;
 							restartBtn->setScale(0.6);
 							restartBtnActive = false;
 						}
-						if(moveD.yAxis > 0)
+						if (moveD.yAxis > 0)
 						{
 							resumeBtnActive = true;
 							restartBtn->setScale(0.6);
 							restartBtnActive = false;
 						}
 					}
-				} else if(quitBtnActive)
+				}
+				else if (quitBtnActive)
 				{
 
 					quitBtn->setScale(0.8f);
 
-					if(controllers.ButtonStroke(a, A))
+					if (controllers.ButtonStroke(a, A))
 					{
 						Director::getInstance()->end();
 					}
-					if(moveD.yAxis == 0)
+					if (moveD.yAxis == 0)
 					{
 						count[a] = til;
 					}
 
-					if(count[a]++ > til)
+					if (count[a]++ > til)
 					{
 						count[0] = 0;
-						if(moveD.yAxis > 0)
+						if (moveD.yAxis > 0)
 						{
 							restartBtnActive = true;
 							quitBtn->setScale(0.6);
@@ -395,7 +531,8 @@ void HelloWorld::update(float dt)
 					}
 				}
 			}
-		} else
+		}
+		else
 		{
 			players[a]->removeFromParentAndCleanup(false);
 		}

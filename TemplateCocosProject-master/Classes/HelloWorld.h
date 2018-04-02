@@ -180,8 +180,8 @@ private:
 	bool restartBtnActive = false;
 	bool quitBtnActive = false;
 
-
-
-};
+	
+	ParticleSystem* deathParticles = ParticleExplosion::create();
+}; //Independance
 
 
