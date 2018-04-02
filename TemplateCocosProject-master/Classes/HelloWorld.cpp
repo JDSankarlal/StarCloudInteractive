@@ -215,13 +215,34 @@ void HelloWorld::update(float dt)
 {
 	static XBoxInput controllers;
 	controllers.DownloadPackets(4);
-
 	short count = 0;
 	for (auto &a : players)
 	{
 
 		if (a->getDamage() >= 50)
 		{
+			if (a->getBody()->getTag() == 0)
+			{
+				OutputDebugStringA("PLAYER DAMAGE\n");
+				healthBar1->setTexture("Assets/UI Elements/Health Bars/Yellow.png");
+			}
+
+			else if (a->getBody()->getTag() == 1)
+			{
+				OutputDebugStringA("PLAYER 2 DAMAGEd\n");
+				healthBar2->setTexture("Assets/UI Elements/Health Bars/Yellow.png");
+			}
+
+			else if (a->getBody()->getTag() == 2)
+			{
+				healthBar3->setTexture("Assets/UI Elements/Health Bars/Yellow.png");
+
+			}
+
+			else if (a->getBody()->getTag() == 3)
+			{
+				healthBar4->setTexture("Assets/UI Elements/Health Bars/Yellow.png");
+			}
 			//
 			//CHANGE UI BASED OFF DAMAGE HERE I THINK
 			//AT INCREMENTS OF 50 THE COLOUR CHANGES

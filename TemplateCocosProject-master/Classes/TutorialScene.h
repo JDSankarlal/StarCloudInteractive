@@ -126,6 +126,16 @@ private:
 		{
 			return false;
 		}
+			  if(bodyB->getName()!="Platform")
+		if(bodyA == sheep->getBody())
+		{
+			return false;
+		} 
+			  if(bodyA->getName() != "Platform")
+		if(bodyB == sheep->getBody())
+		{
+			return false;
+		}
 
 		OutputDebugStringA((to_string(bodyA->getTag()) + " == " + to_string(bodyB->getTag()) + "\n").c_str());
 

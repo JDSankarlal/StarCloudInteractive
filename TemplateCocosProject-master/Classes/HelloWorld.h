@@ -46,11 +46,11 @@ public:
 		explosionSystem->setLife(0.1);
 		explosionSystem->setLifeVar(0.2);
 		explosionSystem->setTotalParticles(150);
-		explosionSystem->setStartColor(Color4F(1,1,1, 1));
-		explosionSystem->setEndColor(Color4F(75.f/255, 0, 130.f/255, 1));
-		explosionSystem->setStartColorVar(ccc4f(0,0,0, 1));
-		explosionSystem->setEndColorVar(ccc4f(12.f / 255, 12.f / 255,12.f/255, 1));
-		
+		explosionSystem->setStartColor(Color4F(1, 1, 1, 1));
+		explosionSystem->setEndColor(Color4F(75.f / 255, 0, 130.f / 255, 1));
+		explosionSystem->setStartColorVar(ccc4f(0, 0, 0, 1));
+		explosionSystem->setEndColorVar(ccc4f(12.f / 255, 12.f / 255, 12.f / 255, 1));
+
 		//DO NOT REMOVE THE VARIANCE THING OTHERWISE IT WILL BE 100% RAINBOW AGAIN
 		//BUT FEEL FREE TO PLAY AROUND WITH COLOUR COMBOS
 
@@ -62,48 +62,54 @@ public:
 
 		//printf("Tag1 = %d\nTag2 = %d\n\n", bodyA->getTag(), bodyB->getTag());
 		//OutputDebugStringA("Colision dicision\n");
-		if(bodyA->getName() == "Player")
+		if (bodyA->getName() == "Player")
 		{
-			if(bodyB->getName() == "Platform")
-				for(auto &a : players)
-					if(bodyA == a->getBody())
+			if (bodyB->getName() == "Platform")
+				for (auto &a : players)
+					if (bodyA == a->getBody())
 						a->resetDashes();
 
 		}
 
-		if((bodyA->getName() == "Projectile"))
+		if ((bodyA->getName() == "Projectile"))
 		{
-			if(bodyB->getOwner() != nullptr)
-				if(bodyB->getName() == "Projectile")
+			if (bodyB->getOwner() != nullptr)
+				if (bodyB->getName() == "Projectile")
 				{
 					bodyB->getOwner()->removeFromParent();
 				}
-			if(bodyA->getOwner() != nullptr)
+			if (bodyA->getOwner() != nullptr)
 			{
-				if(bodyB->getName() != "Platform")
+				if (bodyB->getName() != "Platform")
 				{
-					for(auto &a : players)
-						if(bodyB == a->getBody())
+					for (auto &a : players)
+						if (bodyB == a->getBody())
 						{
-							bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200)*-(a->getDamage() % 50));
-							
+
+							if (a->getDamage() / 50) {
+								bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200) * (a->getDamage() / 50)*.75);
+								OutputDebugStringA(string("%: " + to_string(a->getDamage() / 50)).c_str());
+							}
+							else {
+								bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200));
+							}
 							OutputDebugStringA("Hitting a player\n");
 							addChild(explosionSystem);
 							explosionSystem->setPosition(bodyA->getPosition());
-							if (bodyA->getTag() == 1)
+							if(bodyA->getTag() == 1)
 							{
-								a->addDamage(10);
+
+								a->setDamage(a->getDamage() + 25);
 							}
-							else if (bodyB->getTag() == 2)
-							{
-								a->addDamage(25);
+							else
+			{
+								a->setDamage(a->getDamage() + 10);
 							}
 							runAction(Sequence::create(
 								CallFunc::create(a, callfunc_selector(Player::pause)),
 								DelayTime::create(bodyB->getVelocity().getLength()*.001),
 								CallFunc::create(a, callfunc_selector(Player::resume)), 0));
-								
-						}
+					}
 				}
 				//for(int a = 0; a < 4; a++)
 				//	if(bodyB->getOwner()->getParent() == players[a])
@@ -128,29 +134,40 @@ public:
 		OutputDebugStringA((bodyA->getName() + " == " + bodyB->getName() + "\n").c_str());
 		OutputDebugStringA((to_string(bodyA->getTag()) + " == " + to_string(bodyB->getTag()) + "\n").c_str());
 
-		if((bodyA->getName() == "Projectile" || bodyB->getName() == "Projectile") && (bodyA->getTag() != bodyB->getTag()))
+		if ((bodyA->getName() == "Projectile" || bodyB->getName() == "Projectile") && (bodyA->getTag() != bodyB->getTag()))
 		{
+			if(bodyB->getName() == "Player")
+				for(auto &a : players)
+					if(bodyB == a->getBody())
+					{
+						if(a->getDodge())
+							return false;
+						break;
+					}
+						
 			return true;
-		} else if((bodyA->getName() == "Projectile" || bodyB->getName() == "Projectile") && (bodyA->getTag() == bodyB->getTag()))
+		}
+		else if ((bodyA->getName() == "Projectile" || bodyB->getName() == "Projectile") && (bodyA->getTag() == bodyB->getTag()))
 		{
 			return false;
 		}
 
 		OutputDebugStringA((to_string(bodyA->getTag()) + " == " + to_string(bodyB->getTag()) + "\n").c_str());
 
-		if(bodyA->getName() == "Player" && bodyB->getName() == "Platform")
+		if (bodyA->getName() == "Player" && bodyB->getName() == "Platform")
 		{
-			for(auto &a : players)
-				if(bodyA == a->getBody())
+			for (auto &a : players)
+				if (bodyA == a->getBody())
 					a->resetJumps();
-		} else if(bodyB->getName() == "Player" && bodyA->getName() == "Platform")
+		}
+		else if (bodyB->getName() == "Player" && bodyA->getName() == "Platform")
 		{
-			for(auto &a : players)
-				if(bodyB == a->getBody())
+			for (auto &a : players)
+				if (bodyB == a->getBody())
 					a->resetJumps();
 		}
 
-		if(bodyA->getName() == bodyB->getName())
+		if (bodyA->getName() == bodyB->getName())
 			return false;
 		return true;
 	};
@@ -159,7 +176,7 @@ public:
 private:
 	cocos2d::Director *director;
 	AudioPlayer * audio = new AudioPlayer;
-	Player* players[4] = {new Player(this,1,0),new Player(this,1,1),new Player(this,1,2),new Player(this,1,3)};
+	Player* players[4] = { new Player(this,1,0),new Player(this,1,1),new Player(this,1,2),new Player(this,1,3) };
 
 	void contact();
 
@@ -183,7 +200,4 @@ private:
 	bool resumeBtnActive = false;
 	bool restartBtnActive = false;
 	bool quitBtnActive = false;
-
-	
-	//ParticleSystem* deathParticles = ParticleExplosion::create();
 }; //Independance
