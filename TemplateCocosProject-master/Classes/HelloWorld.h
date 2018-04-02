@@ -45,9 +45,9 @@ public:
 		explosionSystem->setTotalParticles(150);
 		explosionSystem->setStartColor(Color4F(138.f / 255, 43.f / 255, 226.f / 255, 1));
 		explosionSystem->setEndColor(Color4F(1, 1, 1, 1));
-		explosionSystem->setStartColorVar(ccc4f(0,0,0, 1));
-		explosionSystem->setEndColorVar(ccc4f(0,0,0, 1));
-		
+		explosionSystem->setStartColorVar(ccc4f(0, 0, 0, 1));
+		explosionSystem->setEndColorVar(ccc4f(0, 0, 0, 1));
+
 		//THE COLORS MAN, DO NOT REMOVE THE VARIANCE THING OTHERWISE IT WILL BE 100% RAINBOW AGAIN
 		//BUT FEEL FREE TO PLAY AROUND WITH COLOUR COMBOS
 
@@ -79,16 +79,24 @@ public:
 			{
 				if(bodyB->getName() != "Platform")
 				{
-					bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200));
-
 					for(auto &a : players)
 						if(bodyB == a->getBody())
 						{
+							OutputDebugStringA(string(to_string(bodyB->getVelocity().x)+string(" , ")+to_string(bodyB->getVelocity().y)+"\n").c_str());
+							bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200) );
+							
+							if(bodyA->getTag())
+							{
+								a->addDamage(25);
+							} else
+							{
+								a->addDamage(10);
+							}
+
 							OutputDebugStringA("Hitting a player\n");
 							addChild(explosionSystem);
 							explosionSystem->setPosition(bodyA->getPosition());
 							runAction(Sequence::create(
-
 								CallFunc::create(a, callfunc_selector(Player::pause)),
 								DelayTime::create(1.3),
 								CallFunc::create(a, callfunc_selector(Player::resume)), 0));

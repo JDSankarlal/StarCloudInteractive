@@ -346,24 +346,24 @@ void Player::resetDashes()
 	numDash = 0;
 }
 
-void Player::setHealth(int hp)
+void Player::setDamage(int hp)
 {
-	HP = hp;
+	damage = hp;
 }
 
-void Player::addHP(int hp)
+void Player::addDamage(int hp)
 {
-	HP += hp;
+	damage += hp;
 }
 
-void Player::subtractHP(int hp)
+void Player::subtractDamage(int hp)
 {
-	HP -= hp;
+	damage -= hp;
 }
 
-int Player::getHealth()
+int Player::getDamage()
 {
-	return HP;
+	return damage;
 }
 
 bool Player::inRange(float check, float low, float high)
