@@ -83,8 +83,7 @@ public:
 						if(bodyB == a->getBody())
 						{
 							bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200)*-(a->getDamage() % 50));
-
-
+							
 							OutputDebugStringA("Hitting a player\n");
 							addChild(explosionSystem);
 							explosionSystem->setPosition(bodyA->getPosition());
