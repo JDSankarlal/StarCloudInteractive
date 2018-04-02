@@ -501,12 +501,12 @@ void TutorialScene::update(float dt)
 			  scrolls[7]->setZOrder(-2);
 			  scrolls[8]->setZOrder(2);
 			  theRealDT = 0;
+			  this->removeChild(sheep);
 		  }
 		  else if (scrolls[8]->getZOrder() == 2 && theRealDT >= 3)
 		  {
 			  scrolls[8]->setZOrder(-2);
 			  scrolls[9]->setZOrder(2);
-			  this->removeChild(sheep);
 		  }
 		  else if (scrolls[9]->getZOrder() == 2 && theRealDT >= 6)
 		  {
