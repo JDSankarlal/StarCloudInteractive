@@ -46,25 +46,6 @@ bool HelloWorld::init()
 		a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2);
 	}
 
-	//particles that come on screen where player dies
-
-
-
-	//Particles that explode on UI when player has 0 lives left
-	//deathParticles->setAnchorPoint(Vec2(1, 1));
-	//deathParticles->setSpeed(200);
-	//deathParticles->setSpeedVar(50);
-	//deathParticles->setStartColor(Color4F(0, 0, 0, 1));
-	//deathParticles->setEndColor(Color4F(138.f / 255, 43.f / 255, 226.f / 255, 1));
-	//deathParticles->setStartColorVar(Color4F(12.f / 255, 12.f / 255, 12.f / 255, 1));
-	//deathParticles->setEndColorVar(Color4F(12.f / 255, 12.f / 255, 12.f / 255, 1));
-	//deathParticles->setEmissionRate(500);
-	////deathParticles->setDuration(1.5);
-	////deathParticles->setLife(1);
-	////deathParticles->setLifeVar(0.2);
-	//this->addChild(deathParticles);
-
-
 	//platforms
 	auto pf2 = new Platforms(this, 1, true, 250, 70);
 	auto pf3 = new Platforms(this, 1, true, 250, 70);
@@ -241,7 +222,7 @@ void HelloWorld::update(float dt)
 				lives4->setTexture("Assets/UI Elements/Lives/2_Lives.png");
 			}
 		}
-	
+
 		if (a->getLives() == 1)
 		{
 			if (a->getBody()->getTag() == 0)
@@ -266,8 +247,8 @@ void HelloWorld::update(float dt)
 		}
 		//LIFE COUNTER ENDS	
 
- 		//DAMAGE BARS
-		if (a->getDamage() <=0)
+		//DAMAGE BARS
+		if (a->getDamage() <= 0)
 		{
 			if (a->getBody()->getTag() == 0)
 			{
@@ -417,16 +398,16 @@ void HelloWorld::update(float dt)
 				healthBar4->setTexture("Assets/UI Elements/Health Bars/DarkRed.png");
 			}
 		}
-			//
-			//CHANGE UI BASED OFF DAMAGE HERE I THINK
-			//AT INCREMENTS OF 50 THE COLOUR CHANGES
-			//ALSO THE IMPULSE BECOMES MORE BUT WE'LL DO THAT AFTER
-			//
-			//ALSO I MIGHT BE WORKING HERE TOO SO WE MIGHT GET MERGE CONFLICTS...
-			//BUT WE KNOW HOW TO DEALIO WITH THAT SO ITS GUCCI
-			//
-			//GL HF
-			//
+		//
+		//CHANGE UI BASED OFF DAMAGE HERE I THINK
+		//AT INCREMENTS OF 50 THE COLOUR CHANGES
+		//ALSO THE IMPULSE BECOMES MORE BUT WE'LL DO THAT AFTER
+		//
+		//ALSO I MIGHT BE WORKING HERE TOO SO WE MIGHT GET MERGE CONFLICTS...
+		//BUT WE KNOW HOW TO DEALIO WITH THAT SO ITS GUCCI
+		//
+		//GL HF
+		//
 
 		if (200 < a->getPosition().x - (director->getOpenGLView()->getFrameSize().width))
 		{
@@ -526,13 +507,13 @@ void HelloWorld::update(float dt)
 
 			loseLifeParticles->setGravity(Vec2(500, -1));
 			loseLifeParticles->setEmissionRate(500);
-			
+
 			if (a->getBody()->getTag() == 0)
 			{
-				loseLifeParticles->setStartColor(Color4F(1,0,0, 1));
-				loseLifeParticles->setEndColor(Color4F(1,0,0, 1));
-				loseLifeParticles->setStartColorVar(Color4F(1, 1,1, 1));
-				loseLifeParticles->setEndColorVar(Color4F(1,1, 1,1));
+				loseLifeParticles->setStartColor(Color4F(1, 0, 0, 1));
+				loseLifeParticles->setEndColor(Color4F(1, 0, 0, 1));
+				loseLifeParticles->setStartColorVar(Color4F(1, 1, 1, 1));
+				loseLifeParticles->setEndColorVar(Color4F(1, 1, 1, 1));
 			}
 			else if (a->getBody()->getTag() == 1)
 			{
@@ -619,7 +600,8 @@ void HelloWorld::update(float dt)
 		{
 			if (getChildren().find(players[a]) == getChildren().end())
 			{
-				addChild(players[a]);
+				if (players[a]->getLives() > 0)
+					addChild(players[a]);
 			}
 
 			Stick moveD, moveU;
@@ -849,19 +831,19 @@ void HelloWorld::explosion()
 {
 	for (auto &a : players)
 	{
-		
+
 		if (a->getLives() == 0)
 		{
-			
+
 			auto deathParticles = ParticleExplosion::create();
 			//deathParticles->setAnchorPoint(Vec2(1, 1));
 			deathParticles->setSpeed(650);
 			deathParticles->setSpeedVar(20);
-			
+
 
 			//deathParticles->setGravity(Vec2(-500, -1));
 			deathParticles->setEmissionRate(500);
-			
+
 			if (a->getBody()->getTag() == 0)
 			{
 				player1->setVisible(false);
@@ -872,6 +854,7 @@ void HelloWorld::explosion()
 				deathParticles->setEndColor(Color4F(1, 0, 0, 1));
 				deathParticles->setStartColorVar(Color4F(1, 1, 1, 1));
 				deathParticles->setEndColorVar(Color4F(1, 1, 1, 1));
+
 			}
 			else if (a->getBody()->getTag() == 1)
 			{
@@ -910,9 +893,13 @@ void HelloWorld::explosion()
 			//SCREENSHAKE
 			//shakeScreen(dt);
 			SET_SHAKE_DURATION = 2000;
-			
-			this->addChild(deathParticles,5);
+
+			this->addChild(deathParticles, 5);
 			a->getLives() = -1;
+			static XBoxInput controllers;
+			controllers.DownloadPackets();
+			controllers.SetVibration(a->getBody()->getTag(), 0, 0);
+			a->removeFromParent();
 		}
 	}
 

@@ -200,4 +200,5 @@ private:
 	bool resumeBtnActive = false;
 	bool restartBtnActive = false;
 	bool quitBtnActive = false;
+
 }; //Independance

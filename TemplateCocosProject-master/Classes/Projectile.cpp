@@ -35,7 +35,7 @@ Projectile::Projectile(Scene * scene, bool heavy, int bitMask, int index)
 		proj[heavy]->addChild(trailDown);
 		particleSystem->setEmissionRate(120);
 		trailDown->setEmissionRate(120);
-		runAction(Sequence::create(DelayTime::create(0.9), CallFunc::create(this,
+		runAction(Sequence::create(DelayTime::create(0.6), CallFunc::create(this,
 				  callfunc_selector(Projectile::removeProjectial)), 0));
 	}
 }
