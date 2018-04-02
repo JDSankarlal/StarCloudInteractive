@@ -87,11 +87,19 @@ public:
 							OutputDebugStringA("Hitting a player\n");
 							addChild(explosionSystem);
 							explosionSystem->setPosition(bodyA->getPosition());
+							if (bodyA->getTag() == 1)
+							{
+								a->addDamage(10);
+							}
+							else if (bodyB->getTag() == 2)
+							{
+								a->addDamage(25);
+							}
 							runAction(Sequence::create(
-
 								CallFunc::create(a, callfunc_selector(Player::pause)),
 								DelayTime::create(bodyB->getVelocity().getLength()*.001),
 								CallFunc::create(a, callfunc_selector(Player::resume)), 0));
+								
 						}
 				}
 				//for(int a = 0; a < 4; a++)

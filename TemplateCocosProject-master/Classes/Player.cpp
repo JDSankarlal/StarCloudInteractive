@@ -367,6 +367,16 @@ int Player::getDamage()
 	return damage;
 }
 
+int& Player::getLives()
+{
+	return lives;
+}
+
+void Player::setLives(int n)
+{
+	lives = n;
+}
+
 bool Player::inRange(float check, float low, float high)
 {
 	return check >= low && check <= high;

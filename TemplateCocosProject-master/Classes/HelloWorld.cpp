@@ -200,12 +200,40 @@ void HelloWorld::update(float dt)
 	short count = 0;
 	for(auto &a : players)
 	{
-		if(a->getSprite()->getPositionY() < -200)
+		//if(a->getSprite()->getPositionY() < -200)
+		//{
+		//	a->addImpulse(0, 0);
+		//	a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2);
+		//}
+
+		if (a->getDamage() >= 50)
 		{
-			a->addImpulse(0, 0);
+			//
+			//CHANGE UI BASED OFF DAMAGE HERE I THINK
+			//AT INCREMENTS OF 50 THE COLOUR CHANGES
+			//ALSO THE IMPULSE BECOMES MORE BUT WE'LL DO THAT AFTER
+			//
+			//ALSO I MIGHT BE WORKING HERE TOO SO WE MIGHT GET MERGE CONFLICTS...
+			//BUT WE KNOW HOW TO DEALIO WITH THAT SO ITS GUCCI
+			//
+			//GL HF
+			//
+		}
+
+		if (200 < a->getPosition().x - (director->getOpenGLView()->getFrameSize().width) || a->getPosition().x < -200 || a->getPosition().y < -200)
+		{
 			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2);
+			a->getLives() -= 1;
+			//PARTICLES??
+			if (a->getLives() <= 0)
+			{
+				//BE DEAD
+				//SCREENSHAKE
+				//PARTICLES ON HUD
+			}
 		}
 	}
+
 
 	for(int a = 0; a < 4; a++)
 		if(controllers.GetConnected(a))
