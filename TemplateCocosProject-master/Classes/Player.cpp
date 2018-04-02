@@ -236,6 +236,7 @@ void Player::movementUpdate(float dt)
 			{
 				controllers.SetVibration(index, 0, 0);
 				dash = false;
+				initialDash -= .001;
 				playerAni->reset();
 			}
 			if(dash)
@@ -251,12 +252,12 @@ void Player::movementUpdate(float dt)
 				if(initialDash <= .5)
 				{
 					controllers.SetVibration(index, 0, 0);
-				} else
-				{
-					dodge = true;
 				}
 			}
-
+			if(initialDash > .5)
+			{
+				dodge = true;
+			}
 #pragma endregion
 
 #pragma region Attacks
@@ -275,6 +276,10 @@ void Player::movementUpdate(float dt)
 				{
 					atk->setRotation(90);
 					atk->setVelY(500);
+				}else if(moveL.yAxis < -.8f)
+				{
+					atk->setRotation(-90);
+					atk->setVelY(-500*2);
 				} else if(!fliped)
 				{
 					atk->flipX(fliped);
@@ -298,6 +303,10 @@ void Player::movementUpdate(float dt)
 				{
 					atk->setRotation(90);
 					atk->setVelY(500);
+				} else if(moveL.yAxis < -.8f)
+				{
+					atk->setRotation(-90);
+					atk->setVelY(-500*2);
 				} else if(!fliped)
 				{
 					atk->flipX(fliped);
