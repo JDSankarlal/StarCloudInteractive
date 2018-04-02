@@ -84,13 +84,17 @@ public:
 
 	void resetDashes();
 
-	void setHealth(int);
+	void setDamage(int);
 
-	void addHP(int hp);
+	void addDamage(int);
 
-	void subtractHP(int hp);
+	void subtractDamage(int);
 
-	int getHealth();
+	int getDamage();
+
+	int& getLives();
+
+	void setLives(int n);
 
 private:
 //Updates are called internaly, nolonger need to call them
@@ -100,7 +104,7 @@ private:
 
 	double moveZ, inst;
 	float LT, RT, interuptCounter, interuptCount, initialDash;
-	int  numJumps = 0, numDash = 0,HP;
+	int  numJumps = 0, numDash = 0, damage = 0, lives = 3;
 	short jumpCount, index;
 	bool dash, hasJumped, fliped = false;
 

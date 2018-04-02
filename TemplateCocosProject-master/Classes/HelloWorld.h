@@ -79,19 +79,27 @@ public:
 			{
 				if(bodyB->getName() != "Platform")
 				{
-					bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200));
-
 					for(auto &a : players)
 						if(bodyB == a->getBody())
 						{
+							bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200)*-(a->getDamage() % 50));
+							
 							OutputDebugStringA("Hitting a player\n");
 							addChild(explosionSystem);
 							explosionSystem->setPosition(bodyA->getPosition());
+							if (bodyA->getTag() == 1)
+							{
+								a->addDamage(10);
+							}
+							else if (bodyB->getTag() == 2)
+							{
+								a->addDamage(25);
+							}
 							runAction(Sequence::create(
-
 								CallFunc::create(a, callfunc_selector(Player::pause)),
-								DelayTime::create(1.3),
+								DelayTime::create(bodyB->getVelocity().getLength()*.001),
 								CallFunc::create(a, callfunc_selector(Player::resume)), 0));
+								
 						}
 				}
 				//for(int a = 0; a < 4; a++)

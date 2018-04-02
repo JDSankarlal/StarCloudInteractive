@@ -140,7 +140,7 @@ void Player::movementUpdate()
 			else if(moveL.xAxis > 0)
 				getSprite()->setFlippedX(fliped = false);
 
-			if(moveL.yAxis < .8f)
+			if(moveL.yAxis < .8f || moveL.yAxis < -.8f)
 				addImpulseX(move* moveL.xAxis);
 			if(!dash)
 				if(inRange(getVelocity().y, lo, hi))
@@ -161,9 +161,9 @@ void Player::movementUpdate()
 			{
 				numJumps++;
 				if(numJumps > 1)
-					addImpulseY(53500.f * 5.f * numJumps * .75f);
+					addImpulseY(53500.f * 5.f * .8 * numJumps * .5f);
 				else
-					addImpulseY(53500 * 5 * numJumps);
+					addImpulseY(53500 * 5 * .8 * numJumps);
 				hasJumped = true;
 			} else
 				if(controllers.ButtonRelease(index, A))
@@ -226,8 +226,9 @@ void Player::movementUpdate()
 				numJumps--;
 				dash = true;
 				initialDash = 1;
-				if(move * 2 * initialDash * (moveL.xAxis / abs(moveL.xAxis)) > 0)
+				if(moveL.xAxis != 0) 
 					addImpulseX(move * 2 * initialDash * (moveL.xAxis / abs(moveL.xAxis)));
+			//	OutputDebugStringA(string(to_string(moveL.xAxis / abs(moveL.xAxis)) + "\n").c_str());
 			} else if(LT < .5 && RT < .5)
 			{
 				controllers.SetVibration(index, 0, 0);
@@ -306,7 +307,7 @@ void Player::movementUpdate()
 			Color3B(1 * 255,0 * 255,0 * 255),//red
 			Color3B(0 * 255,0 * 255,1 * 255),//blue
 			Color3B(0 * 255,1 * 255,0 * 255),//green
-			Color3B(1 * 255,0 * 255,1 * 255)};//purple
+			Color3B(1 * 255,1 * 255,0 * 255)};//yellow
 
 		cursor[index]->setColor(colours2[index]);
 #pragma endregion
@@ -346,24 +347,34 @@ void Player::resetDashes()
 	numDash = 0;
 }
 
-void Player::setHealth(int hp)
+void Player::setDamage(int hp)
 {
-	HP = hp;
+	damage = hp;
 }
 
-void Player::addHP(int hp)
+void Player::addDamage(int hp)
 {
-	HP += hp;
+	damage += hp;
 }
 
-void Player::subtractHP(int hp)
+void Player::subtractDamage(int hp)
 {
-	HP -= hp;
+	damage -= hp;
 }
 
-int Player::getHealth()
+int Player::getDamage()
 {
-	return HP;
+	return damage;
+}
+
+int& Player::getLives()
+{
+	return lives;
+}
+
+void Player::setLives(int n)
+{
+	lives = n;
 }
 
 bool Player::inRange(float check, float low, float high)
