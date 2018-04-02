@@ -8,7 +8,7 @@ Scene* TutorialScene::createScene()
 {
 	auto scenepb = TutorialScene::createWithPhysics();
 	////Creates collision boxes around PhysicsBodies
-	scenepb->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+	//scenepb->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
 
 	auto world = TutorialScene::create();
 	scenepb->addChild(world);

@@ -226,7 +226,7 @@ void Player::movementUpdate()
 				numJumps--;
 				dash = true;
 				initialDash = 1;
-				if(move * 2 * initialDash * (moveL.xAxis / abs(moveL.xAxis)) > 0)
+				if(move * 2 * initialDash * (moveL.xAxis / abs(moveL.xAxis)) != 0)
 					addImpulseX(move * 2 * initialDash * (moveL.xAxis / abs(moveL.xAxis)));
 			} else if(LT < .5 && RT < .5)
 			{
@@ -306,7 +306,7 @@ void Player::movementUpdate()
 			Color3B(1 * 255,0 * 255,0 * 255),//red
 			Color3B(0 * 255,0 * 255,1 * 255),//blue
 			Color3B(0 * 255,1 * 255,0 * 255),//green
-			Color3B(1 * 255,0 * 255,1 * 255)};//purple
+			Color3B(1 * 255,1 * 255,0 * 255)};//yellow
 
 		cursor[index]->setColor(colours2[index]);
 #pragma endregion
