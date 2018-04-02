@@ -32,7 +32,9 @@ Player::Player(Scene *ActiveScene, int bitMask, int index)
 
 	cursor[index]->setAnchorPoint(Vec2(.5, 0));
 	this->addChild(AttachedSprite, 2);
-	this->addChild(cursor[this->index = index], 2);
+	AttachedSprite->addChild(cursor[this->index = index], 2);
+	cursor[index]->setPosition(Vec2(getSprite()->getContentSize().width / 2, getSprite()->getContentSize().height));
+	cursor[index]->setScale(5);
 	ActiveScene->addChild(this, 2);
 	scene = ActiveScene;
 	scheduleUpdate();
@@ -116,10 +118,10 @@ void Player::addForce(float x, float y)
 void Player::update(float dt)
 {
 
-	movementUpdate();
+	movementUpdate(dt);
 }
 
-void Player::movementUpdate()
+void Player::movementUpdate(float dt)
 {
 
 	static Input::XBoxInput controllers;
@@ -127,7 +129,7 @@ void Player::movementUpdate()
 
 	if(controllers.GetConnected(index))
 	{
-		if(!interupt())
+		if(!interupt(dt))
 		{
 #pragma region Movement	
 			//printInfo();
@@ -144,15 +146,15 @@ void Player::movementUpdate()
 			if(moveL.yAxis < .8f || moveL.yAxis < -.8f)
 				addImpulseX(move* moveL.xAxis);
 			if(!dash)
-				if(inRange(getVelocity().y, lo, hi))
-				{
+				
 					if(moveL.xAxis != 0)
 					{
 						playerAni->resume();
-						playerAni->setAnimationSpeed((1 - abs(moveL.xAxis)) * .001);
+						OutputDebugStringA("Walking in the dark\n");
+						playerAni->setAnimationSpeed((1.1 - abs(moveL.xAxis)) * .1);
 					} else
 						playerAni->pause();
-				}
+				
 
 #pragma endregion
 
@@ -162,9 +164,9 @@ void Player::movementUpdate()
 			{
 				numJumps++;
 				if(numJumps > 1)
-					addImpulseY(53500.f * 5.f * .8 * numJumps * .5f);
+					addImpulseY(53500.f * 5.f * .9 * numJumps * .5f);
 				else
-					addImpulseY(53500 * 5 * .8 * numJumps);
+					addImpulseY(53500 * 5 * .9 * numJumps);
 				hasJumped = true;
 			} else
 				if(controllers.ButtonRelease(index, A))
@@ -181,7 +183,7 @@ void Player::movementUpdate()
 					playerAni->setAnimation("dash");
 					playerAni->setAnimationSpeed(.01);
 				}
-			} else if(inRange(getVelocity().y, -hi, hi))
+			} else if(!inRange(getVelocity().y, -hi, hi))
 			{
 				if(playerAni->getAnimation() != "walk")
 				{
@@ -227,8 +229,8 @@ void Player::movementUpdate()
 				numJumps--;
 				dash = true;
 				initialDash = 1;
-				if(moveL.xAxis != 0) 
-					addImpulseX(move * 2 * initialDash * (moveL.xAxis / abs(moveL.xAxis)));
+				if(moveL.xAxis != 0)
+					addImpulseX(move * 2 * (moveL.xAxis / abs(moveL.xAxis)));
 			//	OutputDebugStringA(string(to_string(moveL.xAxis / abs(moveL.xAxis)) + "\n").c_str());
 			} else if(LT < .5 && RT < .5)
 			{
@@ -239,11 +241,19 @@ void Player::movementUpdate()
 			if(dash)
 			{
 				initialDash -= .001;
-				if(move * 2 * initialDash * (moveL.xAxis / abs(moveL.xAxis)) > 0)
-					addImpulseX(move * 2 * initialDash * (moveL.xAxis / abs(moveL.xAxis)));
+				dodge = false;
+				if(moveL.xAxis != 0)
+					if(move * 2 * initialDash * (moveL.xAxis / abs(moveL.xAxis)) != 0)
+					{
+						addImpulseX(move * 2 * initialDash * (moveL.xAxis / abs(moveL.xAxis)));
+						
+					}
 				if(initialDash <= .5)
 				{
 					controllers.SetVibration(index, 0, 0);
+				} else
+				{
+					dodge = true;
 				}
 			}
 
@@ -301,8 +311,10 @@ void Player::movementUpdate()
 #pragma endregion	
 		}
 #pragma region Cursor Location
-		cursor[index]->setPosition(getSprite()->getPosition() +
-								   Vec2(0, (getSprite()->getContentSize().height * getSprite()->getScaleY() / 2) + (cursor[index]->getContentSize().height*cursor[index]->getScaleY() / 2)));
+		//cursor[index]->setPosition(
+		//	getSprite()->getPosition() +
+		//	Vec2(0, (getSprite()->getContentSize().height * getSprite()->getScaleY() / 2) + 
+		//	(cursor[index]->getContentSize().height*cursor[index]->getScaleY() / 2)));
 
 		static Color3B colours2[] = {
 			Color3B(1 * 255,0 * 255,0 * 255),//red
@@ -312,10 +324,11 @@ void Player::movementUpdate()
 
 		cursor[index]->setColor(colours2[index]);
 #pragma endregion
-	} else
-	{
-		cursor[index]->setPosition(-1 * (cursor[index]->getContentSize()));
 	}
+//else
+//	{
+//		cursor[index]->setPosition(-1 * (cursor[index]->getContentSize()));
+//	}
 }
 
 void Player::setPosition(float x, float y, float z)
@@ -376,6 +389,11 @@ int& Player::getLives()
 void Player::setLives(int n)
 {
 	lives = n;
+}
+
+bool Player::getDodge()
+{
+	return dodge;
 }
 
 bool Player::inRange(float check, float low, float high)

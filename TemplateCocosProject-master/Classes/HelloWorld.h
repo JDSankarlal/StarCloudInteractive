@@ -84,6 +84,7 @@ public:
 					for (auto &a : players)
 						if (bodyB == a->getBody())
 						{
+
 							if (a->getDamage() / 50) {
 								bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200) * (a->getDamage() / 50)*.75);
 								OutputDebugStringA(string("%: " + to_string(a->getDamage() / 50)).c_str());
@@ -94,20 +95,20 @@ public:
 							OutputDebugStringA("Hitting a player\n");
 							addChild(explosionSystem);
 							explosionSystem->setPosition(bodyA->getPosition());
-							if (bodyA->getTag() == 1)
+							if(bodyA->getTag() == 1)
 							{
+
 								a->setDamage(a->getDamage() + 25);
 							}
 							else
-							{
+			{
 								a->setDamage(a->getDamage() + 10);
 							}
 							runAction(Sequence::create(
 								CallFunc::create(a, callfunc_selector(Player::pause)),
 								DelayTime::create(bodyB->getVelocity().getLength()*.001),
 								CallFunc::create(a, callfunc_selector(Player::resume)), 0));
-
-						}
+					}
 				}
 				//for(int a = 0; a < 4; a++)
 				//	if(bodyB->getOwner()->getParent() == players[a])
@@ -134,6 +135,15 @@ public:
 
 		if ((bodyA->getName() == "Projectile" || bodyB->getName() == "Projectile") && (bodyA->getTag() != bodyB->getTag()))
 		{
+			if(bodyB->getName() == "Player")
+				for(auto &a : players)
+					if(bodyB == a->getBody())
+					{
+						if(a->getDodge())
+							return false;
+						break;
+					}
+						
 			return true;
 		}
 		else if ((bodyA->getName() == "Projectile" || bodyB->getName() == "Projectile") && (bodyA->getTag() == bodyB->getTag()))

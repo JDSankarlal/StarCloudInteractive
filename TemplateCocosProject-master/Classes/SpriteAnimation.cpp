@@ -31,7 +31,7 @@ void SpriteAnimation::addSprite(string aniName, string directory)
 	}
 	frames->insert({aniName,vs});
 
-	frame->setTexture(*(*(*frames)[aniName])[0]); 
+	frame->setTexture(*(*(*frames)[aniName])[0]);
 }
 
 void SpriteAnimation::update(float dt)
@@ -43,26 +43,29 @@ void SpriteAnimation::animate()
 {
 	//if(!pauseAni)
 	//{
-		float diffT = float(clock() - *dt) / CLOCKS_PER_SEC;
-		if(diffT > fps)
+	float diffT = float(clock() - *dt) / CLOCKS_PER_SEC;
+	if(diffT > fps)
+	{
+		if(((*frames)[ani])->size() > 0)
 		{
-			if(((*frames)[ani])->size() > 0)
-			{
-				*dt = clock();
+			*dt = clock();
+			if(int (fps) != 0)
+				frameCounter += int(diffT) % int(fps);
+			else
 				frameCounter++;
-			
-				if(frameCounter >= ((*frames)[ani])->size() && repeat)
-					frameCounter = 0;
-				else if(frameCounter >= ((*frames)[ani])->size())
-					frameCounter = ((*frames)[ani])->size() - 1;
-			
-				frame->setTexture(*(*(*frames)[ani])[frameCounter]);
-				//frame->getPhysicsBody()->removeAllShapes();
-				//frame->getPhysicsBody()->addShape(PhysicsShapeBox::create(frame->getContentSize()*frame->getScale()));
-			}
+
+			if(frameCounter >= ((*frames)[ani])->size() && repeat)
+				frameCounter = 0;
+			else if(frameCounter >= ((*frames)[ani])->size())
+				frameCounter = ((*frames)[ani])->size() - 1;
+
+			frame->setTexture(*(*(*frames)[ani])[frameCounter]);
+			//frame->getPhysicsBody()->removeAllShapes();
+			//frame->getPhysicsBody()->addShape(PhysicsShapeBox::create(frame->getContentSize()*frame->getScale()));
 		}
-	//} else
-	//	*dt = clock() - fps;
+	}
+//} else
+//	*dt = clock() - fps;
 }
 
 void SpriteAnimation::setRepeat(bool r)
@@ -93,7 +96,7 @@ void SpriteAnimation::setAnimationSpeed(float dt)
 void SpriteAnimation::setAnimation(string aniName)
 {
 	ani = aniName;
-	if((*frames)[ani] ->size()>0)
+	if((*frames)[ani]->size() > 0)
 		frame->setTexture(*(*(*frames)[aniName])[0]);
 }
 
