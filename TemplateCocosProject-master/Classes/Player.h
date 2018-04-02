@@ -92,6 +92,10 @@ public:
 
 	int getDamage();
 
+	int& getLives();
+
+	void setLives(int n);
+
 private:
 //Updates are called internaly, nolonger need to call them
 	void update(float);

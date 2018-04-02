@@ -200,11 +200,11 @@ void HelloWorld::update(float dt)
 	short count = 0;
 	for(auto &a : players)
 	{
-		if(a->getSprite()->getPositionY() < -200)
-		{
-			a->addImpulse(0, 0);
-			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2);
-		}
+		//if(a->getSprite()->getPositionY() < -200)
+		//{
+		//	a->addImpulse(0, 0);
+		//	a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2);
+		//}
 
 		if (a->getDamage() >= 50)
 		{
@@ -220,6 +220,18 @@ void HelloWorld::update(float dt)
 			//
 		}
 
+		if (200 < a->getPosition().x - (director->getOpenGLView()->getFrameSize().width) || a->getPosition().x < -200 || a->getPosition().y < -200)
+		{
+			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2);
+			a->getLives() -= 1;
+			//PARTICLES??
+			if (a->getLives <= 0)
+			{
+				//BE DEAD
+				//SCREENSHAKE
+				//PARTICLES ON HUD
+			}
+		}
 	}
 
 
