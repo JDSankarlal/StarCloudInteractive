@@ -27,6 +27,7 @@ public:
 	void shakeScreen(float dt);
 	//update function
 	void update(float);
+	void explosion();
 	// implement the "static create()" method manually
 	CREATE_FUNC(HelloWorld);
 
@@ -184,5 +185,5 @@ private:
 	bool quitBtnActive = false;
 
 	
-	ParticleSystem* deathParticles = ParticleExplosion::create();
+	//ParticleSystem* deathParticles = ParticleExplosion::create();
 }; //Independance
