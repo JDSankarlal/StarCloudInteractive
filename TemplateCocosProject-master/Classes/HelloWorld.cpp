@@ -319,7 +319,7 @@ void HelloWorld::update(float dt)
 		{
 			a->getLives() -= 1;
 			//PARTICLES??
-
+			explosion();
 			//if (a->getLives() <= 0)
 			//{
 			//	//UI Disapear
@@ -389,29 +389,8 @@ void HelloWorld::update(float dt)
 		{
 			a->getLives() -= 1;
 			//PARTICLES??
+			explosion();
 
-			if (a->getLives() <= 0)
-			{
-				//UI Disapear
-				//Particles based on which player died.x
-				if (a->getTag() == 0)
-				{
-					player1->setVisible(false);
-				}
-				else if (a->getTag() == 1)
-				{
-					player2->setVisible(false);
-				}
-				else if (a->getTag() == 2)
-				{
-					player3->setVisible(false);
-				}
-				else if (a->getTag() == 3)
-				{
-					player4->setVisible(false);
-				}
-
-			}
 			auto loseLifeParticles = ParticleFire::create();
 			loseLifeParticles->setAnchorPoint(Vec2(1, 1));
 			loseLifeParticles->setSpeed(650);
@@ -695,20 +674,18 @@ void HelloWorld::explosion()
 	for (auto &a : players)
 	{
 		
-		if (a->getLives() <= 0)
+		if (a->getLives() == 0)
 		{
+			
 			auto deathParticles = ParticleExplosion::create();
-			deathParticles->setAnchorPoint(Vec2(1, 1));
+			//deathParticles->setAnchorPoint(Vec2(1, 1));
 			deathParticles->setSpeed(650);
 			deathParticles->setSpeedVar(20);
-			deathParticles->setDuration(1);
-			deathParticles->setLife(0.3);
-			deathParticles->setLifeVar(0);
+			
 
-			deathParticles->setGravity(Vec2(-500, -1));
+			//deathParticles->setGravity(Vec2(-500, -1));
 			deathParticles->setEmissionRate(500);
-			//UI Disapear
-			//Particles based on which player died.x
+			
 			if (a->getBody()->getTag() == 0)
 			{
 				player1->setVisible(false);
@@ -747,23 +724,11 @@ void HelloWorld::explosion()
 			}
 			//BE DEAD
 			//SCREENSHAKE
-			//shakeScreen();
+			//shakeScreen(dt);
 			SET_SHAKE_DURATION = 2000;
-			//PARTICLES ON HUD
-			//auto deathParticles = ParticleFire::create();
-			//deathParticles->setAnchorPoint(Vec2(1, 1));
-			//deathParticles->setSpeed(40);
-			//deathParticles->setSpeedVar(20);
-			//deathParticles->setDuration(1.5);
-			//deathParticles->setLife(1);
-			//deathParticles->setLifeVar(0.2);
-			//
-			//deathParticles->setGravity(Vec2(500, -1));
-			//deathParticles->setEmissionRate(500);
-			//deathParticles->setPosition(Vec2(0, 400));
-			//this->addChild(deathParticles);
-			//Delete Player
-			this->addChild(deathParticles);
+			
+			this->addChild(deathParticles,5);
+			a->getLives() = -1;
 		}
 	}
 
