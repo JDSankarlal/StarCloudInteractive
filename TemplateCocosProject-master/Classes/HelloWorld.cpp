@@ -218,7 +218,80 @@ void HelloWorld::update(float dt)
 	short count = 0;
 	for (auto &a : players)
 	{
+		//LIFE COUNTER
+		if (a->getLives() == 2)
+		{
+			if (a->getBody()->getTag() == 0)
+			{
+				lives1->setTexture("Assets/UI Elements/Lives/2_Lives.png");
+			}
 
+			if (a->getBody()->getTag() == 1)
+			{
+				lives2->setTexture("Assets/UI Elements/Lives/2_Lives.png");
+			}
+
+			if (a->getBody()->getTag() == 2)
+			{
+				lives3->setTexture("Assets/UI Elements/Lives/2_Lives.png");
+			}
+
+			if (a->getBody()->getTag() == 3)
+			{
+				lives4->setTexture("Assets/UI Elements/Lives/2_Lives.png");
+			}
+		}
+	
+		if (a->getLives() == 1)
+		{
+			if (a->getBody()->getTag() == 0)
+			{
+				lives1->setTexture("Assets/UI Elements/Lives/1_Life.png");
+			}
+
+			if (a->getBody()->getTag() == 1)
+			{
+				lives2->setTexture("Assets/UI Elements/Lives/1_Life.png");
+			}
+
+			if (a->getBody()->getTag() == 2)
+			{
+				lives3->setTexture("Assets/UI Elements/Lives/1_Life.png");
+			}
+
+			if (a->getBody()->getTag() == 3)
+			{
+				lives4->setTexture("Assets/UI Elements/Lives/2_Lives.png");
+			}
+		}
+		//LIFE COUNTER ENDS	
+
+ 		//DAMAGE BARS
+		if (a->getDamage() <=0)
+		{
+			if (a->getBody()->getTag() == 0)
+			{
+				OutputDebugStringA("PLAYER DAMAGE\n");
+				healthBar1->setTexture("Assets/UI Elements/Health Bars/White.png");
+			}
+
+			else if (a->getBody()->getTag() == 1)
+			{
+				OutputDebugStringA("PLAYER 2 DAMAGEd\n");
+				healthBar2->setTexture("Assets/UI Elements/Health Bars/White.png");
+			}
+
+			else if (a->getBody()->getTag() == 2)
+			{
+				healthBar3->setTexture("Assets/UI Elements/Health Bars/White.png");
+
+			}
+
+			else if (a->getBody()->getTag() == 3)
+			{
+				healthBar4->setTexture("Assets/UI Elements/Health Bars/White.png");
+			}
+		}
 		if (a->getDamage() >= 50)
 		{
 			if (a->getBody()->getTag() == 0)
@@ -243,6 +316,107 @@ void HelloWorld::update(float dt)
 			{
 				healthBar4->setTexture("Assets/UI Elements/Health Bars/Yellow.png");
 			}
+		}
+		if (a->getDamage() >= 100)
+		{
+			if (a->getBody()->getTag() == 0)
+			{
+				OutputDebugStringA("PLAYER DAMAGE\n");
+				healthBar1->setTexture("Assets/UI Elements/Health Bars/DarkYellow.png");
+			}
+
+			else if (a->getBody()->getTag() == 1)
+			{
+				OutputDebugStringA("PLAYER 2 DAMAGEd\n");
+				healthBar2->setTexture("Assets/UI Elements/Health Bars/DarkYellow.png");
+			}
+
+			else if (a->getBody()->getTag() == 2)
+			{
+				healthBar3->setTexture("Assets/UI Elements/Health Bars/DarkYellow.png");
+
+			}
+
+			else if (a->getBody()->getTag() == 3)
+			{
+				healthBar4->setTexture("Assets/UI Elements/Health Bars/DarkYellow.png");
+			}
+		}
+		if (a->getDamage() >= 150)
+		{
+			if (a->getBody()->getTag() == 0)
+			{
+				OutputDebugStringA("PLAYER DAMAGE\n");
+				healthBar1->setTexture("Assets/UI Elements/Health Bars/Orange.png");
+			}
+
+			else if (a->getBody()->getTag() == 1)
+			{
+				OutputDebugStringA("PLAYER 2 DAMAGEd\n");
+				healthBar2->setTexture("Assets/UI Elements/Health Bars/Orange.png");
+			}
+
+			else if (a->getBody()->getTag() == 2)
+			{
+				healthBar3->setTexture("Assets/UI Elements/Health Bars/Orange.png");
+
+			}
+
+			else if (a->getBody()->getTag() == 3)
+			{
+				healthBar4->setTexture("Assets/UI Elements/Health Bars/Orange.png");
+			}
+		}
+		if (a->getDamage() >= 200)
+		{
+			if (a->getBody()->getTag() == 0)
+			{
+				OutputDebugStringA("PLAYER DAMAGE\n");
+				healthBar1->setTexture("Assets/UI Elements/Health Bars/LightRed.png");
+			}
+
+			else if (a->getBody()->getTag() == 1)
+			{
+				OutputDebugStringA("PLAYER 2 DAMAGEd\n");
+				healthBar2->setTexture("Assets/UI Elements/Health Bars/LightRed.png");
+			}
+
+			else if (a->getBody()->getTag() == 2)
+			{
+				healthBar3->setTexture("Assets/UI Elements/Health Bars/LightRed.png");
+
+			}
+
+			else if (a->getBody()->getTag() == 3)
+			{
+				healthBar4->setTexture("Assets/UI Elements/Health Bars/LightRed.png");
+			}
+		}
+		if (a->getDamage() >= 250)
+		{
+			if (a->getBody()->getTag() == 0)
+			{
+				OutputDebugStringA("PLAYER DAMAGE\n");
+				healthBar1->setTexture("Assets/UI Elements/Health Bars/DarkRed.png");
+			}
+
+			else if (a->getBody()->getTag() == 1)
+			{
+				OutputDebugStringA("PLAYER 2 DAMAGEd\n");
+				healthBar2->setTexture("Assets/UI Elements/Health Bars/DarkRed.png");
+			}
+
+			else if (a->getBody()->getTag() == 2)
+			{
+				healthBar3->setTexture("Assets/UI Elements/Health Bars/DarkRed.png");
+
+			}
+
+			else if (a->getBody()->getTag() == 3)
+			{
+				healthBar4->setTexture("Assets/UI Elements/Health Bars/DarkRed.png");
+			}
+		}
 			//
 			//CHANGE UI BASED OFF DAMAGE HERE I THINK
 			//AT INCREMENTS OF 50 THE COLOUR CHANGES
@@ -253,7 +427,6 @@ void HelloWorld::update(float dt)
 			//
 			//GL HF
 			//
-		}
 
 		if (200 < a->getPosition().x - (director->getOpenGLView()->getFrameSize().width))
 		{
@@ -313,6 +486,7 @@ void HelloWorld::update(float dt)
 			loseLifeParticles->setPosition(Vec2(director->getOpenGLView()->getFrameSize().width, a->getPosition().y));
 			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2);
 			this->addChild(loseLifeParticles);
+			a->setDamage(0);
 
 		}
 		else if (a->getPosition().x < -200)
@@ -384,6 +558,7 @@ void HelloWorld::update(float dt)
 			loseLifeParticles->setPosition(Vec2(0, a->getPosition().y));
 			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2);
 			this->addChild(loseLifeParticles);
+			a->setDamage(0);
 		}
 		else if (a->getPosition().y < -200)
 		{
@@ -433,6 +608,7 @@ void HelloWorld::update(float dt)
 			loseLifeParticles->setPosition(Vec2(a->getPosition().x, 0));
 			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2);
 			this->addChild(loseLifeParticles);
+			a->setDamage(0);
 		}
 
 	}
@@ -689,6 +865,8 @@ void HelloWorld::explosion()
 			if (a->getBody()->getTag() == 0)
 			{
 				player1->setVisible(false);
+				lives1->setVisible(false);
+				healthBar1->setVisible(false);
 				deathParticles->setPosition(player1->getPosition());
 				deathParticles->setStartColor(Color4F(1, 0, 0, 1));
 				deathParticles->setEndColor(Color4F(1, 0, 0, 1));
@@ -698,6 +876,8 @@ void HelloWorld::explosion()
 			else if (a->getBody()->getTag() == 1)
 			{
 				player2->setVisible(false);
+				lives2->setVisible(false);
+				healthBar2->setVisible(false);
 				deathParticles->setPosition(player2->getPosition());
 				deathParticles->setStartColor(Color4F(0, 0, 1, 1));
 				deathParticles->setEndColor(Color4F(0, 0, 1, 1));
@@ -707,6 +887,8 @@ void HelloWorld::explosion()
 			else if (a->getBody()->getTag() == 2)
 			{
 				player3->setVisible(false);
+				lives3->setVisible(false);
+				healthBar3->setVisible(false);
 				deathParticles->setPosition(player3->getPosition());
 				deathParticles->setStartColor(Color4F(0, 1, 0, 1));
 				deathParticles->setEndColor(Color4F(0, 1, 0, 1));
@@ -716,6 +898,8 @@ void HelloWorld::explosion()
 			else if (a->getBody()->getTag() == 3)
 			{
 				player4->setVisible(false);
+				lives4->setVisible(false);
+				healthBar4->setVisible(false);
 				deathParticles->setPosition(player4->getPosition());
 				deathParticles->setStartColor(Color4F(1, 1, 0, 1));
 				deathParticles->setEndColor(Color4F(1, 1, 0, 1));
