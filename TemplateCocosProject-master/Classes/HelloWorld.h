@@ -43,11 +43,11 @@ public:
 		explosionSystem->setLife(0.1);
 		explosionSystem->setLifeVar(0.2);
 		explosionSystem->setTotalParticles(150);
-		explosionSystem->setStartColor(Color4F(1,1,1, 1));
-		explosionSystem->setEndColor(Color4F(75.f/255, 0, 130.f/255, 1));
-		explosionSystem->setStartColorVar(ccc4f(0,0,0, 1));
-		explosionSystem->setEndColorVar(ccc4f(12.f / 255, 12.f / 255,12.f/255, 1));
-		
+		explosionSystem->setStartColor(Color4F(1, 1, 1, 1));
+		explosionSystem->setEndColor(Color4F(75.f / 255, 0, 130.f / 255, 1));
+		explosionSystem->setStartColorVar(ccc4f(0, 0, 0, 1));
+		explosionSystem->setEndColorVar(ccc4f(12.f / 255, 12.f / 255, 12.f / 255, 1));
+
 		//DO NOT REMOVE THE VARIANCE THING OTHERWISE IT WILL BE 100% RAINBOW AGAIN
 		//BUT FEEL FREE TO PLAY AROUND WITH COLOUR COMBOS
 
@@ -83,15 +83,14 @@ public:
 						if(bodyB == a->getBody())
 						{
 							bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200)*-(a->getDamage() % 50));
-							
+
 							OutputDebugStringA("Hitting a player\n");
 							addChild(explosionSystem);
 							explosionSystem->setPosition(bodyA->getPosition());
-							if (bodyA->getTag() == 1)
+							if(bodyA->getTag() == 1)
 							{
 								a->addDamage(10);
-							}
-							else if (bodyB->getTag() == 2)
+							} else if(bodyB->getTag() == 2)
 							{
 								a->addDamage(25);
 							}
@@ -99,7 +98,8 @@ public:
 								CallFunc::create(a, callfunc_selector(Player::pause)),
 								DelayTime::create(bodyB->getVelocity().getLength()*.001),
 								CallFunc::create(a, callfunc_selector(Player::resume)), 0));
-								
+							//a->setInterupt(bodyB->getVelocity().getLength()*.001);
+
 						}
 				}
 				//for(int a = 0; a < 4; a++)
@@ -127,6 +127,15 @@ public:
 
 		if((bodyA->getName() == "Projectile" || bodyB->getName() == "Projectile") && (bodyA->getTag() != bodyB->getTag()))
 		{
+			if(bodyB->getName() == "Player")
+				for(auto &a : players)
+					if(bodyB == a->getBody())
+					{
+						if(a->getDodge())
+							return false;
+						break;
+					}
+						
 			return true;
 		} else if((bodyA->getName() == "Projectile" || bodyB->getName() == "Projectile") && (bodyA->getTag() == bodyB->getTag()))
 		{

@@ -56,20 +56,20 @@ public:
 #pragma endregion
 
 //interupt inputs
-	bool interupt()
+	bool interupt(float dt)
 	{
-		if(*t == 0)
-			*t = clock();
-		if(interuptCounter > interuptCount)
+
+		if((interuptCounter += dt) / CLOCKS_PER_SEC > interuptCount)
 			return false;
-		bool con = (interuptCounter += clock() - *t) / CLOCKS_PER_SEC < interuptCount;
-		*t = clock();
+		bool con = interuptCounter / CLOCKS_PER_SEC < interuptCount;
+
 		return con;
 
 	}
 	void setInterupt(float dt)
 	{
 		interuptCount = dt;
+		interuptCounter = 0;
 	}
 
 //sets location of the player by pixel position
@@ -96,17 +96,19 @@ public:
 
 	void setLives(int n);
 
+	bool getDodge();
+	
 private:
 //Updates are called internaly, nolonger need to call them
 	void update(float);
-	void movementUpdate();
+	void movementUpdate(float);
 	bool inRange(float check, float low, float high);
 
 	double moveZ, inst;
 	float LT, RT, interuptCounter, interuptCount, initialDash;
 	int  numJumps = 0, numDash = 0, damage = 0, lives = 3;
 	short jumpCount, index;
-	bool dash, hasJumped, fliped = false;
+	bool dash, hasJumped, fliped = false, dodge = false;
 
 	AudioPlayer* sfx = new AudioPlayer;
 	string sounds[1] {"Audio/NornieShot.mp3"};
