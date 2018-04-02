@@ -218,7 +218,54 @@ void HelloWorld::update(float dt)
 	short count = 0;
 	for (auto &a : players)
 	{
+		//LIFE COUNTER
+		if (a->getLives() == 2)
+		{
+			if (a->getBody()->getTag() == 0)
+			{
+				lives1->setTexture("Assets/UI Elements/Lives/2_Lives.png");
+			}
 
+			if (a->getBody()->getTag() == 1)
+			{
+				lives2->setTexture("Assets/UI Elements/Lives/2_Lives.png");
+			}
+
+			if (a->getBody()->getTag() == 2)
+			{
+				lives3->setTexture("Assets/UI Elements/Lives/2_Lives.png");
+			}
+
+			if (a->getBody()->getTag() == 3)
+			{
+				lives4->setTexture("Assets/UI Elements/Lives/2_Lives.png");
+			}
+		}
+	
+		if (a->getLives() == 1)
+		{
+			if (a->getBody()->getTag() == 0)
+			{
+				lives1->setTexture("Assets/UI Elements/Lives/1_Life.png");
+			}
+
+			if (a->getBody()->getTag() == 1)
+			{
+				lives2->setTexture("Assets/UI Elements/Lives/1_Life.png");
+			}
+
+			if (a->getBody()->getTag() == 2)
+			{
+				lives3->setTexture("Assets/UI Elements/Lives/1_Life.png");
+			}
+
+			if (a->getBody()->getTag() == 3)
+			{
+				lives4->setTexture("Assets/UI Elements/Lives/2_Lives.png");
+			}
+		}
+		//LIFE COUNTER ENDS	
+ 		//DAMAGE BARS
 		if (a->getDamage() >= 50)
 		{
 			if (a->getBody()->getTag() == 0)
