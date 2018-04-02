@@ -417,6 +417,9 @@ void HelloWorld::update(float dt)
 
 			explosion();
 
+			static AudioPlayer death("Audio/Death_Fire.mp3");
+			death.play();
+
 			//if goes off right side the make this particle thing a thing
 			//Set variables
 			auto loseLifeParticles = ParticleFire::create();
@@ -475,6 +478,9 @@ void HelloWorld::update(float dt)
 			a->getLives() -= 1;
 			//PARTICLES??
 			explosion();
+
+			static AudioPlayer death("Audio/Death_Fire.mp3");
+			death.play();
 			//if (a->getLives() <= 0)
 			//{
 			//	//UI Disapear
@@ -546,6 +552,9 @@ void HelloWorld::update(float dt)
 			a->getLives() -= 1;
 			//PARTICLES??
 			explosion();
+
+			static AudioPlayer death("Audio/Death_Fire.mp3");
+			death.play();
 
 			auto loseLifeParticles = ParticleFire::create();
 			loseLifeParticles->setAnchorPoint(Vec2(1, 1));
@@ -899,8 +908,51 @@ void HelloWorld::explosion()
 			static XBoxInput controllers;
 			controllers.DownloadPackets();
 			controllers.SetVibration(a->getBody()->getTag(), 0, 0);
+			Win();
 			a->removeFromParent();
 		}
 	}
+
+}
+
+void HelloWorld::Win()
+{
+	cocos2d::Sprite* p1win = Sprite::create("Assets/GameOver_Player1.png");
+	cocos2d::Sprite* p2win = Sprite::create("Assets/GameOver_Player2.png");
+	cocos2d::Sprite* p3win = Sprite::create("Assets/GameOver_Player3.png");
+	cocos2d::Sprite* p4win = Sprite::create("Assets/GameOver_Player4.png");
+	Sprite* pwin[]{ p1win,p2win,p3win,p4win };
+	static XBoxInput controllers;
+	controllers.DownloadPackets(4);
+	int conect=0;
+	for (auto &a : players)
+	{
+		//PUT WIN CONDITION HERE
+		if (controllers.GetConnected(a->getTag()))
+		{
+			if(a->getLives()<0)
+				conect++;
+		}
+	}
+
+	if (conect == 1)
+	{
+		//then player wins
+		for (auto &a : players) {
+			if (a->getLives() > 0)
+			{
+				addChild(pwin[a->getBody()->getTag()],5);
+				pwin[a->getBody()->getTag()]->setPosition(Vec2(director->getOpenGLView()->getFrameSize().width / 2, director->getOpenGLView()->getFrameSize().height / 2));
+				break;
+			}
+		}
+	}
+	else if (conect < 1)
+	{
+		//Then tie
+	}
+	//for (int a = 0; a < conect; a++) {
+	//
+	//}
 
 }

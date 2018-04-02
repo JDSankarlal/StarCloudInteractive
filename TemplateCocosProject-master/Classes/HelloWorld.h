@@ -22,6 +22,7 @@ public:
 	void menuCloseCallback(cocos2d::Ref* pSender);
 	void DrawWorld();
 	//Jump
+	void Win();
 	//void jump();
 	float rangeRandom(float min, float max);
 	void shakeScreen(float dt);
@@ -193,6 +194,8 @@ private:
 	cocos2d::Sprite* healthBar1, *healthBar2, *healthBar3, *healthBar4;
 	cocos2d::Sprite* lives1, *lives2, *lives3, *lives4;
 	//HUD Stuff Ends
+
+
 
 	int SET_SHAKE_DURATION;
 
