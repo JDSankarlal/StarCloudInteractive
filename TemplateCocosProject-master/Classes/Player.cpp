@@ -24,7 +24,8 @@ Player::Player(Scene *ActiveScene, int bitMask, int index)
 	auto size = getSprite()->getContentSize();
 	getSprite()->setPhysicsBody(PhysicsBody::createBox(size));
 	getBody()->setName("Player");
-	getBody()->setTag(index);
+	getBody()->setTag(index); 
+	setTag(index);
 	getBody()->setCollisionBitmask(bitMask);
 	getBody()->setContactTestBitmask(true);
 	getBody()->setRotationEnable(false);
