@@ -238,23 +238,26 @@ void HelloWorld::update(float dt)
 		{
 			a->getLives() -= 1;
 			//PARTICLES??
+
 			if (a->getLives() <= 0)
 			{
+				//UI Disapear
+				//Particles based on which player died.x
 				if (a->getTag() == 1)
 				{
-
+					player1->setVisible(false);
 				}
 				else if (a->getTag() == 2)
 				{
-
+					player2->setVisible(false);
 				}
 				else if (a->getTag() == 3)
 				{
-
+					player3->setVisible(false);
 				}
 				else if (a->getTag() == 4)
 				{
-
+					player4->setVisible(false);
 				}
 				//BE DEAD
 				//SCREENSHAKE
@@ -275,7 +278,7 @@ void HelloWorld::update(float dt)
 				this->addChild(loseLifeParticles);
 
 			}
-			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2);
+
 		}
 		else if (a->getPosition().x < -200)
 		{
@@ -289,81 +292,85 @@ void HelloWorld::update(float dt)
 
 			loseLifeParticles->setGravity(Vec2(500, -1));
 			loseLifeParticles->setEmissionRate(500);
-			loseLifeParticles->setGravity(Vec2(500, -1));
-			if (a->getTag() == 1)
+			
+			if (a->getTag() == 0)
 			{
-				loseLifeParticles->setStartColor(Color4F(1, 0, 0, 1));
-				loseLifeParticles->setEndColor(Color4F(1, 0, 0, 1));
-				loseLifeParticles->setStartColorVar(Color4F(0, 0, 0, 1));
-				loseLifeParticles->setEndColorVar(Color4F(0, 0, 0, 1));
+				loseLifeParticles->setEndColor(ccc4f(1, 0, 0, 1));
+				loseLifeParticles->setStartColor(ccc4f(1, 0, 0, 1));
+				//loseLifeParticles->setStartColorVar(ccc4f(0, 0, 0, 1));
+				//loseLifeParticles->setEndColorVar(ccc4f(0, 0, 0, 1));
+
 			}
-			else if (a->getTag() == 2)
+			else if (a->getTag() == 1)
 			{
 				loseLifeParticles->setStartColor(Color4F(0, 0, 0, 1));
 				loseLifeParticles->setEndColor(Color4F(0, 0, 1, 1));
-				loseLifeParticles->setStartColorVar(Color4F(0, 0, 0, 1));
-				loseLifeParticles->setEndColorVar(Color4F(0, 0, 0, 1));
+				//	loseLifeParticles->setStartColorVar(Color4F(0, 0, 0, 1));
+				//	loseLifeParticles->setEndColorVar(Color4F(0, 0, 0, 1));
 			}
-			else if (a->getTag() == 3)
+			else if (a->getTag() == 2)
 			{
 				loseLifeParticles->setStartColor(Color4F(0, 1, 0, 1));
 				loseLifeParticles->setEndColor(Color4F(0, 1, 0, 1));
-				loseLifeParticles->setStartColorVar(Color4F(0, 0, 0, 1));
-				loseLifeParticles->setEndColorVar(Color4F(0, 0, 0, 1));
+				//	loseLifeParticles->setStartColorVar(Color4F(0, 0, 0, 1));
+				//	loseLifeParticles->setEndColorVar(Color4F(0, 0, 0, 1));
 			}
-			else if (a->getTag() == 4)
+			else if (a->getTag() == 3)
 			{
 				loseLifeParticles->setStartColor(Color4F(1, 1, 0, 1));
 				loseLifeParticles->setEndColor(Color4F(1, 1, 0, 1));
-				loseLifeParticles->setStartColorVar(Color4F(0, 0, 0, 1));
-				loseLifeParticles->setEndColorVar(Color4F(0, 0, 0, 1));
+				//	loseLifeParticles->setStartColorVar(Color4F(0, 0, 0, 1));
+				//	loseLifeParticles->setEndColorVar(Color4F(0, 0, 0, 1));
 			}
 			loseLifeParticles->setPosition(Vec2(0, a->getPosition().y));
+			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2);
 			this->addChild(loseLifeParticles);
 		}
 		else if (a->getPosition().y < -200)
 		{
 			auto loseLifeParticles = ParticleFireworks::create();
 			loseLifeParticles->setPosition(Vec2(a->getPosition().x, 0));
-			loseLifeParticles->setAnchorPoint(Vec2(1, 1));
-			loseLifeParticles->setSpeed(40);
-			loseLifeParticles->setSpeedVar(20);
-			loseLifeParticles->setDuration(1.5);
-			loseLifeParticles->setLife(1);
-			loseLifeParticles->setLifeVar(0.2);
+			//loseLifeParticles->setAnchorPoint(Vec2(1, 1));
+			loseLifeParticles->setSpeed(750);
+			//loseLifeParticles->setSpeedVar(20);
+			loseLifeParticles->setDuration(0.2);
+			loseLifeParticles->setLife(0.02);
+			//loseLifeParticles->setLifeVar(0.2);
+			//
+			//loseLifeParticles->setGravity(Vec2(0, 200));
+			loseLifeParticles->setEmissionRate(100000000);
+			//loseLifeParticles->setGravity(Vec2(0, 500));
 
-			loseLifeParticles->setGravity(Vec2(0, 200));
-			loseLifeParticles->setEmissionRate(500);
-			loseLifeParticles->setGravity(Vec2(0, 500));
-
-			if (a->getTag() == 1)
+			loseLifeParticles->setTexture(Sprite::create("Assets/dotRed.png")->getTexture());
+			if (a->getTag() == 0)
 			{
-				loseLifeParticles->setStartColor(Color4F(1, 0, 0, 1));
-				loseLifeParticles->setEndColor(Color4F(1, 0, 0, 1));
-				loseLifeParticles->setStartColorVar(Color4F(0, 0, 0, 1));
-				loseLifeParticles->setEndColorVar(Color4F(0, 0, 0, 1));
+				loseLifeParticles->setStartColor(Color4F::RED);
+				loseLifeParticles->setEndColor(Color4F::RED);
+				loseLifeParticles->setStartColorVar(Color4F::RED);
+				loseLifeParticles->setEndColorVar(Color4F::RED);
 			}
-			else if (a->getTag() == 2)
+			else if (a->getTag() == 1)
 			{
-				loseLifeParticles->setStartColor(Color4F(0, 0, 0, 1));
+				loseLifeParticles->setStartColor(Color4F(0, 0, 1, 1));
 				loseLifeParticles->setEndColor(Color4F(0, 0, 1, 1));
 				loseLifeParticles->setStartColorVar(Color4F(0, 0, 0, 1));
 				loseLifeParticles->setEndColorVar(Color4F(0, 0, 0, 1));
 			}
-			else if (a->getTag() == 3)
+			else if (a->getTag() == 2)
 			{
 				loseLifeParticles->setStartColor(Color4F(0, 1, 0, 1));
 				loseLifeParticles->setEndColor(Color4F(0, 1, 0, 1));
 				loseLifeParticles->setStartColorVar(Color4F(0, 0, 0, 1));
 				loseLifeParticles->setEndColorVar(Color4F(0, 0, 0, 1));
 			}
-			else if (a->getTag() == 4)
+			else if (a->getTag() == 3)
 			{
 				loseLifeParticles->setStartColor(Color4F(1, 1, 0, 1));
 				loseLifeParticles->setEndColor(Color4F(1, 1, 0, 1));
 				loseLifeParticles->setStartColorVar(Color4F(0, 0, 0, 1));
 				loseLifeParticles->setEndColorVar(Color4F(0, 0, 0, 1));
 			}
+			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2);
 			this->addChild(loseLifeParticles);
 		}
 
