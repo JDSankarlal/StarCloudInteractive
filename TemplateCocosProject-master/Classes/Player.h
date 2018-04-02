@@ -84,6 +84,14 @@ public:
 
 	void resetDashes();
 
+	void setDamage(int);
+
+	void addDamage(int);
+
+	void subtractDamage(int);
+
+	int getDamage();
+
 private:
 //Updates are called internaly, nolonger need to call them
 	void update(float);
@@ -92,7 +100,7 @@ private:
 
 	double moveZ, inst;
 	float LT, RT, interuptCounter, interuptCount, initialDash;
-	int  numJumps = 0, numDash = 0;
+	int  numJumps = 0, numDash = 0,damage;
 	short jumpCount, index;
 	bool dash, hasJumped, fliped = false;
 

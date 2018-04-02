@@ -70,7 +70,7 @@ bool HelloWorld::init()
 
 	pf5->setPosition(visibleSize.width / 2 + 175, visibleSize.height / 2 + 250);
 	pf6->setPosition(visibleSize.width / 2 - 175, visibleSize.height / 2 + 250);
-	
+
 
 	//Place Background
 	background->setScaleX(visibleSize.width / background->getContentSize().width);
@@ -101,7 +101,7 @@ bool HelloWorld::init()
 	this->addChild(pause, -2);
 
 	restartBtn = Sprite::create("Assets/Button_Dark_Restart.png");
-	restartBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2) -50);
+	restartBtn->setPosition(visibleSize.width / 2, (visibleSize.height / 2) - 50);
 	restartBtn->setScale(0.6);
 	restartBtn->setAnchorPoint(Vec2(0.5f, 0.5f));
 	this->addChild(restartBtn, -2);
@@ -139,22 +139,22 @@ bool HelloWorld::init()
 	this->addChild(player4, 2);
 
 	healthBar1 = Sprite::create("Assets/UI Elements/Health Bars/White.png");
-	healthBar1->setPosition(player1->getPositionX() + 35, player1->getPositionY()-10);
+	healthBar1->setPosition(player1->getPositionX() + 35, player1->getPositionY() - 10);
 	healthBar1->setScale(.5);
 	this->addChild(healthBar1, 2);
 
 	healthBar2 = Sprite::create("Assets/UI Elements/Health Bars/White.png");
-	healthBar2->setPosition(player2->getPositionX() + 35, player2->getPositionY()-10);
+	healthBar2->setPosition(player2->getPositionX() + 35, player2->getPositionY() - 10);
 	healthBar2->setScale(.5);
 	this->addChild(healthBar2, 2);
 
 	healthBar3 = Sprite::create("Assets/UI Elements/Health Bars/White.png");
-	healthBar3->setPosition(player3->getPositionX() + 35, player3->getPositionY()-10);
+	healthBar3->setPosition(player3->getPositionX() + 35, player3->getPositionY() - 10);
 	healthBar3->setScale(.5);
 	this->addChild(healthBar3, 2);
 
 	healthBar4 = Sprite::create("Assets/UI Elements/Health Bars/White.png");
-	healthBar4->setPosition(player4->getPositionX() + 35, player4->getPositionY()-10);
+	healthBar4->setPosition(player4->getPositionX() + 35, player4->getPositionY() - 10);
 	healthBar4->setScale(.5);
 	this->addChild(healthBar4, 2);
 
@@ -210,6 +210,10 @@ void HelloWorld::update(float dt)
 	for(int a = 0; a < 4; a++)
 		if(controllers.GetConnected(a))
 		{
+			if(getChildren().find(players[a]) == getChildren().end())
+			{
+				addChild(players[a]);
+			}
 
 			Stick moveD, moveU;
 
@@ -363,6 +367,9 @@ void HelloWorld::update(float dt)
 					}
 				}
 			}
+		} else
+		{
+			players[a]->removeFromParent();
 		}
 }
 
@@ -370,13 +377,13 @@ void HelloWorld::contact()
 {
 	auto contactListener =
 		EventListenerPhysicsContact::create();
-	auto world = this; 
+	auto world = this;
 
-	contactListener->onContactBegin = CC_CALLBACK_1(HelloWorld::onContactBegin,this);
+	contactListener->onContactBegin = CC_CALLBACK_1(HelloWorld::onContactBegin, this);
 	//used for calculating
-	contactListener->onContactPreSolve = CC_CALLBACK_2(HelloWorld::onContactPreSolve,this);	 
+	contactListener->onContactPreSolve = CC_CALLBACK_2(HelloWorld::onContactPreSolve, this);
 
-	getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this); 
+	getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
 }
 
 
