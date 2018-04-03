@@ -789,10 +789,7 @@ void HelloWorld::update(float dt)
 					}
 				}
 			}
-		} else
-		{
-			players[a]->removeFromParentAndCleanup(false);
-		}
+		} 
 }
 
 void HelloWorld::contact()
