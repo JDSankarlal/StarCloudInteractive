@@ -49,9 +49,9 @@ void SpriteAnimation::animate()
 		if(((*frames)[ani])->size() > 0)
 		{
 			*dt = clock();
-			if(fps != 0)
-				frameCounter += diffT / fps;
-			else
+			//if(fps != 0)
+			//	frameCounter += diffT / fps;
+			//else
 				frameCounter++;
 
 			if(frameCounter >= ((*frames)[ani])->size() && repeat)

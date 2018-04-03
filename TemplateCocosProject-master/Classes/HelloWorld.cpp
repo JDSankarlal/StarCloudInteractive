@@ -252,13 +252,13 @@ void HelloWorld::update(float dt)
 		{
 			if (a->getBody()->getTag() == 0)
 			{
-				OutputDebugStringA("PLAYER DAMAGE\n");
+				//OutputDebugStringA("PLAYER DAMAGE\n");
 				healthBar1->setTexture("Assets/UI Elements/Health Bars/White.png");
 			}
 
 			else if (a->getBody()->getTag() == 1)
 			{
-				OutputDebugStringA("PLAYER 2 DAMAGEd\n");
+				//OutputDebugStringA("PLAYER 2 DAMAGEd\n");
 				healthBar2->setTexture("Assets/UI Elements/Health Bars/White.png");
 			}
 
@@ -277,13 +277,13 @@ void HelloWorld::update(float dt)
 		{
 			if (a->getBody()->getTag() == 0)
 			{
-				OutputDebugStringA("PLAYER DAMAGE\n");
+				//OutputDebugStringA("PLAYER DAMAGE\n");
 				healthBar1->setTexture("Assets/UI Elements/Health Bars/Yellow.png");
 			}
 
 			else if (a->getBody()->getTag() == 1)
 			{
-				OutputDebugStringA("PLAYER 2 DAMAGEd\n");
+				//OutputDebugStringA("PLAYER 2 DAMAGEd\n");
 				healthBar2->setTexture("Assets/UI Elements/Health Bars/Yellow.png");
 			}
 
@@ -302,13 +302,13 @@ void HelloWorld::update(float dt)
 		{
 			if (a->getBody()->getTag() == 0)
 			{
-				OutputDebugStringA("PLAYER DAMAGE\n");
+				//OutputDebugStringA("PLAYER DAMAGE\n");
 				healthBar1->setTexture("Assets/UI Elements/Health Bars/DarkYellow.png");
 			}
 
 			else if (a->getBody()->getTag() == 1)
 			{
-				OutputDebugStringA("PLAYER 2 DAMAGEd\n");
+				//OutputDebugStringA("PLAYER 2 DAMAGEd\n");
 				healthBar2->setTexture("Assets/UI Elements/Health Bars/DarkYellow.png");
 			}
 
@@ -327,13 +327,13 @@ void HelloWorld::update(float dt)
 		{
 			if (a->getBody()->getTag() == 0)
 			{
-				OutputDebugStringA("PLAYER DAMAGE\n");
+				//OutputDebugStringA("PLAYER DAMAGE\n");
 				healthBar1->setTexture("Assets/UI Elements/Health Bars/Orange.png");
 			}
 
 			else if (a->getBody()->getTag() == 1)
 			{
-				OutputDebugStringA("PLAYER 2 DAMAGEd\n");
+				//OutputDebugStringA("PLAYER 2 DAMAGEd\n");
 				healthBar2->setTexture("Assets/UI Elements/Health Bars/Orange.png");
 			}
 
@@ -352,13 +352,13 @@ void HelloWorld::update(float dt)
 		{
 			if (a->getBody()->getTag() == 0)
 			{
-				OutputDebugStringA("PLAYER DAMAGE\n");
+				//OutputDebugStringA("PLAYER DAMAGE\n");
 				healthBar1->setTexture("Assets/UI Elements/Health Bars/LightRed.png");
 			}
 
 			else if (a->getBody()->getTag() == 1)
 			{
-				OutputDebugStringA("PLAYER 2 DAMAGEd\n");
+				//OutputDebugStringA("PLAYER 2 DAMAGEd\n");
 				healthBar2->setTexture("Assets/UI Elements/Health Bars/LightRed.png");
 			}
 
@@ -377,13 +377,13 @@ void HelloWorld::update(float dt)
 		{
 			if (a->getBody()->getTag() == 0)
 			{
-				OutputDebugStringA("PLAYER DAMAGE\n");
+				//OutputDebugStringA("PLAYER DAMAGE\n");
 				healthBar1->setTexture("Assets/UI Elements/Health Bars/DarkRed.png");
 			}
 
 			else if (a->getBody()->getTag() == 1)
 			{
-				OutputDebugStringA("PLAYER 2 DAMAGEd\n");
+				//OutputDebugStringA("PLAYER 2 DAMAGEd\n");
 				healthBar2->setTexture("Assets/UI Elements/Health Bars/DarkRed.png");
 			}
 
