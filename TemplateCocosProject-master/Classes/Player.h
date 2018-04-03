@@ -1,13 +1,14 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <functional>
 #include "cocos2d.h"
 #include "controller.h"
 #include "SpriteAnimation.h"
 #include "AudioPlayer.h"
 #include "Projectile.h"
 
-using std::string;
+using namespace std;
 USING_NS_CC;
 using namespace Input;
 class Player :public Node
@@ -38,7 +39,7 @@ public:
 	void setVelX(float x);
 	void setVelY(float y);
 	void setVel(float x, float y);
-	template<class T> void setVel(T x,T y);
+	template<class T> void setVel(T x, T y);
 #pragma endregion
 
 
@@ -98,7 +99,9 @@ public:
 	void setLives(int n);
 
 	bool getDodge();
-	
+
+	void setAttacking(bool);
+
 private:
 //Updates are called internaly, nolonger need to call them
 	void update(float);
@@ -109,7 +112,7 @@ private:
 	float LT, RT, interuptCounter, interuptCount, initialDash;
 	int  numJumps = 0, numDash = 0, damage = 0, lives = 3;
 	short jumpCount, index;
-	bool dash, hasJumped, fliped = false, dodge = false;
+	bool dash, hasJumped, fliped = false, dodge = false, attacking = false;
 
 	AudioPlayer* sfx = new AudioPlayer;
 	string sounds[1] {"Audio/NornieShot.mp3"};
