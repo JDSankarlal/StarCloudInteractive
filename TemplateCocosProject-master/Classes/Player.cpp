@@ -24,7 +24,7 @@ Player::Player(Scene *ActiveScene, int bitMask, int index)
 	auto size = getSprite()->getContentSize();
 	getSprite()->setPhysicsBody(PhysicsBody::createBox(size));
 	getBody()->setName("Player");
-	getBody()->setTag(index); 
+	getBody()->setTag(index);
 	setTag(index);
 	getBody()->setCollisionBitmask(bitMask);
 	getBody()->setContactTestBitmask(true);
@@ -143,171 +143,192 @@ void Player::movementUpdate(float dt)
 			else if(moveL.xAxis > 0)
 				getSprite()->setFlippedX(fliped = false);
 
-			if(moveL.yAxis < .8f || moveL.yAxis < -.8f)
+			if(moveL.yAxis < .8f && moveL.yAxis > -.8f)
 				addImpulseX(move* moveL.xAxis);
 			if(!dash)
-				
-					if(moveL.xAxis != 0)
-					{
-						playerAni->resume();
-						OutputDebugStringA("Walking in the dark\n");
-						playerAni->setAnimationSpeed((1.1 - abs(moveL.xAxis)) * .1);
-					} else
-						playerAni->pause();
+			
+				if(moveL.xAxis != 0)
+				{
+					//OutputDebugStringA("The thing is resumed\n");
+					playerAni->resume();
+					//OutputDebugStringA("Walking in the dark\n");
+					if(playerAni->getAnimation() == "walk")
+						playerAni->setAnimationSpeed((1.3 - abs(moveL.xAxis)) * .1);
+						//playerAni->setAnimationSpeed(.05);
+				} else
+				{
+					playerAni->pause();
+					//OutputDebugStringA("The thing is paused\n");
+				}
 				
 
 #pragma endregion
 
 #pragma region Jumping
 
-			if((controllers.ButtonPress(index, A)) && (!hasJumped && numJumps < 2))
-			{
-				numJumps++;
-				if(numJumps > 1)
-					addImpulseY(53500.f * 5.f * .9 * numJumps * .5f);
-				else
-					addImpulseY(53500 * 5 * .9 * numJumps);
-				hasJumped = true;
-			} else
-				if(controllers.ButtonRelease(index, A))
-					hasJumped = false;
+				if((controllers.ButtonPress(index, A)) && (!hasJumped && numJumps < 2))
+				{
+					numJumps++;
+					if(numJumps > 1)
+						addImpulseY(53500.f * 5.f * .9 * numJumps * .5f);
+					else
+						addImpulseY(53500 * 5 * .9 * numJumps);
+					hasJumped = true;
+				} else
+					if(controllers.ButtonRelease(index, A))
+						hasJumped = false;
 #pragma endregion
 
 #pragma region Animation
-			if(dash)
-			{
-				if(playerAni->getAnimation() != "dash")
+				if(dash)
 				{
-					OutputDebugStringA("Dash\n");
-					playerAni->setRepeat(false);
-					playerAni->setAnimation("dash");
-					playerAni->setAnimationSpeed(.01);
-				}
-			} else if(!inRange(getVelocity().y, -hi, hi))
-			{
-				if(playerAni->getAnimation() != "walk")
+					if(playerAni->getAnimation() != "dash")
+					{
+						OutputDebugStringA("Dash\n");
+						playerAni->setRepeat(false);
+						playerAni->setAnimation("dash");
+						playerAni->setAnimationSpeed(.01);
+					}
+				} else if(getVelocity().y > 0.f && !inRange(getVelocity().y, lo, hi))
 				{
-					OutputDebugStringA("Walking\n");
-					playerAni->setRepeat(true);
-					playerAni->setAnimation("walk");
-					playerAni->reset();
+					if(playerAni->getAnimation() != "jump")
+					{
+						OutputDebugStringA("Jump\n");
+						playerAni->reset();
+						playerAni->setRepeat(false);
+						playerAni->setAnimation("jump");
+						playerAni->setAnimationSpeed(.01);
+				
+					}
+				} else 
+				{
+					
+					
+					
+					
+					
+					if(playerAni->getAnimation() != "walk")
+					{
+						OutputDebugStringA("Walking\n");
+						playerAni->setRepeat(true);
+						playerAni->setAnimation("walk");
+						playerAni->reset();
+					}
 				}
-			}
 
-			//else if (getVelocity().y < 0.f && !inRange(getVelocity().y, -hi, lo))
-			//{
-			//	if (playerAni->getAnimation() != "falling")
-			//	{
-			//		OutputDebugStringA("Falling\n");
-			//		playerAni->setRepeat(false);
-			//		playerAni->setAnimation("falling");
-			//		playerAni->setAnimationSpeed(.05);
-			//		playerAni->reset();
-			//	}
-			//}
-			else if(getVelocity().y > 0.f && !inRange(getVelocity().y, lo, hi))
-			{
-				if(playerAni->getAnimation() != "jump")
-				{
-					OutputDebugStringA("Jump\n");
-					playerAni->reset();
-					playerAni->setRepeat(false);
-					playerAni->setAnimation("jump");
-					playerAni->setAnimationSpeed(.01);
-
-				}
-			}
+				//else if (getVelocity().y < 0.f && !inRange(getVelocity().y, -hi, lo))
+				//{
+				//	if (playerAni->getAnimation() != "falling")
+				//	{
+				//		OutputDebugStringA("Falling\n");
+				//		playerAni->setRepeat(false);
+				//		playerAni->setAnimation("falling");
+				//		playerAni->setAnimationSpeed(.05);
+				//		playerAni->reset();
+				//	}
+				//}
 #pragma endregion
 
 #pragma region Dash			
-			controllers.GetTriggers(index, LT, RT);
-			if(LT > .5 || RT > .5 && numDash < 1)
-				controllers.SetVibration(index, LT, RT);
-			if((LT > .5 || RT > .5) && !dash && numDash < 1)
-			{
-				numDash++;
-				numJumps--;
-				dash = true;
-				initialDash = 1;
-				if(moveL.xAxis != 0)
-					addImpulseX(move * 2 * (moveL.xAxis / abs(moveL.xAxis)));
-			//	OutputDebugStringA(string(to_string(moveL.xAxis / abs(moveL.xAxis)) + "\n").c_str());
-			} else if(LT < .5 && RT < .5)
-			{
-				controllers.SetVibration(index, 0, 0);
-				dash = false;
-				playerAni->reset();
-			}
-			if(dash)
-			{
-				initialDash -= .001;
-				dodge = false;
-				if(moveL.xAxis != 0)
-					if(move * 2 * initialDash * (moveL.xAxis / abs(moveL.xAxis)) != 0)
-					{
-						addImpulseX(move * 2 * initialDash * (moveL.xAxis / abs(moveL.xAxis)));
-						
-					}
-				if(initialDash <= .5)
+				controllers.GetTriggers(index, LT, RT);
+				if(LT > .5 || RT > .5 && numDash < 1)
+					controllers.SetVibration(index, LT, RT);
+				if((LT > .5 || RT > .5) && !dash && numDash < 1)
+				{
+					numDash++;
+					numJumps--;
+					dash = true;
+					initialDash = 1;
+					if(moveL.xAxis != 0)
+						addImpulseX(move * 2 * (moveL.xAxis / abs(moveL.xAxis)));
+				//	OutputDebugStringA(string(to_string(moveL.xAxis / abs(moveL.xAxis)) + "\n").c_str());
+				} else if(LT < .5 && RT < .5)
 				{
 					controllers.SetVibration(index, 0, 0);
-				} else
+					if(dash)
+					playerAni->reset();
+					dash = false;
+					initialDash -= .001;
+					
+				}
+				if(dash)
+				{
+					initialDash -= .001;
+					dodge = false;
+					if(moveL.xAxis != 0)
+						if(move * 2 * initialDash * (moveL.xAxis / abs(moveL.xAxis)) != 0)
+						{
+							addImpulseX(move * 2 * initialDash * (moveL.xAxis / abs(moveL.xAxis)));
+
+						}
+					if(initialDash <= .5)
+					{
+						controllers.SetVibration(index, 0, 0);
+					}
+				}
+				if(initialDash > .5)
 				{
 					dodge = true;
 				}
-			}
-
 #pragma endregion
 
 #pragma region Attacks
 			//static Projectile atk;
-			if(controllers.ButtonStroke(index, Y) || controllers.ButtonStroke(index, B))
-			{
-				sfx->setAudio(sounds[0]);
-				sfx->play();
-
-				atk = new Projectile(scene, true, 1, index);
-
-				atk->setSize(.5);
-				atk->setPosition(getPosition().x, getPosition().y);
-
-				if(moveL.yAxis > .8f)
+				if(controllers.ButtonStroke(index, Y) || controllers.ButtonStroke(index, B)) //Heavy
 				{
-					atk->setRotation(90);
-					atk->setVelY(500);
-				} else if(!fliped)
+					sfx->setAudio(sounds[0]);
+					sfx->play();
+
+					atk = new Projectile(scene, true, 1, index);
+
+					atk->setSize(.5);
+					atk->setPosition(getPosition().x, getPosition().y);
+
+					if(moveL.yAxis > .8f)
+					{
+						atk->setRotation(90);
+						atk->setVelY(500 * .75);
+					} else if(moveL.yAxis < -.7f)
+					{
+						atk->setRotation(-90);
+						atk->setVelY(-500 * 2 * .75);
+					} else if(!fliped)
+					{
+						atk->flipX(fliped);
+						atk->setVelX(500 * .75);
+					} else
+					{
+						atk->flipX(fliped);
+						atk->setVelX(-500 * .75);
+					}
+				} else if(controllers.ButtonStroke(index, X))//Light
 				{
-					atk->flipX(fliped);
-					atk->setVelX(500);
-				} else
-				{
-					atk->flipX(fliped);
-					atk->setVelX(-500);
+					sfx->setAudio(sounds[0]);
+					sfx->play();
+
+					atk = new Projectile(scene, false, 1, index);
+
+					atk->setSize(.5);
+					atk->setPosition(getPosition().x, getPosition().y);
+
+					if(moveL.yAxis > .8f)
+					{
+						atk->setRotation(90);
+						atk->setVelY(500);
+					} else if(moveL.yAxis < -.7f)
+					{
+						atk->setRotation(-90);
+						atk->setVelY(-500 * 2);
+					} else if(!fliped)
+					{
+						atk->flipX(fliped);
+						atk->setVelX(500);
+					} else
+					{
+						atk->flipX(fliped);
+						atk->setVelX(-500);
+					}
 				}
-			} else if(controllers.ButtonStroke(index, X))
-			{
-				sfx->setAudio(sounds[0]);
-				sfx->play();
-
-				atk = new Projectile(scene, false, 1, index);
-
-				atk->setSize(.5);
-				atk->setPosition(getPosition().x, getPosition().y);
-
-				if(moveL.yAxis > .8f)
-				{
-					atk->setRotation(90);
-					atk->setVelY(500);
-				} else if(!fliped)
-				{
-					atk->flipX(fliped);
-					atk->setVelX(500);
-				} else
-				{
-					atk->flipX(fliped);
-					atk->setVelX(-500);
-				}
-			}
 #pragma endregion	
 		}
 #pragma region Cursor Location
@@ -325,10 +346,7 @@ void Player::movementUpdate(float dt)
 		cursor[index]->setColor(colours2[index]);
 #pragma endregion
 	}
-//else
-//	{
-//		cursor[index]->setPosition(-1 * (cursor[index]->getContentSize()));
-//	}
+
 }
 
 void Player::setPosition(float x, float y, float z)

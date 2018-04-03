@@ -38,6 +38,7 @@ public:
 	void setVelX(float x);
 	void setVelY(float y);
 	void setVel(float x, float y);
+	template<class T> void setVel(T x,T y);
 #pragma endregion
 
 
@@ -119,3 +120,6 @@ private:
 	SpriteAnimation* playerAni;
 };
 
+template<class T>
+void Player::setVel(T x, T y)
+{}
