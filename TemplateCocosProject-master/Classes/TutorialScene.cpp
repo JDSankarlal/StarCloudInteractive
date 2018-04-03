@@ -255,6 +255,7 @@ void TutorialScene::update(float dt)
 				if(players[a]->getLives() > 0)
 					addChild(players[a]);
 			}
+
 			//OutputDebugStringA(string("Controller: "+std::to_string(index)+'\n').c_str());
 			Stick moveD, moveU;
 
@@ -432,91 +433,92 @@ void TutorialScene::update(float dt)
 					}
 				}
 			}
-		} else
-		{
-			players[a]->removeFromParentAndCleanup(false);
 		}
-		if(sheep->getHP() <= 0)
-		{
-			sheep->onDeath();
-		}
+		   else
+		   {
+			   players[a]->removeFromParentAndCleanup(false);
+		   }
+	if(sheep->getHP() <= 0)
+	{
+		sheep->onDeath();
+	}
 
-		if(onStart == true)
+	if(onStart == true)
+	{
+		Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(0);
+		for(auto &a : players)
 		{
-			Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(0);
+			a->pause();//pauses player update
+			for(auto &b : a->getChildren())
+				b->pause();	//stops the player animation
+		}
+	}
+	if(theRealDT >= 3)
+	{
+
+		if(scrolls[0]->getZOrder() == 2)
+		{
+			scrolls[0]->setZOrder(-2);
+			scrolls[1]->setZOrder(2);
+		} else if(scrolls[1]->getZOrder() == 2 && theRealDT >= 6)
+		{
+			scrolls[1]->setZOrder(-2);
+			scrolls[2]->setZOrder(2);
+		} else if(scrolls[2]->getZOrder() == 2 && theRealDT >= 9)
+		{
+			scrolls[2]->setZOrder(-2);
+			scrolls[3]->setZOrder(2);
+			onStart = false;
+			Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(1);
 			for(auto &a : players)
 			{
-				a->pause();//pauses player update
+				a->resume();
 				for(auto &b : a->getChildren())
-					b->pause();	//stops the player animation
+					b->resume();
 			}
-		}
-		if(theRealDT >= 3)
+		} else if(scrolls[3]->getZOrder() == 2 && theRealDT >= 12)
+		{
+			scrolls[3]->setZOrder(-2);
+			scrolls[4]->setZOrder(2);
+		} else if(scrolls[4]->getZOrder() == 2 && theRealDT >= 15 && (players[0]->getPosition().x >= 1150 || players[1]->getPosition().x >= 1150 || players[2]->getPosition().x >= 1150 || players[3]->getPosition().x >= 1150))
+		{
+			scrolls[4]->setZOrder(-2);
+			scrolls[5]->setZOrder(2);
+		} else if(scrolls[5]->getZOrder() == 2 && theRealDT >= 20 && sheep->sheep1 == false)
+		{
+			scrolls[5]->setZOrder(-2);
+			scrolls[6]->setZOrder(2);
+			theRealDT = 0;
+			sheep->sheep2 = true;
+		} else if(scrolls[6]->getZOrder() == 2 && theRealDT >= 3)
+		{
+			scrolls[6]->setZOrder(-2);
+			scrolls[7]->setZOrder(2);
+		} else if(scrolls[7]->getZOrder() == 2 && theRealDT >= 6 && sheep->sheep2 == false)
+		{
+			scrolls[7]->setZOrder(-2);
+			scrolls[8]->setZOrder(2);
+			theRealDT = 0;
+			this->removeChild(sheep);
+		} else if(scrolls[8]->getZOrder() == 2 && theRealDT >= 3)
+		{
+			scrolls[8]->setZOrder(-2);
+			scrolls[9]->setZOrder(2);
+		} else if(scrolls[9]->getZOrder() == 2 && theRealDT >= 6)
+		{
+			scrolls[9]->setZOrder(-2);
+			scrolls[10]->setZOrder(2);
+		} else if(scrolls[10]->getZOrder() == 2 && theRealDT >= 9)
+		{
+			scrolls[10]->setZOrder(-2);
+			scrolls[11]->setZOrder(2);
+		} else if(scrolls[11]->getZOrder() == 2 && theRealDT >= 12)
 		{
 
-			if(scrolls[0]->getZOrder() == 2)
-			{
-				scrolls[0]->setZOrder(-2);
-				scrolls[1]->setZOrder(2);
-			} else if(scrolls[1]->getZOrder() == 2 && theRealDT >= 6)
-			{
-				scrolls[1]->setZOrder(-2);
-				scrolls[2]->setZOrder(2);
-			} else if(scrolls[2]->getZOrder() == 2 && theRealDT >= 9)
-			{
-				scrolls[2]->setZOrder(-2);
-				scrolls[3]->setZOrder(2);
-				onStart = false;
-				Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(1);
-				for(auto &a : players)
-				{
-					a->resume();
-					for(auto &b : a->getChildren())
-						b->resume();
-				}
-			} else if(scrolls[3]->getZOrder() == 2 && theRealDT >= 12)
-			{
-				scrolls[3]->setZOrder(-2);
-				scrolls[4]->setZOrder(2);
-			} else if(scrolls[4]->getZOrder() == 2 && theRealDT >= 15 && players[0]->getPosition().x >= 1150)
-			{
-				scrolls[4]->setZOrder(-2);
-				scrolls[5]->setZOrder(2);
-			} else if(scrolls[5]->getZOrder() == 2 && theRealDT >= 20 && sheep->sheep1 == false)
-			{
-				scrolls[5]->setZOrder(-2);
-				scrolls[6]->setZOrder(2);
-				theRealDT = 0;
-				sheep->sheep2 = true;
-			} else if(scrolls[6]->getZOrder() == 2 && theRealDT >= 3)
-			{
-				scrolls[6]->setZOrder(-2);
-				scrolls[7]->setZOrder(2);
-			} else if(scrolls[7]->getZOrder() == 2 && theRealDT >= 6 && sheep->sheep2 == false)
-			{
-				scrolls[7]->setZOrder(-2);
-				scrolls[8]->setZOrder(2);
-				theRealDT = 0;
-				this->removeChild(sheep);
-			} else if(scrolls[8]->getZOrder() == 2 && theRealDT >= 3)
-			{
-				scrolls[8]->setZOrder(-2);
-				scrolls[9]->setZOrder(2);
-			} else if(scrolls[9]->getZOrder() == 2 && theRealDT >= 6)
-			{
-				scrolls[9]->setZOrder(-2);
-				scrolls[10]->setZOrder(2);
-			} else if(scrolls[10]->getZOrder() == 2 && theRealDT >= 9)
-			{
-				scrolls[10]->setZOrder(-2);
-				scrolls[11]->setZOrder(2);
-			} else if(scrolls[11]->getZOrder() == 2 && theRealDT >= 12)
-			{
-
-			}
-
 		}
-		OutputDebugStringA(string(to_string(theRealDT) + "\n").c_str());
+
+	}
+	OutputDebugStringA(string(to_string(theRealDT) + "\n").c_str());
 }
 
 

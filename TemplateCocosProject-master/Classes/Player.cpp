@@ -259,12 +259,14 @@ void Player::movementUpdate(float dt)
 						if((LT > .5 || RT > .5) && !dash && numDash < 1)
 						{
 							numDash++;
-							numJumps--;
+							if(numJumps > 0)
+								numJumps--;
 							dash = true;
 							initialDash = 1;
 							if(moveL.xAxis != 0)
-								addImpulseX(move * 2 * (moveL.xAxis / abs(moveL.xAxis)));
-						//	OutputDebugStringA(string(to_string(moveL.xAxis / abs(moveL.xAxis)) + "\n").c_str());
+								if(moveL.yAxis < .8f && moveL.yAxis > -.8f)
+									addImpulseX(move * 2 * (moveL.xAxis / abs(moveL.xAxis)));
+							//	OutputDebugStringA(string(to_string(moveL.xAxis / abs(moveL.xAxis)) + "\n").c_str());
 						} else if(LT < .5 && RT < .5)
 						{
 							controllers.SetVibration(index, 0, 0);
