@@ -23,6 +23,7 @@ public:
 	void DrawWorld();
 	//Jump
 	void Win();
+	void Countdown(float dt);
 	//void jump();
 	float rangeRandom(float min, float max);
 	void shakeScreen(float dt);
@@ -195,7 +196,7 @@ private:
 	cocos2d::Sprite* lives1, *lives2, *lives3, *lives4;
 	//HUD Stuff Ends
 
-
+	double dtt = 0;
 
 	int SET_SHAKE_DURATION;
 
@@ -204,4 +205,5 @@ private:
 	bool restartBtnActive = false;
 	bool quitBtnActive = false;
 
+	bool countDown = true;
 }; //Independance
