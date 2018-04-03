@@ -43,13 +43,13 @@ bool HelloWorld::init()
 	short count = 0;
 	for(auto &a : players)
 	{
-		if (a->getBody()->getTag()==0)
+		if(a->getBody()->getTag() == 0)
 			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 - 100, director->getOpenGLView()->getFrameSize().height / 2 + 320);
-		if (a->getBody()->getTag() == 1)
+		if(a->getBody()->getTag() == 1)
 			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + 300, director->getOpenGLView()->getFrameSize().height / 2 - 300);
-		if (a->getBody()->getTag() == 2)
+		if(a->getBody()->getTag() == 2)
 			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + -600, director->getOpenGLView()->getFrameSize().height / 2 + 120);
-		if (a->getBody()->getTag() == 3)
+		if(a->getBody()->getTag() == 3)
 			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2 + 15);
 	}
 
@@ -184,13 +184,16 @@ bool HelloWorld::init()
 	lives4->setPosition(player4->getPositionX() - 35, player4->getPositionY() - 20);
 	lives4->setScale(.5);
 	this->addChild(lives4, 2);
+	UIStuff = {
+		{player1,lives1,healthBar1},
+	{player2,lives2,healthBar2},
+	{player3,lives3,healthBar3},
+	{player4,lives4,healthBar4}};
+	for(auto &a : UIStuff)
+		for(auto &b : a)
+			b->setVisible(false);
 
-	//Countdown stuff
-	lives4 = Sprite::create("Assets/UI Elements/Lives/3_Lives.png");
-	lives4->setPosition(player4->getPositionX() - 35, player4->getPositionY() - 20);
-	lives4->setScale(.5);
-	this->addChild(lives4, 2);
-	//Collision stuff
+		//Collision stuff
 	contact();
 
 	//call update
@@ -201,6 +204,18 @@ bool HelloWorld::init()
 	audio->setAudio("Audio/Battle_Time_V3.mp3");
 	audio->play(true);
 
+	//XBoxInput controllers;
+	//controllers.DownloadPackets();
+	//for(int a = 0; a < 4; a++)
+	//	if(controllers.GetConnected(a))
+	//	{
+	//		if(getChildren().find(players[a]) == getChildren().end())
+	//		{
+	//			if(players[a]->getLives() > 0)
+	//				addChild(players[a]);
+	//		}
+	//	}
+	Countdown();
 	return true;
 }
 
@@ -212,217 +227,235 @@ void HelloWorld::update(float dt)
 	static XBoxInput controllers;
 	controllers.DownloadPackets(4);
 	short count = 0;
+
+
 	for(auto &a : players)
 	{
+		if(controllers.GetConnected(a->getTag()))
+		{
+			if(a->getLives() > 0)
+				for(auto &a : UIStuff.at(a->getTag()))
+				{
+					a->setVisible(true);
+				}
 		//LIFE COUNTER
-		if(a->getLives() == 2)
+			if(a->getLives() == 2)
+			{
+				if(a->getBody()->getTag() == 0)
+				{
+					lives1->setTexture("Assets/UI Elements/Lives/2_Lives.png");
+				}
+
+				if(a->getBody()->getTag() == 1)
+				{
+					lives2->setTexture("Assets/UI Elements/Lives/2_Lives.png");
+				}
+
+				if(a->getBody()->getTag() == 2)
+				{
+					lives3->setTexture("Assets/UI Elements/Lives/2_Lives.png");
+				}
+
+				if(a->getBody()->getTag() == 3)
+				{
+					lives4->setTexture("Assets/UI Elements/Lives/2_Lives.png");
+				}
+			}
+
+			if(a->getLives() == 1)
+			{
+				if(a->getBody()->getTag() == 0)
+				{
+					lives1->setTexture("Assets/UI Elements/Lives/1_Life.png");
+				}
+
+				if(a->getBody()->getTag() == 1)
+				{
+					lives2->setTexture("Assets/UI Elements/Lives/1_Life.png");
+				}
+
+				if(a->getBody()->getTag() == 2)
+				{
+					lives3->setTexture("Assets/UI Elements/Lives/1_Life.png");
+				}
+
+				if(a->getBody()->getTag() == 3)
+				{
+					lives4->setTexture("Assets/UI Elements/Lives/1_Lives.png");
+				}
+			}
+			//LIFE COUNTER ENDS	
+
+			//
+			//CHANGE UI BASED OFF DAMAGE HERE I THINK
+			//AT INCREMENTS OF 50 THE COLOUR CHANGES
+			//ALSO THE IMPULSE BECOMES MORE BUT WE'LL DO THAT AFTER
+			//
+			//ALSO I MIGHT BE WORKING HERE TOO SO WE MIGHT GET MERGE CONFLICTS...
+			//BUT WE KNOW HOW TO DEALIO WITH THAT SO ITS GUCCI
+			//
+			//GL HF
+			//
+
+			//DAMAGE BARS
+			if(a->getDamage() <= 0)
+			{
+				if(a->getBody()->getTag() == 0)
+				{
+					//OutputDebugStringA("PLAYER DAMAGE\n");
+					healthBar1->setTexture("Assets/UI Elements/Health Bars/White.png");
+				}
+
+				else if(a->getBody()->getTag() == 1)
+				{
+					//OutputDebugStringA("PLAYER 2 DAMAGEd\n");
+					healthBar2->setTexture("Assets/UI Elements/Health Bars/White.png");
+				}
+
+				else if(a->getBody()->getTag() == 2)
+				{
+					healthBar3->setTexture("Assets/UI Elements/Health Bars/White.png");
+
+				}
+
+				else if(a->getBody()->getTag() == 3)
+				{
+					healthBar4->setTexture("Assets/UI Elements/Health Bars/White.png");
+				}
+			}
+			if(a->getDamage() >= 50)
+			{
+				if(a->getBody()->getTag() == 0)
+				{
+					//OutputDebugStringA("PLAYER DAMAGE\n");
+					healthBar1->setTexture("Assets/UI Elements/Health Bars/Yellow.png");
+				}
+
+				else if(a->getBody()->getTag() == 1)
+				{
+					//OutputDebugStringA("PLAYER 2 DAMAGEd\n");
+					healthBar2->setTexture("Assets/UI Elements/Health Bars/Yellow.png");
+				}
+
+				else if(a->getBody()->getTag() == 2)
+				{
+					healthBar3->setTexture("Assets/UI Elements/Health Bars/Yellow.png");
+
+				}
+
+				else if(a->getBody()->getTag() == 3)
+				{
+					healthBar4->setTexture("Assets/UI Elements/Health Bars/Yellow.png");
+				}
+			}
+			if(a->getDamage() >= 100)
+			{
+				if(a->getBody()->getTag() == 0)
+				{
+					//OutputDebugStringA("PLAYER DAMAGE\n");
+					healthBar1->setTexture("Assets/UI Elements/Health Bars/DarkYellow.png");
+				}
+
+				else if(a->getBody()->getTag() == 1)
+				{
+					//OutputDebugStringA("PLAYER 2 DAMAGEd\n");
+					healthBar2->setTexture("Assets/UI Elements/Health Bars/DarkYellow.png");
+				}
+
+				else if(a->getBody()->getTag() == 2)
+				{
+					healthBar3->setTexture("Assets/UI Elements/Health Bars/DarkYellow.png");
+
+				}
+
+				else if(a->getBody()->getTag() == 3)
+				{
+					healthBar4->setTexture("Assets/UI Elements/Health Bars/DarkYellow.png");
+				}
+			}
+			if(a->getDamage() >= 150)
+			{
+				if(a->getBody()->getTag() == 0)
+				{
+					//OutputDebugStringA("PLAYER DAMAGE\n");
+					healthBar1->setTexture("Assets/UI Elements/Health Bars/Orange.png");
+				}
+
+				else if(a->getBody()->getTag() == 1)
+				{
+					//OutputDebugStringA("PLAYER 2 DAMAGEd\n");
+					healthBar2->setTexture("Assets/UI Elements/Health Bars/Orange.png");
+				}
+
+				else if(a->getBody()->getTag() == 2)
+				{
+					healthBar3->setTexture("Assets/UI Elements/Health Bars/Orange.png");
+
+				}
+
+				else if(a->getBody()->getTag() == 3)
+				{
+					healthBar4->setTexture("Assets/UI Elements/Health Bars/Orange.png");
+				}
+			}
+			if(a->getDamage() >= 200)
+			{
+				if(a->getBody()->getTag() == 0)
+				{
+					//OutputDebugStringA("PLAYER DAMAGE\n");
+					healthBar1->setTexture("Assets/UI Elements/Health Bars/LightRed.png");
+				}
+
+				else if(a->getBody()->getTag() == 1)
+				{
+					//OutputDebugStringA("PLAYER 2 DAMAGEd\n");
+					healthBar2->setTexture("Assets/UI Elements/Health Bars/LightRed.png");
+				}
+
+				else if(a->getBody()->getTag() == 2)
+				{
+					healthBar3->setTexture("Assets/UI Elements/Health Bars/LightRed.png");
+
+				}
+
+				else if(a->getBody()->getTag() == 3)
+				{
+					healthBar4->setTexture("Assets/UI Elements/Health Bars/LightRed.png");
+				}
+			}
+			if(a->getDamage() >= 250)
+			{
+				if(a->getBody()->getTag() == 0)
+				{
+					//OutputDebugStringA("PLAYER DAMAGE\n");
+					healthBar1->setTexture("Assets/UI Elements/Health Bars/DarkRed.png");
+				}
+
+				else if(a->getBody()->getTag() == 1)
+				{
+					//OutputDebugStringA("PLAYER 2 DAMAGEd\n");
+					healthBar2->setTexture("Assets/UI Elements/Health Bars/DarkRed.png");
+				}
+
+				else if(a->getBody()->getTag() == 2)
+				{
+					healthBar3->setTexture("Assets/UI Elements/Health Bars/DarkRed.png");
+
+				}
+
+				else if(a->getBody()->getTag() == 3)
+				{
+					healthBar4->setTexture("Assets/UI Elements/Health Bars/DarkRed.png");
+				}
+			}
+		} else
 		{
-			if(a->getBody()->getTag() == 0)
+			for(auto &a : UIStuff.at(a->getTag()))
 			{
-				lives1->setTexture("Assets/UI Elements/Lives/2_Lives.png");
-			}
-
-			if(a->getBody()->getTag() == 1)
-			{
-				lives2->setTexture("Assets/UI Elements/Lives/2_Lives.png");
-			}
-
-			if(a->getBody()->getTag() == 2)
-			{
-				lives3->setTexture("Assets/UI Elements/Lives/2_Lives.png");
-			}
-
-			if(a->getBody()->getTag() == 3)
-			{
-				lives4->setTexture("Assets/UI Elements/Lives/2_Lives.png");
+				a->setVisible(false);
 			}
 		}
-
-		if(a->getLives() == 1)
-		{
-			if(a->getBody()->getTag() == 0)
-			{
-				lives1->setTexture("Assets/UI Elements/Lives/1_Life.png");
-			}
-
-			if(a->getBody()->getTag() == 1)
-			{
-				lives2->setTexture("Assets/UI Elements/Lives/1_Life.png");
-			}
-
-			if(a->getBody()->getTag() == 2)
-			{
-				lives3->setTexture("Assets/UI Elements/Lives/1_Life.png");
-			}
-
-			if(a->getBody()->getTag() == 3)
-			{
-				lives4->setTexture("Assets/UI Elements/Lives/2_Lives.png");
-			}
-		}
-		//LIFE COUNTER ENDS	
-
-		//DAMAGE BARS
-		if(a->getDamage() <= 0)
-		{
-			if(a->getBody()->getTag() == 0)
-			{
-				//OutputDebugStringA("PLAYER DAMAGE\n");
-				healthBar1->setTexture("Assets/UI Elements/Health Bars/White.png");
-			}
-
-			else if(a->getBody()->getTag() == 1)
-			{
-				//OutputDebugStringA("PLAYER 2 DAMAGEd\n");
-				healthBar2->setTexture("Assets/UI Elements/Health Bars/White.png");
-			}
-
-			else if(a->getBody()->getTag() == 2)
-			{
-				healthBar3->setTexture("Assets/UI Elements/Health Bars/White.png");
-
-			}
-
-			else if(a->getBody()->getTag() == 3)
-			{
-				healthBar4->setTexture("Assets/UI Elements/Health Bars/White.png");
-			}
-		}
-		if(a->getDamage() >= 50)
-		{
-			if(a->getBody()->getTag() == 0)
-			{
-				//OutputDebugStringA("PLAYER DAMAGE\n");
-				healthBar1->setTexture("Assets/UI Elements/Health Bars/Yellow.png");
-			}
-
-			else if(a->getBody()->getTag() == 1)
-			{
-				//OutputDebugStringA("PLAYER 2 DAMAGEd\n");
-				healthBar2->setTexture("Assets/UI Elements/Health Bars/Yellow.png");
-			}
-
-			else if(a->getBody()->getTag() == 2)
-			{
-				healthBar3->setTexture("Assets/UI Elements/Health Bars/Yellow.png");
-
-			}
-
-			else if(a->getBody()->getTag() == 3)
-			{
-				healthBar4->setTexture("Assets/UI Elements/Health Bars/Yellow.png");
-			}
-		}
-		if(a->getDamage() >= 100)
-		{
-			if(a->getBody()->getTag() == 0)
-			{
-				//OutputDebugStringA("PLAYER DAMAGE\n");
-				healthBar1->setTexture("Assets/UI Elements/Health Bars/DarkYellow.png");
-			}
-
-			else if(a->getBody()->getTag() == 1)
-			{
-				//OutputDebugStringA("PLAYER 2 DAMAGEd\n");
-				healthBar2->setTexture("Assets/UI Elements/Health Bars/DarkYellow.png");
-			}
-
-			else if(a->getBody()->getTag() == 2)
-			{
-				healthBar3->setTexture("Assets/UI Elements/Health Bars/DarkYellow.png");
-
-			}
-
-			else if(a->getBody()->getTag() == 3)
-			{
-				healthBar4->setTexture("Assets/UI Elements/Health Bars/DarkYellow.png");
-			}
-		}
-		if(a->getDamage() >= 150)
-		{
-			if(a->getBody()->getTag() == 0)
-			{
-				//OutputDebugStringA("PLAYER DAMAGE\n");
-				healthBar1->setTexture("Assets/UI Elements/Health Bars/Orange.png");
-			}
-
-			else if(a->getBody()->getTag() == 1)
-			{
-				//OutputDebugStringA("PLAYER 2 DAMAGEd\n");
-				healthBar2->setTexture("Assets/UI Elements/Health Bars/Orange.png");
-			}
-
-			else if(a->getBody()->getTag() == 2)
-			{
-				healthBar3->setTexture("Assets/UI Elements/Health Bars/Orange.png");
-
-			}
-
-			else if(a->getBody()->getTag() == 3)
-			{
-				healthBar4->setTexture("Assets/UI Elements/Health Bars/Orange.png");
-			}
-		}
-		if(a->getDamage() >= 200)
-		{
-			if(a->getBody()->getTag() == 0)
-			{
-				//OutputDebugStringA("PLAYER DAMAGE\n");
-				healthBar1->setTexture("Assets/UI Elements/Health Bars/LightRed.png");
-			}
-
-			else if(a->getBody()->getTag() == 1)
-			{
-				//OutputDebugStringA("PLAYER 2 DAMAGEd\n");
-				healthBar2->setTexture("Assets/UI Elements/Health Bars/LightRed.png");
-			}
-
-			else if(a->getBody()->getTag() == 2)
-			{
-				healthBar3->setTexture("Assets/UI Elements/Health Bars/LightRed.png");
-
-			}
-
-			else if(a->getBody()->getTag() == 3)
-			{
-				healthBar4->setTexture("Assets/UI Elements/Health Bars/LightRed.png");
-			}
-		}
-		if(a->getDamage() >= 250)
-		{
-			if(a->getBody()->getTag() == 0)
-			{
-				//OutputDebugStringA("PLAYER DAMAGE\n");
-				healthBar1->setTexture("Assets/UI Elements/Health Bars/DarkRed.png");
-			}
-
-			else if(a->getBody()->getTag() == 1)
-			{
-				//OutputDebugStringA("PLAYER 2 DAMAGEd\n");
-				healthBar2->setTexture("Assets/UI Elements/Health Bars/DarkRed.png");
-			}
-
-			else if(a->getBody()->getTag() == 2)
-			{
-				healthBar3->setTexture("Assets/UI Elements/Health Bars/DarkRed.png");
-
-			}
-
-			else if(a->getBody()->getTag() == 3)
-			{
-				healthBar4->setTexture("Assets/UI Elements/Health Bars/DarkRed.png");
-			}
-		}
-		//
-		//CHANGE UI BASED OFF DAMAGE HERE I THINK
-		//AT INCREMENTS OF 50 THE COLOUR CHANGES
-		//ALSO THE IMPULSE BECOMES MORE BUT WE'LL DO THAT AFTER
-		//
-		//ALSO I MIGHT BE WORKING HERE TOO SO WE MIGHT GET MERGE CONFLICTS...
-		//BUT WE KNOW HOW TO DEALIO WITH THAT SO ITS GUCCI
-		//
-		//GL HF
-		//
+	
 
 		if(200 < a->getPosition().x - (director->getOpenGLView()->getFrameSize().width))
 		{
@@ -449,44 +482,40 @@ void HelloWorld::update(float dt)
 			loseLifeParticles->setAngle(180);
 			loseLifeParticles->setGravity(Vec2(-300, -1));
 			loseLifeParticles->setEmissionRate(500);
+			loseLifeParticles->setPosition(Vec2(director->getOpenGLView()->getFrameSize().width, a->getPosition().y));
 
 			//If player 1 set colour
-			if (a->getBody()->getTag() == 0)
+			float halfPlayerHeight = players[0]->getSprite()->getContentSize().height;
+			if(a->getBody()->getTag() == 0)
 			{
 				loseLifeParticles->setStartColor(Color4F(1, 0, 0, 1));
 				loseLifeParticles->setEndColor(Color4F(1, 0, 0, 1));
 				loseLifeParticles->setStartColorVar(Color4F(1, 1, 1, 1));
 				loseLifeParticles->setEndColorVar(Color4F(1, 1, 1, 1));
-				a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 - 100, director->getOpenGLView()->getFrameSize().height / 2 + 286);
-			}
-			else if (a->getBody()->getTag() == 1)
+				a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 - 175, director->getOpenGLView()->getFrameSize().height / 2 + 250 + halfPlayerHeight);
+			} else if(a->getBody()->getTag() == 1)
 			{
 				loseLifeParticles->setStartColor(Color4F(0, 0, 1, 1));
 				loseLifeParticles->setEndColor(Color4F(0, 0, 1, 1));
 				loseLifeParticles->setStartColorVar(Color4F(1, 1, 1, 1));
 				loseLifeParticles->setEndColorVar(Color4F(1, 1, 1, 1));
-				a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + 300, director->getOpenGLView()->getFrameSize().height / 2 - 300);
-			}
-			else if (a->getBody()->getTag() == 2)
+				a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + 300, director->getOpenGLView()->getFrameSize().height / 2 - 350 + halfPlayerHeight);
+			} else if(a->getBody()->getTag() == 2)
 			{
 				loseLifeParticles->setStartColor(Color4F(0, 1, 0, 1));
 				loseLifeParticles->setEndColor(Color4F(0, 1, 0, 1));
 				loseLifeParticles->setStartColorVar(Color4F(1, 1, 1, 1));
 				loseLifeParticles->setEndColorVar(Color4F(1, 1, 1, 1));
-				a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + -600, director->getOpenGLView()->getFrameSize().height / 2 + 120);
-			}
-			else if (a->getBody()->getTag() == 3)
+				a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + -700, director->getOpenGLView()->getFrameSize().height / 2 + 50 + halfPlayerHeight);
+			} else if(a->getBody()->getTag() == 3)
 			{
 				loseLifeParticles->setStartColor(Color4F(1, 1, 0, 1));
 				loseLifeParticles->setEndColor(Color4F(1, 1, 0, 1));
 				loseLifeParticles->setStartColorVar(Color4F(1, 1, 1, 1));
 				loseLifeParticles->setEndColorVar(Color4F(1, 1, 1, 1));
-				a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2 + 15);
+				a->setPosition(director->getVisibleSize().width / 2 - 300, director->getVisibleSize().height / 2 - 350 + halfPlayerHeight);
 			}
-			//Set particle position, player position
-			//Add particles to scene
-			loseLifeParticles->setPosition(Vec2(director->getOpenGLView()->getFrameSize().width, a->getPosition().y));
-			//a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2 + 10);
+			a->setVel(0, 0); 
 			this->addChild(loseLifeParticles);
 			a->setDamage(0);
 
@@ -498,27 +527,7 @@ void HelloWorld::update(float dt)
 
 			static AudioPlayer death("Audio/Death_Fire.mp3");
 			death.play();
-			//if (a->getLives() <= 0)
-			//{
-			//	//UI Disapear
-			//	//Particles based on which player died.x
-			//	if (a->getTag() == 0)
-			//	{
-			//		player1->setVisible(false);
-			//	}
-			//	else if (a->getTag() == 1)
-			//	{
-			//		player2->setVisible(false);
-			//	}
-			//	else if (a->getTag() == 2)
-			//	{
-			//		player3->setVisible(false);
-			//	}
-			//	else if (a->getTag() == 3)
-			//	{
-			//		player4->setVisible(false);
-			//	}
-			//}
+
 
 			auto loseLifeParticles = ParticleFire::create();
 			loseLifeParticles->setAnchorPoint(Vec2(1, 1));
@@ -532,38 +541,39 @@ void HelloWorld::update(float dt)
 
 			loseLifeParticles->setGravity(Vec2(300, -1));
 			loseLifeParticles->setEmissionRate(500);
+			loseLifeParticles->setPosition(Vec2(0, a->getPosition().y));
 
+			float halfPlayerHeight = players[0]->getSprite()->getContentSize().height;
 			if(a->getBody()->getTag() == 0)
 			{
 				loseLifeParticles->setStartColor(Color4F(1, 0, 0, 1));
 				loseLifeParticles->setEndColor(Color4F(1, 0, 0, 1));
 				loseLifeParticles->setStartColorVar(Color4F(1, 1, 1, 1));
 				loseLifeParticles->setEndColorVar(Color4F(1, 1, 1, 1));
-				a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 - 100, director->getOpenGLView()->getFrameSize().height / 2 + 286);
+				a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 - 175, director->getOpenGLView()->getFrameSize().height / 2 + 250 + halfPlayerHeight);
 			} else if(a->getBody()->getTag() == 1)
 			{
 				loseLifeParticles->setStartColor(Color4F(0, 0, 1, 1));
 				loseLifeParticles->setEndColor(Color4F(0, 0, 1, 1));
 				loseLifeParticles->setStartColorVar(Color4F(1, 1, 1, 1));
 				loseLifeParticles->setEndColorVar(Color4F(1, 1, 1, 1));
-				a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + 300, director->getOpenGLView()->getFrameSize().height / 2 - 300);
+				a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + 300, director->getOpenGLView()->getFrameSize().height / 2 - 350 + halfPlayerHeight);
 			} else if(a->getBody()->getTag() == 2)
 			{
 				loseLifeParticles->setStartColor(Color4F(0, 1, 0, 1));
 				loseLifeParticles->setEndColor(Color4F(0, 1, 0, 1));
 				loseLifeParticles->setStartColorVar(Color4F(1, 1, 1, 1));
 				loseLifeParticles->setEndColorVar(Color4F(1, 1, 1, 1));
-				a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + -600, director->getOpenGLView()->getFrameSize().height / 2 + 120);
+				a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + -700, director->getOpenGLView()->getFrameSize().height / 2 + 50 + halfPlayerHeight);
 			} else if(a->getBody()->getTag() == 3)
 			{
 				loseLifeParticles->setStartColor(Color4F(1, 1, 0, 1));
 				loseLifeParticles->setEndColor(Color4F(1, 1, 0, 1));
 				loseLifeParticles->setStartColorVar(Color4F(1, 1, 1, 1));
 				loseLifeParticles->setEndColorVar(Color4F(1, 1, 1, 1));
-				a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2 + 15);
+				a->setPosition(director->getVisibleSize().width / 2 - 300, director->getVisibleSize().height / 2 - 350 + halfPlayerHeight);
 			}
-			loseLifeParticles->setPosition(Vec2(0, a->getPosition().y));
-			
+			a->setVel(0, 0);
 			this->addChild(loseLifeParticles);
 			a->setDamage(0);
 		} else if(a->getPosition().y < -200)
@@ -585,40 +595,39 @@ void HelloWorld::update(float dt)
 
 			//loseLifeParticles->setGravity(Vec2(0, 100));
 			loseLifeParticles->setEmissionRate(500);
+			loseLifeParticles->setPosition(Vec2(a->getPosition().x, 0));
 
-			if (a->getBody()->getTag() == 0)
+			float halfPlayerHeight = players[0]->getSprite()->getContentSize().height;
+			if(a->getBody()->getTag() == 0)
 			{
 				loseLifeParticles->setStartColor(Color4F(1, 0, 0, 1));
 				loseLifeParticles->setEndColor(Color4F(1, 0, 0, 1));
 				loseLifeParticles->setStartColorVar(Color4F(1, 1, 1, 1));
 				loseLifeParticles->setEndColorVar(Color4F(1, 1, 1, 1));
-				a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 - 100, director->getOpenGLView()->getFrameSize().height / 2 + 286);
-			}
-			else if (a->getBody()->getTag() == 1)
+				a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 - 175, director->getOpenGLView()->getFrameSize().height / 2 + 250 + halfPlayerHeight);
+			} else if(a->getBody()->getTag() == 1)
 			{
 				loseLifeParticles->setStartColor(Color4F(0, 0, 1, 1));
 				loseLifeParticles->setEndColor(Color4F(0, 0, 1, 1));
 				loseLifeParticles->setStartColorVar(Color4F(1, 1, 1, 1));
 				loseLifeParticles->setEndColorVar(Color4F(1, 1, 1, 1));
-				a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + 300, director->getOpenGLView()->getFrameSize().height / 2 - 300);
-			}
-			else if (a->getBody()->getTag() == 2)
+				a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + 300, director->getOpenGLView()->getFrameSize().height / 2 - 350 + halfPlayerHeight);
+			} else if(a->getBody()->getTag() == 2)
 			{
 				loseLifeParticles->setStartColor(Color4F(0, 1, 0, 1));
 				loseLifeParticles->setEndColor(Color4F(0, 1, 0, 1));
 				loseLifeParticles->setStartColorVar(Color4F(1, 1, 1, 1));
 				loseLifeParticles->setEndColorVar(Color4F(1, 1, 1, 1));
-				a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + -600, director->getOpenGLView()->getFrameSize().height / 2 + 120);
-			}
-			else if (a->getBody()->getTag() == 3)
+				a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + -700, director->getOpenGLView()->getFrameSize().height / 2 + 50 + halfPlayerHeight);
+			} else if(a->getBody()->getTag() == 3)
 			{
 				loseLifeParticles->setStartColor(Color4F(1, 1, 0, 1));
 				loseLifeParticles->setEndColor(Color4F(1, 1, 0, 1));
 				loseLifeParticles->setStartColorVar(Color4F(1, 1, 1, 1));
 				loseLifeParticles->setEndColorVar(Color4F(1, 1, 1, 1));
-				a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2 + 15);
+				a->setPosition(director->getVisibleSize().width / 2 - 300, director->getVisibleSize().height / 2 - 350 + halfPlayerHeight);
 			}
-			loseLifeParticles->setPosition(Vec2(a->getPosition().x, 0));
+			a->setVel(0,0);
 			//a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2 + 10);
 			this->addChild(loseLifeParticles);
 			a->setDamage(0);
@@ -826,12 +835,6 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 
 }
 
-void HelloWorld::DrawWorld()
-{
-
-}
-
-
 float HelloWorld::rangeRandom(float min, float max)
 {
 	float rnd = ((float)rand() / (float)RAND_MAX);
@@ -973,68 +976,83 @@ void HelloWorld::Win()
 
 }
 
-void HelloWorld::Countdown(float dt)
+void HelloWorld::playerPause()
+{
+	for(auto &a : players)
+	{
+		a->pause();//pauses player update
+		for(auto &b : a->getChildren())
+			b->pause();	//stops the player animation
+	}
+
+	pausedActions = Director::getInstance()->getActionManager()->pauseAllRunningActions();
+}
+
+void HelloWorld::playerResume()
+{
+	for(auto &a : players)
+	{
+		a->resume();
+		for(auto &b : a->getChildren())
+			b->resume();
+	}
+	Director::getInstance()->getActionManager()->resumeTargets(pausedActions);
+}
+
+void HelloWorld::Countdown()
 {
 
-	dtt += dt;
-	if (countDown == true)
+	vector<Sprite*> finalCountDown {
+		cocos2d::Sprite::create("Assets/UI Elements/Lives/3_Lives.png"),
+		cocos2d::Sprite::create("Assets/UI Elements/Lives/2_Lives.png"),
+		cocos2d::Sprite::create("Assets/UI Elements/Lives/1_Life.png"),
+		cocos2d::Sprite::create("Assets/UI Elements/Fight.png")};
+	static AudioPlayer cd[] {AudioPlayer("Audio/Three_aud.mp3"), AudioPlayer("Audio/Two_aud.mp3"),AudioPlayer("Audio/One_aud.mp3"),AudioPlayer("Audio/Fight_aud.mp3")};
+
+	playerPause();
+
+	for(auto &a : finalCountDown)
 	{
-		for (auto &a : players)
-		{
-			a->pause();//pauses player update
-			for (auto &b : a->getChildren())
-				b->pause();	//stops the player animation
-		}
-		//pauses projectials
-
-		cocos2d::Sprite* Fight = cocos2d::Sprite::create("Assets/UI Elements/Fight.png");
-		cocos2d::Sprite* UNO = cocos2d::Sprite::create("Assets/UI Elements/Lives/1_Life.png");
-		cocos2d::Sprite* DOS = cocos2d::Sprite::create("Assets/UI Elements/Lives/2_Lives.png");
-		cocos2d::Sprite* TRES = cocos2d::Sprite::create("Assets/UI Elements/Lives/3_Lives.png");
-
-		Fight->setPosition(director->getOpenGLView()->getFrameSize().width / 2, director->getOpenGLView()->getFrameSize().height / 2);
-		UNO->setPosition(director->getOpenGLView()->getFrameSize().width / 2, director->getOpenGLView()->getFrameSize().height / 2);
-		DOS->setPosition(director->getOpenGLView()->getFrameSize().width / 2, director->getOpenGLView()->getFrameSize().height / 2);
-		TRES->setPosition(director->getOpenGLView()->getFrameSize().width / 2, director->getOpenGLView()->getFrameSize().height / 2);
-
-		TRES->setZOrder(2);
-		DOS->setZOrder(2);
-		UNO->setZOrder(2);
-		Fight->setZOrder(2);
-
-		if (TRES->getZOrder() == 2 && dtt >= 2)
-		{
-			TRES->setZOrder(-2);
-			DOS->setZOrder(2);
-		}
-		else if (DOS->getZOrder() == 2 && dtt >= 4)
-		{
-			DOS->setZOrder(-2);
-			UNO->setZOrder(2);
-		}
-		else if (UNO->getZOrder() == 2 && dtt >= 6)
-		{
-			UNO->setZOrder(-2);
-			Fight->setZOrder(2);
-		}
-		else if (Fight->getZOrder() == 2 && dtt >= 8)
-		{
-			Fight->setZOrder(-2);
-			for (auto &a : players)
-			{
-				countDown = false;
-				a->resume();//pauses player update
-				for (auto &b : a->getChildren())
-					b->resume();	//stops the player animation
-			}
-			//pauses projectials
-		}
-
-
-
-
-
-
-
+		a->setPosition(director->getVisibleSize().width / 2, director->getVisibleSize().height / 2);
+		a->setVisible(false);
+		addChild(a, 5);
 	}
+
+	finalCountDown[0]->runAction(Sequence::create(
+		CallFunc::create(CC_CALLBACK_0(AudioPlayer::play, cd[0], false)),
+		CallFunc::create(CC_CALLBACK_0(Node::setVisible, finalCountDown[0], true)),
+		ScaleBy::create(.2, 2),
+		FadeOut::create(.5),
+		CallFunc::create(CC_CALLBACK_0(Node::removeFromParentAndCleanup, finalCountDown[0], true)),
+		0));
+
+	finalCountDown[1]->runAction(Sequence::create(
+		DelayTime::create(.7),
+		CallFunc::create(CC_CALLBACK_0(AudioPlayer::play, cd[1], false)),
+		CallFunc::create(CC_CALLBACK_0(Node::setVisible, finalCountDown[1], true)),
+		ScaleBy::create(.2, 2),
+		FadeOut::create(.5),
+		CallFunc::create(CC_CALLBACK_0(Node::removeFromParentAndCleanup, finalCountDown[1], true)),
+		0));
+
+	finalCountDown[2]->runAction(Sequence::create(
+		DelayTime::create(1.4),
+		CallFunc::create(CC_CALLBACK_0(AudioPlayer::play, (cd)[2], false)),
+		CallFunc::create(CC_CALLBACK_0(Node::setVisible, finalCountDown[2], true)),
+		ScaleBy::create(.2, 2),
+		FadeOut::create(.5),
+		CallFunc::create(CC_CALLBACK_0(Node::removeFromParentAndCleanup, finalCountDown[2], true)),
+		0));
+
+	finalCountDown[3]->runAction(Sequence::create(
+		DelayTime::create(2.1),
+		CallFunc::create(CC_CALLBACK_0(AudioPlayer::play, (cd)[3], false)),
+		CallFunc::create(CC_CALLBACK_0(Node::setVisible, finalCountDown[3], true)),
+		ScaleBy::create(.2, 3),
+		FadeOut::create(.5),
+		CallFunc::create(CC_CALLBACK_0(Node::removeFromParentAndCleanup, finalCountDown[3], true)),
+		CallFunc::create(this, callfunc_selector(HelloWorld::playerResume)),
+		0));
+
+
 }
