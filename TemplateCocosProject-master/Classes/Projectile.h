@@ -35,7 +35,7 @@ public:
 private:
 	void removeProjectial();
 	bool heavy;
-	int bitMask, index;
+	int bitMask, index=0;
 	Sprite * proj[2] {Sprite::create("Assets/light_attack.png"),Sprite::create("Assets/heavy_attack.png")};
 	Scene* scene;
 	Action* act;

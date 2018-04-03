@@ -121,8 +121,13 @@ private:
 
 		if((bodyA->getName() == "Projectile" || bodyB->getName() == "Projectile") && (bodyA->getTag() != bodyB->getTag()))
 		{
+			if(bodyA->getName() == "Player" || bodyB->getName() == "Player")
+			{
+				return false;
+				 }
 			return true;
-		} else if((bodyA->getName() == "Projectile" || bodyB->getName() == "Projectile") && (bodyA->getTag() == bodyB->getTag()))
+		} 
+		else if((bodyA->getName() == "Projectile" || bodyB->getName() == "Projectile") && (bodyA->getTag() == bodyB->getTag()))
 		{
 			return false;
 		}

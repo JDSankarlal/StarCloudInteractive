@@ -63,7 +63,8 @@ void Projectile::setSize(float scale)
 	proj[heavy]->setScale(scale);
 	getBody()->setGravityEnable(false);
 	//getBody()->setName("Projectile");
-	getBody()->setTag(this->index = index);
+	getBody()->setTag(index);
+	setTag(index);
 	getBody()->setCollisionBitmask(this->bitMask = bitMask);
 	getBody()->setContactTestBitmask(true);
 	getBody()->setRotationEnable(false);

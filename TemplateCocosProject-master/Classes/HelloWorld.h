@@ -73,7 +73,7 @@ public:
 					if(bodyA == a->getBody())
 						a->resetDashes();
 
-		}
+		}else
 
 		if((bodyA->getName() == "Projectile"))
 		{
@@ -89,28 +89,28 @@ public:
 					for(auto &a : players)
 						if(bodyB == a->getBody())
 						{
-							if(a->getDamage() / 50)
-							{
+							//if(a->getDamage() / 50)
+							//{
 								if(bodyA->getTag())
 									bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200 * (a->getDamage() / 50 + 1)*.75));
 								else
 									bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200 * (a->getDamage() / 50 + 1)*.75)*1.5);
 
-								OutputDebugStringA(string("%: " + to_string(a->getDamage() / 50)).c_str());
-							} else
-							{
-								if(bodyA->getTag())
-									bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200));
-								else
-									bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200)*1.5);
-
-							}
+								OutputDebugStringA(string("%: " + to_string(a->getDamage() / 50)+"\n").c_str());
+							//} else
+							//{
+							//	if(bodyA->getTag())
+							//		bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200));
+							//	else
+							//		bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200)*1.5);
+							//
+							//}
 							OutputDebugStringA("Hitting a player\n");
 							addChild(explosionSystem);
 							explosionSystem->setPosition(bodyA->getPosition());
-							if(bodyA->getTag() == 1)
-							{
-
+							if(bodyA->getTag())
+							{		
+								OutputDebugStringA("Taking Heavy Damage\n");
 								a->setDamage(a->getDamage() + 25);
 							} else
 							{
@@ -120,6 +120,7 @@ public:
 								CallFunc::create(a, callfunc_selector(Player::pause)),
 								DelayTime::create(bodyB->getVelocity().getLength()*.001),
 								CallFunc::create(a, callfunc_selector(Player::resume)), 0));
+							break;
 						}
 				}
 				//for(int a = 0; a < 4; a++)
