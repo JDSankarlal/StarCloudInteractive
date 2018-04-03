@@ -44,7 +44,7 @@ bool HelloWorld::init()
 	for (auto &a : players)
 	{
 		if (a->getBody()->getTag()==0)
-			setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2);
+			setPosition(visibleSize.width / 2 - 525, visibleSize.height / 2 + -150);
 		if (a->getBody()->getTag() == 1)
 			setPosition(visibleSize.width / 2 - 300, visibleSize.height / 2 - 330);
 		if (a->getBody()->getTag() == 2)
