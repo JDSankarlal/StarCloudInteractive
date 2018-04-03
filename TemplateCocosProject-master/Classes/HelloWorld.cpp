@@ -43,7 +43,14 @@ bool HelloWorld::init()
 	short count = 0;
 	for (auto &a : players)
 	{
-		a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2);
+		if (a->getBody()->getTag()==0)
+			setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2);
+		if (a->getBody()->getTag() == 1)
+			setPosition(visibleSize.width / 2 - 300, visibleSize.height / 2 - 330);
+		if (a->getBody()->getTag() == 2)
+			setPosition(visibleSize.width / 2 + 525, visibleSize.height / 2 + -130);
+		if (a->getBody()->getTag() == 3)
+			setPosition(visibleSize.width / 2 - 175, visibleSize.height / 2 + 220);
 	}
 
 	//platforms
