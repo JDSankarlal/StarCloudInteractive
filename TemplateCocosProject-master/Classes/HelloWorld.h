@@ -23,7 +23,9 @@ public:
 	void DrawWorld();
 	//Jump
 	void Win();
-	void Countdown(float dt);
+	void playerPause();
+	void playerResume();
+	void Countdown();
 	//void jump();
 	float rangeRandom(float min, float max);
 	void shakeScreen(float dt);

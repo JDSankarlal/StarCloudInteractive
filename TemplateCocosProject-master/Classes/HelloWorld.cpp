@@ -201,6 +201,7 @@ bool HelloWorld::init()
 	audio->setAudio("Audio/Battle_Time_V3.mp3");
 	audio->play(true);
 
+	Countdown();
 	return true;
 }
 
@@ -961,68 +962,75 @@ void HelloWorld::Win()
 
 }
 
-void HelloWorld::Countdown(float dt)
+void HelloWorld::playerPause()
 {
-
-	dtt += dt;
-	if (countDown == true)
+	for(auto &a : players)
 	{
-		for (auto &a : players)
-		{
-			a->pause();//pauses player update
-			for (auto &b : a->getChildren())
-				b->pause();	//stops the player animation
-		}
-		//pauses projectials
-
-		cocos2d::Sprite* Fight = cocos2d::Sprite::create("Assets/UI Elements/Fight.png");
-		cocos2d::Sprite* UNO = cocos2d::Sprite::create("Assets/UI Elements/Lives/1_Life.png");
-		cocos2d::Sprite* DOS = cocos2d::Sprite::create("Assets/UI Elements/Lives/2_Lives.png");
-		cocos2d::Sprite* TRES = cocos2d::Sprite::create("Assets/UI Elements/Lives/3_Lives.png");
-
-		Fight->setPosition(director->getOpenGLView()->getFrameSize().width / 2, director->getOpenGLView()->getFrameSize().height / 2);
-		UNO->setPosition(director->getOpenGLView()->getFrameSize().width / 2, director->getOpenGLView()->getFrameSize().height / 2);
-		DOS->setPosition(director->getOpenGLView()->getFrameSize().width / 2, director->getOpenGLView()->getFrameSize().height / 2);
-		TRES->setPosition(director->getOpenGLView()->getFrameSize().width / 2, director->getOpenGLView()->getFrameSize().height / 2);
-
-		TRES->setZOrder(2);
-		DOS->setZOrder(2);
-		UNO->setZOrder(2);
-		Fight->setZOrder(2);
-
-		if (TRES->getZOrder() == 2 && dtt >= 2)
-		{
-			TRES->setZOrder(-2);
-			DOS->setZOrder(2);
-		}
-		else if (DOS->getZOrder() == 2 && dtt >= 4)
-		{
-			DOS->setZOrder(-2);
-			UNO->setZOrder(2);
-		}
-		else if (UNO->getZOrder() == 2 && dtt >= 6)
-		{
-			UNO->setZOrder(-2);
-			Fight->setZOrder(2);
-		}
-		else if (Fight->getZOrder() == 2 && dtt >= 8)
-		{
-			Fight->setZOrder(-2);
-			for (auto &a : players)
-			{
-				countDown = false;
-				a->resume();//pauses player update
-				for (auto &b : a->getChildren())
-					b->resume();	//stops the player animation
-			}
-			//pauses projectials
-		}
-
-
-
-
-
-
-
+		a->pause();//pauses player update
+		for(auto &b : a->getChildren())
+			b->pause();	//stops the player animation
 	}
+}
+void HelloWorld::playerResume()
+{
+	for(auto &a : players)
+	{
+		a->resume();//pauses player update
+		for(auto &b : a->getChildren())
+			b->resume();//stops the player animation
+	}
+}
+
+void HelloWorld::Countdown()
+{
+	
+	vector<Sprite*> finalCountDown {
+		cocos2d::Sprite::create("Assets/UI Elements/Lives/1_Life.png"),
+		cocos2d::Sprite::create("Assets/UI Elements/Lives/2_Lives.png"),
+		cocos2d::Sprite::create("Assets/UI Elements/Lives/3_Lives.png"),
+		cocos2d::Sprite::create("Assets/UI Elements/Fight.png")};
+	
+	playerPause();
+		
+		for(auto &a : finalCountDown)
+		{
+			a->setPosition(director->getVisibleSize().width/2, director->getVisibleSize().height/2);
+			a->setVisible(false);
+			
+			addChild(a,5);
+		}
+		
+		finalCountDown[0]->runAction(Sequence::create(
+			CallFunc::create(CC_CALLBACK_0(Node::setVisible, finalCountDown[0], true)),
+			ScaleBy::create(.2,2),
+			FadeOut::create(.5),
+			CallFunc::create( CC_CALLBACK_0(Node::removeFromParentAndCleanup, finalCountDown[0], true)),
+			0));
+		
+		finalCountDown[1]->runAction(Sequence::create(
+			DelayTime::create(1.4),
+			CallFunc::create(CC_CALLBACK_0(Node::setVisible, finalCountDown[1], true)),
+			ScaleBy::create(.2, 2),
+			FadeOut::create(.5),
+			CallFunc::create(CC_CALLBACK_0(Node::removeFromParentAndCleanup, finalCountDown[1], true)),
+			0));
+		
+		finalCountDown[2]->runAction(Sequence::create(
+			DelayTime::create(2.1),
+			CallFunc::create(CC_CALLBACK_0(Node::setVisible, finalCountDown[2], true)),
+			ScaleBy::create(.2, 2),
+			FadeOut::create(.5),
+			CallFunc::create(CC_CALLBACK_0(Node::removeFromParentAndCleanup, finalCountDown[2], true)),
+			0));
+
+		finalCountDown[3]->runAction(Sequence::create(
+			DelayTime::create(2.8),
+			CallFunc::create(CC_CALLBACK_0(Node::setVisible, finalCountDown[3], true)),
+			ScaleBy::create(.2, 2),
+			FadeOut::create(.5),
+			CallFunc::create(CC_CALLBACK_0(Node::removeFromParentAndCleanup, finalCountDown[3], true)),
+			CallFunc::create(this,callfunc_selector(HelloWorld::playerResume)),
+			0));
+	
+	
 }
