@@ -479,7 +479,7 @@ void TutorialScene::update(float dt)
 			  scrolls[3]->setZOrder(-2);
 			  scrolls[4]->setZOrder(2);
 		  }
-		  else if (scrolls[4]->getZOrder() == 2 && theRealDT >= 15 && players[0]->getPosition().x >= 1150)
+		  else if (scrolls[4]->getZOrder() == 2 && theRealDT >= 15 && (players[0]->getPosition().x >= 1150 || players[1]->getPosition().x >= 1150 || players[2]->getPosition().x >= 1150 || players[3]->getPosition().x >= 1150))
 		  {
 			  scrolls[4]->setZOrder(-2);
 			  scrolls[5]->setZOrder(2);
