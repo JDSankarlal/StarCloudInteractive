@@ -430,7 +430,9 @@ void HelloWorld::update(float dt)
 			loseLifeParticles->setLife(0.3);
 			loseLifeParticles->setLifeVar(0);
 
-			loseLifeParticles->setGravity(Vec2(-500, -1));
+
+			loseLifeParticles->setAngle(180);
+			loseLifeParticles->setGravity(Vec2(-300, -1));
 			loseLifeParticles->setEmissionRate(500);
 
 			//If player 1 set colour
@@ -511,7 +513,9 @@ void HelloWorld::update(float dt)
 			loseLifeParticles->setLife(0.3);
 			loseLifeParticles->setLifeVar(0);
 
-			loseLifeParticles->setGravity(Vec2(500, -1));
+			loseLifeParticles->setAngle(0);
+
+			loseLifeParticles->setGravity(Vec2(300, -1));
 			loseLifeParticles->setEmissionRate(500);
 
 			if (a->getBody()->getTag() == 0)
