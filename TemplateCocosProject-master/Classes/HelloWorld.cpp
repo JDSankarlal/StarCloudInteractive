@@ -184,6 +184,12 @@ bool HelloWorld::init()
 	lives4->setPosition(player4->getPositionX() - 35, player4->getPositionY() - 20);
 	lives4->setScale(.5);
 	this->addChild(lives4, 2);
+
+	//Countdown stuff
+	lives4 = Sprite::create("Assets/UI Elements/Lives/3_Lives.png");
+	lives4->setPosition(player4->getPositionX() - 35, player4->getPositionY() - 20);
+	lives4->setScale(.5);
+	this->addChild(lives4, 2);
 	//Collision stuff
 	contact();
 
@@ -201,6 +207,8 @@ bool HelloWorld::init()
 //Updates movement per frame
 void HelloWorld::update(float dt)
 {
+	//Countdown(dt);
+
 	static XBoxInput controllers;
 	controllers.DownloadPackets(4);
 	short count = 0;
@@ -966,4 +974,70 @@ void HelloWorld::Win()
 	//
 	//}
 
+}
+
+void HelloWorld::Countdown(float dt)
+{
+
+	dtt += dt;
+	if (countDown == true)
+	{
+		for (auto &a : players)
+		{
+			a->pause();//pauses player update
+			for (auto &b : a->getChildren())
+				b->pause();	//stops the player animation
+		}
+		//pauses projectials
+
+		cocos2d::Sprite* Fight = cocos2d::Sprite::create("Assets/UI Elements/Fight.png");
+		cocos2d::Sprite* UNO = cocos2d::Sprite::create("Assets/UI Elements/Lives/1_Life.png");
+		cocos2d::Sprite* DOS = cocos2d::Sprite::create("Assets/UI Elements/Lives/2_Lives.png");
+		cocos2d::Sprite* TRES = cocos2d::Sprite::create("Assets/UI Elements/Lives/3_Lives.png");
+
+		Fight->setPosition(director->getOpenGLView()->getFrameSize().width / 2, director->getOpenGLView()->getFrameSize().height / 2);
+		UNO->setPosition(director->getOpenGLView()->getFrameSize().width / 2, director->getOpenGLView()->getFrameSize().height / 2);
+		DOS->setPosition(director->getOpenGLView()->getFrameSize().width / 2, director->getOpenGLView()->getFrameSize().height / 2);
+		TRES->setPosition(director->getOpenGLView()->getFrameSize().width / 2, director->getOpenGLView()->getFrameSize().height / 2);
+
+		TRES->setZOrder(2);
+		DOS->setZOrder(2);
+		UNO->setZOrder(2);
+		Fight->setZOrder(2);
+
+		if (TRES->getZOrder() == 2 && dtt >= 2)
+		{
+			TRES->setZOrder(-2);
+			DOS->setZOrder(2);
+		}
+		else if (DOS->getZOrder() == 2 && dtt >= 4)
+		{
+			DOS->setZOrder(-2);
+			UNO->setZOrder(2);
+		}
+		else if (UNO->getZOrder() == 2 && dtt >= 6)
+		{
+			UNO->setZOrder(-2);
+			Fight->setZOrder(2);
+		}
+		else if (Fight->getZOrder() == 2 && dtt >= 8)
+		{
+			Fight->setZOrder(-2);
+			for (auto &a : players)
+			{
+				countDown = false;
+				a->resume();//pauses player update
+				for (auto &b : a->getChildren())
+					b->resume();	//stops the player animation
+			}
+			//pauses projectials
+		}
+
+
+
+
+
+
+
+	}
 }
