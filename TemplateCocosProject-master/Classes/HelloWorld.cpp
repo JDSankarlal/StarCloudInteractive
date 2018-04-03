@@ -32,7 +32,7 @@ bool HelloWorld::init()
 
 	//////////////////////////////
 	// 1. super init first
-	if (!Scene::init())
+	if(!Scene::init())
 		return false;
 
 	director = Director::getInstance();
@@ -41,7 +41,7 @@ bool HelloWorld::init()
 
 	//Players
 	short count = 0;
-	for (auto &a : players)
+	for(auto &a : players)
 	{
 		a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2);
 	}
@@ -197,50 +197,50 @@ void HelloWorld::update(float dt)
 	static XBoxInput controllers;
 	controllers.DownloadPackets(4);
 	short count = 0;
-	for (auto &a : players)
+	for(auto &a : players)
 	{
 		//LIFE COUNTER
-		if (a->getLives() == 2)
+		if(a->getLives() == 2)
 		{
-			if (a->getBody()->getTag() == 0)
+			if(a->getBody()->getTag() == 0)
 			{
 				lives1->setTexture("Assets/UI Elements/Lives/2_Lives.png");
 			}
 
-			if (a->getBody()->getTag() == 1)
+			if(a->getBody()->getTag() == 1)
 			{
 				lives2->setTexture("Assets/UI Elements/Lives/2_Lives.png");
 			}
 
-			if (a->getBody()->getTag() == 2)
+			if(a->getBody()->getTag() == 2)
 			{
 				lives3->setTexture("Assets/UI Elements/Lives/2_Lives.png");
 			}
 
-			if (a->getBody()->getTag() == 3)
+			if(a->getBody()->getTag() == 3)
 			{
 				lives4->setTexture("Assets/UI Elements/Lives/2_Lives.png");
 			}
 		}
 
-		if (a->getLives() == 1)
+		if(a->getLives() == 1)
 		{
-			if (a->getBody()->getTag() == 0)
+			if(a->getBody()->getTag() == 0)
 			{
 				lives1->setTexture("Assets/UI Elements/Lives/1_Life.png");
 			}
 
-			if (a->getBody()->getTag() == 1)
+			if(a->getBody()->getTag() == 1)
 			{
 				lives2->setTexture("Assets/UI Elements/Lives/1_Life.png");
 			}
 
-			if (a->getBody()->getTag() == 2)
+			if(a->getBody()->getTag() == 2)
 			{
 				lives3->setTexture("Assets/UI Elements/Lives/1_Life.png");
 			}
 
-			if (a->getBody()->getTag() == 3)
+			if(a->getBody()->getTag() == 3)
 			{
 				lives4->setTexture("Assets/UI Elements/Lives/2_Lives.png");
 			}
@@ -248,152 +248,152 @@ void HelloWorld::update(float dt)
 		//LIFE COUNTER ENDS	
 
 		//DAMAGE BARS
-		if (a->getDamage() <= 0)
+		if(a->getDamage() <= 0)
 		{
-			if (a->getBody()->getTag() == 0)
+			if(a->getBody()->getTag() == 0)
 			{
 				//OutputDebugStringA("PLAYER DAMAGE\n");
 				healthBar1->setTexture("Assets/UI Elements/Health Bars/White.png");
 			}
 
-			else if (a->getBody()->getTag() == 1)
+			else if(a->getBody()->getTag() == 1)
 			{
 				//OutputDebugStringA("PLAYER 2 DAMAGEd\n");
 				healthBar2->setTexture("Assets/UI Elements/Health Bars/White.png");
 			}
 
-			else if (a->getBody()->getTag() == 2)
+			else if(a->getBody()->getTag() == 2)
 			{
 				healthBar3->setTexture("Assets/UI Elements/Health Bars/White.png");
 
 			}
 
-			else if (a->getBody()->getTag() == 3)
+			else if(a->getBody()->getTag() == 3)
 			{
 				healthBar4->setTexture("Assets/UI Elements/Health Bars/White.png");
 			}
 		}
-		if (a->getDamage() >= 50)
+		if(a->getDamage() >= 50)
 		{
-			if (a->getBody()->getTag() == 0)
+			if(a->getBody()->getTag() == 0)
 			{
 				//OutputDebugStringA("PLAYER DAMAGE\n");
 				healthBar1->setTexture("Assets/UI Elements/Health Bars/Yellow.png");
 			}
 
-			else if (a->getBody()->getTag() == 1)
+			else if(a->getBody()->getTag() == 1)
 			{
 				//OutputDebugStringA("PLAYER 2 DAMAGEd\n");
 				healthBar2->setTexture("Assets/UI Elements/Health Bars/Yellow.png");
 			}
 
-			else if (a->getBody()->getTag() == 2)
+			else if(a->getBody()->getTag() == 2)
 			{
 				healthBar3->setTexture("Assets/UI Elements/Health Bars/Yellow.png");
 
 			}
 
-			else if (a->getBody()->getTag() == 3)
+			else if(a->getBody()->getTag() == 3)
 			{
 				healthBar4->setTexture("Assets/UI Elements/Health Bars/Yellow.png");
 			}
 		}
-		if (a->getDamage() >= 100)
+		if(a->getDamage() >= 100)
 		{
-			if (a->getBody()->getTag() == 0)
+			if(a->getBody()->getTag() == 0)
 			{
 				//OutputDebugStringA("PLAYER DAMAGE\n");
 				healthBar1->setTexture("Assets/UI Elements/Health Bars/DarkYellow.png");
 			}
 
-			else if (a->getBody()->getTag() == 1)
+			else if(a->getBody()->getTag() == 1)
 			{
 				//OutputDebugStringA("PLAYER 2 DAMAGEd\n");
 				healthBar2->setTexture("Assets/UI Elements/Health Bars/DarkYellow.png");
 			}
 
-			else if (a->getBody()->getTag() == 2)
+			else if(a->getBody()->getTag() == 2)
 			{
 				healthBar3->setTexture("Assets/UI Elements/Health Bars/DarkYellow.png");
 
 			}
 
-			else if (a->getBody()->getTag() == 3)
+			else if(a->getBody()->getTag() == 3)
 			{
 				healthBar4->setTexture("Assets/UI Elements/Health Bars/DarkYellow.png");
 			}
 		}
-		if (a->getDamage() >= 150)
+		if(a->getDamage() >= 150)
 		{
-			if (a->getBody()->getTag() == 0)
+			if(a->getBody()->getTag() == 0)
 			{
 				//OutputDebugStringA("PLAYER DAMAGE\n");
 				healthBar1->setTexture("Assets/UI Elements/Health Bars/Orange.png");
 			}
 
-			else if (a->getBody()->getTag() == 1)
+			else if(a->getBody()->getTag() == 1)
 			{
 				//OutputDebugStringA("PLAYER 2 DAMAGEd\n");
 				healthBar2->setTexture("Assets/UI Elements/Health Bars/Orange.png");
 			}
 
-			else if (a->getBody()->getTag() == 2)
+			else if(a->getBody()->getTag() == 2)
 			{
 				healthBar3->setTexture("Assets/UI Elements/Health Bars/Orange.png");
 
 			}
 
-			else if (a->getBody()->getTag() == 3)
+			else if(a->getBody()->getTag() == 3)
 			{
 				healthBar4->setTexture("Assets/UI Elements/Health Bars/Orange.png");
 			}
 		}
-		if (a->getDamage() >= 200)
+		if(a->getDamage() >= 200)
 		{
-			if (a->getBody()->getTag() == 0)
+			if(a->getBody()->getTag() == 0)
 			{
 				//OutputDebugStringA("PLAYER DAMAGE\n");
 				healthBar1->setTexture("Assets/UI Elements/Health Bars/LightRed.png");
 			}
 
-			else if (a->getBody()->getTag() == 1)
+			else if(a->getBody()->getTag() == 1)
 			{
 				//OutputDebugStringA("PLAYER 2 DAMAGEd\n");
 				healthBar2->setTexture("Assets/UI Elements/Health Bars/LightRed.png");
 			}
 
-			else if (a->getBody()->getTag() == 2)
+			else if(a->getBody()->getTag() == 2)
 			{
 				healthBar3->setTexture("Assets/UI Elements/Health Bars/LightRed.png");
 
 			}
 
-			else if (a->getBody()->getTag() == 3)
+			else if(a->getBody()->getTag() == 3)
 			{
 				healthBar4->setTexture("Assets/UI Elements/Health Bars/LightRed.png");
 			}
 		}
-		if (a->getDamage() >= 250)
+		if(a->getDamage() >= 250)
 		{
-			if (a->getBody()->getTag() == 0)
+			if(a->getBody()->getTag() == 0)
 			{
 				//OutputDebugStringA("PLAYER DAMAGE\n");
 				healthBar1->setTexture("Assets/UI Elements/Health Bars/DarkRed.png");
 			}
 
-			else if (a->getBody()->getTag() == 1)
+			else if(a->getBody()->getTag() == 1)
 			{
 				//OutputDebugStringA("PLAYER 2 DAMAGEd\n");
 				healthBar2->setTexture("Assets/UI Elements/Health Bars/DarkRed.png");
 			}
 
-			else if (a->getBody()->getTag() == 2)
+			else if(a->getBody()->getTag() == 2)
 			{
 				healthBar3->setTexture("Assets/UI Elements/Health Bars/DarkRed.png");
 
 			}
 
-			else if (a->getBody()->getTag() == 3)
+			else if(a->getBody()->getTag() == 3)
 			{
 				healthBar4->setTexture("Assets/UI Elements/Health Bars/DarkRed.png");
 			}
@@ -409,7 +409,7 @@ void HelloWorld::update(float dt)
 		//GL HF
 		//
 
-		if (200 < a->getPosition().x - (director->getOpenGLView()->getFrameSize().width))
+		if(200 < a->getPosition().x - (director->getOpenGLView()->getFrameSize().width))
 		{
 
 			a->getLives() -= 1;
@@ -434,7 +434,7 @@ void HelloWorld::update(float dt)
 			loseLifeParticles->setEmissionRate(500);
 
 			//If player 1 set colour
-			if (a->getBody()->getTag() == 0)
+			if(a->getBody()->getTag() == 0)
 			{
 				loseLifeParticles->setStartColor(Color4F(1, 0, 0, 1));
 				loseLifeParticles->setEndColor(Color4F(1, 0, 0, 1));
@@ -442,7 +442,7 @@ void HelloWorld::update(float dt)
 				loseLifeParticles->setEndColorVar(Color4F(1, 1, 1, 1));
 			}
 			//If player 2 set colour
-			else if (a->getBody()->getTag() == 1)
+			else if(a->getBody()->getTag() == 1)
 			{
 				loseLifeParticles->setStartColor(Color4F(0, 0, 1, 1));
 				loseLifeParticles->setEndColor(Color4F(0, 0, 1, 1));
@@ -450,7 +450,7 @@ void HelloWorld::update(float dt)
 				loseLifeParticles->setEndColorVar(Color4F(1, 1, 1, 1));
 			}
 			//If player 3 set colour
-			else if (a->getBody()->getTag() == 2)
+			else if(a->getBody()->getTag() == 2)
 			{
 				loseLifeParticles->setStartColor(Color4F(0, 1, 0, 1));
 				loseLifeParticles->setEndColor(Color4F(0, 1, 0, 1));
@@ -458,7 +458,7 @@ void HelloWorld::update(float dt)
 				loseLifeParticles->setEndColorVar(Color4F(1, 1, 1, 1));
 			}
 			//If player 4 set colour
-			else if (a->getBody()->getTag() == 3)
+			else if(a->getBody()->getTag() == 3)
 			{
 				loseLifeParticles->setStartColor(Color4F(1, 1, 0, 1));
 				loseLifeParticles->setEndColor(Color4F(1, 1, 0, 1));
@@ -472,8 +472,7 @@ void HelloWorld::update(float dt)
 			this->addChild(loseLifeParticles);
 			a->setDamage(0);
 
-		}
-		else if (a->getPosition().x < -200)
+		} else if(a->getPosition().x < -200)
 		{
 			a->getLives() -= 1;
 			//PARTICLES??
@@ -514,28 +513,25 @@ void HelloWorld::update(float dt)
 			loseLifeParticles->setGravity(Vec2(500, -1));
 			loseLifeParticles->setEmissionRate(500);
 
-			if (a->getBody()->getTag() == 0)
+			if(a->getBody()->getTag() == 0)
 			{
 				loseLifeParticles->setStartColor(Color4F(1, 0, 0, 1));
 				loseLifeParticles->setEndColor(Color4F(1, 0, 0, 1));
 				loseLifeParticles->setStartColorVar(Color4F(1, 1, 1, 1));
 				loseLifeParticles->setEndColorVar(Color4F(1, 1, 1, 1));
-			}
-			else if (a->getBody()->getTag() == 1)
+			} else if(a->getBody()->getTag() == 1)
 			{
 				loseLifeParticles->setStartColor(Color4F(0, 0, 1, 1));
 				loseLifeParticles->setEndColor(Color4F(0, 0, 1, 1));
 				loseLifeParticles->setStartColorVar(Color4F(1, 1, 1, 1));
 				loseLifeParticles->setEndColorVar(Color4F(1, 1, 1, 1));
-			}
-			else if (a->getBody()->getTag() == 2)
+			} else if(a->getBody()->getTag() == 2)
 			{
 				loseLifeParticles->setStartColor(Color4F(0, 1, 0, 1));
 				loseLifeParticles->setEndColor(Color4F(0, 1, 0, 1));
 				loseLifeParticles->setStartColorVar(Color4F(1, 1, 1, 1));
 				loseLifeParticles->setEndColorVar(Color4F(1, 1, 1, 1));
-			}
-			else if (a->getBody()->getTag() == 3)
+			} else if(a->getBody()->getTag() == 3)
 			{
 				loseLifeParticles->setStartColor(Color4F(1, 1, 0, 1));
 				loseLifeParticles->setEndColor(Color4F(1, 1, 0, 1));
@@ -546,8 +542,7 @@ void HelloWorld::update(float dt)
 			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2);
 			this->addChild(loseLifeParticles);
 			a->setDamage(0);
-		}
-		else if (a->getPosition().y < -200)
+		} else if(a->getPosition().y < -200)
 		{
 			a->getLives() -= 1;
 			//PARTICLES??
@@ -567,28 +562,25 @@ void HelloWorld::update(float dt)
 			//loseLifeParticles->setGravity(Vec2(0, 100));
 			loseLifeParticles->setEmissionRate(500);
 
-			if (a->getBody()->getTag() == 0)
+			if(a->getBody()->getTag() == 0)
 			{
 				loseLifeParticles->setStartColor(Color4F(1, 0, 0, 1));
 				loseLifeParticles->setEndColor(Color4F(1, 0, 0, 1));
 				loseLifeParticles->setStartColorVar(Color4F(1, 1, 1, 1));
 				loseLifeParticles->setEndColorVar(Color4F(1, 1, 1, 1));
-			}
-			else if (a->getBody()->getTag() == 1)
+			} else if(a->getBody()->getTag() == 1)
 			{
 				loseLifeParticles->setStartColor(Color4F(0, 0, 1, 1));
 				loseLifeParticles->setEndColor(Color4F(0, 0, 1, 1));
 				loseLifeParticles->setStartColorVar(Color4F(1, 1, 1, 1));
 				loseLifeParticles->setEndColorVar(Color4F(1, 1, 1, 1));
-			}
-			else if (a->getBody()->getTag() == 2)
+			} else if(a->getBody()->getTag() == 2)
 			{
 				loseLifeParticles->setStartColor(Color4F(0, 1, 0, 1));
 				loseLifeParticles->setEndColor(Color4F(0, 1, 0, 1));
 				loseLifeParticles->setStartColorVar(Color4F(1, 1, 1, 1));
 				loseLifeParticles->setEndColorVar(Color4F(1, 1, 1, 1));
-			}
-			else if (a->getBody()->getTag() == 3)
+			} else if(a->getBody()->getTag() == 3)
 			{
 				loseLifeParticles->setStartColor(Color4F(1, 1, 0, 1));
 				loseLifeParticles->setEndColor(Color4F(1, 1, 0, 1));
@@ -604,25 +596,25 @@ void HelloWorld::update(float dt)
 	}
 
 
-	for (int a = 0; a < 4; a++)
-		if (controllers.GetConnected(a))
+	for(int a = 0; a < 4; a++)
+		if(controllers.GetConnected(a))
 		{
-			if (getChildren().find(players[a]) == getChildren().end())
+			if(getChildren().find(players[a]) == getChildren().end())
 			{
-				if (players[a]->getLives() > 0)
+				if(players[a]->getLives() > 0)
 					addChild(players[a]);
 			}
 
 			Stick moveD, moveU;
 
-			static int count[]{ 0,0,0,0 }, til = 20;
+			static int count[] {0,0,0,0}, til = 20;
 
 			controllers.GetSticks(a, moveD, moveU);
 			static Vector<Node*>paused;
-			if (controllers.ButtonStroke(a, Start)) //If start pressed on controller
+			if(controllers.ButtonStroke(a, Start)) //If start pressed on controller
 			{
 
-				if (!gamePaused) //if game not paused
+				if(!gamePaused) //if game not paused
 				{
 					gamePaused = true; //set game to paused
 					resumeBtnActive = true;
@@ -632,17 +624,16 @@ void HelloWorld::update(float dt)
 					pause->setGlobalZOrder(4);
 					Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(0); //pause game
 					menu->setGlobalZOrder(3); //move menu forwards
-					for (auto &a : players)
+					for(auto &a : players)
 					{
 						a->pause();//pauses player update
-						for (auto &b : a->getChildren())
+						for(auto &b : a->getChildren())
 							b->pause();	//stops the player animation
 					}
 					//pauses projectials
 					paused = Director::getInstance()->getActionManager()->pauseAllRunningActions();
 
-				}
-				else  //if game paused
+				} else  //if game paused
 				{
 					gamePaused = false; //set game to unpaused
 					resumeBtnActive = false;
@@ -655,24 +646,24 @@ void HelloWorld::update(float dt)
 					menu->setGlobalZOrder(-2); //move menu back
 					Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(1); //Resume game
 					//this->resume();
-					for (auto &a : players)
+					for(auto &a : players)
 					{
 						a->resume();
-						for (auto &b : a->getChildren())
+						for(auto &b : a->getChildren())
 							b->resume();
 					}
 					Director::getInstance()->getActionManager()->resumeTargets(paused);
 				}
 			}
 
-			if (gamePaused)
+			if(gamePaused)
 			{
-				if (resumeBtnActive)
+				if(resumeBtnActive)
 				{
 
 					resumeBtn->setScale(0.8f);
 
-					if (controllers.ButtonStroke(a, A))
+					if(controllers.ButtonStroke(a, A))
 					{
 						gamePaused = false; //set game to unpaused
 						resumeBtnActive = false;
@@ -684,82 +675,80 @@ void HelloWorld::update(float dt)
 						quitBtn->setGlobalZOrder(-2);
 						menu->setGlobalZOrder(-2); //move menu back
 						Director::getInstance()->getRunningScene()->getPhysicsWorld()->setSpeed(1); //Resume game
-						for (auto &a : players)
+						for(auto &a : players)
 						{
 							a->resume();
-							for (auto &b : a->getChildren())
+							for(auto &b : a->getChildren())
 								b->resume();
 						}
 						Director::getInstance()->getActionManager()->resumeTargets(paused);
 					}
-					if (moveD.yAxis == 0)
+					if(moveD.yAxis == 0)
 					{
 						count[a] = til;
 					}
 
-					if (count[a]++ > til)
+					if(count[a]++ > til)
 					{
 						count[a] = 0;
 
-						if (moveD.yAxis < 0)
+						if(moveD.yAxis < 0)
 						{
 							restartBtnActive = true;
 							resumeBtn->setScale(0.6);
 							resumeBtnActive = false;
 						}
 					}
-				}
-				else if (restartBtnActive)
+				} else if(restartBtnActive)
 				{
 					restartBtn->setScale(0.8f);
 
-					if (controllers.ButtonStroke(a, A))
+					if(controllers.ButtonStroke(a, A))
 					{
 						audio->stopAll();
 						Director::getInstance()->replaceScene(HelloWorld::createScene());
 					}
-					if (moveD.yAxis == 0)
+					if(moveD.yAxis == 0)
 					{
 
 						count[a] = til;
 					}
 
-					if (count[a]++ > til)
+					if(count[a]++ > til)
 					{
 						count[a] = 0;
 
-						if (moveD.yAxis < 0)
+						if(moveD.yAxis < 0)
 						{
 							quitBtnActive = true;
 							restartBtn->setScale(0.6);
 							restartBtnActive = false;
 						}
-						if (moveD.yAxis > 0)
+						if(moveD.yAxis > 0)
 						{
 							resumeBtnActive = true;
 							restartBtn->setScale(0.6);
 							restartBtnActive = false;
 						}
 					}
-				}
-				else if (quitBtnActive)
+				} else if(quitBtnActive)
 				{
 
 					quitBtn->setScale(0.8f);
 
-					if (controllers.ButtonStroke(a, A))
+					if(controllers.ButtonStroke(a, A))
 					{
 						Director::getInstance()->end();
 					}
-					if (moveD.yAxis == 0)
+					if(moveD.yAxis == 0)
 					{
 						count[a] = til;
 					}
 
-					if (count[a]++ > til)
+					if(count[a]++ > til)
 					{
 						count[0] = 0;
-						if (moveD.yAxis > 0)
+						if(moveD.yAxis > 0)
 						{
 							restartBtnActive = true;
 							quitBtn->setScale(0.6);
@@ -768,8 +757,7 @@ void HelloWorld::update(float dt)
 					}
 				}
 			}
-		}
-		else
+		} else
 		{
 			players[a]->removeFromParentAndCleanup(false);
 		}
@@ -829,7 +817,7 @@ void HelloWorld::shakeScreen(float dt)
 
 	SET_SHAKE_DURATION -= 1;
 
-	if (SET_SHAKE_DURATION <= 0)
+	if(SET_SHAKE_DURATION <= 0)
 	{
 		background->setPosition(Point(0, 0));
 		background->unschedule(schedule_selector(HelloWorld::shakeScreen));
@@ -838,10 +826,10 @@ void HelloWorld::shakeScreen(float dt)
 
 void HelloWorld::explosion()
 {
-	for (auto &a : players)
+	for(auto &a : players)
 	{
 
-		if (a->getLives() == 0)
+		if(a->getLives() == 0)
 		{
 
 			auto deathParticles = ParticleExplosion::create();
@@ -853,7 +841,7 @@ void HelloWorld::explosion()
 			//deathParticles->setGravity(Vec2(-500, -1));
 			deathParticles->setEmissionRate(500);
 
-			if (a->getBody()->getTag() == 0)
+			if(a->getBody()->getTag() == 0)
 			{
 				player1->setVisible(false);
 				lives1->setVisible(false);
@@ -864,8 +852,7 @@ void HelloWorld::explosion()
 				deathParticles->setStartColorVar(Color4F(1, 1, 1, 1));
 				deathParticles->setEndColorVar(Color4F(1, 1, 1, 1));
 
-			}
-			else if (a->getBody()->getTag() == 1)
+			} else if(a->getBody()->getTag() == 1)
 			{
 				player2->setVisible(false);
 				lives2->setVisible(false);
@@ -875,8 +862,7 @@ void HelloWorld::explosion()
 				deathParticles->setEndColor(Color4F(0, 0, 1, 1));
 				deathParticles->setStartColorVar(Color4F(1, 1, 1, 1));
 				deathParticles->setEndColorVar(Color4F(1, 1, 1, 1));
-			}
-			else if (a->getBody()->getTag() == 2)
+			} else if(a->getBody()->getTag() == 2)
 			{
 				player3->setVisible(false);
 				lives3->setVisible(false);
@@ -886,8 +872,7 @@ void HelloWorld::explosion()
 				deathParticles->setEndColor(Color4F(0, 1, 0, 1));
 				deathParticles->setStartColorVar(Color4F(1, 1, 1, 1));
 				deathParticles->setEndColorVar(Color4F(1, 1, 1, 1));
-			}
-			else if (a->getBody()->getTag() == 3)
+			} else if(a->getBody()->getTag() == 3)
 			{
 				player4->setVisible(false);
 				lives4->setVisible(false);
@@ -921,33 +906,33 @@ void HelloWorld::Win()
 	cocos2d::Sprite* p2win = Sprite::create("Assets/GameOver_Player2.png");
 	cocos2d::Sprite* p3win = Sprite::create("Assets/GameOver_Player3.png");
 	cocos2d::Sprite* p4win = Sprite::create("Assets/GameOver_Player4.png");
-	Sprite* pwin[]{ p1win,p2win,p3win,p4win };
+	Sprite* pwin[] {p1win,p2win,p3win,p4win};
 	static XBoxInput controllers;
 	controllers.DownloadPackets(4);
-	int conect=0;
-	for (auto &a : players)
+	int conect = 0;
+	for(auto &a : players)
 	{
 		//PUT WIN CONDITION HERE
-		if (controllers.GetConnected(a->getTag()))
+		if(controllers.GetConnected(a->getTag()))
 		{
-			if(a->getLives()<0)
+			if(a->getLives() > 0)
 				conect++;
 		}
 	}
 
-	if (conect == 1)
+	if(conect == 1)
 	{
 		//then player wins
-		for (auto &a : players) {
-			if (a->getLives() > 0)
+		for(auto &a : players)
+		{
+			if(a->getLives() > 0)
 			{
-				addChild(pwin[a->getBody()->getTag()],5);
+				addChild(pwin[a->getBody()->getTag()], 5);
 				pwin[a->getBody()->getTag()]->setPosition(Vec2(director->getOpenGLView()->getFrameSize().width / 2, director->getOpenGLView()->getFrameSize().height / 2));
 				break;
 			}
 		}
-	}
-	else if (conect < 1)
+	} else if(conect < 1)
 	{
 		//Then tie
 	}
