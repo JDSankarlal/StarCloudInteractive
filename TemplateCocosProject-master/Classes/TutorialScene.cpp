@@ -40,20 +40,20 @@ bool TutorialScene::init()
 	short count = 0;
 	for(auto &a : players)
 	{
-		a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 - 600 - (40 * count++), director->getOpenGLView()->getFrameSize().height / 2 -150);
+		a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 - 530 - (40 * count++), director->getOpenGLView()->getFrameSize().height / 2 -175);
 	}
 
-	sheep->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (170 * count++), director->getOpenGLView()->getFrameSize().height / 2 -150);
+	sheep->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (145 * count++), director->getOpenGLView()->getFrameSize().height / 2 -150);
 	//sheep->setPosition(visibleSize.width / 2, (visibleSize.height / 2));
 
 	//platforms
-	auto pf2 = new Platforms(this, 1, true, 400, 115);
-	auto pf3 = new Platforms(this, 1, true, 400, 115);
-	auto pf4 = new Platforms(this, 1, true, 400, 115);
-	auto pf5 = new Platforms(this, 1, true, 400, 115);
+	auto pf2 = new Platforms(this, 1, true, 250, 70);
+	auto pf3 = new Platforms(this, 1, true, 250, 70);
+	auto pf4 = new Platforms(this, 1, true, 250, 70);
+	auto pf5 = new Platforms(this, 1, true, 250, 70);
 
-	pf3->setPosition(visibleSize.width / 2 + 225, visibleSize.height / 2 +0);
-	pf4->setPosition(visibleSize.width / 2 - 225, visibleSize.height / 2 +0);
+	pf3->setPosition(visibleSize.width / 2 + 225, visibleSize.height / 2 -100);
+	pf4->setPosition(visibleSize.width / 2 - 225, visibleSize.height / 2 -100);
 
 	pf5->setPosition(visibleSize.width / 2 - 550, visibleSize.height / 2 - 250);
 	pf2->setPosition(visibleSize.width / 2 + 550, visibleSize.height / 2 - 250);
@@ -242,7 +242,7 @@ void TutorialScene::update(float dt)
 		
 		if(a->getSprite()->getPositionY() < -200)
 		{
-			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2, director->getOpenGLView()->getFrameSize().height / 2);
+			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 - 150, director->getOpenGLView()->getFrameSize().height / 2 + 150);
 		}
 
 	}

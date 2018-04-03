@@ -485,7 +485,7 @@ void HelloWorld::update(float dt)
 			//Set particle position, player position
 			//Add particles to scene
 			loseLifeParticles->setPosition(Vec2(director->getOpenGLView()->getFrameSize().width, a->getPosition().y));
-			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2);
+			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2 + 10);
 			this->addChild(loseLifeParticles);
 			a->setDamage(0);
 
@@ -558,7 +558,7 @@ void HelloWorld::update(float dt)
 				loseLifeParticles->setEndColorVar(Color4F(1, 1, 1, 1));
 			}
 			loseLifeParticles->setPosition(Vec2(0, a->getPosition().y));
-			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2);
+			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2 + 10);
 			this->addChild(loseLifeParticles);
 			a->setDamage(0);
 		} else if(a->getPosition().y < -200)
@@ -607,7 +607,7 @@ void HelloWorld::update(float dt)
 				loseLifeParticles->setEndColorVar(Color4F(1, 1, 1, 1));
 			}
 			loseLifeParticles->setPosition(Vec2(a->getPosition().x, 0));
-			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2);
+			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2 + 10);
 			this->addChild(loseLifeParticles);
 			a->setDamage(0);
 		}
