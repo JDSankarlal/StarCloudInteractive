@@ -44,13 +44,13 @@ bool HelloWorld::init()
 	for(auto &a : players)
 	{
 		if (a->getBody()->getTag()==0)
-			setPosition(visibleSize.width / 2 - 525, visibleSize.height / 2 + -150);
+			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 - 100, director->getOpenGLView()->getFrameSize().height / 2 + 320);
 		if (a->getBody()->getTag() == 1)
-			setPosition(visibleSize.width / 2 - 300, visibleSize.height / 2 - 330);
+			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + 300, director->getOpenGLView()->getFrameSize().height / 2 - 300);
 		if (a->getBody()->getTag() == 2)
-			setPosition(visibleSize.width / 2 + 525, visibleSize.height / 2 + -130);
+			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + -600, director->getOpenGLView()->getFrameSize().height / 2 + 120);
 		if (a->getBody()->getTag() == 3)
-			setPosition(visibleSize.width / 2 - 175, visibleSize.height / 2 + 220);
+			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2 + 15);
 	}
 
 	//platforms
@@ -451,41 +451,42 @@ void HelloWorld::update(float dt)
 			loseLifeParticles->setEmissionRate(500);
 
 			//If player 1 set colour
-			if(a->getBody()->getTag() == 0)
+			if (a->getBody()->getTag() == 0)
 			{
 				loseLifeParticles->setStartColor(Color4F(1, 0, 0, 1));
 				loseLifeParticles->setEndColor(Color4F(1, 0, 0, 1));
 				loseLifeParticles->setStartColorVar(Color4F(1, 1, 1, 1));
 				loseLifeParticles->setEndColorVar(Color4F(1, 1, 1, 1));
+				a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 - 100, director->getOpenGLView()->getFrameSize().height / 2 + 286);
 			}
-			//If player 2 set colour
-			else if(a->getBody()->getTag() == 1)
+			else if (a->getBody()->getTag() == 1)
 			{
 				loseLifeParticles->setStartColor(Color4F(0, 0, 1, 1));
 				loseLifeParticles->setEndColor(Color4F(0, 0, 1, 1));
 				loseLifeParticles->setStartColorVar(Color4F(1, 1, 1, 1));
 				loseLifeParticles->setEndColorVar(Color4F(1, 1, 1, 1));
+				a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + 300, director->getOpenGLView()->getFrameSize().height / 2 - 300);
 			}
-			//If player 3 set colour
-			else if(a->getBody()->getTag() == 2)
+			else if (a->getBody()->getTag() == 2)
 			{
 				loseLifeParticles->setStartColor(Color4F(0, 1, 0, 1));
 				loseLifeParticles->setEndColor(Color4F(0, 1, 0, 1));
 				loseLifeParticles->setStartColorVar(Color4F(1, 1, 1, 1));
 				loseLifeParticles->setEndColorVar(Color4F(1, 1, 1, 1));
+				a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + -600, director->getOpenGLView()->getFrameSize().height / 2 + 120);
 			}
-			//If player 4 set colour
-			else if(a->getBody()->getTag() == 3)
+			else if (a->getBody()->getTag() == 3)
 			{
 				loseLifeParticles->setStartColor(Color4F(1, 1, 0, 1));
 				loseLifeParticles->setEndColor(Color4F(1, 1, 0, 1));
 				loseLifeParticles->setStartColorVar(Color4F(1, 1, 1, 1));
 				loseLifeParticles->setEndColorVar(Color4F(1, 1, 1, 1));
+				a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2 + 15);
 			}
 			//Set particle position, player position
 			//Add particles to scene
 			loseLifeParticles->setPosition(Vec2(director->getOpenGLView()->getFrameSize().width, a->getPosition().y));
-			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2 + 10);
+			//a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2 + 10);
 			this->addChild(loseLifeParticles);
 			a->setDamage(0);
 
@@ -538,27 +539,31 @@ void HelloWorld::update(float dt)
 				loseLifeParticles->setEndColor(Color4F(1, 0, 0, 1));
 				loseLifeParticles->setStartColorVar(Color4F(1, 1, 1, 1));
 				loseLifeParticles->setEndColorVar(Color4F(1, 1, 1, 1));
+				a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 - 100, director->getOpenGLView()->getFrameSize().height / 2 + 286);
 			} else if(a->getBody()->getTag() == 1)
 			{
 				loseLifeParticles->setStartColor(Color4F(0, 0, 1, 1));
 				loseLifeParticles->setEndColor(Color4F(0, 0, 1, 1));
 				loseLifeParticles->setStartColorVar(Color4F(1, 1, 1, 1));
 				loseLifeParticles->setEndColorVar(Color4F(1, 1, 1, 1));
+				a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + 300, director->getOpenGLView()->getFrameSize().height / 2 - 300);
 			} else if(a->getBody()->getTag() == 2)
 			{
 				loseLifeParticles->setStartColor(Color4F(0, 1, 0, 1));
 				loseLifeParticles->setEndColor(Color4F(0, 1, 0, 1));
 				loseLifeParticles->setStartColorVar(Color4F(1, 1, 1, 1));
 				loseLifeParticles->setEndColorVar(Color4F(1, 1, 1, 1));
+				a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + -600, director->getOpenGLView()->getFrameSize().height / 2 + 120);
 			} else if(a->getBody()->getTag() == 3)
 			{
 				loseLifeParticles->setStartColor(Color4F(1, 1, 0, 1));
 				loseLifeParticles->setEndColor(Color4F(1, 1, 0, 1));
 				loseLifeParticles->setStartColorVar(Color4F(1, 1, 1, 1));
 				loseLifeParticles->setEndColorVar(Color4F(1, 1, 1, 1));
+				a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2 + 15);
 			}
 			loseLifeParticles->setPosition(Vec2(0, a->getPosition().y));
-			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2 + 10);
+			
 			this->addChild(loseLifeParticles);
 			a->setDamage(0);
 		} else if(a->getPosition().y < -200)
@@ -581,33 +586,40 @@ void HelloWorld::update(float dt)
 			//loseLifeParticles->setGravity(Vec2(0, 100));
 			loseLifeParticles->setEmissionRate(500);
 
-			if(a->getBody()->getTag() == 0)
+			if (a->getBody()->getTag() == 0)
 			{
 				loseLifeParticles->setStartColor(Color4F(1, 0, 0, 1));
 				loseLifeParticles->setEndColor(Color4F(1, 0, 0, 1));
 				loseLifeParticles->setStartColorVar(Color4F(1, 1, 1, 1));
 				loseLifeParticles->setEndColorVar(Color4F(1, 1, 1, 1));
-			} else if(a->getBody()->getTag() == 1)
+				a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 - 100, director->getOpenGLView()->getFrameSize().height / 2 + 286);
+			}
+			else if (a->getBody()->getTag() == 1)
 			{
 				loseLifeParticles->setStartColor(Color4F(0, 0, 1, 1));
 				loseLifeParticles->setEndColor(Color4F(0, 0, 1, 1));
 				loseLifeParticles->setStartColorVar(Color4F(1, 1, 1, 1));
 				loseLifeParticles->setEndColorVar(Color4F(1, 1, 1, 1));
-			} else if(a->getBody()->getTag() == 2)
+				a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + 300, director->getOpenGLView()->getFrameSize().height / 2 - 300);
+			}
+			else if (a->getBody()->getTag() == 2)
 			{
 				loseLifeParticles->setStartColor(Color4F(0, 1, 0, 1));
 				loseLifeParticles->setEndColor(Color4F(0, 1, 0, 1));
 				loseLifeParticles->setStartColorVar(Color4F(1, 1, 1, 1));
 				loseLifeParticles->setEndColorVar(Color4F(1, 1, 1, 1));
-			} else if(a->getBody()->getTag() == 3)
+				a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + -600, director->getOpenGLView()->getFrameSize().height / 2 + 120);
+			}
+			else if (a->getBody()->getTag() == 3)
 			{
 				loseLifeParticles->setStartColor(Color4F(1, 1, 0, 1));
 				loseLifeParticles->setEndColor(Color4F(1, 1, 0, 1));
 				loseLifeParticles->setStartColorVar(Color4F(1, 1, 1, 1));
 				loseLifeParticles->setEndColorVar(Color4F(1, 1, 1, 1));
+				a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2 + 15);
 			}
 			loseLifeParticles->setPosition(Vec2(a->getPosition().x, 0));
-			a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2 + 10);
+			//a->setPosition(director->getOpenGLView()->getFrameSize().width / 2 + (80 * count++), director->getOpenGLView()->getFrameSize().height / 2 + 10);
 			this->addChild(loseLifeParticles);
 			a->setDamage(0);
 		}
