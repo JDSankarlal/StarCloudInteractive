@@ -281,7 +281,7 @@ void HelloWorld::update(float dt)
 
 				if(a->getBody()->getTag() == 3)
 				{
-					lives4->setTexture("Assets/UI Elements/Lives/1_Lives.png");
+					lives4->setTexture("Assets/UI Elements/Lives/1_Life.png");
 				}
 			}
 			//LIFE COUNTER ENDS	

@@ -28,7 +28,7 @@ Platforms::Platforms(cocos2d::Scene *activeScene, int bitMask, bool shadow, floa
 	getBody()->setDynamic(false);
 	getBody()->setGravityEnable(false);
 	getBody()->setName("Platform");
-	getBody()->setTag(bitMask);
+	getBody()->setTag(bitMask*10);
 	getBody()->setCollisionBitmask(bitMask);
 	getBody()->setContactTestBitmask(true);
 	//getBody()->getFirstShape()->setFriction(.5);

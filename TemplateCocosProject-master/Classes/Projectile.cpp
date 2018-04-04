@@ -6,7 +6,7 @@ Projectile::Projectile(Scene * scene, bool heavy, int bitMask, int index)
 
 	getBody()->setGravityEnable(false);
 	getBody()->setName("Projectile");
-	getBody()->setTag(this->index = index);
+	getBody()->setTag(heavy);
 	getBody()->setCollisionBitmask(this->bitMask = bitMask);
 	getBody()->setContactTestBitmask(true);
 	getBody()->setRotationEnable(false);
