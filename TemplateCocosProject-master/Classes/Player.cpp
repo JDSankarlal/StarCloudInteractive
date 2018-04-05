@@ -155,8 +155,6 @@ void Player::movementUpdate(float dt)
 						{
 							//OutputDebugStringA("The thing is resumed\n");
 							playerAni->resume();
-							OutputDebugStringA("Walking in the dark\n");
-
 							playerAni->setAnimationSpeed((1.3 - abs(moveL.xAxis)) * .1);
 							//playerAni->setAnimationSpeed(.05);
 						} else
@@ -173,6 +171,7 @@ void Player::movementUpdate(float dt)
 						if((controllers.ButtonPress(index, A)) && (!hasJumped && numJumps < 2))
 						{
 							numJumps++;
+							playerAni->reset();
 								runAction(Sequence::create(
 									DelayTime::create(.06),
 									CallFunc::create(CC_CALLBACK_0(Player::addImpulseY, this, (numJumps > 1 ? (53500.f * 5.f * .9 * numJumps * .5f) : (53500 * 5 * .9 * numJumps)))),
@@ -225,7 +224,8 @@ void Player::movementUpdate(float dt)
 												}
 											}
 								}
-						} else 	if(dash)
+						} 
+						else if(dash)
 						{
 							if(playerAni->getAnimation() != "dash")
 							{
@@ -235,20 +235,22 @@ void Player::movementUpdate(float dt)
 								playerAni->setAnimation("dash");
 								playerAni->setAnimationSpeed(.01);
 							}
-						} else if(((controllers.ButtonPress(index, A)) && (hasJumped && numJumps <= 2)) || (getVelocity().y > 0.f && !inRange(getVelocity().y, lo, hi)))
+						} 
+						else if(((controllers.ButtonPress(index, A)) && (hasJumped && numJumps <= 2))|| 
+							((controllers.ButtonRelease(index, A)) && (numJumps>0)))
 						{
 							if(((controllers.ButtonPress(index, A)) && (hasJumped && numJumps <= 2)) || playerAni->getAnimation() != "jump")
 							{
 								OutputDebugStringA("Jump\n");
-								playerAni->resume();
-								playerAni->reset();
+								playerAni->resume(); 								
 								playerAni->setRepeat(false);
 								playerAni->setAnimation("jump");
-								playerAni->setAnimationSpeed(.01);
+								playerAni->setAnimationSpeed(.01); 
+							}
+						}
+						else
+						{
 
-							}
-						} else if(getVelocity().y < 0.f)
-						{
 							if(playerAni->getAnimation() != "walk")
 							{
 								OutputDebugStringA("Walking\n");
@@ -256,15 +258,9 @@ void Player::movementUpdate(float dt)
 								playerAni->setAnimation("walk");
 								playerAni->reset();
 							}
-						} else
-						{
-							if(playerAni->getAnimation() != "walk")
-							{
-								OutputDebugStringA("Walking\n");
-								playerAni->setRepeat(true);
-								playerAni->setAnimation("walk");
-								playerAni->reset();
-							}
+							OutputDebugStringA(string("Walking in the dark " + to_string(playerAni->getCurrentFrame()) + "\n").c_str());
+
+
 						}
 
 #pragma endregion

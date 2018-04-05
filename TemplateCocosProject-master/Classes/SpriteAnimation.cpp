@@ -42,19 +42,22 @@ void SpriteAnimation::animate(float dt)
 {
 	//if(!pauseAni)
 	//{
-	//float diffT = float(clock() - *dt) / CLOCKS_PER_SEC;
-	if(dt > fps)
+	
+	diffT += dt;
+	OutputDebugStringA(string("Animation Count: "+ std::to_string(diffT)+"\n").c_str());
+	if(diffT >= fps)
 	{
 		if(((*frames)[ani])->size() > 0)
 		{
-			//*dt = clock();
-			if(fps != 0)
-				frameCounter += dt / fps;
+			if(fps != 0.f)
+				frameCounter += diffT / fps;
 			else
 				frameCounter++;
+			diffT = 0;
 
 			if(frameCounter >= ((*frames)[ani])->size() && repeat)
 				frameCounter %= ((*frames)[ani])->size();
+				//frameCounter = 0;
 			else if(frameCounter >= ((*frames)[ani])->size())
 				frameCounter = ((*frames)[ani])->size() - 1;
 
@@ -99,4 +102,9 @@ void SpriteAnimation::setAnimation(string aniName)
 Sprite* SpriteAnimation::getSprite()
 {
 	return frame;
+}
+
+int SpriteAnimation::getCurrentFrame()
+{
+	return frameCounter;
 }

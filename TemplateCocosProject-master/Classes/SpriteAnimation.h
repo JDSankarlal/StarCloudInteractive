@@ -12,7 +12,7 @@ using std::vector;
 using std::unordered_map;
 namespace fs = std::experimental::filesystem;
 
-class SpriteAnimation:public Node
+class SpriteAnimation :public Node
 {
 public:
 	SpriteAnimation(Node * scene);
@@ -22,12 +22,12 @@ public:
 	Description:
 	Adds a sprite to the animation list given an alias and a file directory.
 	Takes all images from directory.
-	
+
 	 Peramitors:
 	 * alias - the alias given to the animation.
 	 * directory - the file directory where the sprites are heald.
-	*/ 
-	void addSprite(string alias,string directory);
+	*/
+	void addSprite(string alias, string directory);
 
 	//Animates throught the vector of frames
 	void update(float dt);
@@ -41,7 +41,7 @@ public:
 
 	//Sets the animation speed in seconds 
 	void setAnimationSpeed(float aniSpeed);
-	
+
 	/*Sets which animation plays based on the aliases given in
 	addSprite();.
 
@@ -57,15 +57,18 @@ public:
 
 	//Gets the pointer to the Sprite variable
 	Sprite* getSprite();
+
+	//Gets the frame number	for current animation
+	int getCurrentFrame();
 private:
-	unordered_map<string,vector<string*>*> *frames= new unordered_map<string, vector<string*>*>;
+	unordered_map<string, vector<string*>*> *frames = new unordered_map<string, vector<string*>*>;
 	string ani;
 	Sprite* frame = Sprite::create();
 	//clock_t* dt = new clock_t;
 	Size* size = new Size();
 	Vec2* position = new Vec2();
 	int frameCounter;
-	float fps;
+	float fps, diffT=0;
 	bool pauseAni = false, repeat;
 };
 
