@@ -22,7 +22,6 @@ string cDir(string dir)
 }
 void SpriteAnimation::addSprite(string aniName, string directory)
 {
-	*folder = directory;
 	vector<string*>*vs = new vector<string*>;
 	for(auto &a : fs::directory_iterator(directory))
 	{
@@ -36,26 +35,26 @@ void SpriteAnimation::addSprite(string aniName, string directory)
 
 void SpriteAnimation::update(float dt)
 {
-	animate();
+	animate(dt);
 }
 
-void SpriteAnimation::animate()
+void SpriteAnimation::animate(float dt)
 {
 	//if(!pauseAni)
 	//{
-	float diffT = float(clock() - *dt) / CLOCKS_PER_SEC;
-	if(diffT > fps)
+	//float diffT = float(clock() - *dt) / CLOCKS_PER_SEC;
+	if(dt > fps)
 	{
 		if(((*frames)[ani])->size() > 0)
 		{
-			*dt = clock();
-			//if(fps != 0)
-			//	frameCounter += diffT / fps;
-			//else
+			//*dt = clock();
+			if(fps != 0)
+				frameCounter += dt / fps;
+			else
 				frameCounter++;
 
 			if(frameCounter >= ((*frames)[ani])->size() && repeat)
-				frameCounter = 0;
+				frameCounter %= ((*frames)[ani])->size();
 			else if(frameCounter >= ((*frames)[ani])->size())
 				frameCounter = ((*frames)[ani])->size() - 1;
 
@@ -83,10 +82,7 @@ void SpriteAnimation::reset()
 	frameCounter = 0;
 }
 
-string * SpriteAnimation::getFolder()
-{
-	return folder;
-}
+
 
 void SpriteAnimation::setAnimationSpeed(float dt)
 {

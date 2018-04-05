@@ -18,37 +18,50 @@ public:
 	SpriteAnimation(Node * scene);
 	~SpriteAnimation();
 
-	//Adds a sprite to the animation list
-	void addSprite(string,string directory);
+	/*
+	Description:
+	Adds a sprite to the animation list given an alias and a file directory.
+	Takes all images from directory.
+	
+	 Peramitors:
+	 * alias - the alias given to the animation.
+	 * directory - the file directory where the sprites are heald.
+	*/ 
+	void addSprite(string alias,string directory);
 
 	//Animates throught the vector of frames
 	void update(float dt);
+
 private:
-	void animate();
+	//see update(float dt);
+	void animate(float dt);
 public:
 	//Sets wether to repeat the animation after the last frame is reached
-	void setRepeat(bool);
+	void setRepeat(bool rep);
 
 	//Sets the animation speed in seconds 
-	void setAnimationSpeed(float);
+	void setAnimationSpeed(float aniSpeed);
 	
-	//
-	void setAnimation(string);
+	/*Sets which animation plays based on the aliases given in
+	addSprite();.
 
-	//
+	see, addSprite(string alias,string directory);
+	 */
+	void setAnimation(string alias);
+
+	//Gets the alias given to the animation
 	string getAnimation();
 
 	//Restart
 	void reset();
 
-	string* getFolder();
-
+	//Gets the pointer to the Sprite variable
 	Sprite* getSprite();
 private:
 	unordered_map<string,vector<string*>*> *frames= new unordered_map<string, vector<string*>*>;
-	string *folder = new string,ani;
+	string ani;
 	Sprite* frame = Sprite::create();
-	clock_t* dt = new clock_t;
+	//clock_t* dt = new clock_t;
 	Size* size = new Size();
 	Vec2* position = new Vec2();
 	int frameCounter;

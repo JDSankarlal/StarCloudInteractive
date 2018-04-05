@@ -6,18 +6,19 @@ Projectile::Projectile(Scene * scene, bool heavy, int bitMask, int index)
 
 	getBody()->setGravityEnable(false);
 	getBody()->setName("Projectile");
-	getBody()->setTag(heavy);
+	getBody()->setTag(this->index = index);
+	setTag(heavy);
 	getBody()->setCollisionBitmask(this->bitMask = bitMask);
 	getBody()->setContactTestBitmask(true);
 	getBody()->setRotationEnable(false);
-	
+
 	particleSystem->setAnchorPoint(Vec2(1, 1));
 	particleSystem->setStartColor(Color4F(0, 0, 0, 1));
-	particleSystem->setEndColor(Color4F(138.f/255, 43.f/255, 226.f/255, 1));
-	trailDown->setAnchorPoint(Vec2(1, 1));
-	trailDown->setStartColor(Color4F(0, 0, 0, 1));
-	trailDown->setEndColor(Color4F(138.f / 255, 43.f / 255, 226.f / 255, 1));
-	trailDown->setGravity(Vec2(0,-100));
+	particleSystem->setEndColor(Color4F(138.f / 255, 43.f / 255, 226.f / 255, 1));
+	//trailDown->setAnchorPoint(Vec2(1, 1));
+	//trailDown->setStartColor(Color4F(0, 0, 0, 1));
+	//trailDown->setEndColor(Color4F(138.f / 255, 43.f / 255, 226.f / 255, 1));
+	//trailDown->setGravity(Vec2(0, -100));
 
 	//particleSystem->setDuration(1);
 	//particleSystem->setPosition(Vec2(10, 5));
@@ -25,20 +26,19 @@ Projectile::Projectile(Scene * scene, bool heavy, int bitMask, int index)
 	addChild(proj[heavy]);
 	scene->addChild(this);
 	this->scene = scene;
-	setTag(index);
 	if(!heavy)
 	{
 		particleSystem->setEmissionRate(37);
 		runAction(Sequence::create(
-			DelayTime::create(1.3), 
+			DelayTime::create(1.2),
 			CallFunc::create(this, callfunc_selector(Projectile::removeProjectial)),
 			0));
 	} else
 	{
-		proj[heavy]->addChild(trailDown);
+		//proj[heavy]->addChild(trailDown);
 		particleSystem->setEmissionRate(120);
-		trailDown->setEmissionRate(120);
-		runAction(Sequence::create(DelayTime::create(0.6), CallFunc::create(this,
+		//trailDown->setEmissionRate(120);
+		runAction(Sequence::create(DelayTime::create(0.9), CallFunc::create(this,
 				  callfunc_selector(Projectile::removeProjectial)), 0));
 	}
 }
@@ -60,34 +60,37 @@ Sprite * Projectile::getSprite()
 void Projectile::setSize(float scale)
 {
 	getBody()->removeAllShapes();
-	proj[heavy]->setScale(scale);
-	getBody()->setGravityEnable(false);
-	//getBody()->setName("Projectile");
-	getBody()->setTag(index);
-	setTag(index);
-	getBody()->setCollisionBitmask(this->bitMask = bitMask);
-	getBody()->setContactTestBitmask(true);
-	getBody()->setRotationEnable(false);
-	particleSystem->setAnchorPoint(Vec2(1, 1));
-	trailDown->setAnchorPoint(Vec2(1, 1));
+	particleSystem->setEmitterMode(ParticleSystem::Mode::RADIUS);
 
 	if(!heavy)
 	{
 		getBody()->addShape(PhysicsShapeCircle::create((proj[heavy]->getContentSize()).width / 2));
+		particleSystem->setEndRadius(100);
 	} else
 	{
 		getBody()->addShape(PhysicsShapeCircle::create((proj[heavy]->getContentSize()).width / 8));
 		getBody()->setPositionOffset(Vec2(proj[heavy]->getContentSize().width * scale * .25, 0));
+		particleSystem->setEndRadius(200);
 
 	}
 
-	particleSystem->setPosition(Vec2(50, 20));
-	trailDown->setPosition(Vec2(50, 20));
-	getBody()->setName("Projectile");
+	
+	proj[heavy]->setScale(scale);
+	getBody()->setGravityEnable(false);
+	//getBody()->setName("Projectile");
+	setTag(heavy);
 	getBody()->setTag(index);
-
 	getBody()->setCollisionBitmask(bitMask);
 	getBody()->setContactTestBitmask(true);
+	getBody()->setRotationEnable(false);
+	particleSystem->setAnchorPoint(Vec2(1, 1));
+	particleSystem->setPosition(Vec2(50, 20));
+	particleSystem->setAngle(0);
+	
+	//trailDown->setAnchorPoint(Vec2(1, 1));
+	//trailDown->setPosition(Vec2(50, 20));
+	//getBody()->setName("Projectile");
+	
 }
 
 void Projectile::setPosition(float x, float y, float z)

@@ -77,8 +77,7 @@ bool HelloWorld::init()
 
 	pf5->setPosition(visibleSize.width / 2 + 175, visibleSize.height / 2 + 250);
 	pf6->setPosition(visibleSize.width / 2 - 175, visibleSize.height / 2 + 250);
-
-
+									 
 	//Place Background
 	background->setScaleX(visibleSize.width / background->getContentSize().width);
 	background->setScaleY(visibleSize.height / background->getContentSize().height);
@@ -238,6 +237,7 @@ void HelloWorld::update(float dt)
 				{
 					a->setVisible(true);
 				}
+
 		//LIFE COUNTER
 			if(a->getLives() == 2)
 			{

@@ -518,7 +518,7 @@ void TutorialScene::update(float dt)
 		}
 
 	}
-	OutputDebugStringA(string(to_string(theRealDT) + "\n").c_str());
+	//OutputDebugStringA(string(to_string(theRealDT) + "\n").c_str());
 }
 
 

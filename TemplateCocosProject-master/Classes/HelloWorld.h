@@ -73,10 +73,9 @@ public:
 					if(bodyA == a->getBody())
 						a->resetDashes();
 
-		}else
-
-		if((bodyA->getName() == "Projectile"))
+		} else if((bodyA->getName() == "Projectile"))
 		{
+
 			if(bodyB->getOwner() != nullptr)
 				if(bodyB->getName() == "Projectile")
 				{
@@ -91,26 +90,19 @@ public:
 						{
 							//if(a->getDamage() / 50)
 							//{
-								if(bodyA->getTag())
-									bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200 * (a->getDamage() / 50 + 1)*.75));
-								else
-									bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200 * (a->getDamage() / 50 + 1)*.75)*1.5);
+							a->setAttacking(false);
+							if(bodyA->getOwner()->getParent()->getTag())
+								bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200 * (a->getDamage() / 50 + 1)*.75));
+							else
+								bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200 * (a->getDamage() / 50 + 1)*.75)*1.5);
 
-								OutputDebugStringA(string("%: " + to_string(a->getDamage() / 50)+"\n").c_str());
-							//} else
-							//{
-							//	if(bodyA->getTag())
-							//		bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200));
-							//	else
-							//		bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200)*1.5);
-							//
-							//}
+
 							OutputDebugStringA("Hitting a player\n");
 							addChild(explosionSystem);
 							explosionSystem->setPosition(bodyA->getPosition());
-							if(bodyA->getTag())
-							{		
-								OutputDebugStringA("Taking Heavy Damage\n");
+							if(bodyA->getOwner()->getParent()->getTag())
+							{
+								OutputDebugStringA("Now Thats a lot of Damage\n");
 								a->setDamage(a->getDamage() + 25);
 							} else
 							{
@@ -129,8 +121,8 @@ public:
 				bodyA->getOwner()->removeFromParent();
 			}
 
-		}
-
+		} 
+		
 		return true;
 	}
 
@@ -142,11 +134,12 @@ public:
 
 		auto shapeB = contact.getShapeB();
 		auto bodyB = shapeB->getBody();
+
 		OutputDebugStringA("Collision\n");
 		OutputDebugStringA((bodyA->getName() + " == " + bodyB->getName() + "\n").c_str());
 		OutputDebugStringA((to_string(bodyA->getTag()) + " == " + to_string(bodyB->getTag()) + "\n").c_str());
 
-		if((bodyA->getName() == "Projectile" || bodyB->getName() == "Projectile") && (bodyA->getTag() != bodyB->getTag()))
+		if((bodyA->getName() == "Projectile") && (bodyA->getTag() != bodyB->getTag()))
 		{
 			if(bodyB->getName() == "Player")
 				for(auto &a : players)
@@ -158,7 +151,7 @@ public:
 					}
 
 			return true;
-		} else if((bodyA->getName() == "Projectile" || bodyB->getName() == "Projectile") && (bodyA->getTag() == bodyB->getTag()))
+		} else if((bodyA->getName() == "Projectile") && (bodyA->getTag() == bodyB->getTag()))
 		{
 			return false;
 		}

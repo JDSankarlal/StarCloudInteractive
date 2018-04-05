@@ -61,48 +61,48 @@ private:
 			if(bodyB->getName() == "Platform")
 				for(auto &a : players)
 					if(bodyA == a->getBody())
-						a->resetDashes(); 
-		}
+						a->resetDashes();
+		} else
 
-		if((bodyA->getName() == "Projectile"))
-		{
-			bodyB->getOwner()->setPosition(bodyB->getPosition().x, bodyB->getPosition().y);
-			if(bodyA->getOwner() != nullptr)
+			if((bodyA->getName() == "Projectile"))
 			{
-				if(bodyB->getName() == "Sheep")
+				bodyB->getOwner()->setPosition(bodyB->getPosition().x, bodyB->getPosition().y);
+				if(bodyA->getOwner() != nullptr)
 				{
-					addChild(explosionSystem);
-					explosionSystem->setPosition(bodyA->getPosition());
-
-					if(!bodyA->getTag()) //light attack
-						sheep->setHP(sheep->getHP() - 10);
-					else
+					if(bodyB->getName() == "Sheep")
 					{
-						sheep->setHP(sheep->getHP() - 10);
-					}
-				} else if(bodyB->getName() != "Platform")
-				{
+						addChild(explosionSystem);
+						explosionSystem->setPosition(bodyA->getPosition());
 
-					bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200));
-
-					for(auto &a : players)
-						if(bodyB == a->getBody())
+						if(!bodyA->getOwner()->getParent()->getTag()) //light attack
+							sheep->setHP(sheep->getHP() - 10);
+						else
 						{
-							OutputDebugStringA("Hitting a player\n");
-							runAction(Sequence::create(
-								CallFunc::create(a, callfunc_selector(Player::pause)),
-								DelayTime::create(1.3),
-								CallFunc::create(a, callfunc_selector(Player::resume)), 0));
+							sheep->setHP(sheep->getHP() - 25);
 						}
+					} else if(bodyB->getName() != "Platform")
+					{
 
+						bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200));
+
+						for(auto &a : players)
+							if(bodyB == a->getBody())
+							{
+								OutputDebugStringA("Hitting a player\n");
+								runAction(Sequence::create(
+									CallFunc::create(a, callfunc_selector(Player::pause)),
+									DelayTime::create(1.3),
+									CallFunc::create(a, callfunc_selector(Player::resume)), 0));
+							}
+
+					}
+					//for(int a = 0; a < 4; a++)
+					//	if(bodyB->getOwner()->getParent() == players[a])
+					//		players[a]->setInterupt(2);
+					bodyA->getOwner()->removeFromParent();
 				}
-				//for(int a = 0; a < 4; a++)
-				//	if(bodyB->getOwner()->getParent() == players[a])
-				//		players[a]->setInterupt(2);
-				bodyA->getOwner()->removeFromParent();
-			}
 
-		}
+			}
 
 		return true;
 	}
@@ -124,23 +124,23 @@ private:
 			if(bodyA->getName() == "Player" || bodyB->getName() == "Player")
 			{
 				return false;
-				 }
+			}
+
 			return true;
-		} 
-		else if((bodyA->getName() == "Projectile" || bodyB->getName() == "Projectile") && (bodyA->getTag() == bodyB->getTag()))
+		} else if((bodyA->getName() == "Projectile" || bodyB->getName() == "Projectile") && (bodyA->getTag() == bodyB->getTag()))
 		{
 			return false;
 		}
-			  if(bodyB->getName()!="Platform")
-		if(bodyA == sheep->getBody())
-		{
-			return false;
-		} 
-			  if(bodyA->getName() != "Platform")
-		if(bodyB == sheep->getBody())
-		{
-			return false;
-		}
+		if(bodyB->getName() != "Platform")
+			if(bodyA == sheep->getBody())
+			{
+				return false;
+			}
+		if(bodyA->getName() != "Platform")
+			if(bodyB == sheep->getBody())
+			{
+				return false;
+			}
 
 		OutputDebugStringA((to_string(bodyA->getTag()) + " == " + to_string(bodyB->getTag()) + "\n").c_str());
 

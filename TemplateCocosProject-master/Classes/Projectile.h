@@ -40,7 +40,7 @@ private:
 	Scene* scene;
 	Action* act;
 	ParticleSystem* particleSystem = ParticleMeteor::create();
-	ParticleSystem* trailDown = ParticleMeteor::create();
+	//ParticleSystem* trailDown = ParticleMeteor::create();
 
 };
 
