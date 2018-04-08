@@ -519,7 +519,8 @@ void HelloWorld::update(float dt)
 			this->addChild(loseLifeParticles);
 			a->setDamage(0);
 
-		} else if(a->getPosition().x < -200)
+		} 
+		else if(a->getPosition().x < -200)
 		{
 			a->getLives() -= 1;
 			//PARTICLES??
@@ -576,7 +577,8 @@ void HelloWorld::update(float dt)
 			a->setVel(0, 0);
 			this->addChild(loseLifeParticles);
 			a->setDamage(0);
-		} else if(a->getPosition().y < -200)
+		} 
+		else if(a->getPosition().y < -200)
 		{
 			a->getLives() -= 1;
 			//PARTICLES??

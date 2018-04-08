@@ -91,10 +91,11 @@ public:
 							//if(a->getDamage() / 50)
 							//{
 							a->setAttacking(false);
-							if(bodyA->getOwner()->getParent()->getTag())
-								bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200 * (a->getDamage() / 50 + 1)*.75));
-							else
-								bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200 * (a->getDamage() / 50 + 1)*.75)*1.5);
+							if(bodyA->getOwner()->getParent() != nullptr)
+								if(bodyA->getOwner()->getParent()->getTag())
+									bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200 * (a->getDamage() / 50 + 1)*.75));
+								else
+									bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200 * (a->getDamage() / 50 + 1)*.75)*1.5);
 
 
 							OutputDebugStringA("Hitting a player\n");
@@ -121,8 +122,8 @@ public:
 				bodyA->getOwner()->removeFromParent();
 			}
 
-		} 
-		
+		}
+
 		return true;
 	}
 

@@ -1,5 +1,6 @@
 #include "AppDelegate.h"
-#include "SplashScreen.h"
+//#include "SplashScreen.h"
+#include "MenuScene.h"
 
 
 // #define USE_AUDIO_ENGINE 1
@@ -98,7 +99,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // create a scene. it's an autorelease object
 
-    cocos2d::CCScene *pScene = SplashScreen::StartScene();
+    cocos2d::CCScene *pScene = MenuScene::createScene();
 
     // run
     pDirector->runWithScene(pScene);
