@@ -249,8 +249,7 @@ void Player::movementUpdate(float dt)
 							}
 						}
 						else
-						{
-
+						{			  
 							if(playerAni->getAnimation() != "walk")
 							{
 								OutputDebugStringA("Walking\n");
@@ -259,8 +258,6 @@ void Player::movementUpdate(float dt)
 								playerAni->reset();
 							}
 							OutputDebugStringA(string("Walking in the dark " + to_string(playerAni->getCurrentFrame()) + "\n").c_str());
-
-
 						}
 
 #pragma endregion

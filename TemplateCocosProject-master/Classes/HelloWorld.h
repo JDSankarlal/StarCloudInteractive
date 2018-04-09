@@ -91,6 +91,7 @@ public:
 							//if(a->getDamage() / 50)
 							//{
 							a->setAttacking(false);
+
 							if(bodyA->getOwner()->getParent() != nullptr)
 								if(bodyA->getOwner()->getParent()->getTag())
 									bodyB->setVelocity(bodyB->getVelocity() + ((bodyB->getPosition() - bodyA->getPosition()).getNormalized() * 200 * (a->getDamage() / 50 + 1)*.75));
@@ -101,15 +102,16 @@ public:
 							OutputDebugStringA("Hitting a player\n");
 							addChild(explosionSystem);
 							explosionSystem->setPosition(bodyA->getPosition());
+							if(bodyA->getOwner()->getParent()!=nullptr)
 							if(bodyA->getOwner()->getParent()->getTag())
 							{
 								OutputDebugStringA("Now Thats a lot of Damage\n");
 								a->setDamage(a->getDamage() + 25);
 							} else
-							{
-								a->setDamage(a->getDamage() + 10);
-							}
-							runAction(Sequence::create(
+							
+							a->setDamage(a->getDamage() + 10);
+							
+							a->runAction(Sequence::create(
 								CallFunc::create(a, callfunc_selector(Player::pause)),
 								DelayTime::create(bodyB->getVelocity().getLength()*.001),
 								CallFunc::create(a, callfunc_selector(Player::resume)), 0));
