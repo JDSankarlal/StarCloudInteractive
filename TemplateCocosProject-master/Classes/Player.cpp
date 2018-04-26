@@ -74,6 +74,11 @@ void Player::setVel(float x, float y)
 	setVelY(y);
 }
 
+void Player::setVelocity(const Vec2&v)
+{
+	setVel(v.x, v.y);
+}
+
 void Player::addImpulseX(float x)
 {
 	setVelX(0);

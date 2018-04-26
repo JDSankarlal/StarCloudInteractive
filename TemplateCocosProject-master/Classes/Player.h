@@ -40,6 +40,7 @@ public:
 	void setVelY(float y);
 	void setVel(float x, float y);
 	template<class T> void setVel(T x, T y);
+	void setVelocity(const Vec2&);
 #pragma endregion
 
 
