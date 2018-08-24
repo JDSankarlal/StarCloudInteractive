@@ -62,8 +62,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto glview = director->getOpenGLView();
     if(!glview) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
-	//	glview = GLViewImpl::createWithRect("UmBrawl",Rect(Vec2::ZERO,mediumResolutionSize),1,true);
-		glview = GLViewImpl::createWithFullScreen("UmBrawl");//, cocos2d::Rect(0, 0, mediumResolutionSize.width, mediumResolutionSize.height));
+		glview = GLViewImpl::createWithRect("UmBrawl",Rect(Vec2::ZERO,mediumResolutionSize),1,true);
+	//	glview = GLViewImpl::createWithFullScreen("UmBrawl");//, cocos2d::Rect(0, 0, mediumResolutionSize.width, mediumResolutionSize.height));
 #else
         glview = GLViewImpl::create("Alter Shadow");
 #endif
@@ -71,7 +71,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     }
 	
     // turn on display FPS
-    director->setDisplayStats(true);
+    director->setDisplayStats(false);
 
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0f / 60);
